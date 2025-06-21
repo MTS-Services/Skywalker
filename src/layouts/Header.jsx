@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -7,9 +8,8 @@ export const Header = () => {
         <div className="mx-auto flex max-w-7xl items-center justify-between text-white">
           <div className="text-xl font-semibold">Your Logo</div>
           <div className="space-x-6">
-            <a href="/" className="hover:text-gray-400">
-              Home
-            </a>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Login</Link>
             <a href="/about" className="hover:text-gray-400">
               About
             </a>
