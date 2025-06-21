@@ -1,7 +1,12 @@
-import './App.css';
+import { RouterProvider } from "react-router-dom";
+import { AppRoutes } from "./router/AppRoutes";
 
 function App() {
-  return <div className=' text-2xl font-bold text-blue-300 '>Skywalker</div>;
+  return (
+    <>
+      <RouterProvider router={AppRoutes} />
+    </>
+  );
 }
 
 export default App;
