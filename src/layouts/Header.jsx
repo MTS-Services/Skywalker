@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { FiChevronDown, FiChevronUp, FiPlus } from "react-icons/fi";
@@ -27,7 +28,12 @@ function Header() {
     setLangOpen(false);
   };
 
+import React from "react";
+import { Link } from "react-router-dom";
+
+
   return (
+
     <nav className="border-b border-[#32E0BB] bg-white px-4 py-4 shadow-sm">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-y-4">
         {/* Logo */}
@@ -142,6 +148,24 @@ function Header() {
                 />
               </div>
             )}
+
+    <div className="text-2xl font-bold text-red-800">
+      <nav className="bg-gray-800 p-4 shadow-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between text-white">
+          <div className="text-xl font-semibold">Your Logo</div>
+          <div className="space-x-6">
+            <Link to="/login">Login</Link>
+            <Link to="/register">Login</Link>
+            <a href="/about" className="hover:text-gray-400">
+              About
+            </a>
+            <a href="/services" className="hover:text-gray-400">
+              Services
+            </a>
+            <a href="/contact" className="hover:text-gray-400">
+              Contact
+            </a>
+
           </div>
         </div>
 

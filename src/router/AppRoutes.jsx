@@ -4,7 +4,9 @@ import About from "../pages/about/About";
 import { Home } from "../pages/home/Home";
 import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
-import Register from "../pages/auth/register";
+
+import Register from "../pages/auth/Register";
+
 
 const AppRoutes = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ const AppRoutes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
       {
         path: "about",
