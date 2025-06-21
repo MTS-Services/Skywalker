@@ -57,7 +57,7 @@ A full-featured rental application built with **React**. Users can browse, searc
 1. **Clone the repo:**
 
    ```bash
-   git clone
+   git clone https://github.com/MTS-Services/Skywalker.git
 
    cd react-initialize
 
@@ -65,7 +65,7 @@ A full-featured rental application built with **React**. Users can browse, searc
 
    npm run dev
 
-   http://localhost:
+   http://localhost:5173/
 
    ```
 
