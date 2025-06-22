@@ -6,6 +6,7 @@ import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
 
 import Register from "../pages/auth/Register";
+import Agent from "../pages/agent/Agent";
 
 
 const AppRoutes = createBrowserRouter([
@@ -37,6 +38,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+      {
+        path: "agents",
+        element: <Agent />,
       },
     ],
   },
