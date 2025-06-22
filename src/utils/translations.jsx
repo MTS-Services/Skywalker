@@ -3,21 +3,18 @@ export const translations = {
         // Navigation
         siteName: "Bo Shamlan",
         tagline: "Properties Finder",
-        home: "Home",
-        agents: "Agents",
-        about: "About",
-        contact: "Contact",
-        login: "Login",
-        register: "Register",
-        addFreeAd: "Add Free Ad",
+        "header": {
+            "home": "Home (Search)",
+            "agents": "Agents",
+            "about": "About",
+            "contact": "Contact",
+            "login": "Login",
+            "register": "Register",
+            "addFreeAd": "Add Free Ad",
+            "kuwaitRealEstate": "Kuwait Real Estate"
+        },
 
         // Home Page
-        welcomeTitle: "Welcome to Bo Shamlan Real Estate",
-        welcomeSubtitle: "Find Your Dream Property in Kuwait",
-        searchPlaceholder: "Search properties...",
-        searchButton: "Search",
-        featuredProperties: "Featured Properties",
-        viewAllProperties: "View All Properties",
 
         // Agents Page
         agentsTitle: "Real Estate Agents List in Kuwait",
@@ -60,13 +57,16 @@ export const translations = {
         // Navigation
         siteName: "بو شملان",
         tagline: "الباحث العقاري",
-        home: "الرئيسية",
-        agents: "المكاتب",
-        about: "من نحن",
-        contact: "اتصل بنا",
-        login: "دخول",
-        register: "تسجيل",
-        addFreeAd: "إعلان مجانا",
+        "header": {
+            "home": "الرئيسية (بحث)",
+            "agents": "المكاتب",
+            "about": "من نحن",
+            "contact": "اتصل بنا",
+            "login": "تسجيل الدخول",
+            "register": "تسجيل جديد",
+            "addFreeAd": "اضافة اعلان مجان",
+            "kuwaitRealEstate": "العقار الكويتي"
+        },
 
         // Home Page
         welcomeTitle: "مرحباً بكم في بو شملان العقارية",

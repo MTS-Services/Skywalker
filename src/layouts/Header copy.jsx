@@ -127,6 +127,7 @@ const Navigation = ({
         </div>
       )}
     </div>
+    
     <div className="relative">
       <button
         onClick={toggleLanguage}
