@@ -34,7 +34,7 @@ function Header() {
   };
 
   return (
-    <nav className="border-b border-[#32E0BB] bg-white px-4 py-4 shadow-sm">
+    <nav className="relative z-50 border-b border-[#32E0BB] bg-white px-4 py-4 shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link to="/" className="flex items-center">
           <img src="/logo.png" alt="Logo" className="h-auto w-36 sm:w-48" />
@@ -63,23 +63,26 @@ function Header() {
           Add Free Ad
         </NavLink>
       </div>
+
       {mobileMenuOpen && (
-        <div className="mt-4 flex flex-col items-start gap-4 bg-white px-4 py-2 sm:hidden">
-          <Navigation
-            toggleDropdown={toggleDropdown}
-            isDropdownOpen={isDropdownOpen}
-            currentLang={currentLang}
-            toggleLanguage={toggleLanguage}
-            langOpen={langOpen}
-            handleLangSelect={handleLangSelect}
-          />
-          <NavLink
-            to="/add-ad"
-            className="flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white"
-          >
-            <FiPlus className="mr-1 text-lg" />
-            Add Free Ad
-          </NavLink>
+        <div className="absolute top-full left-0 z-40 w-full bg-white shadow-md sm:hidden">
+          <div className="flex flex-col items-start gap-4 px-4 py-4">
+            <Navigation
+              toggleDropdown={toggleDropdown}
+              isDropdownOpen={isDropdownOpen}
+              currentLang={currentLang}
+              toggleLanguage={toggleLanguage}
+              langOpen={langOpen}
+              handleLangSelect={handleLangSelect}
+            />
+            <NavLink
+              to="/add-ad"
+              className="flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white"
+            >
+              <FiPlus className="mr-1 text-lg" />
+              Add Free Ad
+            </NavLink>
+          </div>
         </div>
       )}
     </nav>
@@ -112,28 +115,14 @@ const Navigation = ({
         )}
       </button>
       {isDropdownOpen && (
-        <div className="absolute z-10 mt-2 w-full rounded-md border border-[#32E0BB] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:w-64">
+        <div className="absolute z-10 mt-2 w-64 rounded-md border border-[#32E0BB] bg-white p-4 shadow-lg">
           <DropdownSection title="Properties for rent">
             <DropdownItem to="/rent/apartments" text="Apartments for rent" />
             <DropdownItem to="/rent/houses" text="Houses for rent" />
-            <DropdownItem to="/rent/commercials" text="Commercials for rent" />
-            <DropdownItem to="/rent/buildings" text="Buildings for rent" />
-            <DropdownItem to="/rent/chalets" text="Chalets for rent" />
-            <DropdownItem to="/rent/farms" text="Farms for rent" />
-            <DropdownItem to="/rent/lands" text="Lands for rent" />
           </DropdownSection>
           <DropdownSection title="Properties for sale">
-            <DropdownItem to="/sale/houses" text="Houses for sale" />
-            <DropdownItem to="/sale/lands" text="Lands for sale" />
-            <DropdownItem to="/sale/buildings" text="Buildings for sale" />
             <DropdownItem to="/sale/apartments" text="Apartments for sale" />
-            <DropdownItem to="/sale/chalets" text="Chalets for sale" />
-            <DropdownItem to="/sale/commercials" text="Commercials for sale" />
-            <DropdownItem to="/sale/farms" text="Farms for sale" />
-          </DropdownSection>
-          <DropdownSection title="Properties for exchange">
-            <DropdownItem to="/exchange/lands" text="Lands for exchange" />
-            <DropdownItem to="/exchange/houses" text="Houses for exchange" />
+            <DropdownItem to="/sale/houses" text="Houses for sale" />
           </DropdownSection>
         </div>
       )}
