@@ -63,7 +63,7 @@ function Header() {
           className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white transition-colors sm:flex ${isRTL ? "flex-row-reverse" : ""}`}
         >
           <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-          {t.addFreeAd}
+          {t.header.addFreeAd}
         </NavLink>
       </div>
 
@@ -87,7 +87,7 @@ function Header() {
               className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white transition-colors ${isRTL ? "flex-row-reverse" : ""}`}
             >
               <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-              {t.addFreeAd}
+              {t.header.addFreeAd}
             </NavLink>
           </div>
         </div>
@@ -110,10 +110,10 @@ const Navigation = ({
   <div
     className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""}`}
   >
-    <NavItem to="/" label={t.home} isRTL={isRTL} />
-    <NavItem to="/login" label={t.login} isRTL={isRTL} />
-    <NavItem to="/register" label={t.register} isRTL={isRTL} />
-    <NavItem to="/agents" label={t.agents} isRTL={isRTL} />
+    <NavItem to="/" label={t.header.home} isRTL={isRTL} />
+    <NavItem to="/login" label={t.header.login} isRTL={isRTL} />
+    <NavItem to="/register" label={t.header.register} isRTL={isRTL} />
+    <NavItem to="/agents" label={t.header.agents} isRTL={isRTL} />
 
     {/* Real Estate Dropdown */}
     <div className="relative">
@@ -121,7 +121,7 @@ const Navigation = ({
         onClick={toggleDropdown}
         className={`flex items-center hover:text-[#32E0BB] transition-colors ${isRTL ? "flex-row-reverse" : ""}`}
       >
-        {t.kuwaitRealEstate}
+        {t.header.kuwaitRealEstate}
         {isDropdownOpen ? (
           <FiChevronUp className={`${isRTL ? "mr-1" : "ml-1"}`} />
         ) : (
@@ -158,7 +158,7 @@ const Navigation = ({
         className={`flex items-center space-x-1 text-sm font-semibold hover:text-[#32E0BB] transition-colors ${isRTL ? "space-x-reverse" : ""}`}
       >
         <FiGlobe className="text-lg" />
-        <span className="text-lg font-medium">{language === "en" ? "EN" : "ع"}</span>
+        <span className="text-lg font-medium">{language === "en" ? "ع" : "EN"}</span>
         {langOpen ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
       </button>
       {langOpen && (

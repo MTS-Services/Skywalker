@@ -3,17 +3,19 @@ export const translations = {
         // Navigation
         siteName: "Bo Shamlan",
         tagline: "Properties Finder",
-        home: "Home",
-        agents: "Agents",
-        about: "About",
-        contact: "Contact",
-        login: "Login",
-        register: "Register",
-        addFreeAd: "Add Free Ad",
-        kuwaitRealEstate: "Kuwait Real Estate",
+        "header": {
+            "home": "Home (Search)",
+            "agents": "Agents",
+            "about": "About",
+            "contact": "Contact",
+            "login": "Login",
+            "register": "Register",
+            "addFreeAd": "Add Free Ad",
+            "kuwaitRealEstate": "Kuwait Real Estate"
+        },
 
         // Home Page
-       
+
         // Agents Page
         agentsTitle: "Real Estate Agents List in Kuwait",
         agentsCount: "97 Agents",
@@ -55,14 +57,16 @@ export const translations = {
         // Navigation
         siteName: "بو شملان",
         tagline: "الباحث العقاري",
-        home: "الرئيسية",
-        agents: "المكاتب",
-        about: "من نحن",
-        contact: "اتصل بنا",
-        login: "دخول",
-        register: "تسجيل",
-        addFreeAd: "إعلان مجانا",
-        kuwaitRealEstate: "العقارات الكويتية",
+        "header": {
+            "home": "الرئيسية (بحث)",
+            "agents": "المكاتب",
+            "about": "من نحن",
+            "contact": "اتصل بنا",
+            "login": "تسجيل الدخول",
+            "register": "تسجيل جديد",
+            "addFreeAd": "اضافة اعلان مجان",
+            "kuwaitRealEstate": "العقار الكويتي"
+        },
 
         // Home Page
         welcomeTitle: "مرحباً بكم في بو شملان العقارية",
