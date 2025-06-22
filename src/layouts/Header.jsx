@@ -9,6 +9,7 @@ import {
   FiGlobe,
 } from "react-icons/fi";
 import { useLanguage } from "../context/LanguageContext";
+import { IoMdCheckmark } from "react-icons/io";
 
 const navLinkClass = ({ isActive }) =>
   isActive
@@ -265,14 +266,12 @@ const Navigation = ({
         >
           <LanguageItem
             label="English"
-            code="EN"
             isActive={language === "en"}
             onClick={handleLanguageChange}
             isRTL={isRTL}
           />
           <LanguageItem
             label="العربية"
-            code="ع"
             isActive={language === "ar"}
             onClick={handleLanguageChange}
             isRTL={isRTL}
@@ -318,7 +317,7 @@ const LanguageItem = ({ label, code, isActive, onClick, isRTL }) => (
     <span className={`${isRTL ? "mr-2" : "ml-2"}`}>{label}</span>
     {isActive && (
       <span className={`text-[#32E0BB] ${isRTL ? "mr-auto" : "ml-auto"}`}>
-        ✓
+        <IoMdCheckmark />
       </span>
     )}
   </button>
