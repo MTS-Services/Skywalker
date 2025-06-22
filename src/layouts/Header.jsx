@@ -34,7 +34,7 @@ function Header() {
   };
 
   return (
-    <nav className="border-b border-[#32E0BB] bg-white px-4 py-4 shadow-sm">
+    <nav className="relative z-50 border-b border-[#32E0BB] bg-white px-4 py-4 shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link to="/" className="flex items-center">
           <img src="/logo.png" alt="Logo" className="h-auto w-36 sm:w-48" />
@@ -63,23 +63,26 @@ function Header() {
           Add Free Ad
         </NavLink>
       </div>
+
       {mobileMenuOpen && (
-        <div className="mt-4 flex flex-col items-start gap-4 bg-white px-4 py-2 sm:hidden">
-          <Navigation
-            toggleDropdown={toggleDropdown}
-            isDropdownOpen={isDropdownOpen}
-            currentLang={currentLang}
-            toggleLanguage={toggleLanguage}
-            langOpen={langOpen}
-            handleLangSelect={handleLangSelect}
-          />
-          <NavLink
-            to="/add-ad"
-            className="flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white"
-          >
-            <FiPlus className="mr-1 text-lg" />
-            Add Free Ad
-          </NavLink>
+        <div className="absolute top-full left-0 z-44 mt-0.5 w-full bg-gray-50 shadow-md sm:hidden">
+          <div className="flex flex-col items-start gap-4 px-4 py-4">
+            <Navigation
+              toggleDropdown={toggleDropdown}
+              isDropdownOpen={isDropdownOpen}
+              currentLang={currentLang}
+              toggleLanguage={toggleLanguage}
+              langOpen={langOpen}
+              handleLangSelect={handleLangSelect}
+            />
+            <NavLink
+              to="/add-ad"
+              className="flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white"
+            >
+              <FiPlus className="mr-1 text-lg" />
+              Add Free Ad
+            </NavLink>
+          </div>
         </div>
       )}
     </nav>
@@ -112,7 +115,7 @@ const Navigation = ({
         )}
       </button>
       {isDropdownOpen && (
-        <div className="absolute z-10 mt-2 w-full rounded-md border border-[#32E0BB] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:w-64">
+        <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-md border border-[#32E0BB] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:w-64">
           <DropdownSection title="Properties for rent">
             <DropdownItem to="/rent/apartments" text="Apartments for rent" />
             <DropdownItem to="/rent/houses" text="Houses for rent" />
