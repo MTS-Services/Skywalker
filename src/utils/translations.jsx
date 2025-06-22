@@ -13,6 +13,16 @@ export const translations = {
         },
 
         // Home Page
+        "home": {
+            'bannerTitle': 'Apartments for Rent | Houses for Sale',
+            'bannerSubTitle': 'Search for your property for free and easily',
+            'typeAreaPlaceholder': 'Type Area to Search',
+            'propertyTypePlaceholder': 'Property Type',
+            'rent': 'Rent',
+            'sale': 'Sale',
+            'exchange': 'Exchange',
+            'searchButton': 'Search'
+        }
     },
     ar: {
         // Header      
@@ -26,7 +36,16 @@ export const translations = {
             "addFreeAd": "اضافة اعلان مجان",
             "kuwaitRealEstate": "العقار الكويتي"
         },
-
-        // Home Page        
+        // Home Page      
+        "home": {
+            'bannerTitle': 'عقارات للايجار | عقارات للبيع',
+            'bannerSubTitle': 'ابحث عن عقارك بكل سهولة',
+            'typeAreaPlaceholder': 'اكتب المساحة للبحث',
+            'propertyTypePlaceholder': 'نوع العقار',
+            'rent': 'للايجار',
+            'sale': 'للبيع',
+            'exchange': 'للتبادل',
+            'searchButton': 'ابحث'
+        }  
     },
 }

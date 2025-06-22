@@ -1,8 +1,10 @@
 import React from 'react'
-import { useLanguage } from "../../context/LanguageContext"
+import HeroSection from "./Hero"
+
 export default function About() {
-  const { isRTL, toggleLanguage, t, language } = useLanguage()
   return (
-    <div>About</div>
+    <div>
+      <HeroSection></HeroSection>
+    </div>
   )
 }
