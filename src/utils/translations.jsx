@@ -10,15 +10,10 @@ export const translations = {
         login: "Login",
         register: "Register",
         addFreeAd: "Add Free Ad",
+        kuwaitRealEstate: "Kuwait Real Estate",
 
         // Home Page
-        welcomeTitle: "Welcome to Bo Shamlan Real Estate",
-        welcomeSubtitle: "Find Your Dream Property in Kuwait",
-        searchPlaceholder: "Search properties...",
-        searchButton: "Search",
-        featuredProperties: "Featured Properties",
-        viewAllProperties: "View All Properties",
-
+       
         // Agents Page
         agentsTitle: "Real Estate Agents List in Kuwait",
         agentsCount: "97 Agents",
@@ -67,6 +62,7 @@ export const translations = {
         login: "دخول",
         register: "تسجيل",
         addFreeAd: "إعلان مجانا",
+        kuwaitRealEstate: "العقارات الكويتية",
 
         // Home Page
         welcomeTitle: "مرحباً بكم في بو شملان العقارية",
