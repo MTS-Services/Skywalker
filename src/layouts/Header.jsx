@@ -115,7 +115,7 @@ const Navigation = ({
         )}
       </button>
       {isDropdownOpen && (
-        <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-md border border-[#32E0BB] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:w-64">
+        <div className="absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[#32E0BB] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible">
           <DropdownSection title="Properties for rent">
             <DropdownItem to="/rent/apartments" text="Apartments for rent" />
             <DropdownItem to="/rent/houses" text="Houses for rent" />
@@ -144,13 +144,13 @@ const Navigation = ({
     <div className="relative">
       <button
         onClick={toggleLanguage}
-        className="flex items-center space-x-1 text-sm font-semibold hover:text-[#32E0BB]"
+        className="flex items-center space-x-1 text-sm font-semibold text-gray-800 transition-all duration-500 ease-in-out hover:-translate-y-1 hover:scale-105 hover:text-[#32E0BB] hover:shadow-md active:scale-95"
       >
         <span className="text-xl">{currentLang === "EN" ? "EN" : "ع"}</span>
         {langOpen ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
       </button>
       {langOpen && (
-        <div className="absolute right-0 z-50 mt-2 w-32 rounded-md border border-[#32E0BB] bg-white py-1 text-sm shadow-md">
+        <div className="absolute z-50 mt-2 w-32 rounded-md border border-[#32E0BB] bg-white py-1 text-sm shadow-md">
           <LanguageItem
             to="/en"
             label="English"
@@ -198,7 +198,7 @@ const LanguageItem = ({ to, label, code, onSelect }) => (
     className="flex items-center px-4 py-2 hover:bg-gray-100 hover:text-[#32E0BB]"
   >
     <span className="text-md">{code === "EN" ? "EN" : "ع"}</span>
-    <span className="ml-2">{label}</span>
+    <span className="mr-2">{label}</span>
   </NavLink>
 );
 
