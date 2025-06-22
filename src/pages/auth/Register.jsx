@@ -60,28 +60,7 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block text-sm font-semibold text-gray-700"
-              >
-                Email Address
-              </label>
-              <div className="relative">
-                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <FiMail className="text-gray-400" />
-                </span>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                />
-              </div>
-            </div>
+     
 
             {/* Password */}
             <div>
