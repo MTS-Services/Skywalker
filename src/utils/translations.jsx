@@ -21,7 +21,9 @@ export const translations = {
             'rent': 'Rent',
             'sale': 'Sale',
             'exchange': 'Exchange',
-            'searchButton': 'Search'
+            'searchButton': 'Search',
+            'recentAdsTitle': 'Recent Real Estate Ads in Kuwait',
+            'kd': 'KD',
         }
     },
     ar: {
@@ -45,7 +47,9 @@ export const translations = {
             'rent': 'للايجار',
             'sale': 'للبيع',
             'exchange': 'للتبادل',
-            'searchButton': 'ابحث'
+            'searchButton': 'ابحث',
+            'recentAdsTitle': 'اعلانات عقارية حديثة في الكويت',
+            'kd': 'د.ك',
         }  
     },
 }
