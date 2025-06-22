@@ -1,1 +1,53 @@
 @import "tailwindcss";
+
+* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="ltr"] {
+  text-align: left;
+}
+
+/* Custom RTL utilities */
+.rtl {
+  direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+/* Ensure proper font rendering for Arabic */
+[dir="rtl"] * {
+  font-family: "Segoe UI", "Tahoma", "Geneva", "Verdana", sans-serif;
+}
+
+/* Custom spacing for RTL */
+[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+/* Fix for react-icons in RTL */
+[dir="rtl"] .fi {
+  transform: scaleX(-1);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Custom dropdown positioning for RTL */
+[dir="rtl"] .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+[dir="ltr"] .dropdown-menu {
+  left: 0;
+  right: auto;
+}

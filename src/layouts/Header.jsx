@@ -7,7 +7,6 @@ import {
   FiMenu,
   FiX,
 } from "react-icons/fi";
-// import { useTranslation } from "react-i18next"
 
 const navLinkClass = ({ isActive }) =>
   isActive
@@ -20,7 +19,6 @@ function Header() {
   const [currentLang, setCurrentLang] = useState("AR");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  // const isRTL = i18n.language === "ar"
 
   useEffect(() => {
     setIsDropdownOpen(false);

@@ -7,7 +7,7 @@ const About = () => {
       <main className="min-h-screen bg-gray-100">
         <section className="py-20 text-center">
           <h1 className="text-5xl font-extrabold text-gray-900">
-            Welcome to Our Website
+            welcome
           </h1>
           <p className="mt-4 text-lg text-gray-600">
             We provide excellent services to help you achieve your goals.
