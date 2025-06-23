@@ -1,6 +1,6 @@
 import React, { useState } from "react"; // Import useState
 import { FiPhone, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi"; // Import FiEye and FiEyeOff
-
+ import registerImg from "../../assits/login/login.png"
 const Register = () => {
   // States to manage password visibility for both fields
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -25,7 +25,7 @@ const Register = () => {
         {/* Left Image Section */}
         <div className="hidden p-12 md:block md:w-1/2">
           <img
-            src="./finalblue.png"
+            src={registerImg}
             alt="Login Visual"
             className="h-full w-full object-cover"
           />
@@ -59,8 +59,6 @@ const Register = () => {
                 />
               </div>
             </div>
-
-     
 
             {/* Password */}
             <div>

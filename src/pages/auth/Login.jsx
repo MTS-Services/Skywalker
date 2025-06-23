@@ -1,7 +1,13 @@
 import React, { useState } from "react"; // Import useState
-import { FiPhone, FiEye, FiEyeOff, FiLock, FiKey } from "react-icons/fi"; // Import FiEyeOff for when the password is hidden
+import { FiPhone, FiEye, FiEyeOff, FiLock, FiKey } from "react-icons/fi";
+
+import { useLanguage } from "../../context/LanguageContext";// Import FiEyeOff for when the password is hidden
+   import  lignimg  from "../../assits/login/login.png";
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
+
+  // code  by languge setup in   2 type
+  const { isRTL, toggleLanguage, t, language } = useLanguage(); 
 
   // Function to toggle password visibility
   const togglePasswordVisibility = () => {
@@ -17,7 +23,7 @@ const Login = () => {
         {/* Left Image Section */}
         <div className="hidden p-12 md:block md:w-1/2">
           <img
-            src="./finalblue.png"
+            src={lignimg}
             alt="Login Visual"
             className="h-full w-full object-cover"
           />
@@ -26,7 +32,7 @@ const Login = () => {
         {/* Right Form Section */}
         <div className="flex w-full flex-col justify-center p-10 md:w-1/2">
           <h2 className="mb-2 text-center text-3xl font-extrabold text-[#32E0BB]">
-            HELLO AGAIN
+            {t.login.title}
           </h2>
           <p className="mb-10 text-center text-gray-600">
             New user?{" "}

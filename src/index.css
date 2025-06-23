@@ -35,3 +35,22 @@
 * {
   transition: all 0.2s ease-in-out;
 }
+
+ 
+@theme {
+  --color-primary-50: #e6faf5;
+  --color-primary-100: #ccf5eb;
+  --color-primary-200: #99ecda;
+  --color-primary-300: #66e3ca;
+  --color-primary-400: #32e0bb; /* Base */
+  --color-primary-500: #2dcaaa;
+  --color-primary-600: #28b499;
+  --color-primary-700: #239e88;
+  --color-primary-800: #1e8877;
+  --color-primary-900: #196266;
+  --color-descripton:#556885;
+  --color-adspart: #2e6290;
+
+
+}
+ 
