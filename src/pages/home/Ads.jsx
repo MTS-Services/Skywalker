@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import DetailsModal from './Modal';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -61,7 +61,7 @@ export default function Ads() {
 
     return (
         <>
-            <section className='bg-gray-100 py-10'>
+            <section className='bg-gray-50 py-10'>
                 <div className="container w-full max-w-7xl mx-auto">
                     <div className={`w-full max-w-xl mx-auto mb-4`}>
                         <h3 className={`text-xl font-bold text-gray-800 ${isRTL ? "mr-2" : "ml-2"}`}>
@@ -75,7 +75,7 @@ export default function Ads() {
                                     onClick={() => handleAdClick(ad)}
                                     className="w-full cursor-pointer"
                                 >
-                                    <div className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 border border-transparent bg-rose-50/50 active:border-rose-500">
+                                    <div className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 border border-transparent bg-primary-50/50 active:border-primary-500">
                                         <div className="flex gap-3">
                                             <div className="relative">
                                                 <div className="size-14 xl:size-28 flex-shrink-0 relative rounded-md overflow-hidden">
@@ -88,8 +88,8 @@ export default function Ads() {
                                                 </div>
                                                 <div className="absolute -top-[6px] -start-2">
                                                     <svg width="49" height="37" viewBox="0 0 49 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0 27.6018L9 37V20L0 27.6018Z" fill="#821220"></path>
-                                                        <path d="M48.5 2C48.5 1.17157 47.8284 0.5 47 0.5H2C1.17157 0.5 0.5 1.17157 0.5 2V27.5H47C47.8284 27.5 48.5 26.8284 48.5 26V2Z" fill="#D7263D" stroke="#D7263D"></path>
+                                                        <path d="M0 27.6018L9 37V20L0 27.6018Z" fill="#1e8877"></path>
+                                                        <path d="M48.5 2C48.5 1.17157 47.8284 0.5 47 0.5H2C1.17157 0.5 0.5 1.17157 0.5 2V27.5H47C47.8284 27.5 48.5 26.8284 48.5 26V2Z" fill="#2dcaaa " stroke="#32e0bb "></path>
                                                     </svg>
                                                     <div className="w-full text-white absolute top-0 start-[1px] bg-stickyTag rounded-sm px-1 h-[28px] text-base">
                                                         <div className="flex items-center justify-center h-full font-bold whitespace-nowrap overflow-hidden">

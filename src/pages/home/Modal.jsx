@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FiX } from 'react-icons/fi';
-import { FaWhatsapp, FaPhone } from 'react-icons/fa';
 import { TfiAngleLeft } from "react-icons/tfi";
-import { LuClock4, LuEye } from "react-icons/lu";
 import { RiExternalLinkFill } from "react-icons/ri";
+import { FiClock, FiEye, FiX, FiPhone } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
 
 
 export default function Modal({ ad, show, onClose, t, isRTL, language, formatTimeAgo }) {
@@ -118,7 +117,7 @@ export default function Modal({ ad, show, onClose, t, isRTL, language, formatTim
                             </button>
 
                             <div className="w-[156px] h-[44px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <a aria-label="Home" href="https://www.boshamlan.com/en">
+                                <a aria-label="Home" href="/">
                                     <div className="relative w-full h-full">
                                         <img
                                             alt="Logo"
@@ -130,7 +129,7 @@ export default function Modal({ ad, show, onClose, t, isRTL, language, formatTim
                             </div>
                         </div>
 
-                        <div className="overflow-x-hidden" dir="ltr">
+                        <div className="overflow-x-hidden" dir={isRTL ? "rtl" : "ltr"}>
                             <div className="flex flex-col items-center bg-primary text-primary-50 px-6 relative bg-primary-700">
                                 <div className="h-8" />
 
@@ -146,12 +145,12 @@ export default function Modal({ ad, show, onClose, t, isRTL, language, formatTim
 
                                 <div className="flex gap-3">
                                     <div className="flex items-center gap-1 rounded bg-primary-600 py-1 px-1.5">
-                                        <LuClock4 />
+                                        <FiClock />
                                         {formatTimeAgo(ad.postCreateAt, language)}
                                     </div>
 
                                     <div className="flex items-center gap-1 rounded bg-primary-600 py-1 px-1.5 min-w-[62px]">
-                                        <LuEye />
+                                        <FiEye />
                                         <div>{ad.views}</div>
                                     </div>
                                     <div onClick={() => handleShareClick(ad)} className='flex items-center gap-1 rounded bg-primary-600 py-1 px-1.5'>
@@ -169,7 +168,7 @@ export default function Modal({ ad, show, onClose, t, isRTL, language, formatTim
                             </div>
                             <div className="flex gap-3 justify-center">
                                 <a href={`tel:${ad.whatsapp}`} className="text-lg inline-flex items-center gap-2 h-12 rounded-lg font-bold bg-success text-on-success px-2.5 bg-primary-300 text-white" >
-                                    <FaPhone className='rotate-90 text-white' />
+                                    <FiPhone className='text-white' />
                                     <div className="font-normal">{ad.whatsapp}</div>
                                 </a>
                                 <a
