@@ -1,7 +1,7 @@
 import React from "react";
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage } from "../../context/LanguageContext";
 import HeroSection from "./Hero";
-import Ads from "./Ads"
+import Ads from "./Ads";
 
 export const Home = () => {
   const { isRTL, t } = useLanguage();

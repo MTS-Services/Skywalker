@@ -27,7 +27,7 @@
 }
 
 /* Fix space-x-reverse for RTL */
-[dir="rtl"] .space-x-reverse> :not([hidden])~ :not([hidden]) {
+[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
 }
 
@@ -53,5 +53,5 @@
   --color-descripton:#556885;
   --color-adspart: #2e6290;
 
-  --shadow-card-shadow: 0 0 2px 0 rgba(37, 42, 49, .16), 0 1px 4px 0 rgba(37, 42, 49, .12);
+
 }

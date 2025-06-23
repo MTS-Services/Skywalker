@@ -6,7 +6,12 @@ import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Agent from "../pages/agent/Agent";
+
 import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
+
+
+import Contact from "../pages/contact/Contact";
+import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 
 import AdDetailPage from "../pages/home/AdDetailPage";
 import SearchResults from "../pages/home/SearchResults";
@@ -21,10 +26,10 @@ const AppRoutes = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      // {
-      //   path: "search",
-      //   element: <SearchResults />,
-      // },
+      {
+        path: "search",
+        element: <SearchResults />,
+      },
       {
         path: "ads/:slug",
         element: <AdDetailPage />,
@@ -54,8 +59,17 @@ const AppRoutes = createBrowserRouter([
         element: <Agent />,
       },
       {
+
         path: "agents-details/:id",
         element: <AgentsDetails />,
+
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "terms",
+        element: <TermAndCondition />,
+
       },
     ],
   },
