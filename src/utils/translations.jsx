@@ -23,7 +23,8 @@ export const translations = {
             'exchange': 'Exchange',
             'searchButton': 'Search',
             'recentAdsTitle': 'Recent Real Estate Ads in Kuwait',
-            'kd': 'KD',
+            'currency': 'KD',
+            'super': 'Super'
         }
     },
     ar: {
@@ -49,7 +50,8 @@ export const translations = {
             'exchange': 'للتبادل',
             'searchButton': 'ابحث',
             'recentAdsTitle': 'اعلانات عقارية حديثة في الكويت',
-            'kd': 'د.ك',
+            'currency': 'د.ك',
+            'super': 'سوبر'
         }  
     },
 }

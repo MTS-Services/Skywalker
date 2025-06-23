@@ -8,7 +8,7 @@ export const Home = () => {
   return (
     <div>
       <HeroSection isRTL={isRTL} t={t}></HeroSection>
-      <Ads t={t}></Ads>
+      <Ads t={t} isRTL={isRTL} language={language}></Ads>
     </div>
   );
 };

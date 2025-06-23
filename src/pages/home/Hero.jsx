@@ -69,67 +69,71 @@ function FilterComponent({ t, isRTL }) {
     };
 
     return (
-        <div className="w-full">
-            {/* Multi-Select Region Dropdown */}
-            <MultiSelectDropdown
-                options={regionsData.map(region => ({
-                    id: region.id,
-                    name: region.name[isRTL ? 'ar' : 'en'],
-                    count: region.count
-                }))}
-                selectedItems={selectedRegions}
-                setSelectedItems={setSelectedRegions}
-                placeholder={t.home.typeAreaPlaceholder}
-                searchPlaceholder={t.home.searchPlaceholder}
-                isRTL={isRTL}
-            />
+        <>
+            <form action="" onSubmit={(e) => e.preventDefault()}>
+                <div className="w-full">
+                    {/* Multi-Select Region Dropdown */}
+                    <MultiSelectDropdown
+                        options={regionsData.map(region => ({
+                            id: region.id,
+                            name: region.name[isRTL ? 'ar' : 'en'],
+                            count: region.count
+                        }))}
+                        selectedItems={selectedRegions}
+                        setSelectedItems={setSelectedRegions}
+                        placeholder={t.home.typeAreaPlaceholder}
+                        searchPlaceholder={t.home.searchPlaceholder}
+                        isRTL={isRTL}
+                    />
 
-            {/* Property Type Multi-Select Dropdown */}
-            <MultiSelectDropdown
-                options={propertyTypeData.map(type => ({
-                    id: type.id,
-                    name: type.name[isRTL ? 'ar' : 'en'],
-                    // Property types don't have counts in your sample data, so no 'count' prop here
-                }))}
-                selectedItems={selectedPropertyTypes}
-                setSelectedItems={setSelectedPropertyTypes}
-                placeholder={t.home.propertyTypePlaceholder}
-                searchPlaceholder={t.home.searchPlaceholder} // You might want a specific placeholder for property type search
-                isRTL={isRTL}
-            />
+                    {/* Property Type Multi-Select Dropdown */}
+                    <MultiSelectDropdown
+                        options={propertyTypeData.map(type => ({
+                            id: type.id,
+                            name: type.name[isRTL ? 'ar' : 'en'],
+                            // Property types don't have counts in your sample data, so no 'count' prop here
+                        }))}
+                        selectedItems={selectedPropertyTypes}
+                        setSelectedItems={setSelectedPropertyTypes}
+                        placeholder={t.home.propertyTypePlaceholder}
+                        searchPlaceholder={t.home.searchPlaceholder} // You might want a specific placeholder for property type search
+                        isRTL={isRTL}
+                    />
 
-            {/* Rent/Sale/Exchange Buttons */}
-            <div className={`flex justify-center mb-6 rounded-full overflow-hidden border border-primary-color gap-1 p-1 `}>
-                <button
-                    className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
+                    {/* Rent/Sale/Exchange Buttons */}
+                    <div className={`flex justify-center mb-6 rounded-full overflow-hidden border border-primary-color gap-1 p-1 `}>
+                        <button
+                            className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
             ${selectedOption === 'Rent' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
-                    onClick={() => handleOptionClick('Rent')}
-                >
-                    {t.home.rent}
-                </button>
-                <button
-                    className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
+                            onClick={() => handleOptionClick('Rent')}
+                        >
+                            {t.home.rent}
+                        </button>
+                        <button
+                            className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
             ${selectedOption === 'Sale' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
-                    onClick={() => handleOptionClick('Sale')}
-                >
-                    {t.home.sale}
-                </button>
-                <button
-                    className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
+                            onClick={() => handleOptionClick('Sale')}
+                        >
+                            {t.home.sale}
+                        </button>
+                        <button
+                            className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
             ${selectedOption === 'Exchange' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
-                    onClick={() => handleOptionClick('Exchange')}
-                >
-                    {t.home.exchange}
-                </button>
-            </div>
+                            onClick={() => handleOptionClick('Exchange')}
+                        >
+                            {t.home.exchange}
+                        </button>
+                    </div>
 
-            {/* Search Button */}
-            <button
-                className="w-full py-3 bg-primary-color text-white font-semibold rounded-full shadow-lg hover:bg-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-opacity-50 transition duration-300 ease-in-out cursor-pointer"
-            >
-                {t.home.searchButton}
-            </button>
-        </div>
+                    {/* Search Button */}
+                    <button
+                        className="w-full py-3 bg-primary-color text-white font-semibold rounded-full shadow-lg hover:bg-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-opacity-50 transition duration-300 ease-in-out cursor-pointer"
+                    >
+                        {t.home.searchButton}
+                    </button>
+                </div>
+            </form>
+        </>
     );
 }
 
@@ -170,7 +174,7 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
         <div className="relative mb-4 w-full" ref={dropdownRef}>
             {/* Selected Tags Display */}
             {selectedItems.length > 0 && (
-                <div className={`flex flex-wrap gap-2 mb-2 p-2 rounded-full border border-gray-200 ${isRTL ? 'justify-end' : 'justify-start'}`}>
+                <div className={`flex flex-wrap gap-2 mb-2 p-2 rounded-2xl border border-gray-200 ${isRTL ? 'justify-end' : 'justify-start'}`}>
                     {selectedItems.map((item) => (
                         <span
                             key={item.id}
@@ -209,7 +213,7 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
             {/* Dropdown List */}
             {isOpen && (
                 <div className="absolute z-20 w-full bg-white border border-gray-300 rounded-md mt-1 shadow-lg max-h-60 overflow-y-auto">
-                    {/* <div className="p-2">
+                    <div className="p-2">
                         <div className="relative">
                         <input
                             type="text"
@@ -232,7 +236,7 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
                             </button>
                         )}
                         </div>
-                    </div> */}
+                    </div>
                     <ul className="p-1">
                         {filteredOptions.length > 0 ? (
                             filteredOptions.map((option) => (
