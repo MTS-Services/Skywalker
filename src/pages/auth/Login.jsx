@@ -10,6 +10,9 @@ const Login = () => {
   const { isRTL, toggleLanguage, t, language } = useLanguage(); 
 
   // Function to toggle password visibility
+  // Function to toggle password visibility
+  // Function to toggle password visibility
+  // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
