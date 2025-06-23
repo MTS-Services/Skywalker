@@ -1,138 +1,134 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BannerImage from '../../assets/images/home-hero-banner.svg';
 import { RxCross2 } from "react-icons/rx";
 import { BiSearch } from "react-icons/bi";
 import { LuChevronDown } from "react-icons/lu";
-import { RiCheckboxBlankLine } from "react-icons/ri";
-// Assuming these are the placeholder images for the banner, adjust paths if real images are provided.
 
-// Sample data for regions - in a real app, this would come from an API
+// Data sources for filters
 const regionsData = [
     { id: 'all', name: { en: 'All Region', ar: 'كل المناطق' }, count: 2134 },
     { id: 'hawally', name: { en: 'Hawally Governorate', ar: 'محافظة حولي' }, count: 726 },
     { id: 'salmiya', name: { en: 'Salmiya', ar: 'السالمية' }, count: 104 },
     { id: 'salwa', name: { en: 'Salwa', ar: 'سلوى' }, count: 90 },
     { id: 'jabriya', name: { en: 'Jabriya', ar: 'الجابرية' }, count: 81 },
-    { id: 'rumaithiya', name: { en: 'Rumaithiya', ar: 'الرميثية' }, count: 68 },
-    { id: 'hawallyCity', name: { en: 'Hawally', ar: 'حولي' }, count: 64 },
-    { id: 'zahra', name: { en: 'Zahra', ar: 'الزهراء' }, count: 63 },
-    { id: 'siddeeq', name: { en: 'Siddeeq', ar: 'الصديق' }, count: 56 },
-    { id: 'salam', name: { en: 'Salam', ar: 'السلام' }, count: 55 },
 ];
 
-const propertyTypeData = [ // Renamed to avoid conflict and better reflect its use with MultiSelectDropdown
-    { id: 'appartment', name: { en: 'Apartment', ar: 'شقة' } },
+const propertyTypeData = [
+    { id: 'apartment', name: { en: 'Apartment', ar: 'شقة' } },
     { id: 'house', name: { en: 'House', ar: 'منزل' } },
     { id: 'land', name: { en: 'Land', ar: 'أرض' } },
     { id: 'building', name: { en: 'Building', ar: 'مبنى' } },
+];
 
-]
+const mainOptions = [
+    { id: 'rent', name: { en: 'Rent', ar: 'ايجار' } },
+    { id: 'sale', name: { en: 'Sale', ar: 'بيع' } },
+    { id: 'exchange', name: { en: 'Exchange', ar: 'بدل' } },
+];
 
+/**
+ * Hero Component: Displays the main hero section with a background and search filters.
+ */
 export default function Hero({ t, isRTL }) {
-    // Mocking the useLanguage hook for standalone component functionality
-
     return (
-        <>
-            {/* Hero Section */}
-            <section className="relative min-h-[calc(100vh-200px)] flex items-center justify-center overflow-hidden">
-                {/* Background Image Placeholder */}
-                <div className="absolute landscape:bottom-0 portrait:bottom-[calc(50px_+_((100vh_-_667px)_*_0.10))] left-0 right-0 flex justify-center" >
-                    <img alt="Background" width="1920" height="426" className="object-contain" src={BannerImage} />
-                </div>
-
-                <div className={`container mx-auto max-w-7xl h-full min-h-[calc(100vh-100px)] flex items-center justify-center z-10 p-4`}>
-                    <div className="flex flex-col items-center text-center bg-opacity-90 p-8 rounded-lg w-full">
-                        <h2 className={`text-xl lg:text-2xl font-bold text-gray-800 mb-2 ${isRTL ? "mr-2" : "ml-2"}`}>
-                            {t.home.bannerTitle}
-                        </h2>
-                        <p className="text-gray-600 mb-6">{t.home.bannerSubTitle}</p>
-
-                        <div className='w-full max-w-md'>
-                            <FilterComponent t={t} isRTL={isRTL} />
-                        </div>
-
+        <section className="relative min-h-[calc(100vh-150px)] md:min-h-[calc(100vh-200px)] flex items-center justify-center overflow-hidden bg-gray-50">
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center w-full">
+                <img alt="Cityscape background" width="1920" height="426" className="w-full h-auto object-cover max-w-screen-2xl" src={BannerImage} />
+            </div>
+            <div className="relative container mx-auto w-full h-full flex items-center justify-center z-10 p-4">
+                <div className="flex flex-col items-center text-center w-full max-w-2xl">
+                    <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-3">
+                        {t.home.bannerTitle}
+                    </h2>
+                    <p className="text-gray-600 mb-8 text-base md:text-lg">
+                        {t.home.bannerSubTitle}
+                    </p>
+                    <div className='w-full max-w-md bg-white/70 backdrop-blur-sm p-4 sm:p-6 rounded-2xl shadow-lg'>
+                        <FilterComponent t={t} isRTL={isRTL} />
                     </div>
                 </div>
-            </section>
-        </>
+            </div>
+        </section>
     );
 }
 
+/**
+ * FilterComponent: Renders the search controls and handles search submission.
+ */
 function FilterComponent({ t, isRTL }) {
-    const [selectedOption, setSelectedOption] = useState("Rent"); // Default selected option
-    const [selectedRegions, setSelectedRegions] = useState([]); // State for selected regions
-    const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]); // State for selected property types
+    const navigate = useNavigate();
+    const [selectedOption, setSelectedOption] = useState(mainOptions[0]?.id || '');
+    const [selectedRegions, setSelectedRegions] = useState([]);
+    const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
 
+    /**
+     * Handles the form submission to perform a search.
+     * @param {React.FormEvent} e - The form event.
+     */
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const params = new URLSearchParams();
 
-    const handleOptionClick = (option) => {
-        setSelectedOption(option);
+        if (selectedOption) {
+            params.append('transactionType', selectedOption);
+        }
+        selectedRegions.forEach(region => {
+            if (region.id !== 'all') { // Do not include 'all' in the query
+                params.append('regions', region.id);
+            }
+        });
+        selectedPropertyTypes.forEach(type => {
+            params.append('propertyTypes', type.id);
+        });
+
+        // Navigate to the search results page with the filter parameters
+        navigate(`/search?${params.toString()}`);
     };
 
     return (
-        <div className="w-full">
-            {/* Multi-Select Region Dropdown */}
+        <form onSubmit={handleSearch} className="space-y-4">
             <MultiSelectDropdown
-                options={regionsData.map(region => ({
-                    id: region.id,
-                    name: region.name[isRTL ? 'ar' : 'en'],
-                    count: region.count
-                }))}
+                options={regionsData.map(region => ({ ...region, name: region.name[isRTL ? 'ar' : 'en'] }))}
                 selectedItems={selectedRegions}
                 setSelectedItems={setSelectedRegions}
                 placeholder={t.home.typeAreaPlaceholder}
                 searchPlaceholder={t.home.searchPlaceholder}
                 isRTL={isRTL}
             />
-
-            {/* Property Type Multi-Select Dropdown */}
             <MultiSelectDropdown
-                options={propertyTypeData.map(type => ({
-                    id: type.id,
-                    name: type.name[isRTL ? 'ar' : 'en'],
-                    // Property types don't have counts in your sample data, so no 'count' prop here
-                }))}
+                options={propertyTypeData.map(type => ({ ...type, name: type.name[isRTL ? 'ar' : 'en'] }))}
                 selectedItems={selectedPropertyTypes}
                 setSelectedItems={setSelectedPropertyTypes}
                 placeholder={t.home.propertyTypePlaceholder}
-                searchPlaceholder={t.home.searchPlaceholder} // You might want a specific placeholder for property type search
+                searchPlaceholder={t.home.searchPlaceholder}
                 isRTL={isRTL}
             />
-
-            {/* Rent/Sale/Exchange Buttons */}
-            <div className={`flex justify-center mb-6 rounded-full overflow-hidden border border-primary-color gap-1 p-1 `}>
-                <button
-                    className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
-            ${selectedOption === 'Rent' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
-                    onClick={() => handleOptionClick('Rent')}
-                >
-                    {t.home.rent}
-                </button>
-                <button
-                    className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
-            ${selectedOption === 'Sale' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
-                    onClick={() => handleOptionClick('Sale')}
-                >
-                    {t.home.sale}
-                </button>
-                <button
-                    className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
-            ${selectedOption === 'Exchange' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
-                    onClick={() => handleOptionClick('Exchange')}
-                >
-                    {t.home.exchange}
-                </button>
+            <div className="flex justify-center rounded-full overflow-hidden border border-primary-400 gap-1 p-1 bg-white">
+                {mainOptions.map((option) => (
+                    <button
+                        key={option.id}
+                        type="button"
+                        className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition-colors duration-300 ease-in-out ${selectedOption === option.id ? 'bg-primary-400 text-white' : 'bg-transparent text-primary-400 hover:bg-primary-50'}`}
+                        onClick={() => setSelectedOption(option.id)}
+                    >
+                        {option.name[isRTL ? 'ar' : 'en']}
+                    </button>
+                ))}
             </div>
-
-            {/* Search Button */}
             <button
-                className="w-full py-3 bg-primary-color text-white font-semibold rounded-full shadow-lg hover:bg-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-opacity-50 transition duration-300 ease-in-out cursor-pointer"
+                type="submit"
+                className="w-full py-3 bg-primary-500 text-white font-semibold rounded-full shadow-lg hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50 transition-colors duration-300"
             >
                 {t.home.searchButton}
             </button>
-        </div>
+        </form>
     );
 }
 
+/**
+ * MultiSelectDropdown: A reusable multi-select dropdown with search.
+ */
 function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeholder, searchPlaceholder, isRTL }) {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -145,9 +141,7 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     const toggleItem = (item) => {
@@ -158,103 +152,63 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
         );
     };
 
-    const removeItem = (itemToRemove) => {
-        setSelectedItems((prev) => prev.filter((item) => item.id !== itemToRemove.id));
-    };
-
     const filteredOptions = options.filter(option =>
         option.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
-        <div className="relative mb-4 w-full" ref={dropdownRef}>
-            {/* Selected Tags Display */}
-            {selectedItems.length > 0 && (
-                <div className={`flex flex-wrap gap-2 mb-2 p-2 rounded-full border border-gray-200 ${isRTL ? 'justify-end' : 'justify-start'}`}>
-                    {selectedItems.map((item) => (
-                        <span
-                            key={item.id}
-                            className="flex items-center bg-primary-color/10 !text-black dark:text-white text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap"
-                        >
-                            {item.name}
-                            <button
-                                type="button"
-                                onClick={() => removeItem(item)}
-                                className={`ml-2 text-primary-color hover:text-primary-color focus:outline-none ${isRTL ? 'mr-2 ml-0' : 'ml-2 mr-0'}`}
-                            >
-                                <RxCross2 />
-                            </button>
-                        </span>
-                    ))}
-                </div>
-            )}
-
-            {/* Input Field (acts as dropdown trigger) */}
+        <div className="relative w-full" ref={dropdownRef}>
             <div
-                className={`w-full p-3 pr-4 border border-gray-300 rounded-full focus-within:ring-2 focus-within:ring-primary-color bg-white cursor-pointer flex items-center ${isRTL ? 'pl-4 text-right' : 'pr-4 text-left'}`}
+                className="w-full p-3 border border-primary-100 rounded-full focus-within:ring-2 focus-within:ring-primary-400 bg-white cursor-pointer flex items-center"
                 onClick={() => setIsOpen(!isOpen)}
-                style={{ direction: isRTL ? 'rtl' : 'ltr' }}
             >
-                <span className={`text-gray-400 ${isRTL ? 'right-3 ml-2' : 'left-3 mr-2'}`}>
-                    <BiSearch />
-                </span>
-                <span className="flex-grow text-gray-500">
-                    {placeholder}
-                </span>
-                <span className={`text-gray-400 ${isRTL ? 'left-3 mr-2' : 'right-3 ml-2'}`}>
-                    <LuChevronDown />
-                </span>
+                <span className="text-primary-400"><BiSearch size={20} /></span>
+                <div className={`flex-grow px-2 text-gray-500 ${isRTL ? 'text-right' : 'text-left'} flex flex-wrap gap-1`}>
+                    {selectedItems.length > 0 ?
+                        selectedItems.map(item => (
+                            <span key={item.id} className="flex items-center bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
+                                {item.name}
+                                <button type="button" onClick={(e) => { e.stopPropagation(); toggleItem(item); }} className={`${isRTL ? 'mr-1' : 'ml-1'} hover:text-red-500`}>
+                                    <RxCross2 />
+                                </button>
+                            </span>
+                        ))
+                        : placeholder
+                    }
+                </div>
+                <span className={`text-primary-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}><LuChevronDown size={20} /></span>
             </div>
-
-            {/* Dropdown List */}
             {isOpen && (
-                <div className="absolute z-20 w-full bg-white border border-gray-300 rounded-md mt-1 shadow-lg max-h-60 overflow-y-auto">
-                    {/* <div className="p-2">
-                        <div className="relative">
+                <div className="absolute z-20 w-full bg-white border border-primary-200 rounded-md mt-1 shadow-lg max-h-60 overflow-y-auto">
+                    <div className="p-2">
                         <input
                             type="text"
                             placeholder={searchPlaceholder}
-                            className={`w-full p-2 border border-gray-300 rounded-md pl-10 ${isRTL ? 'pr-10 text-right' : 'pl-10 text-left'}`}
+                            className={`w-full p-2 border border-primary-100 rounded-lg ${isRTL ? 'text-right' : 'text-left'}`}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            style={{ direction: isRTL ? 'rtl' : 'ltr' }}
                         />
-                        <span className={`absolute inset-y-0 flex items-center ${isRTL ? 'right-3' : 'left-3'} text-gray-400`}>
-                            <BiSearch />
-                        </span>
-                        {searchTerm && (
-                            <button
-                            type="button"
-                            onClick={() => setSearchTerm('')}
-                            className={`absolute inset-y-0 flex items-center ${isRTL ? 'left-3' : 'right-3'} text-gray-400 hover:text-gray-600`}
-                            >
-                            <RxCross2 />
-                            </button>
-                        )}
-                        </div>
-                    </div> */}
+                    </div>
                     <ul className="p-1">
-                        {filteredOptions.length > 0 ? (
-                            filteredOptions.map((option) => (
-                                <li
-                                    key={option.id}
-                                    className={`flex items-center justify-between p-2 cursor-pointer hover:bg-blue-50 ${isRTL ? 'flex-row-reverse' : ''}`}
-                                    onClick={() => toggleItem(option)}
-                                >
-                                    <label className={`flex items-center cursor-pointer flex-grow ${isRTL ? 'justify-end' : 'justify-start'}`}>
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedItems.some((item) => item.id === option.id)}
-                                            onChange={() => toggleItem(option)}
-                                            className={`form-checkbox h-4 w-4 text-primary-color rounded ${isRTL ? 'ml-2' : 'mr-2'}`}
-                                        />
-                                        <span className={`text-gray-800 ${isRTL ? 'text-right' : 'text-left'}`}>{option.name}</span>
-                                    </label>
-                                    {option.count && <span className="text-gray-500 text-sm">({option.count})</span>}
-                                </li>
-                            ))
-                        ) : (
-                            <li className="p-2 text-gray-500 text-center">{isRTL ? 'لا توجد نتائج' : 'No results found.'}</li>
+                        {filteredOptions.length > 0 ? filteredOptions.map((option) => (
+                            <li
+                                key={option.id}
+                                className={`flex items-center justify-between p-2 cursor-pointer hover:bg-primary-50 rounded-md ${isRTL ? 'flex-row-reverse' : ''}`}
+                                onClick={() => toggleItem(option)}
+                            >
+                                <div className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        readOnly
+                                        checked={selectedItems.some((item) => item.id === option.id)}
+                                        className="form-checkbox h-4 w-4 text-primary-400 rounded cursor-pointer"
+                                    />
+                                    <span className={`text-gray-800 ${isRTL ? 'mr-2' : 'ml-2'}`}>{option.name}</span>
+                                </div>
+                                {option.count && <span className="text-gray-500 text-sm">({option.count})</span>}
+                            </li>
+                        )) : (
+                            <li className="p-2 text-gray-500 text-center">{t.home.noResults}</li>
                         )}
                     </ul>
                 </div>

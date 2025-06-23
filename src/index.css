@@ -42,9 +42,13 @@
   --color-primary-200: #99ecda;
   --color-primary-300: #66e3ca;
   --color-primary-400: #32e0bb; /* Base */
+  --color-primary-400: #32e0bb;
   --color-primary-500: #2dcaaa;
   --color-primary-600: #28b499;
   --color-primary-700: #239e88;
   --color-primary-800: #1e8877;
   --color-primary-900: #196266;
+
+  --shadow-card-shadow:
+    0 0 2px 0 rgba(37, 42, 49, 0.16), 0 1px 4px 0 rgba(37, 42, 49, 0.12);
 }
