@@ -10,7 +10,7 @@ function MainLayout() {
         <Header />
       </header>
 
-      <main className="h-screen">
+      <main>
         <Outlet />
       </main>
 

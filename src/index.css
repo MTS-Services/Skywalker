@@ -27,7 +27,7 @@
 }
 
 /* Fix space-x-reverse for RTL */
-[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+[dir="rtl"] .space-x-reverse> :not([hidden])~ :not([hidden]) {
   --tw-space-x-reverse: 1;
 }
 
@@ -36,6 +36,7 @@
   transition: all 0.2s ease-in-out;
 }
 
+<<<<<<< HEAD
  
 @theme {
   --color-primary-50: #e6faf5;
@@ -54,3 +55,8 @@
 
 }
  
+=======
+@theme {
+  --color-primary-color: #32E0BB;
+}
+>>>>>>> f8892c487c5dc12515008b17f2d32c5042499fd7

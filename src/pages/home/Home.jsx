@@ -1,10 +1,14 @@
 import React from "react";
-import About from "../about/About";
+import { useLanguage } from '../../context/LanguageContext';
+import HeroSection from "./Hero";
+import Ads from "./Ads"
 
 export const Home = () => {
+   const { isRTL, t, language } = useLanguage();
   return (
     <div>
-      <About></About>
+      <HeroSection isRTL={isRTL} t={t}></HeroSection>
+      <Ads t={t}></Ads>
     </div>
   );
 };
