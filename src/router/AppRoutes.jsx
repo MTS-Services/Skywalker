@@ -9,7 +9,6 @@ import Agent from "../pages/agent/Agent";
 
 import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
 
-
 import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 
@@ -59,17 +58,16 @@ const AppRoutes = createBrowserRouter([
         element: <Agent />,
       },
       {
-
         path: "agents-details/:id",
         element: <AgentsDetails />,
-
+      },
+      {
         path: "contact",
         element: <Contact />,
       },
       {
         path: "terms",
         element: <TermAndCondition />,
-
       },
     ],
   },
