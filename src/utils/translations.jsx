@@ -43,6 +43,16 @@ export const translations = {
             'loding' : 'Loading...',
             'noResultsFound' : 'No results found for your criteria.',
             'ads': 'Ads',
+            'transaction': 'Transaction',
+            'propertyType': 'Property Type',
+            'price': 'Price',
+            'textSearch': 'Text Search',
+            'apply': 'Apply',
+            'minPrice': 'Min Price (KD)',
+            'maxPrice': 'Max Price (KD)',
+            'searchByText': 'Search by Text...',
+            'search': 'Search',
+            'textSearchHint': 'Search by text or keywords',
         }
     },
     ar: {
@@ -88,6 +98,16 @@ export const translations = {
             'loding' : 'جاري التحميل...',
             'noResultsFound' : 'لم يتم العثور على نتائج لمعاييرك.',
             'ads': 'اعلانات',
+            'transaction': 'معاملة',
+            'propertyType': 'نوع العقار',
+            'price': 'السعر',
+            'textSearch': 'بحث بالنص',
+            'apply': 'تطبيق',
+            'minPrice': 'السعر الادنى (د.ك)',
+            'maxPrice': 'السعر الاعلى (د.ك)',
+            'searchByText': 'ابحث بالنص...',
+            'search': 'ابحث',
+            'textSearchHint': 'ابحث بالنص او كلمات مفتاحية',
         }
     },
 }
