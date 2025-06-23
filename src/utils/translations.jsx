@@ -34,6 +34,15 @@ export const translations = {
             'copyLinkTitle': "Copy Direct Link",
             'copyButton': "Copy URL",
             'noResults': "No results found",
+        },
+        "search": {
+            'super': 'Super',
+            'currency': 'KD',
+            'activeFilters': 'Active Filters',
+            'searchResults': 'Search Results',
+            'loding' : 'Loading...',
+            'noResultsFound' : 'No results found for your criteria.',
+            'ads': 'Ads',
         }
     },
     ar: {
@@ -70,6 +79,15 @@ export const translations = {
             'copyLinkTitle': "نسخ الرابط المباشر",
             'copyButton': "نسخ الرابط",
             'noResults': "لم يتم العثور على نتائج",
+        },
+        "search": {
+            'super': 'سوبر',
+            'currency': 'د.ك',
+            'activeFilters': 'الفلاتر النشطة',
+            'searchResults': 'نتائج البحث',
+            'loding' : 'جاري التحميل...',
+            'noResultsFound' : 'لم يتم العثور على نتائج لمعاييرك.',
+            'ads': 'اعلانات',
         }
     },
 }

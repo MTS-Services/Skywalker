@@ -19,10 +19,10 @@ const AppRoutes = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      // {
-      //   path: "search",
-      //   element: <SearchResults />,
-      // },
+      {
+        path: "search",
+        element: <SearchResults />,
+      },
       {
         path: "ads/:slug",
         element: <AdDetailPage />,
