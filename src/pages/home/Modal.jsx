@@ -62,10 +62,10 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
         } else {
             try {
                 await navigator.clipboard.writeText(adUrl);
-                alert(t.home.linkCopied);
+                alert(t.ads.linkCopied);
             } catch (err) {
                 console.error('Failed to copy text: ', err);
-                alert(t.home.failedToCopy);
+                alert(t.ads.failedToCopy);
             }
         }
     };
@@ -102,7 +102,7 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
                     <main className="overflow-y-auto flex-1">
                         <div className="flex flex-col items-center bg-primary-700 text-primary-50 px-4 sm:px-6 py-6">
                             <h1 className="text-xl sm:text-2xl font-bold text-center text-on-primary">{ad.title}</h1>
-                            <div className="mt-2 text-2xl sm:text-3xl font-bold">{ad.kd} {t.home.currency}</div>
+                            <div className="mt-2 text-2xl sm:text-3xl font-bold">{ad.kd} {t.ads.currency}</div>
                             <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
                                 <div className="flex items-center gap-1.5 rounded-full bg-primary-600 py-1 px-3 text-xs sm:text-sm"><FiClock /><span>{formatTimeAgo(ad.postCreateAt, language)}</span></div>
                                 <div className="flex items-center gap-1.5 rounded-full bg-primary-600 py-1 px-3 text-xs sm:text-sm"><FiEye /><span>{ad.views}</span></div>

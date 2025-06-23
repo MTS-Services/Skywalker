@@ -61,10 +61,10 @@ const AdDetailPage = () => {
       try {
         await navigator.clipboard.writeText(adUrl);
         // Consider using a more modern notification system than alert()
-        alert(t.home.linkCopied);
+        alert(t.ads.linkCopied);
       } catch (err) {
         console.error('Failed to copy text: ', err);
-        alert(t.home.failedToCopy);
+        alert(t.ads.failedToCopy);
       }
     }
   };
@@ -124,7 +124,7 @@ const AdDetailPage = () => {
             <h1 className="text-xl md:text-2xl font-bold text-on-primary">
               {ad.title}
             </h1>
-            <div className="mt-2 text-2xl md:text-3xl font-bold">{ad.kd} {t.home.currency}</div>
+            <div className="mt-2 text-2xl md:text-3xl font-bold">{ad.kd} {t.ads.currency}</div>
           </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <div className="flex items-center justify-center gap-1.5 rounded-full bg-primary-600 py-1.5 px-3 text-sm">

@@ -78,7 +78,7 @@ export default function Ads() {
                 <div className="container mx-auto px-4">
                     <div className="w-full max-w-3xl mx-auto">
                         <h3 className="text-2xl font-bold text-gray-800 mb-6 px-2">
-                            {t.home.recentAdsTitle}
+                            {t.ads.recentAdsTitle}
                         </h3>
                         <div className="flex flex-col items-center justify-start gap-4">
                             {ads.map((ad) => (
@@ -117,7 +117,7 @@ export default function Ads() {
 
                                                     <div className="absolute top-0 start-0.5 w-full h-[28px] flex items-center justify-center">
                                                         <div className="text-white text-sm font-bold whitespace-nowrap overflow-hidden px-1">
-                                                            {t.home.super}
+                                                            {t.ads.super}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,7 +129,7 @@ export default function Ads() {
                                                 </h4>
                                                 <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
                                                     <div className="font-bold text-primary-dark text-base">
-                                                        {ad.kd} {t.home.currency}
+                                                        {ad.kd} {t.ads.currency}
                                                     </div>
                                                     <div className="flex items-center gap-1 text-gray-500">
                                                         <FiClock className="size-4" />
