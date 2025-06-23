@@ -7,7 +7,8 @@ import Login from "../pages/auth/Login";
 
 import Register from "../pages/auth/Register";
 import Agent from "../pages/agent/Agent";
-
+import Contact from "../pages/contact/Contact";
+import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -42,6 +43,14 @@ const AppRoutes = createBrowserRouter([
       {
         path: "agents",
         element: <Agent />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "terms",
+        element: <TermAndCondition />,
       },
     ],
   },
