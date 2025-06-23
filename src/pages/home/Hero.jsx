@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BannerImage from '../../assets/images/home-hero-banner.svg';
 import { RxCross2 } from "react-icons/rx";
 import { BiSearch } from "react-icons/bi";
 import { LuChevronDown } from "react-icons/lu";
 
-// Sample data for regions - in a real app, this would come from an API
+// Data sources for filters
 const regionsData = [
     { id: 'all', name: { en: 'All Region', ar: 'كل المناطق' }, count: 2134 },
     { id: 'hawally', name: { en: 'Hawally Governorate', ar: 'محافظة حولي' }, count: 726 },
@@ -26,10 +27,8 @@ const mainOptions = [
     { id: 'exchange', name: { en: 'Exchange', ar: 'بدل' } },
 ];
 
-
 /**
- * Hero Component
- * * Displays the main hero section with a background image and search filters.
+ * Hero Component: Displays the main hero section with a background and search filters.
  */
 export default function Hero({ t, isRTL }) {
     return (
@@ -37,7 +36,6 @@ export default function Hero({ t, isRTL }) {
             <div className="absolute bottom-0 left-0 right-0 flex justify-center w-full">
                 <img alt="Cityscape background" width="1920" height="426" className="w-full h-auto object-cover max-w-screen-2xl" src={BannerImage} />
             </div>
-
             <div className="relative container mx-auto w-full h-full flex items-center justify-center z-10 p-4">
                 <div className="flex flex-col items-center text-center w-full max-w-2xl">
                     <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-3">
@@ -56,26 +54,42 @@ export default function Hero({ t, isRTL }) {
 }
 
 /**
- * FilterComponent
- * * Renders the search and filter controls for properties.
+ * FilterComponent: Renders the search controls and handles search submission.
  */
 function FilterComponent({ t, isRTL }) {
+    const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState(mainOptions[0]?.id || '');
     const [selectedRegions, setSelectedRegions] = useState([]);
     const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
 
-    const handleOptionClick = (option) => {
-        setSelectedOption(option);
+    /**
+     * Handles the form submission to perform a search.
+     * @param {React.FormEvent} e - The form event.
+     */
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const params = new URLSearchParams();
+
+        if (selectedOption) {
+            params.append('transactionType', selectedOption);
+        }
+        selectedRegions.forEach(region => {
+            if (region.id !== 'all') { // Do not include 'all' in the query
+                params.append('regions', region.id);
+            }
+        });
+        selectedPropertyTypes.forEach(type => {
+            params.append('propertyTypes', type.id);
+        });
+
+        // Navigate to the search results page with the filter parameters
+        navigate(`/search?${params.toString()}`);
     };
 
     return (
-        <form action="" onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <form onSubmit={handleSearch} className="space-y-4">
             <MultiSelectDropdown
-                options={regionsData.map(region => ({
-                    id: region.id,
-                    name: region.name[isRTL ? 'ar' : 'en'],
-                    count: region.count
-                }))}
+                options={regionsData.map(region => ({ ...region, name: region.name[isRTL ? 'ar' : 'en'] }))}
                 selectedItems={selectedRegions}
                 setSelectedItems={setSelectedRegions}
                 placeholder={t.home.typeAreaPlaceholder}
@@ -83,30 +97,25 @@ function FilterComponent({ t, isRTL }) {
                 isRTL={isRTL}
             />
             <MultiSelectDropdown
-                options={propertyTypeData.map(type => ({
-                    id: type.id,
-                    name: type.name[isRTL ? 'ar' : 'en'],
-                }))}
+                options={propertyTypeData.map(type => ({ ...type, name: type.name[isRTL ? 'ar' : 'en'] }))}
                 selectedItems={selectedPropertyTypes}
                 setSelectedItems={setSelectedPropertyTypes}
                 placeholder={t.home.propertyTypePlaceholder}
                 searchPlaceholder={t.home.searchPlaceholder}
                 isRTL={isRTL}
             />
-            
             <div className="flex justify-center rounded-full overflow-hidden border border-primary-400 gap-1 p-1 bg-white">
                 {mainOptions.map((option) => (
                     <button
                         key={option.id}
                         type="button"
                         className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition-colors duration-300 ease-in-out ${selectedOption === option.id ? 'bg-primary-400 text-white' : 'bg-transparent text-primary-400 hover:bg-primary-50'}`}
-                        onClick={() => handleOptionClick(option.id)}
+                        onClick={() => setSelectedOption(option.id)}
                     >
                         {option.name[isRTL ? 'ar' : 'en']}
                     </button>
                 ))}
             </div>
-
             <button
                 type="submit"
                 className="w-full py-3 bg-primary-500 text-white font-semibold rounded-full shadow-lg hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50 transition-colors duration-300"
@@ -118,8 +127,7 @@ function FilterComponent({ t, isRTL }) {
 }
 
 /**
- * MultiSelectDropdown Component
- * * A reusable multi-select dropdown with search functionality.
+ * MultiSelectDropdown: A reusable multi-select dropdown with search.
  */
 function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeholder, searchPlaceholder, isRTL }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -144,10 +152,6 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
         );
     };
 
-    const removeItem = (itemToRemove) => {
-        setSelectedItems((prev) => prev.filter((item) => item.id !== itemToRemove.id));
-    };
-
     const filteredOptions = options.filter(option =>
         option.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -159,61 +163,51 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <span className="text-primary-400"><BiSearch size={20} /></span>
-                <span className={`flex-grow px-2 text-gray-500 ${isRTL ? 'text-right' : 'text-left'}`}>
-                    {selectedItems.length > 0 ? `${selectedItems.length} selected` : placeholder}
-                </span>
+                <div className={`flex-grow px-2 text-gray-500 ${isRTL ? 'text-right' : 'text-left'} flex flex-wrap gap-1`}>
+                    {selectedItems.length > 0 ?
+                        selectedItems.map(item => (
+                            <span key={item.id} className="flex items-center bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
+                                {item.name}
+                                <button type="button" onClick={(e) => { e.stopPropagation(); toggleItem(item); }} className={`${isRTL ? 'mr-1' : 'ml-1'} hover:text-red-500`}>
+                                    <RxCross2 />
+                                </button>
+                            </span>
+                        ))
+                        : placeholder
+                    }
+                </div>
                 <span className={`text-primary-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}><LuChevronDown size={20} /></span>
             </div>
-
-            {selectedItems.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2 p-2 rounded-xl border border-primary-100">
-                    {selectedItems.map((item) => (
-                        <span key={item.id} className="flex items-center bg-primary-100 text-primary-800 text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap">
-                            {item.name}
-                            <button type="button" onClick={() => removeItem(item)} className={`${isRTL ? 'mr-2' : 'ml-2'} text-primary-600 hover:text-primary-900`}>
-                                <RxCross2 />
-                            </button>
-                        </span>
-                    ))}
-                </div>
-            )}
-            
             {isOpen && (
                 <div className="absolute z-20 w-full bg-white border border-primary-200 rounded-md mt-1 shadow-lg max-h-60 overflow-y-auto">
                     <div className="p-2">
-                        <div className="relative">
-                            <span className={`absolute inset-y-0 flex items-center ${isRTL ? 'right-3' : 'left-3'} text-primary-300`}><BiSearch /></span>
-                            <input
-                                type="text"
-                                placeholder={searchPlaceholder}
-                                className={`w-full p-2 border border-primary-100 outline-none focus:ring-1 focus:ring-primary-400 rounded-lg ${isRTL ? 'pr-10 text-right' : 'pl-10 text-left'}`}
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                onClick={(e) => e.stopPropagation()}
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            placeholder={searchPlaceholder}
+                            className={`w-full p-2 border border-primary-100 rounded-lg ${isRTL ? 'text-right' : 'text-left'}`}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
                     </div>
                     <ul className="p-1">
-                        {filteredOptions.length > 0 ? (
-                            filteredOptions.map((option) => (
-                                <li
-                                    key={option.id}
-                                    className={`flex items-center justify-between p-2 cursor-pointer hover:bg-primary-50 rounded-md ${isRTL ? 'flex-row-reverse' : ''}`}
-                                    onClick={() => toggleItem(option)}
-                                >
-                                    <div className={`flex items-center ${isRTL ? 'text-right' : 'text-left'}`}>
-                                        <input
-                                            type="checkbox"
-                                            readOnly
-                                            checked={selectedItems.some((item) => item.id === option.id)}
-                                            className="form-checkbox h-4 w-4 text-primary-400 rounded cursor-pointer"
-                                        />
-                                        <span className={`text-gray-800 ${isRTL ? 'mr-2' : 'ml-2'}`}>{option.name}</span>
-                                    </div>
-                                    {option.count && <span className="text-gray-500 text-sm">({option.count})</span>}
-                                </li>
-                            ))
-                        ) : (
+                        {filteredOptions.length > 0 ? filteredOptions.map((option) => (
+                            <li
+                                key={option.id}
+                                className={`flex items-center justify-between p-2 cursor-pointer hover:bg-primary-50 rounded-md ${isRTL ? 'flex-row-reverse' : ''}`}
+                                onClick={() => toggleItem(option)}
+                            >
+                                <div className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        readOnly
+                                        checked={selectedItems.some((item) => item.id === option.id)}
+                                        className="form-checkbox h-4 w-4 text-primary-400 rounded cursor-pointer"
+                                    />
+                                    <span className={`text-gray-800 ${isRTL ? 'mr-2' : 'ml-2'}`}>{option.name}</span>
+                                </div>
+                                {option.count && <span className="text-gray-500 text-sm">({option.count})</span>}
+                            </li>
+                        )) : (
                             <li className="p-2 text-gray-500 text-center">{t.home.noResults}</li>
                         )}
                     </ul>
