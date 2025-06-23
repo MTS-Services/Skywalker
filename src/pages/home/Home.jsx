@@ -4,11 +4,11 @@ import HeroSection from "./Hero";
 import Ads from "./Ads"
 
 export const Home = () => {
-   const { isRTL, t, language } = useLanguage();
+  const { isRTL, t } = useLanguage();
   return (
     <div>
       <HeroSection isRTL={isRTL} t={t}></HeroSection>
-      <Ads t={t} isRTL={isRTL} language={language}></Ads>
+      <Ads></Ads>
     </div>
   );
 };

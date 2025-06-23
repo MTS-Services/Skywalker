@@ -24,7 +24,16 @@ export const translations = {
             'searchButton': 'Search',
             'recentAdsTitle': 'Recent Real Estate Ads in Kuwait',
             'currency': 'KD',
-            'super': 'Super'
+            'super': 'Super',
+            'linkCopied': "Link copied to clipboard!",
+            'failedToCopy': "Failed to copy link.",
+            'description': "Description",
+            'area': "Area",
+            'adId': "Ad ID",
+            'whatsapp': "WhatsApp",
+            'shareAd': "Share Ad",
+            'copyLinkTitle': "Copy Direct Link",
+            'copyButton': "Copy URL"
         }
     },
     ar: {
@@ -51,7 +60,16 @@ export const translations = {
             'searchButton': 'ابحث',
             'recentAdsTitle': 'اعلانات عقارية حديثة في الكويت',
             'currency': 'د.ك',
-            'super': 'سوبر'
-        }  
+            'super': 'سوبر',
+            'linkCopied': "تم نسخ الرابط إلى الحافظة!",
+            'failedToCopy': "فشل في نسخ الرابط.",
+            'description': "الوصف",
+            'area': "المساحة",
+            'adId': "رقم الإعلان",
+            'whatsapp': "واتساب",
+            'shareAd': "مشاركة الإعلان",
+            'copyLinkTitle': "نسخ الرابط المباشر",
+            'copyButton': "نسخ الرابط"
+        }
     },
 }

@@ -4,10 +4,10 @@ import About from "../pages/about/About";
 import { Home } from "../pages/home/Home";
 import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
-
 import Register from "../pages/auth/Register";
 import Agent from "../pages/agent/Agent";
-
+import AdDetailPage from "../pages/home/AdDetailPage";
+import SearchResults from "../pages/home/SearchResults";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -18,6 +18,14 @@ const AppRoutes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      // {
+      //   path: "search",
+      //   element: <SearchResults />,
+      // },
+      {
+        path: "ads/:slug",
+        element: <AdDetailPage />,
       },
       {
         path: "login",

@@ -101,24 +101,24 @@ function FilterComponent({ t, isRTL }) {
                     />
 
                     {/* Rent/Sale/Exchange Buttons */}
-                    <div className={`flex justify-center mb-6 rounded-full overflow-hidden border border-primary-color gap-1 p-1 `}>
+                    <div className={`flex justify-center mb-6 rounded-full overflow-hidden border border-primary-400 gap-1 p-1 `}>
                         <button
                             className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
-            ${selectedOption === 'Rent' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
+            ${selectedOption === 'Rent' ? 'bg-primary-400 text-white' : 'bg-white text-primary-400 hover:bg-primary-50'}`}
                             onClick={() => handleOptionClick('Rent')}
                         >
                             {t.home.rent}
                         </button>
                         <button
                             className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
-            ${selectedOption === 'Sale' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
+            ${selectedOption === 'Sale' ? 'bg-primary-400 text-white' : 'bg-white text-primary-400 hover:bg-primary-50'}`}
                             onClick={() => handleOptionClick('Sale')}
                         >
                             {t.home.sale}
                         </button>
                         <button
                             className={`flex-1 py-2 px-4 text-sm font-medium rounded-full transition duration-300 ease-in-out cursor-pointer
-            ${selectedOption === 'Exchange' ? 'bg-primary-color text-white' : 'bg-white text-primary-color hover:bg-primary-color/10'}`}
+            ${selectedOption === 'Exchange' ? 'bg-primary-400 text-white' : 'bg-white text-primary-400 hover:bg-primary-50'}`}
                             onClick={() => handleOptionClick('Exchange')}
                         >
                             {t.home.exchange}
@@ -127,7 +127,7 @@ function FilterComponent({ t, isRTL }) {
 
                     {/* Search Button */}
                     <button
-                        className="w-full py-3 bg-primary-color text-white font-semibold rounded-full shadow-lg hover:bg-primary-color focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-opacity-50 transition duration-300 ease-in-out cursor-pointer"
+                        className="w-full py-3 bg-primary-400 text-white font-semibold rounded-full shadow-lg hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50 transition duration-300 ease-in-out cursor-pointer"
                     >
                         {t.home.searchButton}
                     </button>
@@ -174,17 +174,17 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
         <div className="relative mb-4 w-full" ref={dropdownRef}>
             {/* Selected Tags Display */}
             {selectedItems.length > 0 && (
-                <div className={`flex flex-wrap gap-2 mb-2 p-2 rounded-2xl border border-gray-200 ${isRTL ? 'justify-end' : 'justify-start'}`}>
+                <div className={`flex flex-wrap gap-2 mb-2 p-2 rounded-2xl border border-primary-100 ${isRTL ? 'justify-end' : 'justify-start'}`}>
                     {selectedItems.map((item) => (
                         <span
                             key={item.id}
-                            className="flex items-center bg-primary-color/10 !text-black dark:text-white text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap"
+                            className="flex items-center bg-primary-50 text-black dark:text-white text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap"
                         >
                             {item.name}
                             <button
                                 type="button"
                                 onClick={() => removeItem(item)}
-                                className={`ml-2 text-primary-color hover:text-primary-color focus:outline-none ${isRTL ? 'mr-2 ml-0' : 'ml-2 mr-0'}`}
+                                className={`ml-2 text-primary-600 hover:text-primary-900 focus:outline-none ${isRTL ? 'mr-2 ml-0' : 'ml-2 mr-0'}`}
                             >
                                 <RxCross2 />
                             </button>
@@ -195,35 +195,35 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
 
             {/* Input Field (acts as dropdown trigger) */}
             <div
-                className={`w-full p-3 pr-4 border border-gray-300 rounded-full focus-within:ring-2 focus-within:ring-primary-color bg-white cursor-pointer flex items-center ${isRTL ? 'pl-4 text-right' : 'pr-4 text-left'}`}
+                className={`w-full p-3 pr-4 border border-primary-100 rounded-full focus-within:ring-2 focus-within:ring-primary-400 bg-white cursor-pointer flex items-center ${isRTL ? 'pl-4 text-right' : 'pr-4 text-left'}`}
                 onClick={() => setIsOpen(!isOpen)}
                 style={{ direction: isRTL ? 'rtl' : 'ltr' }}
             >
-                <span className={`text-gray-400 ${isRTL ? 'right-3 ml-2' : 'left-3 mr-2'}`}>
+                <span className={`text-primary-400 ${isRTL ? 'right-3 ml-2' : 'left-3 mr-2'}`}>
                     <BiSearch />
                 </span>
-                <span className="flex-grow text-gray-500">
+                <span className="flex-grow text-primary-800">
                     {placeholder}
                 </span>
-                <span className={`text-gray-400 ${isRTL ? 'left-3 mr-2' : 'right-3 ml-2'}`}>
+                <span className={`text-primary-400 ${isRTL ? 'left-3 mr-2' : 'right-3 ml-2'}`}>
                     <LuChevronDown />
                 </span>
             </div>
 
             {/* Dropdown List */}
             {isOpen && (
-                <div className="absolute z-20 w-full bg-white border border-gray-300 rounded-md mt-1 shadow-lg max-h-60 overflow-y-auto">
+                <div className="absolute z-20 w-full bg-white border border-primary-200 rounded-md mt-1 shadow-lg max-h-60 overflow-y-auto">
                     <div className="p-2">
                         <div className="relative">
                         <input
                             type="text"
                             placeholder={searchPlaceholder}
-                            className={`w-full p-2 border border-gray-300 rounded-md pl-10 ${isRTL ? 'pr-10 text-right' : 'pl-10 text-left'}`}
+                            className={`w-full p-2 border border-primary-100 outline-none focus:ring-1 focus-within:ring-1 focus-within:ring-primary-400 rounded-lg pl-10 ${isRTL ? 'pr-10 text-right' : 'pl-10 text-left'}`}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             style={{ direction: isRTL ? 'rtl' : 'ltr' }}
                         />
-                        <span className={`absolute inset-y-0 flex items-center ${isRTL ? 'right-3' : 'left-3'} text-gray-400`}>
+                        <span className={`absolute inset-y-0 flex items-center ${isRTL ? 'right-3' : 'left-3'} text-primary-300`}>
                             <BiSearch />
                         </span>
                         {searchTerm && (
@@ -250,7 +250,7 @@ function MultiSelectDropdown({ options, selectedItems, setSelectedItems, placeho
                                             type="checkbox"
                                             checked={selectedItems.some((item) => item.id === option.id)}
                                             onChange={() => toggleItem(option)}
-                                            className={`form-checkbox h-4 w-4 text-primary-color rounded ${isRTL ? 'ml-2' : 'mr-2'}`}
+                                            className={`form-checkbox h-4 w-4 text-primary-400 rounded ${isRTL ? 'ml-2' : 'mr-2'}`}
                                         />
                                         <span className={`text-gray-800 ${isRTL ? 'text-right' : 'text-left'}`}>{option.name}</span>
                                     </label>
