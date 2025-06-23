@@ -1,5 +1,4 @@
 export const translations = {
-<<<<<<< HEAD
   en: {
     // Header
     header: {
@@ -16,67 +15,32 @@ export const translations = {
     footer: {
       titleFast: "Properties for rent",
       footerChildone: "Apartments for rent",
-=======
-    en: {
-        // Header
-        "header": {
-            "home": "Home (Search)",
-            "agents": "Agents",
-            "about": "About",
-            "contact": "Contact",
-            "login": "Login",
-            "register": "Register",
-            "addFreeAd": "Add Free Ad",
-            "kuwaitRealEstate": "Kuwait Real Estate"
-        },
-
-        // Home Page
-        "home": {
-            'bannerTitle': 'Apartments for Rent | Houses for Sale',
-            'bannerSubTitle': 'Search for your property for free and easily',
-            'typeAreaPlaceholder': 'Type Area to Search',
-            'propertyTypePlaceholder': 'Property Type',
-            'rent': 'Rent',
-            'sale': 'Sale',
-            'exchange': 'Exchange',
-            'searchButton': 'Search',
-            'recentAdsTitle': 'Recent Real Estate Ads in Kuwait',
-            'kd': 'KD',
-        }
-    },
-    ar: {
-        // Header      
-        "header": {
-            "home": "الرئيسية (بحث)",
-            "agents": "المكاتب",
-            "about": "من نحن",
-            "contact": "اتصل بنا",
-            "login": "تسجيل الدخول",
-            "register": "تسجيل جديد",
-            "addFreeAd": "اضافة اعلان مجان",
-            "kuwaitRealEstate": "العقار الكويتي"
-        },
-        // Home Page      
-        "home": {
-            'bannerTitle': 'عقارات للايجار | عقارات للبيع',
-            'bannerSubTitle': 'ابحث عن عقارك بكل سهولة',
-            'typeAreaPlaceholder': 'اكتب المساحة للبحث',
-            'propertyTypePlaceholder': 'نوع العقار',
-            'rent': 'للايجار',
-            'sale': 'للبيع',
-            'exchange': 'للتبادل',
-            'searchButton': 'ابحث',
-            'recentAdsTitle': 'اعلانات عقارية حديثة في الكويت',
-            'kd': 'د.ك',
-        }  
->>>>>>> f8892c487c5dc12515008b17f2d32c5042499fd7
     },
 
     // Home Page
 
     // Login Page
     login: {
-      title: "Hello Again Brother",
+      title: "Hello again",
+      newsuer: "New User?",
+      singupLink: "Sign up",
+      mobileNumber: "Mobile Number",
+      passwords: "Password",
+      buttontext: "LOGIN",
+      remember: "Remember me",
+      forgetPss: "forget Password",
+    },
+
+    register: {
+      title: "Register",
+      subtitle:
+        "Enter your mobile number and a new password to register a new account",
+      thamsCondition: "By registering you agree to the terms and conditions",
+      alradyLogin: "Old user with an account?",
+      loginlink: " Login to your account",
+      mobileNumber: "Mobile Number",
+      passwords: "Password",
+      buttontext: "Register",
     },
 
     agent: {
@@ -106,7 +70,27 @@ export const translations = {
 
     // Login Page
     login: {
-      title: "مرحبا مرة أخرى أخي",
+      title: "مرحبا مجددا",
+      newsuer: "مستخدم جديد؟ ",
+
+      singupLink: "الاشتراك",
+      mobileNumber: "رقم الموبايلnt",
+      passwords: " كلمة السر",
+      buttontext: "الدخول",
+      remember: "تذکرنی",
+      forgetPss: "نسيت كلمة السر؟",
+    },
+
+    register: {
+      title: "تسجيل",
+      subtitle: "أكتب رقم موبايلك وإختر كلمة سر جديدة لتسجيل حساب جديد",
+      thamsCondition: "تسجيلك يعني موافقتك على الشروط والأحكام",
+      alradyLogin: "مستخدم قديم ولديك حساب سابقًا؟",
+
+      loginlink: " أدخل إلى حسابك",
+      mobileNumber: "رقم الموبايلnt",
+      passwords: " كلمة السر",
+      buttontext: "تسجيل ",
     },
 
     agent: {

@@ -7,6 +7,7 @@ import Login from "../pages/auth/Login";
 
 import Register from "../pages/auth/Register";
 import Agent from "../pages/agent/Agent";
+import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
 
 
 const AppRoutes = createBrowserRouter([
@@ -42,6 +43,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "agents",
         element: <Agent />,
+      },
+      {
+        path: "agents-details/:id",
+        element: <AgentsDetails />,
       },
     ],
   },

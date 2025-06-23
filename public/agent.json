@@ -23,7 +23,7 @@
     "phone": "90079738"
   },
   {
-    "id": 2,
+    "id": 3,
     "name": "Real Estate Office",
     "ads": "19",
     "image": ["./assets/images/cart2.png"],
@@ -33,7 +33,7 @@
     "phone": "90079738"
   },
   {
-    "id": 2,
+    "id": 4,
     "name": "Real Estate Distance Company",
     "ads": "19",
     "description": "Aman Real Estate Brokerage CompanyAman any",

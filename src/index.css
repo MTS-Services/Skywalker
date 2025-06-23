@@ -36,7 +36,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-<<<<<<< HEAD
  
 @theme {
   --color-primary-50: #e6faf5;
@@ -49,14 +48,10 @@
   --color-primary-700: #239e88;
   --color-primary-800: #1e8877;
   --color-primary-900: #196266;
+  --color-bgcolor-900: #32E0BB;
   --color-descripton:#556885;
   --color-adspart: #2e6290;
 
 
 }
  
-=======
-@theme {
-  --color-primary-color: #32E0BB;
-}
->>>>>>> f8892c487c5dc12515008b17f2d32c5042499fd7

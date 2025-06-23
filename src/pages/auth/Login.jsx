@@ -31,17 +31,17 @@ const Login = () => {
 
         {/* Right Form Section */}
         <div className="flex w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="mb-2 text-center text-3xl font-extrabold text-[#32E0BB]">
+          <h2 className="mb-2 text-center text-3xl font-bold text-[#32E0BB]">
             {t.login.title}
           </h2>
-          <p className="mb-10 text-center text-gray-600">
-            New user?{" "}
+          <p className="mb-10 text-center text-sm text-gray-600">
+            {t.login.newsuer}
             <a
               href="/register"
               className="font-semibold text-[#32E0BB] hover:underline"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
-              Sign up
+              <span>{t.login.singupLink}</span>
             </a>
           </p>
 
@@ -55,7 +55,7 @@ const Login = () => {
                 <input
                   id="phone"
                   type="tel"
-                  placeholder="*phone number"
+                  placeholder={t.login.mobileNumber}
                   className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
                 />
@@ -64,32 +64,38 @@ const Login = () => {
 
             {/* Password */}
             <div>
-              <div className="relative">
-                {/* Eye icon for toggling visibility */}
-                <button
-                  type="button" // Important: set type to button to prevent form submission
-                  onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
-                >
-                  {passwordVisible ? (
-                    <FiEyeOff className="text-gray-400" /> // Show FiEyeOff when password is visible
-                  ) : (
-                    <FiEye className="text-gray-400" /> // Show FiEye when password is hidden
-                  )}
-                </button>
-                <input
-                  id="password"
-                  type={passwordVisible ? "text" : "password"} // Dynamically change type based on state
-                  placeholder="*Password"
-                  autoComplete="current-password"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-10 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                />
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <FiLock className="text-gray-400" />
-                </span>
-              </div>
-            </div>
+                       <label
+                         htmlFor="password"
+                         className="mb-2 block text-sm font-semibold text-gray-700"
+                       >
+                         {t.register.passwords}
+                       </label>
+                       <div className="relative">
+                         <button
+                           type="button"
+                           onClick={togglePasswordVisibility}
+                           className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
+                         >
+                           {passwordVisible ? (
+                             <FiEyeOff className="text-gray-400" />
+                           ) : (
+                             <FiEye className="text-gray-400" />
+                           )}
+                         </button>
+                         <input
+                           id="password"
+                           type={passwordVisible ? "text" : "password"}
+                           placeholder="********"
+                           autoComplete="new-password"
+                           className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
+                           style={{ fontFamily: "var(--font-secondary)" }}
+                         />
+                         {/* Lock icon on the right for aesthetic, not interactive */}
+                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                           <FiLock className="text-gray-400" />
+                         </span>
+                       </div>
+                     </div>
 
             {/* Remember me checkbox */}
             <div className="flex items-center justify-end">
@@ -97,13 +103,13 @@ const Login = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-[#19398A] focus:ring-[#19398A]"
+                className="h-4 w-4 rounded border-gray-300 text-primary-500  focus:ring-primary-700"
               />
               <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
+                htmlFor="remember-me bg-primary-700"
+                className="ml-2 block pr-1 text-sm text-gray-900"
               >
-                Remember me
+                {t.login.remember}
               </label>
             </div>
 
@@ -112,7 +118,7 @@ const Login = () => {
               type="submit"
               className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#32E0BB] py-3 text-lg font-semibold text-white transition hover:bg-[#152e6c]"
             >
-              LOGIN
+              {t.login.buttontext}
             </button>
           </form>
         </div>

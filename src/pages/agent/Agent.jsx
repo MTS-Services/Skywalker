@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
+import { Link } from "react-router-dom";
 
 const generateSlug = (title) => {
   return title
@@ -46,7 +47,7 @@ export default function Agent() {
       <section className="bg-gray-100 px-4 py-8 md:px-5 md:py-10">
         <div className="container mx-auto w-full max-w-7xl">
           <div className={`mx-auto mb-4 w-full max-w-xl md:max-w-full`}>
-            <div className="w-full md:w-[770px] text-center lg:ml-20">
+            <div className="w-full text-center md:w-[770px] lg:ml-20">
               <h3
                 className={`text-lg font-bold text-gray-800 ${isRTL ? "mr-2" : "ml-2"}`}
               >
@@ -65,55 +66,59 @@ export default function Agent() {
                   className="w-full rounded-xl border border-gray-200 md:w-[770px]"
                   style={{ boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)" }}
                 >
-                  <div className="shadow-card-shadow relative my-auto w-full cursor-pointer rounded-lg border border-transparent bg-white p-3 active:border-rose-500 xl:p-4">
-                    <div className="my-auto flex gap-3">
-                      <div className="relative my-auto">
-                        <div className="relative flex-shrink-0">
-                          <div className="aspect-square h-12 w-12 rounded-md md:h-14 md:w-14 xl:h-28 xl:w-28">
-                            <img
-                              alt={agent.title}
-                              src={agent.image[0]}
-                              loading="lazy"
-                              decoding="async"
-                              className="border-primary-200 h-full w-full border object-cover p-1"
-                            />
+                  <Link to={`/agents-details/${agent.id}`}>
+                    <div className="shadow-card-shadow relative my-auto w-full cursor-pointer rounded-lg border border-transparent bg-white p-3 active:border-rose-500 xl:p-4">
+                      <div className="my-auto flex gap-3">
+                        <div className="relative my-auto">
+                          <div className="relative flex-shrink-0">
+                            <div className="aspect-square h-12 w-12 rounded-md md:h-14 md:w-14 xl:h-28 xl:w-28">
+                              <img
+                                alt={agent.title}
+                                src={agent.image[0]}
+                                loading="lazy"
+                                decoding="async"
+                                className="border-primary-200 h-full w-full border object-cover p-1"
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex-1 overflow-hidden">
-                        <div className="text-dark line-clamp-2 text-base font-bold break-words">
-                          {agent.name}
-                        </div>
+                        <div className="flex-1 overflow-hidden">
+                          <div className="text-dark line-clamp-2 text-base font-bold break-words">
+                            {agent.name}
+                          </div>
 
-                        <div>
-                          <div className={`space-x-2} flex items-center gap-1`}>
-                            <span className={`text-primary-300 font-bold`}>
-                              {agent.ads} Ads
-                            </span>
-                            <span className="text-primary-200">|</span>
-                            <button className="px-1">
-                              <FaWhatsapp className="text-primary-300 text-sm md:text-base" />
-                            </button>
-                            <button className="">
-                              <FaInstagram className="text-primary-300 text-sm md:text-base" />
-                            </button>
+                          <div>
+                            <div
+                              className={`space-x-2} flex items-center gap-1`}
+                            >
+                              <span className={`text-primary-300 font-bold`}>
+                                {agent.ads} Ads
+                              </span>
+                              <span className="text-primary-200">|</span>
+                              <button className="px-1">
+                                <FaWhatsapp className="text-primary-300 text-sm md:text-base" />
+                              </button>
+                              <button className="">
+                                <FaInstagram className="text-primary-300 text-sm md:text-base" />
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex gap-3">
-                          <div className="text-primary-dark rounded font-bold">
-                            {/* {agent.price} {t.home.currency} */}
+                          <div className="flex gap-3">
+                            <div className="text-primary-dark rounded font-bold">
+                              {/* {agent.price} {t.home.currency} */}
+                            </div>
                           </div>
-                        </div>
-                        <div>
-                          <div className="text- line-clamp-2">
-                            <p className="text-descripton text-xs font-normal md:text-sm">
-                              {agent.description}
-                            </p>
+                          <div>
+                            <div className="text- line-clamp-2">
+                              <p className="text-descripton text-xs font-normal md:text-sm">
+                                {agent.description}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               ))}
             </div>
