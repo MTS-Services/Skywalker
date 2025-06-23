@@ -74,7 +74,7 @@ export default function Agent() {
                             <div className="aspect-square h-12 w-12 rounded-md md:h-14 md:w-14 xl:h-28 xl:w-28">
                               <img
                                 alt={agent.title}
-                                src={agent.image[0]}
+                                src={agent.image}
                                 loading="lazy"
                                 decoding="async"
                                 className="border-primary-200 h-full w-full border object-cover p-1"

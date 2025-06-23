@@ -19,7 +19,7 @@ export const translations = {
 
     // Home Page
     home: {
-      bannerTitle: "Apartments for Rent | Houses for Sale",
+      bannerTitle: "Apartments for Rent | Houses for Sales",
       bannerSubTitle: "Search for your property for free and easily",
       typeAreaPlaceholder: "Type Area to Search",
       propertyTypePlaceholder: "Property Type",
