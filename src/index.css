@@ -36,6 +36,7 @@
   transition: all 0.2s ease-in-out;
 }
 
+ 
 @theme {
   --color-primary-50: #e6faf5;
   --color-primary-100: #ccf5eb;
@@ -48,7 +49,9 @@
   --color-primary-700: #239e88;
   --color-primary-800: #1e8877;
   --color-primary-900: #196266;
+  --color-bgcolor-900: #32E0BB;
+  --color-descripton:#556885;
+  --color-adspart: #2e6290;
 
-  --shadow-card-shadow:
-    0 0 2px 0 rgba(37, 42, 49, 0.16), 0 1px 4px 0 rgba(37, 42, 49, 0.12);
+
 }
