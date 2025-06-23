@@ -9,7 +9,6 @@ function App() {
     <>
       <LanguageProvider>
         <AuthProvider>
-
           <RouterProvider router={AppRoutes} />
         </AuthProvider>
       </LanguageProvider>
