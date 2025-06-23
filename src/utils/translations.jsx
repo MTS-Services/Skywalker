@@ -33,7 +33,8 @@ export const translations = {
             'whatsapp': "WhatsApp",
             'shareAd': "Share Ad",
             'copyLinkTitle': "Copy Direct Link",
-            'copyButton': "Copy URL"
+            'copyButton': "Copy URL",
+            'noResults': "No results found",
         }
     },
     ar: {
@@ -69,7 +70,8 @@ export const translations = {
             'whatsapp': "واتساب",
             'shareAd': "مشاركة الإعلان",
             'copyLinkTitle': "نسخ الرابط المباشر",
-            'copyButton': "نسخ الرابط"
+            'copyButton': "نسخ الرابط",
+            'noResults': "لم يتم العثور على نتائج",
         }
     },
 }
