@@ -15,6 +15,7 @@ import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 
 import AdDetailPage from "../pages/home/AdDetailPage";
 import SearchResults from "../pages/search/SearchResults";
+import MyAds from "../pages/myAds/MyAds";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "agents",
         element: <Agent />,
+      },
+      {
+        path: "my-ads",
+        element: <MyAds />,
       },
       {
 
