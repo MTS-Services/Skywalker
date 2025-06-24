@@ -1,9 +1,13 @@
 [
+  { "id": "all", "name": "All Property Types" },
   { "id": "apartment", "name": "Apartment" },
   { "id": "house", "name": "House" },
   { "id": "land", "name": "Land" },
   { "id": "building", "name": "Building" },
   { "id": "chalet", "name": "Chalet" },
   { "id": "farm", "name": "Farm" },
-  { "id": "commercial", "name": "Commercial" }
+  { "id": "commercial", "name": "Commercial" },
+  { "id": "office", "name": "Office" },
+  { "id": "warehouse", "name": "Warehouse" },
+  { "id": "villa", "name": "Villa" }
 ]

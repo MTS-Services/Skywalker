@@ -1,114 +1,89 @@
-import React, { useEffect, useState, useMemo, useRef, useCallback } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useLanguage } from "../../context/LanguageContext";
-// import { useLanguage } from "../../context/LanguageContext"; // Removed due to resolution error
+"use client"
 
-// --- Data Constants ---
-const allRegions = [
-  { id: "all", name: { en: "All Region", ar: "كل المناطق" } },
-  { id: "hawally", name: { en: "Hawally", ar: "حولي" } },
-  { id: "salmiya", name: { en: "Salmiya", ar: "السالمية" } },
-  { id: "salwa", name: { en: "Salwa", ar: "سلوى" } },
-  { id: "jabriya", name: { en: "Jabriya", ar: "الجابرية" } },
-];
-const allPropertyTypes = [
-  { id: "all", name: { en: "All Property Types", ar: "جميع أنواع العقارات" } }, // Added "all" option for single select
-  { id: "apartment", name: { en: "Apartment", ar: "شقة" } },
-  { id: "house", name: { en: "House", ar: "منزل" } },
-  { id: "land", name: { en: "Land", ar: "أرض" } },
-  { id: "building", name: { en: "Building", ar: "مبنى" } },
-  { id: "chalet", name: { en: "Chalet", ar: "شاليه" } },
-  { id: "farm", name: { en: "Farm", ar: "مزرعة" } },
-  { id: "commercial", name: { en: "Commercial", ar: "تجاري" } },
-];
-const transactionTypes = [
-  { id: "rent", name: { en: "Rent", ar: "ايجار" } },
-  { id: "sale", name: { en: "Sale", ar: "بيع" } },
-  { id: "exchange", name: { en: "Exchange", ar: "بدل" } },
-];
+import { useEffect, useState, useMemo, useRef, useCallback } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useLanguage } from "../../context/LanguageContext"
+import AdCard from "../../components/shared/AdCard"
+import { MultiSelectDropdown, SingleSelectDropdown } from "../../components/shared/FilterDropdown"
 
 /**
  * Main SearchResults Page Component
  */
 const SearchResults = () => {
-  const { t, isRTL, language } = useLanguage();
-  const location = useLocation();
-  const [allAds, setAllAds] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { t, isRTL, language } = useLanguage()
+  const location = useLocation()
+  const [allAds, setAllAds] = useState([])
+  const [loading, setLoading] = useState(true)
 
   // Filters are derived directly from the URL search params
   const filters = useMemo(() => {
-    const params = new URLSearchParams(location.search);
+    const params = new URLSearchParams(location.search)
+
     return {
-      transactionType: params.get("transactionType") || "sale",
-      regions: params.getAll("regions"),
-      propertyType: params.get("propertyType") || "all", // Changed to single string, default "all"
-      minPrice: params.get("minPrice") ? parseInt(params.get("minPrice")) : "",
-      maxPrice: params.get("maxPrice") ? parseInt(params.get("maxPrice")) : "",
+      transactionType: params.get("transactionType") || "",
+      regions: params.getAll("region"), // Use 'region' to match Hero
+      propertyTypes: params.getAll("propertyType"), // Use 'propertyType' to match Hero
+      minPrice: params.get("minPrice") ? Number.parseInt(params.get("minPrice")) : "",
+      maxPrice: params.get("maxPrice") ? Number.parseInt(params.get("maxPrice")) : "",
       searchText: params.get("searchText") || "",
-    };
-  }, [location.search]);
+    }
+  }, [location.search])
 
   useEffect(() => {
     const fetchAds = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
-        const response = await fetch("/ads.json");
-        const data = await response.json();
-        setAllAds(data);
+        const response = await fetch("/data/ads.json")
+        const data = await response.json()
+        setAllAds(data)
       } catch (error) {
-        console.error("Error fetching ads:", error);
+        console.error("Error fetching ads:", error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchAds();
-  }, []);
+    }
+    fetchAds()
+  }, [])
 
   const filteredAds = useMemo(() => {
-    if (!allAds.length) return [];
-    return allAds.filter((ad) => {
-      const adKd = parseFloat(ad.kd.replace(/,/g, ""));
+    if (!allAds.length) return []
 
-      const transactionMatch =
-        !filters.transactionType ||
-        ad.transactionType === filters.transactionType;
-      const regionMatch =
-        filters.regions.length === 0 || filters.regions.includes(ad.region);
-      // Updated propertyTypeMatch for single selection
-      const propertyTypeMatch =
-        filters.propertyType === "all" ||
-        ad.propertyType === filters.propertyType;
+    const filtered = allAds.filter((ad) => {
+      const adKd = Number.parseFloat(ad.kd.replace(/,/g, ""))
+
+      // Transaction type filter
+      const transactionMatch = !filters.transactionType || ad.transactionType === filters.transactionType
+
+      // Region filter - check if any selected regions match
+      const regionMatch = filters.regions.length === 0 || filters.regions.includes(ad.region)
+
+      // Property type filter - check if any selected property types match
+      const propertyTypeMatch = filters.propertyTypes.length === 0 || filters.propertyTypes.includes(ad.propertyType)
+
+      // Price filter
       const priceMatch =
-        (filters.minPrice === "" || adKd >= filters.minPrice) &&
-        (filters.maxPrice === "" || adKd <= filters.maxPrice);
+        (filters.minPrice === "" || adKd >= filters.minPrice) && (filters.maxPrice === "" || adKd <= filters.maxPrice)
+
+      // Text search filter
       const textMatch =
         !filters.searchText ||
         ad.title.toLowerCase().includes(filters.searchText.toLowerCase()) ||
-        ad.description.toLowerCase().includes(filters.searchText.toLowerCase());
+        ad.description.toLowerCase().includes(filters.searchText.toLowerCase())
 
-      return (
-        transactionMatch &&
-        regionMatch &&
-        propertyTypeMatch &&
-        priceMatch &&
-        textMatch
-      );
-    });
-  }, [allAds, filters, language]);
+      return transactionMatch && regionMatch && propertyTypeMatch && priceMatch && textMatch
+    })
+
+    return filtered
+  }, [allAds, filters])
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div
-        className={`container max-w-7xl mx-auto px-4 py-6`}
-        dir={isRTL ? "rtl" : "ltr"}
-      >
-        {/* --- New Filter Bar --- */}
+      <div className={`container max-w-7xl mx-auto px-4 py-6`} dir={isRTL ? "rtl" : "ltr"}>
+        {/* Filter Bar */}
         <SearchFilterBar initialFilters={filters} t={t} isRTL={isRTL} />
 
         <h1 className="mt-8 mb-6 text-2xl font-bold">
-          {t.search.searchResults} ({loading ? "..." : filteredAds.length}{" "}
-          {t.search.ads})
+          {t.search.searchResults} ({loading ? "..." : filteredAds.length} {t.search.ads})
         </h1>
 
         {loading ? (
@@ -117,7 +92,7 @@ const SearchResults = () => {
           <div className="grid grid-cols-1 gap-6">
             {filteredAds.length > 0 ? (
               filteredAds.map((ad) => (
-                <AdCard key={ad.id} ad={ad} t={t} language={language} />
+                <AdCard key={ad.id} ad={ad} t={t} language={language} isRTL={isRTL} variant="default" />
               ))
             ) : (
               <div className="col-span-full rounded-lg bg-white p-10 text-center text-gray-500 shadow">
@@ -128,77 +103,119 @@ const SearchResults = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 /**
  * The main filter bar component, styled like the Hero filter.
  */
 const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
-  const navigate = useNavigate();
-  const [showDropdown, setShowDropdown] = useState(null);
+  const navigate = useNavigate()
+  const [showDropdown, setShowDropdown] = useState(null)
+  const [allRegions, setAllRegions] = useState([])
+  const [allPropertyTypes, setAllPropertyTypes] = useState([])
+  const [transactionTypes, setTransactionTypes] = useState([])
 
-  const [transactionType, setTransactionType] = useState(
-    initialFilters.transactionType,
-  );
-  const [selectedRegions, setSelectedRegions] = useState(
-    allRegions
-      .filter((r) => initialFilters.regions.includes(r.id))
-      .map((r) => ({ ...r, name: r.name[isRTL ? "ar" : "en"] })),
-  );
-  const [selectedPropertyType, setSelectedPropertyType] = useState(
-    initialFilters.propertyType,
-  );
-  const [minPrice, setMinPrice] = useState(initialFilters.minPrice);
-  const [maxPrice, setMaxPrice] = useState(initialFilters.maxPrice);
-  const [searchText, setSearchText] = useState(initialFilters.searchText);
+  const [transactionType, setTransactionType] = useState(initialFilters.transactionType)
+  const [selectedRegions, setSelectedRegions] = useState([])
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([])
+  const [minPrice, setMinPrice] = useState(initialFilters.minPrice)
+  const [maxPrice, setMaxPrice] = useState(initialFilters.maxPrice)
+  const [searchText, setSearchText] = useState(initialFilters.searchText)
 
+  // Fetch filter data from JSON files
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (transactionType) {
-      params.set("transactionType", transactionType);
-    }
-    selectedRegions.forEach((region) => {
-      if (region.id !== "all") {
-        params.append("regions", region.id);
+    const fetchFilterData = async () => {
+      try {
+        const [regionsRes, propertyTypesRes, transactionTypesRes] = await Promise.all([
+          fetch("/data/regions.json"),
+          fetch("/data/propertyTypes.json"),
+          fetch("/data/transactionTypes.json"),
+        ])
+
+        const regions = await regionsRes.json()
+        const propertyTypes = await propertyTypesRes.json()
+        const transactions = await transactionTypesRes.json()
+
+        setAllRegions(regions)
+        setAllPropertyTypes(propertyTypes)
+        setTransactionTypes(transactions)
+      } catch (error) {
+        console.error("Error fetching filter data:", error)
       }
-    });
-    if (selectedPropertyType && selectedPropertyType !== "all") {
-      params.set("propertyType", selectedPropertyType);
     }
+
+    fetchFilterData()
+  }, [])
+
+  // Set initial selected items from URL params - only when data is loaded
+  useEffect(() => {
+    if (allRegions.length > 0 && allPropertyTypes.length > 0) {
+      // Set initial selected regions based on URL params
+      const initialSelectedRegions = allRegions
+        .filter((r) => initialFilters.regions.includes(r.id))
+        .map((r) => ({ ...r }))
+      setSelectedRegions(initialSelectedRegions)
+
+      // Set initial selected property types based on URL params
+      const initialSelectedPropertyTypes = allPropertyTypes
+        .filter((p) => initialFilters.propertyTypes.includes(p.id))
+        .map((p) => ({ ...p }))
+      setSelectedPropertyTypes(initialSelectedPropertyTypes)
+    }
+  }, [allRegions, allPropertyTypes, initialFilters.regions, initialFilters.propertyTypes])
+
+  // Function to update URL with current filter state
+  const updateURL = useCallback(() => {
+    const params = new URLSearchParams()
+
+    if (transactionType) {
+      params.set("transactionType", transactionType)
+    }
+
+    selectedRegions.forEach((region) => {
+      if (region.id && region.id !== "all") {
+        params.append("region", region.id)
+      }
+    })
+
+    selectedPropertyTypes.forEach((type) => {
+      if (type.id && type.id !== "all") {
+        params.append("propertyType", type.id)
+      }
+    })
+
     if (minPrice !== "" && minPrice !== undefined) {
-      params.set("minPrice", minPrice.toString());
+      params.set("minPrice", minPrice.toString())
     }
     if (maxPrice !== "" && maxPrice !== undefined) {
-      params.set("maxPrice", maxPrice.toString());
+      params.set("maxPrice", maxPrice.toString())
     }
     if (searchText) {
-      params.set("searchText", searchText);
+      params.set("searchText", searchText)
     }
 
-    navigate(`/search?${params.toString()}`, { replace: true });
-  }, [
-    transactionType,
-    selectedRegions,
-    selectedPropertyType,
-    minPrice,
-    maxPrice,
-    searchText,
-    navigate,
-  ]);
+    navigate(`/search?${params.toString()}`, { replace: true })
+  }, [transactionType, selectedRegions, selectedPropertyTypes, minPrice, maxPrice, searchText, navigate])
+
+  // Update URL whenever filters change (with debounce)
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      updateURL()
+    }, 100) // Small debounce to prevent too many URL updates
+
+    return () => clearTimeout(timeoutId)
+  }, [selectedRegions, selectedPropertyTypes, transactionType, minPrice, maxPrice, searchText, updateURL])
 
   const toggleDropdown = useCallback((dropdownName) => {
-    setShowDropdown((prev) => (prev === dropdownName ? null : dropdownName));
-  }, []);
+    setShowDropdown((prev) => (prev === dropdownName ? null : dropdownName))
+  }, [])
 
   return (
     <div className="max-w-5xl mx-auto w-full space-y-4 rounded-2xl bg-white p-4 shadow-lg sm:p-6">
-      {/* Area Search MultiSelectDropdown (as per original functionality) */}
+      {/* Area Search MultiSelectDropdown */}
       <MultiSelectDropdown
-        options={allRegions.map((region) => ({
-          ...region,
-          name: region.name[isRTL ? "ar" : "en"],
-        }))}
+        options={allRegions}
         selectedItems={selectedRegions}
         setSelectedItems={setSelectedRegions}
         placeholder={t.search.areaPlaceholder}
@@ -209,13 +226,23 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
         onToggle={() => toggleDropdown("area")}
       />
 
+      {/* Property Types MultiSelectDropdown */}
+      <MultiSelectDropdown
+        options={allPropertyTypes}
+        selectedItems={selectedPropertyTypes}
+        setSelectedItems={setSelectedPropertyTypes}
+        placeholder={t.search.propertyTypePlaceholder}
+        searchPlaceholder={t.search.searchPlaceholder}
+        label={t.search.propertyType}
+        isRTL={isRTL}
+        isOpen={showDropdown === "propertyTypes"}
+        onToggle={() => toggleDropdown("propertyTypes")}
+      />
+
       <div className="flex flex-wrap items-center justify-center gap-4">
         {/* Transaction Type Dropdown */}
         <SingleSelectDropdown
-          options={transactionTypes.map((type) => ({
-            ...type,
-            name: type.name[isRTL ? "ar" : "en"],
-          }))}
+          options={transactionTypes}
           selectedValue={transactionType}
           setSelectedValue={setTransactionType}
           placeholder={t.search.transactionTypePlaceholder}
@@ -223,23 +250,6 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
           isRTL={isRTL}
           isOpen={showDropdown === "transactionType"}
           onToggle={() => toggleDropdown("transactionType")}
-        />
-
-        {/* Property Type Dropdown - Now using SingleSelectDropdown with search */}
-        <SingleSelectDropdown
-          options={allPropertyTypes.map((type) => ({
-            ...type,
-            name: type.name[isRTL ? "ar" : "en"],
-          }))}
-          selectedValue={selectedPropertyType}
-          setSelectedValue={setSelectedPropertyType}
-          placeholder={t.search.propertyTypePlaceholder}
-          searchPlaceholder={t.search.searchPlaceholder}
-          label={t.search.propertyType}
-          isRTL={isRTL}
-          isOpen={showDropdown === "propertyType"}
-          onToggle={() => toggleDropdown("propertyType")}
-          hasSearch={true}
         />
 
         {/* Price Filter */}
@@ -267,351 +277,49 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
         />
       </div>
     </div>
-  );
-};
-
-/**
- * A reusable multi-select dropdown component.
- */
-function MultiSelectDropdown({
-  options,
-  selectedItems,
-  setSelectedItems,
-  placeholder,
-  searchPlaceholder,
-  label,
-  isRTL,
-  isOpen,
-  onToggle,
-}) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (isOpen) {
-          onToggle();
-        }
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onToggle]);
-
-  const toggleItem = (item) => {
-    setSelectedItems((prev) =>
-      prev.some((selected) => selected.id === item.id)
-        ? prev.filter((selected) => selected.id !== item.id)
-        : [...prev, { ...item, name: item.name }],
-    );
-  };
-
-  const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
-
-  return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
-      {/* Changed the outer button to a div to allow nested buttons for 'X' icons */}
-      <div
-        className={`focus-within:ring-primary-400 flex w-full cursor-pointer items-center rounded-3xl border border-primary-100 bg-white p-3 focus-within:ring-2`}
-        onClick={onToggle}
-        role="button" // Add role for accessibility
-        tabIndex="0" // Make the div focusable
-      >
-        <span className="text-primary-400">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </span>
-        <div
-          className={`flex-grow px-2 text-primary-900 ${isRTL ? "text-right" : "text-left"} flex min-h-[24px] flex-wrap gap-1`}
-        >
-          {selectedItems.length > 0
-            ? selectedItems.map((item) => (
-                <span
-                  key={item.id}
-                  className="flex items-center rounded-full bg-primary-50 px-2 py-1 text-xs font-medium text-primary-900"
-                >
-                  {item.name}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent toggling the dropdown when clicking the 'X' button
-                      toggleItem(item);
-                    }}
-                    className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </span>
-              ))
-            : placeholder}
-        </div>
-        <span
-          className={`text-primary-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-4 w-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
-          </svg>
-        </span>
-      </div>
-
-      {isOpen && (
-        <div className="absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-primary-200 bg-white shadow-lg">
-          <div className="p-2">
-            <input
-              type="text"
-              placeholder={searchPlaceholder}
-              className={`w-full rounded-lg border border-primary-100 focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-400 p-2 ${isRTL ? "text-right" : "text-left"}`}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <ul className="p-1">
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((option) => (
-                <li
-                  key={option.id}
-                  className={`hover:bg-primary-50 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
-                  onClick={() => toggleItem(option)}
-                >
-                  <div
-                    className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
-                  >
-                    <input
-                      type="checkbox"
-                      readOnly
-                      checked={selectedItems.some(
-                        (item) => item.id === option.id,
-                      )}
-                      className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
-                    />
-                    <span
-                      className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
-                    >
-                      {option.name}
-                    </span>
-                  </div>
-                  {option.count && (
-                    <span className="text-sm text-primary-900">
-                      ({option.count})
-                    </span>
-                  )}
-                </li>
-              ))
-            ) : (
-              <li className="p-2 text-center text-primary-900">
-                {searchPlaceholder}
-              </li>
-            )}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * A reusable single-select dropdown component (radio buttons) with optional search.
- */
-function SingleSelectDropdown({
-  options,
-  selectedValue,
-  setSelectedValue,
-  placeholder,
-  label,
-  isRTL,
-  isOpen,
-  onToggle,
-  hasSearch = false,
-  searchPlaceholder,
-}) {
-  const dropdownRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (isOpen) {
-          onToggle();
-        }
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onToggle]);
-
-  const handleSelect = (value) => {
-    setSelectedValue(value);
-    setSearchTerm("");
-    onToggle();
-  };
-
-  const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
-
-  return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
-      <button
-        type="button"
-        className={`flex items-center justify-between rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100 ${isOpen ? "ring-2 ring-primary-400" : ""}`}
-        onClick={onToggle}
-      >
-        <span>{label}</span>
-        <span
-          className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-4 w-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
-          </svg>
-        </span>
-      </button>
-
-      {isOpen && (
-        <div
-          className={`absolute z-20 mt-2 max-h-60 w-64 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
-        >
-          {hasSearch && (
-            <div className="p-2 border-b border-gray-200">
-              <input
-                type="text"
-                placeholder={searchPlaceholder || "Search..."}
-                className={`w-full rounded-lg border border-gray-300 p-2 text-sm focus:border-primary-400 focus:ring-primary-400 ${isRTL ? "text-right" : "text-left"}`}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          )}
-          <ul className="p-1">
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((option) => (
-                <li
-                  key={option.id}
-                  className={`flex cursor-pointer items-center rounded-md p-2 text-gray-800 hover:bg-primary-50 ${isRTL ? "flex-row-reverse" : ""}`}
-                  onClick={() => handleSelect(option.id)}
-                >
-                  <input
-                    type="radio"
-                    readOnly
-                    checked={selectedValue === option.id}
-                    className="form-radio text-primary-400 h-4 w-4 cursor-pointer"
-                  />
-                  <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
-                    {option.name}
-                  </span>
-                </li>
-              ))
-            ) : (
-              <li className="p-2 text-center text-gray-500">
-                {searchPlaceholder || "No results"}
-              </li>
-            )}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+  )
 }
 
 /**
  * Price Range Filter Component with Slider and Input fields.
  */
-function PriceRangeFilter({
-  minPrice,
-  maxPrice,
-  setMinPrice,
-  setMaxPrice,
-  t,
-  isRTL,
-  isOpen,
-  onToggle,
-  onApply,
-}) {
-  const dropdownRef = useRef(null);
+function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isRTL, isOpen, onToggle, onApply }) {
+  const dropdownRef = useRef(null)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         if (isOpen) {
-          onToggle();
+          onToggle()
         }
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onToggle]);
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [isOpen, onToggle])
 
   const handleMinChange = (e) => {
-    const value = e.target.value === "" ? "" : parseInt(e.target.value);
-    setMinPrice(value);
-  };
+    const value = e.target.value === "" ? "" : Number.parseInt(e.target.value)
+    setMinPrice(value)
+  }
 
   const handleMaxChange = (e) => {
-    const value = e.target.value === "" ? "" : parseInt(e.target.value);
-    setMaxPrice(value);
-  };
+    const value = e.target.value === "" ? "" : Number.parseInt(e.target.value)
+    setMaxPrice(value)
+  }
 
   const handleReset = () => {
-    setMinPrice("");
-    setMaxPrice("");
-    onApply();
-  };
+    setMinPrice("")
+    setMaxPrice("")
+    onApply()
+  }
 
   const handleSearch = () => {
-    onApply();
-  };
+    onApply()
+  }
 
-  const MAX_POSSIBLE_PRICE = 3000000;
-  const MIN_POSSIBLE_PRICE = 0;
+  const MAX_POSSIBLE_PRICE = 3000000
+  const MIN_POSSIBLE_PRICE = 0
 
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
@@ -621,9 +329,7 @@ function PriceRangeFilter({
         onClick={onToggle}
       >
         <span>{t.search.price}</span>
-        <span
-          className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
-        >
+        <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -632,11 +338,7 @@ function PriceRangeFilter({
             stroke="currentColor"
             className="h-4 w-4"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </span>
       </button>
@@ -647,8 +349,12 @@ function PriceRangeFilter({
           style={{ minWidth: "300px" }}
         >
           <div className="mb-4 flex items-center justify-between text-sm font-medium text-gray-700">
-            <span>{minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} {t.search.currency}</span>
-            <span>{maxPrice === "" ? `${MAX_POSSIBLE_PRICE}+` : `${maxPrice}+`} {t.search.currency}</span>
+            <span>
+              {minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} {t.search.currency}
+            </span>
+            <span>
+              {maxPrice === "" ? `${MAX_POSSIBLE_PRICE}+` : `${maxPrice}+`} {t.search.currency}
+            </span>
           </div>
           <input
             type="range"
@@ -699,43 +405,35 @@ function PriceRangeFilter({
         </div>
       )}
     </div>
-  );
+  )
 }
 
 /**
  * Text Search Filter Component.
  */
-function TextSearchFilter({
-  searchTerm,
-  setSearchTerm,
-  t,
-  isRTL,
-  isOpen,
-  onToggle,
-  onApply,
-}) {
-  const dropdownRef = useRef(null);
+function TextSearchFilter({ searchTerm, setSearchTerm, t, isRTL, isOpen, onToggle, onApply }) {
+  const dropdownRef = useRef(null)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         if (isOpen) {
-          onToggle();
+          onToggle()
         }
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onToggle]);
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [isOpen, onToggle])
 
   const handleReset = () => {
-    setSearchTerm("");
-    onApply();
-  };
+    setSearchTerm("")
+    onApply()
+  }
 
   const handleSearch = () => {
-    onApply();
-  };
+    onApply()
+  }
 
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
@@ -745,9 +443,7 @@ function TextSearchFilter({
         onClick={onToggle}
       >
         <span>{t.search.text}</span>
-        <span
-          className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
-        >
+        <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -756,11 +452,7 @@ function TextSearchFilter({
             stroke="currentColor"
             className="h-4 w-4"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </span>
       </button>
@@ -770,13 +462,9 @@ function TextSearchFilter({
           className={`absolute z-20 mt-2 rounded-lg border border-gray-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
           style={{ minWidth: "300px" }}
         >
-          <p className="mb-2 text-sm text-gray-600">
-            {t.search.searchUsingTextExample}
-          </p>
+          <p className="mb-2 text-sm text-gray-600">{t.search.searchUsingTextExample}</p>
           <div className="relative">
-            <span
-              className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-gray-400`}
-            >
+            <span className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-gray-400`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -817,73 +505,7 @@ function TextSearchFilter({
         </div>
       )}
     </div>
-  );
+  )
 }
 
-/**
- * AdCard Component: Renders a single ad in the list.
- */
-const AdCard = ({ ad, t, language }) => {
-  const navigate = useNavigate();
-
-  const formatTimeAgo = (dateString, lang) => {
-    const postDate = new Date(dateString);
-    const now = new Date();
-    const seconds = Math.floor((now - postDate) / 1000);
-    const hours = Math.floor(seconds / 3600);
-    if (hours < 1) {
-      const minutes = Math.floor(seconds / 60);
-      if (minutes < 1) return lang === "ar" ? t.search.justNow : t.search.justNow;
-      return `${minutes} ${lang === "ar" ? t.search.minutes : t.search.minutes}`;
-    }
-    return `${hours} ${lang === "ar" ? t.search.hours : t.search.hours}`;
-  };
-
-  return (
-    <div
-      onClick={() => navigate(`/ads/${ad.slug}`)}
-      className="group w-full cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-xl"
-    >
-      <div className="flex flex-col gap-4 p-4 sm:flex-row">
-        <div className="relative h-48 w-full flex-shrink-0 overflow-hidden rounded-md sm:h-36 sm:w-48">
-          <img
-            alt={ad.title}
-            src={
-              ad.images && ad.images.length > 0
-                ? ad.images[0]
-                : "https://placehold.co/192x144/EBF4FF/333333?text=Ad"
-            }
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
-          {ad.isSuper && (
-            <div className="absolute top-2 left-2 rounded bg-red-500 px-2 py-1 text-xs font-bold text-white">
-              {t.search.super}
-            </div>
-          )}
-        </div>
-        <div className="flex-1 overflow-hidden">
-          <h4 className="text-dark group-hover:text-primary-600 text-lg font-bold transition-colors">
-            {ad.title}
-          </h4>
-          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <div className="flex items-center gap-1.5 text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
-            </div>
-            <div className="text-primary-dark text-lg font-bold">
-              {ad.kd} {t.search.currency}
-            </div>
-          </div>
-          <p className="mt-3 line-clamp-2 text-base text-gray-600">
-            {ad.description}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default SearchResults;
+export default SearchResults

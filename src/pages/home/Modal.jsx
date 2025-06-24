@@ -1,88 +1,80 @@
-import React, { useState, useEffect } from "react";
-import { TfiAngleLeft } from "react-icons/tfi";
-import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
+"use client"
+
+import { useState, useEffect } from "react"
+import { TfiAngleLeft } from "react-icons/tfi"
+import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi"
+import { FaWhatsapp } from "react-icons/fa"
 
 /**
  * DetailsModal Component
- * * A modal that displays detailed information about an advertisement.
+ * A modal that displays detailed information about an advertisement.
  * It includes an image gallery, ad details, and contact actions.
  */
-export default function DetailsModal({
-  ad,
-  show,
-  onClose,
-  t,
-  isRTL,
-  language,
-  formatTimeAgo,
-}) {
-  const [displayImage, setDisplayImage] = useState("");
-  const [showLightbox, setShowLightbox] = useState(false);
-  const [isModalActive, setIsModalActive] = useState(false);
-  const [isLightboxActive, setIsLightboxActive] = useState(false);
+export default function DetailsModal({ ad, show, onClose, t, isRTL, language, formatTimeAgo }) {
+  const [displayImage, setDisplayImage] = useState("")
+  const [showLightbox, setShowLightbox] = useState(false)
+  const [isModalActive, setIsModalActive] = useState(false)
+  const [isLightboxActive, setIsLightboxActive] = useState(false)
 
   // Effect to control modal enter/exit animation
   useEffect(() => {
     if (show) {
-      document.body.style.overflow = "hidden";
-      const timer = setTimeout(() => setIsModalActive(true), 5);
-      return () => clearTimeout(timer);
+      document.body.style.overflow = "hidden"
+      const timer = setTimeout(() => setIsModalActive(true), 5)
+      return () => clearTimeout(timer)
     } else {
-      document.body.style.overflow = "";
-      setIsModalActive(false);
+      document.body.style.overflow = ""
+      setIsModalActive(false)
     }
-  }, [show]);
+  }, [show])
 
   // Effect to control lightbox enter/exit animation
   useEffect(() => {
     if (showLightbox) {
-      const timer = setTimeout(() => setIsLightboxActive(true), 5);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(() => setIsLightboxActive(true), 5)
+      return () => clearTimeout(timer)
     } else {
-      setIsLightboxActive(false);
+      setIsLightboxActive(false)
     }
-  }, [showLightbox]);
+  }, [showLightbox])
 
   // Effect to set the initial display image when an ad is selected
   useEffect(() => {
     if (ad && ad.images && ad.images.length > 0) {
-      setDisplayImage(ad.images[0]);
+      setDisplayImage(ad.images[0])
     } else {
-      setDisplayImage(
-        "https://placehold.co/800x600/EBF4FF/333333?text=No+Image",
-      );
+      setDisplayImage("https://placehold.co/800x600/EBF4FF/333333?text=No+Image")
     }
-  }, [ad]);
+  }, [ad])
 
   if (!ad) {
-    return null;
+    return null
   }
 
-  const whatsappLink = `https://wa.me/${ad.whatsapp.replace(/\D/g, "")}`;
+  const whatsappLink = `https://wa.me/${ad.whatsapp.replace(/\D/g, "")}`
 
   const handleShareClick = async (ad) => {
-    const adUrl = `${window.location.origin}/ads/${ad.slug}`;
+    const adUrl = `${window.location.origin}/ads/${ad.slug}`
     if (navigator.share) {
       try {
         await navigator.share({
           title: ad.title,
           text: ad.description,
           url: adUrl,
-        });
+        })
       } catch (error) {
-        console.error("Error sharing:", error);
+        console.error("Error sharing:", error)
       }
     } else {
       try {
-        await navigator.clipboard.writeText(adUrl);
-        alert(t.ads.linkCopied);
+        await navigator.clipboard.writeText(adUrl)
+        alert(t.ads.linkCopied)
       } catch (err) {
-        console.error("Failed to copy text: ", err);
-        alert(t.ads.failedToCopy);
+        console.error("Failed to copy text: ", err)
+        alert(t.ads.failedToCopy)
       }
     }
-  };
+  }
 
   return (
     <>
@@ -119,9 +111,7 @@ export default function DetailsModal({
 
           <main className="flex-1 overflow-y-auto">
             <div className="bg-primary-700 text-primary-50 flex flex-col items-center px-4 py-6 sm:px-6">
-              <h1 className="text-on-primary text-center text-xl font-bold sm:text-2xl">
-                {ad.title}
-              </h1>
+              <h1 className="text-on-primary text-center text-xl font-bold sm:text-2xl">{ad.title}</h1>
               <div className="mt-2 text-2xl font-bold sm:text-3xl">
                 {ad.kd} {t.ads.currency}
               </div>
@@ -144,9 +134,7 @@ export default function DetailsModal({
             </div>
 
             <div className="mx-auto max-w-4xl">
-              <p className="text-dark p-4 text-center text-base leading-relaxed sm:p-6 md:text-lg">
-                {ad.description}
-              </p>
+              <p className="text-dark p-4 text-center text-base leading-relaxed sm:p-6 md:text-lg">{ad.description}</p>
             </div>
 
             <div className="flex flex-col items-center justify-center gap-3 px-4 sm:flex-row">
@@ -174,7 +162,7 @@ export default function DetailsModal({
                     <img
                       alt={ad.title}
                       className="max-h-full max-w-full cursor-pointer rounded-lg object-contain"
-                      src={displayImage}
+                      src={displayImage || "/placeholder.svg"}
                       onClick={() => setShowLightbox(true)}
                     />
                   )}
@@ -191,7 +179,7 @@ export default function DetailsModal({
                           <img
                             alt={`thumbnail ${index + 1}`}
                             className="h-full w-full object-cover"
-                            src={imgSrc}
+                            src={imgSrc || "/placeholder.svg"}
                           />
                         </div>
                       ))}
@@ -215,7 +203,7 @@ export default function DetailsModal({
           >
             <div className="flex aspect-video h-auto max-h-[85vh] w-full items-center justify-center overflow-hidden rounded-md">
               <img
-                src={displayImage}
+                src={displayImage || "/placeholder.svg"}
                 alt="Lightbox"
                 className="h-auto max-h-full w-auto max-w-full object-contain"
               />
@@ -230,5 +218,5 @@ export default function DetailsModal({
         </div>
       )}
     </>
-  );
+  )
 }
