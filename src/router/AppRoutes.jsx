@@ -14,7 +14,7 @@ import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 
 import AdDetailPage from "../pages/home/AdDetailPage";
-import SearchResults from "../pages/home/SearchResults";
+import SearchResults from "../pages/search/SearchResults";
 
 const AppRoutes = createBrowserRouter([
   {
