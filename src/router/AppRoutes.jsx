@@ -17,7 +17,7 @@ import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
 import TestRegister from "../TestingPage/TestRegister";
 import ProtectedRoute from "../authente/AuthProvideer/ProtectedRoute";
 import BuyCredits from "../pages/BuyCredits/BuyCredits";
-import Agent from "../pages/agent/Agent";
+// import Agent from "../pages/agent/Agent";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -57,10 +57,10 @@ const AppRoutes = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
-      {
-        path: "agents",
-        element: <Agent />,
-      },
+      // {
+      //   path: "agents",
+      //   element: <Agent />,
+      // },
       {
         path: "my-ads",
         element: <MyAds />,
