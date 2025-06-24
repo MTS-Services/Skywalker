@@ -32,6 +32,9 @@ export const translations = {
 
     // Ads
     ads: {
+      searchButton: "Search",
+      searchPlaceholder: "Search...",
+      noResults: "No results found",
       recentAdsTitle: "Recent Real Estate Ads in Kuwait",
       currency: "KD",
       super: "Super",
@@ -63,6 +66,36 @@ export const translations = {
       searchByText: "Search by Text...",
       search: "Search",
       textSearchHint: "Search by text or keywords",
+      loadMore: "Load More",
+      allItemsLoaded: "All items loaded.",
+    },
+
+    search: {
+      searchResults: "Search Results",
+      ads: "Ads",
+      loading: "Loading...",
+      noResultsFound: "No results found.",
+      super: "Super",
+      currency: "KD",
+      transactionType: "Transaction Type",
+      transactionTypePlaceholder: "Select Type",
+      propertyType: "Property Type",
+      propertyTypePlaceholder: "Select Property Type",
+      area: "Area",
+      areaPlaceholder: "Select Area(s)",
+      searchPlaceholder: "Search...",
+      price: "Price",
+      minPrice: "Min Price",
+      maxPrice: "Max Price",
+      text: "Text",
+      searchUsingTextExample: "Search using text...",
+      searchByText: "Search by text",
+      reset: "Reset",
+      search: "Search",
+      justNow: "just now",
+      minutes: "minutes",
+      hours: "hours",
+      noResults: "No results",
     },
 
     // Login Page
@@ -80,8 +113,7 @@ export const translations = {
     // Register Page
     register: {
       title: "Register",
-      subtitle:
-        "Enter your mobile number and a new password to register a new account",
+      subtitle: "Enter your mobile number and a new password to register a new account",
       thamsCondition: "By registering you agree to the terms and conditions",
       alradyLogin: "Old user with an account?",
       loginlink: " Login to your account",
@@ -92,15 +124,12 @@ export const translations = {
 
     agent: {
       titlefast: "Real Estate Agents List in Kuwait ",
-
-      titlelast: "Agents ",
     },
 
     // About Page
     about: {
       heading: " Your Ultimate Real Estate Guide in Kuwait",
-      intro: `Welcome to Mr Aqar, your trusted platform for searching and advertising real estate in Kuwait. Whether you’re looking for your dream property or want to list your property for rent or sale, Mr Aqar makes the process seamless. From apartments for rent to villas for sale and plots for exchange, you’ll find everything you need with just a click.`,
-
+      intro: `Welcome to Mr Aqar, your trusted platform for searching and advertising real estate in Kuwait. Whether you're looking for your dream property or want to list your property for rent or sale, Mr Aqar makes the process seamless. From apartments for rent to villas for sale and plots for exchange, you'll find everything you need with just a click.`,
       whyChooseTitle: "Why Choose Mr Aqar?",
       whyChoose: [
         {
@@ -113,14 +142,13 @@ export const translations = {
         },
         {
           title: "Targeted Audience",
-          desc: "Our platform focuses exclusively on Kuwait’s real estate market, ensuring your advertisements reach the right audience.",
+          desc: "Our platform focuses exclusively on Kuwait's real estate market, ensuring your advertisements reach the right audience.",
         },
         {
           title: "Free Services",
           desc: "Register and post your property ads for free.",
         },
       ],
-
       servicesTitle: "Our Services",
       services: [
         "Apartments for rent across Kuwait.",
@@ -285,20 +313,6 @@ export const translations = {
       searchButton: "ابحث",
     },
 
-    // Ads
-    ads: {
-      recentAdsTitle: "اعلانات عقارية حديثة في الكويت",
-      currency: "د.ك",
-      super: "سوبر",
-      linkCopied: "تم نسخ الرابط إلى الحافظة!",
-      failedToCopy: "فشل في نسخ الرابط.",
-      whatsapp: "واتساب",
-      shareAd: "مشاركة الإعلان",
-      copyLinkTitle: "نسخ الرابط المباشر",
-      copyButton: "نسخ الرابط",
-      noResults: "لم يتم العثور على نتائج",
-    },
-
     // Search
     search: {
       super: "سوبر",
@@ -319,27 +333,72 @@ export const translations = {
       search: "ابحث",
       textSearchHint: "ابحث بالنص او كلمات مفتاحية",
     },
+    
+    footer: {
+      titleFast: "عقارات للايجار",
+      footerChildone: "شقق للايجار",
+    },
+
+    ads: {
+      recentAdsTitle: "اعلانات عقارية حديثة في الكويت",
+      currency: "د.ك",
+      super: "سوبر",
+      linkCopied: "تم نسخ الرابط إلى الحافظة!",
+      failedToCopy: "فشل في نسخ الرابط.",
+      whatsapp: "واتساب",
+      shareAd: "مشاركة الإعلان",
+      copyLinkTitle: "نسخ الرابط المباشر",
+      copyButton: "نسخ الرابط",
+      noResults: "لم يتم العثور على نتائج",
+      loadMore: "اظهار المزيد",
+      allItemsLoaded: "تم تحميل جميع البنود.",
+    },
+
+    search: {
+      searchResults: "نتائج البحث",
+      ads: "إعلانات",
+      loading: "جار التحميل...",
+      noResultsFound: "لا توجد نتائج.",
+      super: "مميز",
+      currency: "د.ك",
+      transactionType: "نوع المعاملة",
+      transactionTypePlaceholder: "اختر النوع",
+      propertyType: "نوع العقار",
+      propertyTypePlaceholder: "اختر نوع العقار",
+      area: "المنطقة",
+      areaPlaceholder: "اختر المنطقة (المناطق)",
+      searchPlaceholder: "بحث...",
+      price: "السعر",
+      minPrice: "الحد الأدنى للسعر",
+      maxPrice: "الحد الأقصى للسعر",
+      text: "نص",
+      searchUsingTextExample: "بحث باستخدام النص...",
+      searchByText: "البحث بالنص",
+      reset: "إعادة تعيين",
+      search: "بحث",
+      justNow: "الآن",
+      minutes: "دقيقة",
+      hours: "ساعة",
+      noResults: "لا توجد نتائج",      
+    },
 
     // Login Page
     login: {
       title: "مرحبا مجددا",
       newsuer: "مستخدم جديد؟ ",
-
       singupLink: "الاشتراك",
-      mobileNumber: "رقم الموبايلnt",
+      mobileNumber: "رقم الموبايل",
       passwords: " كلمة السر",
       buttontext: "الدخول",
       remember: "تذکرنی",
       forgetPss: "نسيت كلمة السر؟",
     },
 
-    // Register
     register: {
       title: "تسجيل",
       subtitle: "أكتب رقم موبايلك وإختر كلمة سر جديدة لتسجيل حساب جديد",
       thamsCondition: "تسجيلك يعني موافقتك على الشروط والأحكام",
       alradyLogin: "مستخدم قديم ولديك حساب سابقًا؟",
-
       loginlink: " أدخل إلى حسابك",
       mobileNumber: "رقم الموبايلnt",
       passwords: " كلمة السر",
@@ -363,7 +422,6 @@ export const translations = {
     about: {
       heading: "مستر عقار | دليل الكويت العقاري المتكامل",
       intro: `مرحبًا بك في مستر عقار (Mr aqar)، منصتك الأولى للبحث والإعلان عن العقارات في الكويت. نقدم تجربة فريدة تساعدك على الوصول إلى عقارك المثالي أو الإعلان عن عقارك بكل سهولة. سواء كنت تبحث عن شقق للإيجار، أو فلل للبيع، أو أراضٍ للتبادل، هنا تجد كل ما تحتاج إليه بضغطة زر.`,
-
       whyChooseTitle: "لماذا تختار مستر عقار؟",
       whyChoose: [
         {
