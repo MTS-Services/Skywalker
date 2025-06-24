@@ -34,7 +34,7 @@ const AdCard = ({ ad, t, language, isRTL, variant = "default", onClick }) => {
   if (variant === "compact") {
     return (
       <div onClick={handleClick} className="w-full cursor-pointer group">
-        <div className="relative w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-3 sm:p-4 border border-transparent bg-white active:border-primary-500">
+        <div className="relative w-full rounded-lg shadow shadow-primary-100/50 hover:shadow-lg transition-shadow duration-300 p-3 sm:p-4 border border-transparent bg-white active:border-primary-500">
           <div className="flex gap-3 sm:gap-4">
             {/* Image */}
             <div className="flex-shrink-0 relative">
@@ -89,12 +89,12 @@ const AdCard = ({ ad, t, language, isRTL, variant = "default", onClick }) => {
                 <div className="font-bold text-primary-dark text-base">
                   {ad.kd} {t.ads.currency}
                 </div>
-                <div className="flex items-center gap-1 text-gray-500">
+                <div className="flex items-center gap-1 text-primary-800">
                   <FiClock className="size-4" />
                   <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
                 </div>
               </div>
-              <p className="mt-2 text-gray-600 line-clamp-2 text-sm">{ad.description}</p>
+              <p className="mt-2 text-primary-900 line-clamp-2 text-sm">{ad.description}</p>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ const AdCard = ({ ad, t, language, isRTL, variant = "default", onClick }) => {
   return (
     <div
       onClick={handleClick}
-      className="group w-full cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-xl"
+      className="group w-full cursor-pointer overflow-hidden rounded-lg bg-white shadow shadow-primary-100/50 transition-shadow duration-300 hover:shadow-lg"
     >
       <div className="flex flex-col gap-4 p-4 sm:flex-row">
         <div className="relative h-48 w-full flex-shrink-0 overflow-hidden rounded-md sm:h-36 sm:w-48">
@@ -127,7 +127,7 @@ const AdCard = ({ ad, t, language, isRTL, variant = "default", onClick }) => {
         <div className="flex-1 overflow-hidden">
           <h4 className="text-dark group-hover:text-primary-600 text-lg font-bold transition-colors">{ad.title}</h4>
           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-            <div className="flex items-center gap-1.5 text-gray-500">
+            <div className="flex items-center gap-1.5 text-primary-800">
               <FiClock className="w-4 h-4" />
               <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
             </div>
@@ -135,7 +135,7 @@ const AdCard = ({ ad, t, language, isRTL, variant = "default", onClick }) => {
               {ad.kd} {t.search.currency}
             </div>
           </div>
-          <p className="mt-3 line-clamp-2 text-base text-gray-600">{ad.description}</p>
+          <p className="mt-3 line-clamp-2 text-base text-pirmary-900">{ad.description}</p>
         </div>
       </div>
     </div>

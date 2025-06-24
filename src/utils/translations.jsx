@@ -39,6 +39,8 @@ export const translations = {
       copyLinkTitle: "Copy Direct Link",
       copyButton: "Copy URL",
       noResults: "No results found",
+      loadMore: "Load More",
+      allItemsLoaded: "All items loaded.",
     },
 
     search: {
@@ -59,7 +61,7 @@ export const translations = {
       minPrice: "Min Price",
       maxPrice: "Max Price",
       text: "Text",
-      searchUsingTextExample: "Search using text (e.g.: pool or parking)",
+      searchUsingTextExample: "Search using text...",
       searchByText: "Search by text",
       reset: "Reset",
       search: "Search",
@@ -213,6 +215,8 @@ export const translations = {
       copyLinkTitle: "نسخ الرابط المباشر",
       copyButton: "نسخ الرابط",
       noResults: "لم يتم العثور على نتائج",
+      loadMore: "اظهار المزيد",
+      allItemsLoaded: "تم تحميل جميع البنود.",
     },
 
     search: {
@@ -233,14 +237,14 @@ export const translations = {
       minPrice: "الحد الأدنى للسعر",
       maxPrice: "الحد الأقصى للسعر",
       text: "نص",
-      searchUsingTextExample: "البحث باستخدام النص (على سبيل المثال: حمام سباحة أو موقف سيارات)",
+      searchUsingTextExample: "بحث باستخدام النص...",
       searchByText: "البحث بالنص",
       reset: "إعادة تعيين",
       search: "بحث",
       justNow: "الآن",
       minutes: "دقيقة",
       hours: "ساعة",
-      noResults: "لا توجد نتائج",
+      noResults: "لا توجد نتائج",      
     },
 
     // Login Page

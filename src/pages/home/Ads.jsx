@@ -85,7 +85,7 @@ export default function Ads() {
       }
 
       setLoadingMore(false)
-    }, 500)
+    }, 100)
   }, [allAds, currentPage, loadingMore, hasMore])
 
   // Handle load more button click
@@ -147,7 +147,7 @@ export default function Ads() {
 
   if (loading) {
     return (
-      <section className="bg-gray-50 py-10 md:py-16">
+      <section className="bg-primary-200/10 py-10 md:py-16">
         <div className="container mx-auto px-4">
           <div className="w-full max-w-3xl mx-auto">
             <div className="flex justify-center items-center py-20">
@@ -161,10 +161,10 @@ export default function Ads() {
 
   return (
     <>
-      <section className="bg-gray-50 py-10 md:py-16">
+      <section className="bg-primary-200/10 py-10 md:py-16">
         <div className="container mx-auto px-4">
           <div className="w-full max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 px-2">{t.ads.recentAdsTitle}</h3>
+            <h3 className="text-2xl font-bold text-primary-900 mb-6 px-2">{t.ads.recentAdsTitle}</h3>
             <div className="flex flex-col items-center justify-start gap-4">
               {displayedAds.map((ad) => (
                 <div key={ad.id}>
@@ -176,7 +176,7 @@ export default function Ads() {
               {loadingMore && (
                 <div className="flex justify-center items-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
-                  <span className="ml-3 text-gray-600">{t.search.loading}</span>
+                  <span className="ml-3 text-primary-900">{t.search.loading}</span>
                 </div>
               )}
 
@@ -186,7 +186,7 @@ export default function Ads() {
                   onClick={handleLoadMoreClick}
                   className="mt-6 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50"
                 >
-                  {t.ads.loadMore || "Load More"}
+                  {t.ads.loadMore}
                 </button>
               )}
 
@@ -195,7 +195,7 @@ export default function Ads() {
 
               {/* End of Results */}
               {!hasMore && displayedAds.length > 0 && (
-                <div className="text-center py-8 text-gray-500">{t.ads.allItemsLoaded || "All items loaded"}</div>
+                <div className="text-center py-8 text-primary-900">{t.ads.allItemsLoaded}</div>
               )}
             </div>
           </div>

@@ -4,6 +4,8 @@ import { useLanguage } from "../../context/LanguageContext"
 import AdCard from "../../components/shared/AdCard"
 import { MultiSelectDropdown, SingleSelectDropdown } from "../../components/shared/FilterDropdown"
 import DetailsModal from "../home/Modal"
+import { LuChevronDown, LuSearch } from "react-icons/lu"
+import BannerImage from "../../assets/images/home-hero-banner.svg"
 
 /**
  * Main SearchResults Page Component
@@ -103,38 +105,53 @@ const SearchResults = () => {
   }, [allAds, filters])
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className={`container max-w-7xl mx-auto px-4 py-6`} dir={isRTL ? "rtl" : "ltr"}>
-        {/* Filter Bar */}
-        <SearchFilterBar initialFilters={filters} t={t} isRTL={isRTL} />
+    <div className="min-h-screen" dir={isRTL ? "rtl" : "ltr"}>
+      {/* Filter Bar */}
+      <div className="relative flex min-h-[50vh] items-center justify-center overflow-hidden bg-primary-50/20">
+        <div className="absolute right-0 bottom-0 left-0 flex w-full justify-center">
+          <img
+            alt="Cityscape background"
+            width="1920"
+            height="426"
+            className="h-auto w-full max-w-screen-2xl object-cover"
+            src={BannerImage || "/placeholder.svg"}
+          />
+        </div>
+        <div className="w-full max-w-md rounded-2xl bg-primary-50/20 p-4 shadow-lg shadow-primary-900/30 backdrop-blur-sm sm:p-6">
+          <SearchFilterBar initialFilters={filters} t={t} isRTL={isRTL} />
+        </div>
+      </div>
+      <div className="bg-primary-200/10 px-4 py-6">
+        <div className={`container max-w-3xl mx-auto`}>
 
-        <h1 className="mt-8 mb-6 text-2xl font-bold">
-          {t.search.searchResults} ({loading ? "..." : filteredAds.length} {t.search.ads})
-        </h1>
+          <h1 className="mt-8 mb-6 text-2xl font-bold">
+            {t.search.searchResults} ({loading ? "..." : filteredAds.length} {t.search.ads})
+          </h1>
 
-        {loading ? (
-          <div className="p-10 text-center">{t.search.loading}</div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6">
-            {filteredAds.length > 0 ? (
-              filteredAds.map((ad) => (
-                <AdCard
-                  key={ad.id}
-                  ad={ad}
-                  t={t}
-                  language={language}
-                  isRTL={isRTL}
-                  variant="default"
-                  onClick={handleAdClick}
-                />
-              ))
-            ) : (
-              <div className="col-span-full rounded-lg bg-white p-10 text-center text-gray-500 shadow">
-                {t.search.noResultsFound}
-              </div>
-            )}
-          </div>
-        )}
+          {loading ? (
+            <div className="p-10 text-center">{t.search.loading}</div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6">
+              {filteredAds.length > 0 ? (
+                filteredAds.map((ad) => (
+                  <AdCard
+                    key={ad.id}
+                    ad={ad}
+                    t={t}
+                    language={language}
+                    isRTL={isRTL}
+                    variant="default"
+                    onClick={handleAdClick}
+                  />
+                ))
+              ) : (
+                <div className="col-span-full rounded-lg bg-white p-10 text-center text-primary-800 shadow shadow-primary-200/50">
+                  {t.search.noResultsFound}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
       <DetailsModal
         show={showModal}
@@ -255,7 +272,7 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
   }, [])
 
   return (
-    <div className="max-w-5xl mx-auto w-full space-y-4 rounded-2xl bg-white p-4 shadow-lg sm:p-6">
+    <div className="w-full space-y-4">
       {/* Area Search MultiSelectDropdown */}
       <MultiSelectDropdown
         options={allRegions}
@@ -368,30 +385,21 @@ function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isR
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex items-center justify-between rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100 ${isOpen ? "ring-2 ring-primary-400" : ""}`}
+        className={`flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
       >
         <span>{t.search.price}</span>
         <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-4 w-4"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
+          <LuChevronDown />
         </span>
       </button>
 
       {isOpen && (
         <div
-          className={`absolute z-20 mt-2 rounded-lg border border-gray-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+          className={`absolute z-20 mt-2 rounded-lg border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
           style={{ minWidth: "300px" }}
         >
-          <div className="mb-4 flex items-center justify-between text-sm font-medium text-gray-700">
+          <div className="mb-4 flex items-center justify-between text-sm font-medium text-primary-900">
             <span>
               {minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} {t.search.currency}
             </span>
@@ -405,7 +413,7 @@ function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isR
             max={MAX_POSSIBLE_PRICE}
             value={minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice}
             onChange={handleMinChange}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg"
+            className="w-full h-2 bg-primary-100/80 rounded-lg appearance-none cursor-pointer range-lg"
           />
           <input
             type="range"
@@ -413,7 +421,7 @@ function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isR
             max={MAX_POSSIBLE_PRICE}
             value={maxPrice === "" ? MAX_POSSIBLE_PRICE : maxPrice}
             onChange={handleMaxChange}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg mt-2"
+            className="w-full h-2 bg-primary-100/80 rounded-lg appearance-none cursor-pointer range-lg mt-2"
           />
           <div className="mt-4 flex gap-2">
             <input
@@ -421,26 +429,26 @@ function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isR
               placeholder={t.search.minPrice}
               value={minPrice}
               onChange={handleMinChange}
-              className={`w-1/2 rounded-lg border border-gray-300 p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
+              className={`w-1/2 rounded-lg border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`}
             />
             <input
               type="number"
               placeholder={t.search.maxPrice}
               value={maxPrice}
               onChange={handleMaxChange}
-              className={`w-1/2 rounded-lg border border-gray-300 p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
+              className={`w-1/2 rounded-lg border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`}
             />
           </div>
           <div className="mt-4 flex justify-end gap-2">
             <button
               onClick={handleReset}
-              className="rounded-full px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+              className="rounded-lg px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100"
             >
               {t.search.reset}
             </button>
             <button
               onClick={handleSearch}
-              className="rounded-full bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
+              className="rounded-lg bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
             >
               {t.search.search}
             </button>
@@ -482,65 +490,43 @@ function TextSearchFilter({ searchTerm, setSearchTerm, t, isRTL, isOpen, onToggl
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex items-center justify-between rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100 ${isOpen ? "ring-2 ring-primary-400" : ""}`}
+        className={`flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-700 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
       >
         <span>{t.search.text}</span>
         <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-4 w-4"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
+          <LuChevronDown />
         </span>
       </button>
 
       {isOpen && (
         <div
-          className={`absolute z-20 mt-2 rounded-lg border border-gray-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+          className={`absolute z-20 mt-2 rounded-lg border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
           style={{ minWidth: "300px" }}
         >
-          <p className="mb-2 text-sm text-gray-600">{t.search.searchUsingTextExample}</p>
+          <p className="mb-2 text-sm text-primary-900">{t.search.searchUsingTextExample}</p>
           <div className="relative">
-            <span className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-gray-400`}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="h-5 w-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
+            <span className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-primary-400`}>
+              <LuSearch />
             </span>
             <input
               type="text"
               placeholder={t.search.searchByText}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className={`w-full rounded-lg border border-gray-300 p-2 ${isRTL ? "pr-10 text-right" : "pl-10 text-left"} text-sm focus:border-primary-400 focus:ring-primary-400`}
+              className={`w-full rounded-lg border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "pr-10 text-right" : "pl-10 text-left"} text-sm`}
             />
           </div>
           <div className="mt-4 flex justify-end gap-2">
             <button
               onClick={handleReset}
-              className="rounded-full px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100"
+              className="rounded-lg px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100"
             >
               {t.search.reset}
             </button>
             <button
               onClick={handleSearch}
-              className="rounded-full bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
+              className="rounded-lg bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
             >
               {t.search.search}
             </button>

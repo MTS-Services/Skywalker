@@ -81,19 +81,18 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
         onClick={onClose}
       >
         <div
-          className={`relative flex h-full w-full max-w-5xl transform flex-col bg-white text-gray-800 shadow-lg transition-transform duration-300 ease-out ${
-            isRTL
-              ? isModalActive
-                ? "translate-x-0"
-                : "translate-x-full"
-              : isModalActive
-                ? "translate-x-0"
-                : "-translate-x-full"
-          }`}
+          className={`relative flex h-full w-full max-w-5xl transform flex-col bg-white text-primary-900 shadow-lg transition-transform duration-300 ease-out ${isRTL
+            ? isModalActive
+              ? "translate-x-0"
+              : "translate-x-full"
+            : isModalActive
+              ? "translate-x-0"
+              : "-translate-x-full"
+            }`}
           onClick={(e) => e.stopPropagation()}
           dir={isRTL ? "rtl" : "ltr"}
         >
-          <header className="relative flex h-20 flex-shrink-0 items-center border-b px-4 py-4 sm:px-6">
+          <header className="relative flex h-20 flex-shrink-0 items-center border-b border-primary-200 px-4 py-4 sm:px-6">
             <button
               className={`text-primary-500 -m-2 cursor-pointer p-2 text-2xl ${isRTL ? "rotate-180" : ""}`}
               onClick={onClose}
@@ -195,19 +194,20 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 transition-opacity duration-300 sm:p-6"
           onClick={() => setShowLightbox(false)}
         >
-          <div
-            className={`relative w-full max-w-5xl transform transition-all duration-300 ease-out ${isLightboxActive ? "scale-100 opacity-100" : "scale-90 opacity-0"}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex aspect-video h-auto max-h-[85vh] w-full items-center justify-center overflow-hidden rounded-md">
-              <img
-                src={displayImage || "/placeholder.svg"}
-                alt="Lightbox"
-                className="h-auto max-h-full w-auto max-w-full object-contain"
-              />
+          <div className="relative w-full h-full flex items-center justify-center">
+            <div
+              className={`w-full max-w-5xl mx-auto transform transition-all duration-300 ease-out ${isLightboxActive ? "scale-100 opacity-100" : "scale-90 opacity-0"}`}
+              onClick={(e) => e.stopPropagation()}>
+              <div className="flex aspect-video h-auto max-h-[85vh] w-full items-center justify-center overflow-hidden rounded-md">
+                <img
+                  src={displayImage || "/placeholder.svg"}
+                  alt="Lightbox"
+                  className="h-auto max-h-full w-auto max-w-full object-contain"
+                />
+              </div>
             </div>
             <button
-              className="absolute top-0 -right-0 mt-2 mr-2 rounded-full bg-black/50 p-2 text-2xl text-white transition-all hover:bg-black/80 sm:-top-4 sm:-right-4"
+              className="absolute -top-4 -right-4 mt-2 mr-2 rounded-full bg-primary-100/50 p-2 text-2xl text-white transition-all hover:bg-primary-100/80"
               onClick={() => setShowLightbox(false)}
             >
               <FiX />
