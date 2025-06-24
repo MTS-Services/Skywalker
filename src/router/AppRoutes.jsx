@@ -62,6 +62,8 @@ const AppRoutes = createBrowserRouter([
 
         path: "agents-details/:id",
         element: <AgentsDetails />,
+      },
+      {
 
         path: "contact",
         element: <Contact />,

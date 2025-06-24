@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa"; // Added FaPhoneAlt for the phone icon
 import Ads from "../home/Ads";
 
+
 export default function AgentsDetails() {
   const { id } = useParams();
   const agentId = id.split("-")[0]; // Extract the numeric ID part (e.g., "123")
@@ -75,8 +76,8 @@ export default function AgentsDetails() {
           </div>
         </div>
       </section>
-
-      <Ads />
+<Ads></Ads>
+   
     </>
   );
 }
