@@ -129,6 +129,7 @@ const Navigation = ({
     <NavItem to="/login" label={t.header.login} isRTL={isRTL} />
     <NavItem to="/register" label={t.header.register} isRTL={isRTL} />
     <NavItem to="/agents" label={t.header.agents} isRTL={isRTL} />
+    <NavItem to="/my-ads" label={t.header.myAds} isRTL={isRTL} />
 
     <div className="relative">
       <button
