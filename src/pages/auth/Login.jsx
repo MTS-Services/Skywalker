@@ -1,20 +1,37 @@
-import React, { useState } from "react"; // Import useState
-import { FiPhone, FiEye, FiEyeOff, FiLock, FiKey } from "react-icons/fi";
+// src/pages/auth/Login.jsx
+import React, { useState, useContext } from "react";
+import { FiPhone, FiEye, FiEyeOff, FiLock } from "react-icons/fi";
+import { useLanguage } from "../../context/LanguageContext";
+import { useNavigate, Link } from "react-router-dom"; // Link আমদানি করুন
+import lignimg from "../../assits/login/login.png";
+import { AuthContext } from "../../context/AuthContext";
 
-import { useLanguage } from "../../context/LanguageContext";// Import FiEyeOff for when the password is hidden
-   import  lignimg  from "../../assits/login/login.png";
 const Login = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  // code  by languge setup in   2 type
-  const { isRTL, toggleLanguage, t, language } = useLanguage(); 
+  const { login } = useContext(AuthContext); // AuthProvider থেকে login ফাংশন আমদানি করুন
+  const navigate = useNavigate();
+  const { t } = useLanguage();
 
-  // Function to toggle password visibility
-  // Function to toggle password visibility
-  // Function to toggle password visibility
-  // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const handleSubmit = async (e) => {
+    // async ব্যবহার করুন যদি login ফাংশন async হয়
+    e.preventDefault();
+
+    // AuthProvider এর login ফাংশন কল করুন
+    const result = await login(mobileNumber, password); // mobileNumber এবং password পাস করুন
+
+    if (result.success) {
+      alert(result.message); // "Login successful!"
+      navigate("/");
+    } else {
+      alert(result.message); // "Invalid mobile number or password."
+    }
   };
 
   return (
@@ -39,16 +56,16 @@ const Login = () => {
           </h2>
           <p className="mb-10 text-center text-sm text-gray-600">
             {t.login.newsuer}
-            <a
-              href="/register"
+            <Link
+              to="/register" // Link কম্পোনেন্ট ব্যবহার করুন
               className="font-semibold text-[#32E0BB] hover:underline"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
               <span>{t.login.singupLink}</span>
-            </a>
+            </Link>
           </p>
 
-          <form noValidate className="space-y-6">
+          <form noValidate className="space-y-6" onSubmit={handleSubmit}>
             {/* Phone Number */}
             <div>
               <div className="relative">
@@ -59,46 +76,51 @@ const Login = () => {
                   id="phone"
                   type="tel"
                   placeholder={t.login.mobileNumber}
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
                   className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
+                  required
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-                       <label
-                         htmlFor="password"
-                         className="mb-2 block text-sm font-semibold text-gray-700"
-                       >
-                         {t.register.passwords}
-                       </label>
-                       <div className="relative">
-                         <button
-                           type="button"
-                           onClick={togglePasswordVisibility}
-                           className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
-                         >
-                           {passwordVisible ? (
-                             <FiEyeOff className="text-gray-400" />
-                           ) : (
-                             <FiEye className="text-gray-400" />
-                           )}
-                         </button>
-                         <input
-                           id="password"
-                           type={passwordVisible ? "text" : "password"}
-                           placeholder="********"
-                           autoComplete="new-password"
-                           className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
-                           style={{ fontFamily: "var(--font-secondary)" }}
-                         />
-                         {/* Lock icon on the right for aesthetic, not interactive */}
-                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                           <FiLock className="text-gray-400" />
-                         </span>
-                       </div>
-                     </div>
+              <label
+                htmlFor="password"
+                className="mb-2 block text-sm font-semibold text-gray-700"
+              >
+                {t.register.passwords}{" "}
+              </label>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
+                >
+                  {passwordVisible ? (
+                    <FiEyeOff className="text-gray-400" />
+                  ) : (
+                    <FiEye className="text-gray-400" />
+                  )}
+                </button>
+                <input
+                  id="password"
+                  type={passwordVisible ? "text" : "password"}
+                  placeholder="********"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
+                  style={{ fontFamily: "var(--font-secondary)" }}
+                  required
+                />
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                  <FiLock className="text-gray-400" />
+                </span>
+              </div>
+            </div>
 
             {/* Remember me checkbox */}
             <div className="flex items-center justify-end">
@@ -106,10 +128,10 @@ const Login = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-primary-500  focus:ring-primary-700"
+                className="text-primary-500 focus:ring-primary-700 h-4 w-4 rounded border-gray-300"
               />
               <label
-                htmlFor="remember-me bg-primary-700"
+                htmlFor="remember-me"
                 className="ml-2 block pr-1 text-sm text-gray-900"
               >
                 {t.login.remember}
@@ -119,7 +141,7 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#32E0BB] py-3 text-lg font-semibold text-white transition hover:bg-[#152e6c]"
+              className="bg-background bg-bgcolor-900 flex w-full items-center justify-center gap-3 rounded-xl py-3 text-lg font-semibold text-white transition hover:bg-[#2dcaaa]"
             >
               {t.login.buttontext}
             </button>

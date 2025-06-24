@@ -5,17 +5,19 @@ import { Home } from "../pages/home/Home";
 import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import Agent from "../pages/agent/Agent";
-
-import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
-
-
+import AgentsDetails from "../pages/propertyDetails/AgentsDetails"; 
 import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
-
 import AdDetailPage from "../pages/home/AdDetailPage";
 import SearchResults from "../pages/search/SearchResults";
 import MyAds from "../pages/myAds/MyAds";
+
+import AgentList from "../testingCode/AgentList";
+import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
+import TestRegister from "../TestingPage/TestRegister";
+import ProtectedRoute from "../authente/AuthProvideer/ProtectedRoute";
+import BuyCredits from "../pages/BuyCredits/BuyCredits";
+import Agent from "../pages/agent/Agent";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -76,7 +78,36 @@ const AppRoutes = createBrowserRouter([
       {
         path: "terms",
         element: <TermAndCondition />,
+      },
 
+      {
+        path: "agents",
+        element: <AgentList />,
+      },
+      {
+        path: "agents-details/:id",
+        element: <AgentsDetails />,
+      },
+      {
+        path: "agent/:companyId/ads",
+        element: <CompanyAdsPage />,
+      },
+
+      {
+        path: "buy-credits",
+        element: <BuyCredits/>,
+      },
+
+      // privade rout setup
+
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "testingpage",
+            element: <TestRegister></TestRegister>,
+          },
+        ],
       },
     ],
   },
