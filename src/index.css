@@ -55,6 +55,8 @@
   --color-adspart: #2e6290;
 
   --shadow-card-shadow: 0 0 2px 0 rgba(37, 42, 49, .16), 0 1px 4px 0 rgba(37, 42, 49, .12);
+
+  --breakpoint-xs: 480px;
 }
 
 

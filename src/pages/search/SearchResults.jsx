@@ -106,8 +106,8 @@ const SearchResults = () => {
 
   return (
     <div className="min-h-screen" dir={isRTL ? "rtl" : "ltr"}>
-      {/* Filter Bar */}
-      <div className="relative flex min-h-[50vh] items-center justify-center overflow-hidden bg-primary-50/20">
+      {/* Filter Bar  */}
+      <div className="relative z-10 flex min-h-[50vh] items-center justify-center bg-primary-50/20 p-4">
         <div className="absolute right-0 bottom-0 left-0 flex w-full justify-center">
           <img
             alt="Cityscape background"
@@ -382,10 +382,10 @@ function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isR
   const MIN_POSSIBLE_PRICE = 0
 
   return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+    <div className="relative w-full xs:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
+        className={`w-full flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
       >
         <span>{t.search.price}</span>
@@ -487,10 +487,10 @@ function TextSearchFilter({ searchTerm, setSearchTerm, t, isRTL, isOpen, onToggl
   }
 
   return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+    <div className="relative w-full xs:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-700 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
+        className={`w-full flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-700 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
       >
         <span>{t.search.text}</span>
@@ -501,7 +501,7 @@ function TextSearchFilter({ searchTerm, setSearchTerm, t, isRTL, isOpen, onToggl
 
       {isOpen && (
         <div
-          className={`absolute z-20 mt-2 rounded-lg border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+          className={`w-full absolute z-0 mt-2 rounded-lg border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
           style={{ minWidth: "300px" }}
         >
           <p className="mb-2 text-sm text-primary-900">{t.search.searchUsingTextExample}</p>
