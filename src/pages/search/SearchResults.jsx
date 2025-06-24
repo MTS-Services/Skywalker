@@ -1,10 +1,9 @@
-"use client"
-
 import { useEffect, useState, useMemo, useRef, useCallback } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useLanguage } from "../../context/LanguageContext"
 import AdCard from "../../components/shared/AdCard"
 import { MultiSelectDropdown, SingleSelectDropdown } from "../../components/shared/FilterDropdown"
+import DetailsModal from "../home/Modal"
 
 /**
  * Main SearchResults Page Component
@@ -14,6 +13,33 @@ const SearchResults = () => {
   const location = useLocation()
   const [allAds, setAllAds] = useState([])
   const [loading, setLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [selectedAd, setSelectedAd] = useState(null)
+
+  const formatTimeAgo = (dateString, lang) => {
+    const postDate = new Date(dateString)
+    const now = new Date()
+    const seconds = Math.floor((now - postDate) / 1000)
+    const hours = Math.floor(seconds / 3600)
+
+    if (hours < 1) {
+      const minutes = Math.floor(seconds / 60)
+      if (minutes < 1) return lang === "ar" ? "الآن" : "just now"
+      return `${minutes} ${lang === "ar" ? "دقيقة" : "minutes"}`
+    }
+
+    return `${hours} ${lang === "ar" ? "ساعة" : "hours"}`
+  }
+
+  const handleAdClick = (ad) => {
+    setSelectedAd(ad)
+    setShowModal(true)
+  }
+
+  const closeModal = () => {
+    setShowModal(false)
+    setTimeout(() => setSelectedAd(null), 300)
+  }
 
   // Filters are derived directly from the URL search params
   const filters = useMemo(() => {
@@ -92,7 +118,15 @@ const SearchResults = () => {
           <div className="grid grid-cols-1 gap-6">
             {filteredAds.length > 0 ? (
               filteredAds.map((ad) => (
-                <AdCard key={ad.id} ad={ad} t={t} language={language} isRTL={isRTL} variant="default" />
+                <AdCard
+                  key={ad.id}
+                  ad={ad}
+                  t={t}
+                  language={language}
+                  isRTL={isRTL}
+                  variant="default"
+                  onClick={handleAdClick}
+                />
               ))
             ) : (
               <div className="col-span-full rounded-lg bg-white p-10 text-center text-gray-500 shadow">
@@ -102,6 +136,15 @@ const SearchResults = () => {
           </div>
         )}
       </div>
+      <DetailsModal
+        show={showModal}
+        onClose={closeModal}
+        ad={selectedAd}
+        t={t}
+        isRTL={isRTL}
+        language={language}
+        formatTimeAgo={formatTimeAgo}
+      />
     </div>
   )
 }

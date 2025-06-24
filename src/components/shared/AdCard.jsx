@@ -1,4 +1,3 @@
-"use client"
 import { useNavigate } from "react-router-dom"
 import { FiClock } from "react-icons/fi"
 
@@ -6,7 +5,7 @@ import { FiClock } from "react-icons/fi"
  * Reusable AdCard Component
  * Displays a single ad in a consistent format across the application
  */
-const AdCard = ({ ad, t, language, isRTL, variant = "default" }) => {
+const AdCard = ({ ad, t, language, isRTL, variant = "default", onClick }) => {
   const navigate = useNavigate()
 
   const formatTimeAgo = (dateString, lang) => {
@@ -25,7 +24,11 @@ const AdCard = ({ ad, t, language, isRTL, variant = "default" }) => {
   }
 
   const handleClick = () => {
-    navigate(`/ads/${ad.slug}`)
+    if (onClick) {
+      onClick(ad)
+    } else {
+      navigate(`/ads/${ad.slug}`)
+    }
   }
 
   if (variant === "compact") {

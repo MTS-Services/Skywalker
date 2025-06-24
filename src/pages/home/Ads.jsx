@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect, useRef, useCallback } from "react"
 import DetailsModal from "./Modal"
 import { useLanguage } from "../../context/LanguageContext"
@@ -87,7 +85,7 @@ export default function Ads() {
       }
 
       setLoadingMore(false)
-    }, 100)
+    }, 500)
   }, [allAds, currentPage, loadingMore, hasMore])
 
   // Handle load more button click
@@ -169,8 +167,8 @@ export default function Ads() {
             <h3 className="text-2xl font-bold text-gray-800 mb-6 px-2">{t.ads.recentAdsTitle}</h3>
             <div className="flex flex-col items-center justify-start gap-4">
               {displayedAds.map((ad) => (
-                <div key={ad.id} onClick={() => handleAdClick(ad)}>
-                  <AdCard ad={ad} t={t} language={language} isRTL={isRTL} variant="compact" />
+                <div key={ad.id}>
+                  <AdCard ad={ad} t={t} language={language} isRTL={isRTL} variant="compact" onClick={handleAdClick} />
                 </div>
               ))}
 

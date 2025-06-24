@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { TfiAngleLeft } from "react-icons/tfi"
 import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi"
