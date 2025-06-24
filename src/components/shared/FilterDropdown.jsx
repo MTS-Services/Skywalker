@@ -43,7 +43,7 @@ export const MultiSelectDropdown = ({
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <div
-        className={`focus-within:ring-primary-400 flex w-full cursor-pointer items-center rounded-3xl border border-primary-100 bg-white p-3 focus-within:ring-2 ${isOpen ? "ring-2 ring-primary-400" : ""}`}
+        className={`focus-within:ring-primary-400 flex w-full cursor-pointer items-center rounded-3xl border border-primary-100 bg-white p-3 focus-within:ring-1 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
         role="button"
         tabIndex="0"
@@ -182,7 +182,7 @@ export const SingleSelectDropdown = ({
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex items-center justify-between rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100 ${isOpen ? "ring-2 ring-primary-400" : ""}`}
+        className={`flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
       >
         <span>{label}</span>
@@ -193,14 +193,14 @@ export const SingleSelectDropdown = ({
 
       {isOpen && (
         <div
-          className={`absolute z-20 mt-2 max-h-60 w-64 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+          className={`absolute z-20 mt-2 max-h-60 w-fit min-w-44 overflow-y-auto rounded-lg border border-primary-200 bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
         >
           {hasSearch && (
-            <div className="p-2 border-b border-gray-200">
+            <div className="p-2 border-b border-primary-100">
               <input
                 type="text"
                 placeholder={searchPlaceholder || "Search..."}
-                className={`w-full rounded-lg border border-gray-300 p-2 text-sm focus:border-primary-400 focus:ring-primary-400 ${isRTL ? "text-right" : "text-left"}`}
+                className={`w-full rounded-lg border border-primary-100 p-2 text-sm focus:border-primary-400 focus:ring-primary-400 ${isRTL ? "text-right" : "text-left"}`}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -218,7 +218,7 @@ export const SingleSelectDropdown = ({
                     type="radio"
                     readOnly
                     checked={selectedValue === option.id}
-                    className="form-radio text-primary-400 h-4 w-4 cursor-pointer"
+                    className="text-primary-400 h-4 w-4 cursor-pointer"
                   />
                   <span className={`${isRTL ? "mr-2" : "ml-2"}`}>{option.name}</span>
                 </li>
