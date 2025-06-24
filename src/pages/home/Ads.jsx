@@ -85,7 +85,7 @@ export default function Ads() {
       }
 
       setLoadingMore(false)
-    }, 500)
+    }, 100)
   }, [allAds, currentPage, loadingMore, hasMore])
 
   // Handle load more button click
