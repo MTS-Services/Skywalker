@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLanguage } from "../../context/LanguageContext";
 // import { useLanguage } from "../../context/LanguageContext"; // Removed due to resolution error
 
 // --- Data Constants ---
@@ -12,14 +11,13 @@ const allRegions = [
   { id: "jabriya", name: { en: "Jabriya", ar: "الجابرية" } },
 ];
 const allPropertyTypes = [
-  { id: "all", name: { en: "All Property Types", ar: "جميع أنواع العقارات" } }, // Added "all" option for single select
   { id: "apartment", name: { en: "Apartment", ar: "شقة" } },
   { id: "house", name: { en: "House", ar: "منزل" } },
   { id: "land", name: { en: "Land", ar: "أرض" } },
   { id: "building", name: { en: "Building", ar: "مبنى" } },
   { id: "chalet", name: { en: "Chalet", ar: "شاليه" } },
   { id: "farm", name: { en: "Farm", ar: "مزرعة" } },
-  { id: "commercial", name: { en: "Commercial", ar: "تجاري" } },
+  { id: "commercial", name: { en: "Commercial", ar: "تجاري" } }, // Added commercial as per image
 ];
 const transactionTypes = [
   { id: "rent", name: { en: "Rent", ar: "ايجار" } },
@@ -27,11 +25,77 @@ const transactionTypes = [
   { id: "exchange", name: { en: "Exchange", ar: "بدل" } },
 ];
 
+// Simplified translation object for demonstration
+const mockTranslations = {
+  en: {
+    search: {
+      searchResults: "Search Results",
+      ads: "Ads",
+      loading: "Loading...",
+      noResultsFound: "No results found.",
+      super: "Super",
+      currency: "KD",
+      transactionType: "Transaction Type",
+      transactionTypePlaceholder: "Select Type",
+      propertyType: "Property Type",
+      propertyTypePlaceholder: "Select Property Type",
+      area: "Area", // New translation key for Area/Region
+      areaPlaceholder: "Type Area to Search", // Changed to match image
+      searchPlaceholder: "Search...",
+      price: "Price",
+      minPrice: "Min Price",
+      maxPrice: "Max Price",
+      text: "Text",
+      searchUsingTextExample: "Search using text (e.g.: pool or parking)",
+      searchByText: "Search by text",
+      reset: "Reset",
+      search: "Search",
+      justNow: "just now",
+      minutes: "minutes",
+      hours: "hours",
+      noResults: "No results",
+    },
+  },
+  ar: {
+    search: {
+      searchResults: "نتائج البحث",
+      ads: "إعلانات",
+      loading: "جار التحميل...",
+      noResultsFound: "لا توجد نتائج.",
+      super: "مميز",
+      currency: "د.ك",
+      transactionType: "نوع المعاملة",
+      transactionTypePlaceholder: "اختر النوع",
+      propertyType: "نوع العقار",
+      propertyTypePlaceholder: "اختر نوع العقار",
+      area: "المنطقة", // New translation key for Area/Region
+      areaPlaceholder: "اكتب المنطقة للبحث", // Changed to match image
+      searchPlaceholder: "بحث...",
+      price: "السعر",
+      minPrice: "الحد الأدنى للسعر",
+      maxPrice: "الحد الأقصى للسعر",
+      text: "نص",
+      searchUsingTextExample: "البحث باستخدام النص (على سبيل المثال: حمام سباحة أو موقف سيارات)",
+      searchByText: "البحث بالنص",
+      reset: "إعادة تعيين",
+      search: "بحث",
+      justNow: "الآن",
+      minutes: "دقيقة",
+      hours: "ساعة",
+      noResults: "لا توجد نتائج",
+    },
+  },
+};
+
 /**
  * Main SearchResults Page Component
  */
 const SearchResults = () => {
-  const { t, isRTL, language } = useLanguage();
+  // Simulating useLanguage hook
+  const [language, setLanguage] = useState("en"); // Default to English
+  const isRTL = language === "ar";
+  const t = useMemo(() => mockTranslations[language], [language]);
+
   const location = useLocation();
   const [allAds, setAllAds] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,12 +104,13 @@ const SearchResults = () => {
   const filters = useMemo(() => {
     const params = new URLSearchParams(location.search);
     return {
-      transactionType: params.get("transactionType") || "sale",
-      regions: params.getAll("regions"),
-      propertyType: params.get("propertyType") || "all", // Changed to single string, default "all"
+      transactionType: params.get("transactionType") || "sale", // Default to 'sale'
+      regions: params.getAll("regions"), // Still keeping this for potential future multi-select, but not directly used by text input
+      propertyTypes: params.getAll("propertyTypes"),
       minPrice: params.get("minPrice") ? parseInt(params.get("minPrice")) : "",
       maxPrice: params.get("maxPrice") ? parseInt(params.get("maxPrice")) : "",
       searchText: params.get("searchText") || "",
+      areaSearchText: params.get("areaSearchText") || "", // New state for area text search
     };
   }, [location.search]);
 
@@ -68,17 +133,24 @@ const SearchResults = () => {
   const filteredAds = useMemo(() => {
     if (!allAds.length) return [];
     return allAds.filter((ad) => {
+      // Parse KD value to a number, handling commas
       const adKd = parseFloat(ad.kd.replace(/,/g, ""));
 
       const transactionMatch =
         !filters.transactionType ||
         ad.transactionType === filters.transactionType;
+      // Modified region match to use areaSearchText
       const regionMatch =
-        filters.regions.length === 0 || filters.regions.includes(ad.region);
-      // Updated propertyTypeMatch for single selection
+        !filters.areaSearchText ||
+        ad.region.toLowerCase().includes(filters.areaSearchText.toLowerCase()) ||
+        allRegions.some(region =>
+            region.id.toLowerCase() === ad.region.toLowerCase() &&
+            region.name[language].toLowerCase().includes(filters.areaSearchText.toLowerCase())
+        );
+
       const propertyTypeMatch =
-        filters.propertyType === "all" ||
-        ad.propertyType === filters.propertyType;
+        filters.propertyTypes.length === 0 ||
+        filters.propertyTypes.includes(ad.propertyType);
       const priceMatch =
         (filters.minPrice === "" || adKd >= filters.minPrice) &&
         (filters.maxPrice === "" || adKd <= filters.maxPrice);
@@ -89,20 +161,36 @@ const SearchResults = () => {
 
       return (
         transactionMatch &&
-        regionMatch &&
+        regionMatch && // Use the updated region match
         propertyTypeMatch &&
         priceMatch &&
         textMatch
       );
     });
-  }, [allAds, filters, language]);
+  }, [allAds, filters, language]); // Added language to dependencies for region name matching
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div
-        className={`container max-w-7xl mx-auto px-4 py-6`}
+        className={`container mx-auto px-4 py-6`}
         dir={isRTL ? "rtl" : "ltr"}
       >
+        {/* --- Language Toggle (for demonstration) --- */}
+        <div className="mb-4 flex justify-end">
+          <button
+            onClick={() => setLanguage("en")}
+            className={`px-3 py-1 rounded-l-lg ${language === "en" ? "bg-primary-400 text-white" : "bg-gray-200 text-gray-700"}`}
+          >
+            English
+          </button>
+          <button
+            onClick={() => setLanguage("ar")}
+            className={`px-3 py-1 rounded-r-lg ${language === "ar" ? "bg-primary-400 text-white" : "bg-gray-200 text-gray-700"}`}
+          >
+            العربية
+          </button>
+        </div>
+
         {/* --- New Filter Bar --- */}
         <SearchFilterBar initialFilters={filters} t={t} isRTL={isRTL} />
 
@@ -136,36 +224,38 @@ const SearchResults = () => {
  */
 const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
   const navigate = useNavigate();
-  const [showDropdown, setShowDropdown] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(null); // State to manage which dropdown is open
 
+  // States for each filter control, initialized from URL params
   const [transactionType, setTransactionType] = useState(
     initialFilters.transactionType,
   );
-  const [selectedRegions, setSelectedRegions] = useState(
-    allRegions
-      .filter((r) => initialFilters.regions.includes(r.id))
-      .map((r) => ({ ...r, name: r.name[isRTL ? "ar" : "en"] })),
-  );
-  const [selectedPropertyType, setSelectedPropertyType] = useState(
-    initialFilters.propertyType,
+  // Removed selectedRegions state as it's no longer a multi-select dropdown
+  const [areaSearchText, setAreaSearchText] = useState(initialFilters.areaSearchText); // New state for area text input
+
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState(
+    allPropertyTypes
+      .filter((p) => initialFilters.propertyTypes.includes(p.id))
+      .map((p) => ({ ...p, name: p.name[isRTL ? "ar" : "en"] })),
   );
   const [minPrice, setMinPrice] = useState(initialFilters.minPrice);
   const [maxPrice, setMaxPrice] = useState(initialFilters.maxPrice);
   const [searchText, setSearchText] = useState(initialFilters.searchText);
 
+  // This effect synchronizes the URL with the local state of the filters
   useEffect(() => {
     const params = new URLSearchParams();
     if (transactionType) {
       params.set("transactionType", transactionType);
     }
-    selectedRegions.forEach((region) => {
-      if (region.id !== "all") {
-        params.append("regions", region.id);
-      }
-    });
-    if (selectedPropertyType && selectedPropertyType !== "all") {
-      params.set("propertyType", selectedPropertyType);
+    // Removed regions loop as it's no longer a multi-select dropdown
+    if (areaSearchText) { // Add areaSearchText to URL params
+      params.set("areaSearchText", areaSearchText);
     }
+
+    selectedPropertyTypes.forEach((type) => {
+      params.append("propertyTypes", type.id);
+    });
     if (minPrice !== "" && minPrice !== undefined) {
       params.set("minPrice", minPrice.toString());
     }
@@ -176,38 +266,54 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
       params.set("searchText", searchText);
     }
 
+    // Using replace to avoid bloating browser history on every filter change
     navigate(`/search?${params.toString()}`, { replace: true });
   }, [
     transactionType,
-    selectedRegions,
-    selectedPropertyType,
+    areaSearchText, // Added areaSearchText to dependencies
+    selectedPropertyTypes,
     minPrice,
     maxPrice,
     searchText,
     navigate,
   ]);
 
+  // Function to toggle dropdown visibility
   const toggleDropdown = useCallback((dropdownName) => {
     setShowDropdown((prev) => (prev === dropdownName ? null : dropdownName));
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto w-full space-y-4 rounded-2xl bg-white p-4 shadow-lg sm:p-6">
-      {/* Area Search MultiSelectDropdown (as per original functionality) */}
-      <MultiSelectDropdown
-        options={allRegions.map((region) => ({
-          ...region,
-          name: region.name[isRTL ? "ar" : "en"],
-        }))}
-        selectedItems={selectedRegions}
-        setSelectedItems={setSelectedRegions}
-        placeholder={t.search.areaPlaceholder}
-        searchPlaceholder={t.search.searchPlaceholder}
-        label={t.search.area}
-        isRTL={isRTL}
-        isOpen={showDropdown === "area"}
-        onToggle={() => toggleDropdown("area")}
-      />
+    <div className="w-full space-y-4 rounded-2xl bg-white p-4 shadow-lg sm:p-6">
+      {/* Area Search Input Field (as per original design) */}
+      <div className="relative w-full">
+        <span
+          className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-gray-400`}
+        >
+          {/* Search Icon (inline SVG) */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
+        </span>
+        <input
+          type="text"
+          placeholder={t.search.areaPlaceholder}
+          value={areaSearchText}
+          onChange={(e) => setAreaSearchText(e.target.value)}
+          className={`w-full rounded-3xl border border-gray-300 p-3 ${isRTL ? "pr-10 text-right" : "pl-10 text-left"} focus:border-primary-400 focus:ring-2 focus:ring-primary-400`}
+        />
+      </div>
 
       <div className="flex flex-wrap items-center justify-center gap-4">
         {/* Transaction Type Dropdown */}
@@ -225,21 +331,20 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
           onToggle={() => toggleDropdown("transactionType")}
         />
 
-        {/* Property Type Dropdown - Now using SingleSelectDropdown with search */}
-        <SingleSelectDropdown
+        {/* Property Type Dropdown */}
+        <MultiSelectDropdown
           options={allPropertyTypes.map((type) => ({
             ...type,
             name: type.name[isRTL ? "ar" : "en"],
           }))}
-          selectedValue={selectedPropertyType}
-          setSelectedValue={setSelectedPropertyType}
+          selectedItems={selectedPropertyTypes}
+          setSelectedItems={setSelectedPropertyTypes}
           placeholder={t.search.propertyTypePlaceholder}
           searchPlaceholder={t.search.searchPlaceholder}
           label={t.search.propertyType}
           isRTL={isRTL}
           isOpen={showDropdown === "propertyType"}
           onToggle={() => toggleDropdown("propertyType")}
-          hasSearch={true}
         />
 
         {/* Price Filter */}
@@ -252,7 +357,7 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
           isRTL={isRTL}
           isOpen={showDropdown === "price"}
           onToggle={() => toggleDropdown("price")}
-          onApply={() => setShowDropdown(null)}
+          onApply={() => setShowDropdown(null)} // Close after applying price filter
         />
 
         {/* Text Search Filter */}
@@ -263,7 +368,7 @@ const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
           isRTL={isRTL}
           isOpen={showDropdown === "text"}
           onToggle={() => toggleDropdown("text")}
-          onApply={() => setShowDropdown(null)}
+          onApply={() => setShowDropdown(null)} // Close after applying text filter
         />
       </div>
     </div>
@@ -287,11 +392,12 @@ function MultiSelectDropdown({
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
 
+  // Custom hook for closing dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         if (isOpen) {
-          onToggle();
+          onToggle(); // Close if clicking outside and currently open
         }
       }
     };
@@ -313,183 +419,6 @@ function MultiSelectDropdown({
 
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
-      {/* Changed the outer button to a div to allow nested buttons for 'X' icons */}
-      <div
-        className={`focus-within:ring-primary-400 flex w-full cursor-pointer items-center rounded-3xl border border-primary-100 bg-white p-3 focus-within:ring-2`}
-        onClick={onToggle}
-        role="button" // Add role for accessibility
-        tabIndex="0" // Make the div focusable
-      >
-        <span className="text-primary-400">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </span>
-        <div
-          className={`flex-grow px-2 text-primary-900 ${isRTL ? "text-right" : "text-left"} flex min-h-[24px] flex-wrap gap-1`}
-        >
-          {selectedItems.length > 0
-            ? selectedItems.map((item) => (
-                <span
-                  key={item.id}
-                  className="flex items-center rounded-full bg-primary-50 px-2 py-1 text-xs font-medium text-primary-900"
-                >
-                  {item.name}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent toggling the dropdown when clicking the 'X' button
-                      toggleItem(item);
-                    }}
-                    className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </span>
-              ))
-            : placeholder}
-        </div>
-        <span
-          className={`text-primary-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-4 w-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
-          </svg>
-        </span>
-      </div>
-
-      {isOpen && (
-        <div className="absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-primary-200 bg-white shadow-lg">
-          <div className="p-2">
-            <input
-              type="text"
-              placeholder={searchPlaceholder}
-              className={`w-full rounded-lg border border-primary-100 focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-400 p-2 ${isRTL ? "text-right" : "text-left"}`}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <ul className="p-1">
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((option) => (
-                <li
-                  key={option.id}
-                  className={`hover:bg-primary-50 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
-                  onClick={() => toggleItem(option)}
-                >
-                  <div
-                    className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
-                  >
-                    <input
-                      type="checkbox"
-                      readOnly
-                      checked={selectedItems.some(
-                        (item) => item.id === option.id,
-                      )}
-                      className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
-                    />
-                    <span
-                      className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
-                    >
-                      {option.name}
-                    </span>
-                  </div>
-                  {option.count && (
-                    <span className="text-sm text-primary-900">
-                      ({option.count})
-                    </span>
-                  )}
-                </li>
-              ))
-            ) : (
-              <li className="p-2 text-center text-primary-900">
-                {searchPlaceholder}
-              </li>
-            )}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * A reusable single-select dropdown component (radio buttons) with optional search.
- */
-function SingleSelectDropdown({
-  options,
-  selectedValue,
-  setSelectedValue,
-  placeholder,
-  label,
-  isRTL,
-  isOpen,
-  onToggle,
-  hasSearch = false,
-  searchPlaceholder,
-}) {
-  const dropdownRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (isOpen) {
-          onToggle();
-        }
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onToggle]);
-
-  const handleSelect = (value) => {
-    setSelectedValue(value);
-    setSearchTerm("");
-    onToggle();
-  };
-
-  const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
-
-  return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
         className={`flex items-center justify-between rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100 ${isOpen ? "ring-2 ring-primary-400" : ""}`}
@@ -499,6 +428,7 @@ function SingleSelectDropdown({
         <span
           className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
         >
+          {/* Chevron Down Icon (inline SVG) */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -520,41 +450,134 @@ function SingleSelectDropdown({
         <div
           className={`absolute z-20 mt-2 max-h-60 w-64 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
         >
-          {hasSearch && (
-            <div className="p-2 border-b border-gray-200">
-              <input
-                type="text"
-                placeholder={searchPlaceholder || "Search..."}
-                className={`w-full rounded-lg border border-gray-300 p-2 text-sm focus:border-primary-400 focus:ring-primary-400 ${isRTL ? "text-right" : "text-left"}`}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          )}
+          <div className="p-2">
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              className={`w-full rounded-lg border border-gray-300 p-2 text-sm focus:border-primary-400 focus:ring-primary-400 ${isRTL ? "text-right" : "text-left"}`}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
           <ul className="p-1">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`flex cursor-pointer items-center rounded-md p-2 text-gray-800 hover:bg-primary-50 ${isRTL ? "flex-row-reverse" : ""}`}
-                  onClick={() => handleSelect(option.id)}
+                  className={`flex cursor-pointer items-center justify-between rounded-md p-2 text-gray-800 hover:bg-primary-50 ${isRTL ? "flex-row-reverse" : ""}`}
+                  onClick={() => toggleItem(option)}
                 >
-                  <input
-                    type="radio"
-                    readOnly
-                    checked={selectedValue === option.id}
-                    className="form-radio text-primary-400 h-4 w-4 cursor-pointer"
-                  />
-                  <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
-                    {option.name}
-                  </span>
+                  <div className={`flex items-center ${isRTL ? "pr-2" : "pl-2"}`}>
+                    <input
+                      type="checkbox"
+                      readOnly
+                      checked={selectedItems.some(
+                        (item) => item.id === option.id,
+                      )}
+                      className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
+                    />
+                    <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
+                      {option.name}
+                    </span>
+                  </div>
                 </li>
               ))
             ) : (
               <li className="p-2 text-center text-gray-500">
-                {searchPlaceholder || "No results"}
+                {searchPlaceholder}
               </li>
             )}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * A reusable single-select dropdown component (radio buttons).
+ */
+function SingleSelectDropdown({
+  options,
+  selectedValue,
+  setSelectedValue,
+  placeholder,
+  label,
+  isRTL,
+  isOpen,
+  onToggle,
+}) {
+  const dropdownRef = useRef(null);
+
+  // Custom hook for closing dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        if (isOpen) {
+          onToggle(); // Close if clicking outside and currently open
+        }
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen, onToggle]);
+
+  const handleSelect = (value) => {
+    setSelectedValue(value);
+    onToggle(); // Close after selection
+  };
+
+  return (
+    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+      <button
+        type="button"
+        className={`flex items-center justify-between rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100 ${isOpen ? "ring-2 ring-primary-400" : ""}`}
+        onClick={onToggle}
+      >
+        <span>{label}</span>
+        <span
+          className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
+        >
+          {/* Chevron Down Icon (inline SVG) */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="h-4 w-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </span>
+      </button>
+
+      {isOpen && (
+        <div
+          className={`absolute z-20 mt-2 max-h-60 w-64 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+        >
+          <ul className="p-1">
+            {options.map((option) => (
+              <li
+                key={option.id}
+                className={`flex cursor-pointer items-center rounded-md p-2 text-gray-800 hover:bg-primary-50 ${isRTL ? "flex-row-reverse" : ""}`}
+                onClick={() => handleSelect(option.id)}
+              >
+                <input
+                  type="radio"
+                  readOnly
+                  checked={selectedValue === option.id}
+                  className="form-radio text-primary-400 h-4 w-4 cursor-pointer"
+                />
+                <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
+                  {option.name}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
       )}
@@ -578,11 +601,12 @@ function PriceRangeFilter({
 }) {
   const dropdownRef = useRef(null);
 
+  // Custom hook for closing dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         if (isOpen) {
-          onToggle();
+          onToggle(); // Close if clicking outside and currently open
         }
       }
     };
@@ -603,13 +627,14 @@ function PriceRangeFilter({
   const handleReset = () => {
     setMinPrice("");
     setMaxPrice("");
-    onApply();
+    onApply(); // Apply reset
   };
 
   const handleSearch = () => {
-    onApply();
+    onApply(); // Apply current price filters
   };
 
+  // Max price for slider - adjust as needed based on your data
   const MAX_POSSIBLE_PRICE = 3000000;
   const MIN_POSSIBLE_PRICE = 0;
 
@@ -624,6 +649,7 @@ function PriceRangeFilter({
         <span
           className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
         >
+          {/* Chevron Down Icon (inline SVG) */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -716,11 +742,12 @@ function TextSearchFilter({
 }) {
   const dropdownRef = useRef(null);
 
+  // Custom hook for closing dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         if (isOpen) {
-          onToggle();
+          onToggle(); // Close if clicking outside and currently open
         }
       }
     };
@@ -730,11 +757,11 @@ function TextSearchFilter({
 
   const handleReset = () => {
     setSearchTerm("");
-    onApply();
+    onApply(); // Apply reset
   };
 
   const handleSearch = () => {
-    onApply();
+    onApply(); // Apply current search term
   };
 
   return (
@@ -748,6 +775,7 @@ function TextSearchFilter({
         <span
           className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
         >
+          {/* Chevron Down Icon (inline SVG) */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -777,6 +805,7 @@ function TextSearchFilter({
             <span
               className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-gray-400`}
             >
+              {/* Search Icon (inline SVG) */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -833,10 +862,10 @@ const AdCard = ({ ad, t, language }) => {
     const hours = Math.floor(seconds / 3600);
     if (hours < 1) {
       const minutes = Math.floor(seconds / 60);
-      if (minutes < 1) return lang === "ar" ? t.search.justNow : t.search.justNow;
-      return `${minutes} ${lang === "ar" ? t.search.minutes : t.search.minutes}`;
+      if (minutes < 1) return lang === "ar" ? t.search.justNow : t.search.justNow; // Using translation
+      return `${minutes} ${lang === "ar" ? t.search.minutes : t.search.minutes}`; // Using translation
     }
-    return `${hours} ${lang === "ar" ? t.search.hours : t.search.hours}`;
+    return `${hours} ${lang === "ar" ? t.search.hours : t.search.hours}`; // Using translation
   };
 
   return (
@@ -868,6 +897,7 @@ const AdCard = ({ ad, t, language }) => {
           </h4>
           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <div className="flex items-center gap-1.5 text-gray-500">
+               {/* Clock Icon (inline SVG) */}
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>

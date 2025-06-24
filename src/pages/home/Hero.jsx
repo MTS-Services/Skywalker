@@ -185,20 +185,20 @@ function MultiSelectDropdown({
   return (
     <div className="relative w-full" ref={dropdownRef}>
       <div
-        className="border-primary-100 focus-within:ring-primary-400 flex w-full cursor-pointer items-center rounded-full border bg-white p-3 focus-within:ring-2"
+        className="border-primary-100 focus-within:ring-primary-400 flex w-full cursor-pointer items-center rounded-3xl border bg-white p-3 focus-within:ring-2"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="text-primary-400">
           <BiSearch size={20} />
         </span>
         <div
-          className={`flex-grow px-2 text-gray-500 ${isRTL ? "text-right" : "text-left"} flex flex-wrap gap-1`}
+          className={`flex-grow px-2 text-primary-900 ${isRTL ? "text-right" : "text-left"} flex flex-wrap gap-1`}
         >
           {selectedItems.length > 0
             ? selectedItems.map((item) => (
                 <span
                   key={item.id}
-                  className="flex items-center rounded-full bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700"
+                  className="flex items-center rounded-full bg-primary-50 px-2 py-1 text-xs font-medium text-primary-900"
                 >
                   {item.name}
                   <button
@@ -227,7 +227,7 @@ function MultiSelectDropdown({
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className={`border-primary-100 w-full rounded-lg border p-2 ${isRTL ? "text-right" : "text-left"}`}
+              className={`border-primary-100 w-full rounded-lg focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-400 border p-2 ${isRTL ? "text-right" : "text-left"}`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -250,20 +250,20 @@ function MultiSelectDropdown({
                       className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
                     />
                     <span
-                      className={`text-gray-800 ${isRTL ? "mr-2" : "ml-2"}`}
+                      className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
                     >
                       {option.name}
                     </span>
                   </div>
                   {option.count && (
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-primary-900">
                       ({option.count})
                     </span>
                   )}
                 </li>
               ))
             ) : (
-              <li className="p-2 text-center text-gray-500">
+              <li className="p-2 text-center text-primary-900">
                 {t.home.noResults}
               </li>
             )}

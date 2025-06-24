@@ -1,0 +1,7 @@
+[
+  { "id": "all", "name": "All Region", "count": 2134 },
+  { "id": "hawally", "name": "Hawally Governorate", "count": 726 },
+  { "id": "salmiya", "name": "Salmiya", "count": 104 },
+  { "id": "salwa", "name": "Salwa", "count": 90 },
+  { "id": "jabriya", "name": "Jabriya", "count": 81 }
+]
