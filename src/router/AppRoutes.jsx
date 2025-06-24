@@ -14,6 +14,7 @@ import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 
 import AdDetailPage from "../pages/home/AdDetailPage";
 import SearchResults from "../pages/home/SearchResults";
+import AdUpload from "../pages/adUpload/AdUpload";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "terms",
         element: <TermAndCondition />,
+      },
+      {
+        path: "ad-upload",
+        element: <AdUpload />,
       },
     ],
   },

@@ -73,7 +73,7 @@ function Header() {
         </div>
 
         <NavLink
-          to="/add-ad"
+          to="/ad-upload"
           className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white sm:flex ${
             isRTL ? "flex-row-reverse" : ""
           }`}
