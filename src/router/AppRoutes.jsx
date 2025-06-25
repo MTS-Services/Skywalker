@@ -89,8 +89,7 @@ const AppRoutes = createBrowserRouter([
       {
         path: "ad-upload",
         element: <AdUpload />,
-
-
+      },
       {
         path: "agents",
         element: <AgentList />,
