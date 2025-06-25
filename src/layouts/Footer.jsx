@@ -19,10 +19,7 @@ const FooterLink = ({ to, label, isRTL }) => {
   const text = typeof label === "string" ? label : isRTL ? label.ar : label.en;
   return (
     <li>
-      <Link
-        to={to}
-        className="transition-colors hover:text-[var(--color-primary-100)]"
-      >
+      <Link to={to} className="transition-colors hover:text-white">
         {text}
       </Link>
     </li>
@@ -119,7 +116,7 @@ const Footer = () => {
   const { isRTL } = useLanguage();
 
   return (
-    <footer className="bg-[var(--color-primary-600)] px-6 py-10 text-sm text-white">
+    <footer className="bg-[var(--color-adspart)] px-6 py-10 text-sm text-white">
       <div
         className={`mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 ${
           isRTL ? "rtl" : "ltr"

@@ -13,8 +13,8 @@ import { IoMdCheckmark } from "react-icons/io";
 
 const navLinkClass = ({ isActive }) =>
   isActive
-    ? "text-[#32E0BB] border-b-2 border-[#32E0BB] pb-1"
-    : "hover:text-[#32E0BB] transition-colors";
+    ? "text-[#3a7bb7] border-b-2 border-[#3a7bb7] pb-1"
+    : "hover:text-[#3a7bb7] transition-colors";
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -44,8 +44,8 @@ function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <Link to="/" className="flex items-center">
-          <img src="/logo.png" alt="Logo" className="h-auto w-36 sm:w-48" />
+        <Link to="/">
+          <img src="/logo.png" alt="Logo" className="w-20" />
         </Link>
 
         <button
@@ -74,7 +74,7 @@ function Header() {
 
         <NavLink
           to="/ad-upload"
-          className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white sm:flex ${
+          className={`hidden items-center rounded bg-[var(--color-primary-400)] px-4 py-2 font-medium text-white transition-colors hover:bg-[var(--color-primary-400)] sm:flex ${
             isRTL ? "flex-row-reverse" : ""
           }`}
         >

@@ -270,7 +270,9 @@
     "description": "Traditional Kuwaiti house with courtyard and authentic architecture. Features include majlis, family area, and traditional kitchen. Looking to exchange for modern apartment.",
     "whatsapp": "+96561234587",
     "views": 92,
-    "images": ["https://placehold.co/800x600/FFD4A5/333?text=Traditional+House"],
+    "images": [
+      "https://placehold.co/800x600/FFD4A5/333?text=Traditional+House"
+    ],
     "slug": "traditional-house-exchange",
     "transactionType": "exchange",
     "propertyType": "house",
@@ -504,7 +506,9 @@
     "description": "Profitable apartment building with 8 units, all currently rented. Excellent investment opportunity with steady rental income and potential for appreciation.",
     "whatsapp": "+96561234601",
     "views": 189,
-    "images": ["https://placehold.co/800x600/A5E5D4/333?text=Investment+Building"],
+    "images": [
+      "https://placehold.co/800x600/A5E5D4/333?text=Investment+Building"
+    ],
     "slug": "investment-apartment-building",
     "transactionType": "sale",
     "propertyType": "building",
@@ -633,7 +637,9 @@
     "description": "Authentic traditional house with central courtyard and classic Kuwaiti architecture. Recently renovated while maintaining original character. Features include majlis and family areas.",
     "whatsapp": "+96561234609",
     "views": 112,
-    "images": ["https://placehold.co/800x600/D4C8FF/333?text=Traditional+House"],
+    "images": [
+      "https://placehold.co/800x600/D4C8FF/333?text=Traditional+House"
+    ],
     "slug": "traditional-courtyard-house",
     "transactionType": "rent",
     "propertyType": "house",
@@ -726,7 +732,9 @@
     "description": "Exclusive waterfront apartment complex with marina views and luxury amenities. Features include infinity pool, spa, and private beach access. Premium investment opportunity.",
     "whatsapp": "+96561234615",
     "views": 245,
-    "images": ["https://placehold.co/800x600/A5E5FF/333?text=Waterfront+Complex"],
+    "images": [
+      "https://placehold.co/800x600/A5E5FF/333?text=Waterfront+Complex"
+    ],
     "slug": "waterfront-apartment-complex",
     "transactionType": "sale",
     "propertyType": "building",
@@ -771,7 +779,9 @@
     "description": "Well-equipped industrial workshop with heavy machinery access and loading facilities. Suitable for manufacturing, repair services, or fabrication work. Includes office space.",
     "whatsapp": "+96561234618",
     "views": 89,
-    "images": ["https://placehold.co/800x600/E5C8A5/333?text=Industrial+Workshop"],
+    "images": [
+      "https://placehold.co/800x600/E5C8A5/333?text=Industrial+Workshop"
+    ],
     "slug": "industrial-workshop-rent",
     "transactionType": "rent",
     "propertyType": "warehouse",
@@ -816,7 +826,9 @@
     "description": "Luxury serviced apartment with hotel-style amenities and concierge service. Perfect for business travelers or temporary accommodation. Includes housekeeping and utilities.",
     "whatsapp": "+96561234621",
     "views": 167,
-    "images": ["https://placehold.co/800x600/E5A5FF/333?text=Serviced+Apartment"],
+    "images": [
+      "https://placehold.co/800x600/E5A5FF/333?text=Serviced+Apartment"
+    ],
     "slug": "executive-serviced-apartment",
     "transactionType": "rent",
     "propertyType": "apartment",
@@ -876,7 +888,9 @@
     "description": "Fertile agricultural land suitable for crop cultivation or livestock farming. Includes water access, storage facilities, and equipment shed. Long-term lease available.",
     "whatsapp": "+96561234625",
     "views": 67,
-    "images": ["https://placehold.co/800x600/E5FFE5/333?text=Agricultural+Land"],
+    "images": [
+      "https://placehold.co/800x600/E5FFE5/333?text=Agricultural+Land"
+    ],
     "slug": "agricultural-land-lease",
     "transactionType": "rent",
     "propertyType": "farm",
@@ -891,7 +905,9 @@
     "description": "Ultra-luxury penthouse with private elevator access and panoramic views. Features include wine cellar, home automation, and private rooftop with jacuzzi and entertainment area.",
     "whatsapp": "+96561234626",
     "views": 234,
-    "images": ["https://placehold.co/800x600/FFC8D4/333?text=Penthouse+Elevator"],
+    "images": [
+      "https://placehold.co/800x600/FFC8D4/333?text=Penthouse+Elevator"
+    ],
     "slug": "penthouse-private-elevator",
     "transactionType": "rent",
     "propertyType": "apartment",
@@ -1026,7 +1042,9 @@
     "description": "Professional commercial kitchen facility with industrial equipment and food preparation areas. Perfect for catering businesses, food delivery services, or restaurant expansion.",
     "whatsapp": "+96561234635",
     "views": 87,
-    "images": ["https://placehold.co/800x600/FFE5C8/333?text=Commercial+Kitchen"],
+    "images": [
+      "https://placehold.co/800x600/FFE5C8/333?text=Commercial+Kitchen"
+    ],
     "slug": "commercial-kitchen-rent",
     "transactionType": "rent",
     "propertyType": "commercial",
@@ -1086,7 +1104,9 @@
     "description": "Large industrial complex with multiple warehouses, office buildings, and manufacturing facilities. Excellent investment opportunity with established tenants and steady income stream.",
     "whatsapp": "+96561234639",
     "views": 234,
-    "images": ["https://placehold.co/800x600/C8FFD4/333?text=Industrial+Complex"],
+    "images": [
+      "https://placehold.co/800x600/C8FFD4/333?text=Industrial+Complex"
+    ],
     "slug": "industrial-complex-sale",
     "transactionType": "sale",
     "propertyType": "building",
@@ -1146,7 +1166,9 @@
     "description": "Stunning luxury apartment with panoramic sea views and premium finishes. Features include marble floors, designer kitchen, and spacious balconies. Building amenities include pool and gym.",
     "whatsapp": "+96561234643",
     "views": 245,
-    "images": ["https://placehold.co/800x600/D4E5FF/333?text=Sea+View+Apartment"],
+    "images": [
+      "https://placehold.co/800x600/D4E5FF/333?text=Sea+View+Apartment"
+    ],
     "slug": "luxury-apartment-sea-view",
     "transactionType": "rent",
     "propertyType": "apartment",
@@ -1206,7 +1228,9 @@
     "description": "Strategic logistics warehouse complex with distribution facilities and truck terminals. Ideal for import/export businesses and e-commerce operations. Includes office and administrative areas.",
     "whatsapp": "+96561234647",
     "views": 89,
-    "images": ["https://placehold.co/800x600/A5D4E5/333?text=Logistics+Warehouse"],
+    "images": [
+      "https://placehold.co/800x600/A5D4E5/333?text=Logistics+Warehouse"
+    ],
     "slug": "logistics-warehouse-complex",
     "transactionType": "sale",
     "propertyType": "warehouse",
@@ -1221,7 +1245,9 @@
     "description": "Premium rooftop restaurant space with panoramic city views and outdoor seating. Fully equipped commercial kitchen and bar area. Perfect location for fine dining establishment.",
     "whatsapp": "+96561234648",
     "views": 156,
-    "images": ["https://placehold.co/800x600/C8E5D4/333?text=Rooftop+Restaurant"],
+    "images": [
+      "https://placehold.co/800x600/C8E5D4/333?text=Rooftop+Restaurant"
+    ],
     "slug": "rooftop-restaurant-space",
     "transactionType": "rent",
     "propertyType": "commercial",
@@ -1266,7 +1292,9 @@
     "description": "Premium serviced residence with hotel amenities and personalized service. Features include concierge, housekeeping, and access to spa and fitness facilities. All-inclusive luxury living.",
     "whatsapp": "+96561234651",
     "views": 189,
-    "images": ["https://placehold.co/800x600/D4A5C8/333?text=Serviced+Residence"],
+    "images": [
+      "https://placehold.co/800x600/D4A5C8/333?text=Serviced+Residence"
+    ],
     "slug": "luxury-serviced-residence",
     "transactionType": "rent",
     "propertyType": "apartment",
@@ -1326,7 +1354,9 @@
     "description": "Exclusive waterfront chalet in luxury resort setting with full service amenities. Features include private beach, water sports equipment, and resort dining access.",
     "whatsapp": "+96561234655",
     "views": 198,
-    "images": ["https://placehold.co/800x600/FFC8E5/333?text=Waterfront+Resort"],
+    "images": [
+      "https://placehold.co/800x600/FFC8E5/333?text=Waterfront+Resort"
+    ],
     "slug": "waterfront-chalet-resort",
     "transactionType": "rent",
     "propertyType": "chalet",
@@ -1356,7 +1386,9 @@
     "description": "Fully furnished executive apartment with premium furniture and appliances. Perfect for business travelers or temporary accommodation. Includes utilities and high-speed internet.",
     "whatsapp": "+96561234657",
     "views": 156,
-    "images": ["https://placehold.co/800x600/E5D4C8/333?text=Executive+Furnished"],
+    "images": [
+      "https://placehold.co/800x600/E5D4C8/333?text=Executive+Furnished"
+    ],
     "slug": "furnished-executive-apartment",
     "transactionType": "rent",
     "propertyType": "apartment",
@@ -1371,7 +1403,9 @@
     "description": "Recreational farm complex with horse stables, riding arena, and guest facilities. Perfect for equestrian enthusiasts or agritourism business. Includes farmhouse and staff quarters.",
     "whatsapp": "+96561234658",
     "views": 89,
-    "images": ["https://placehold.co/800x600/D4FFE5/333?text=Recreational+Farm"],
+    "images": [
+      "https://placehold.co/800x600/D4FFE5/333?text=Recreational+Farm"
+    ],
     "slug": "recreational-farm-complex",
     "transactionType": "rent",
     "propertyType": "farm",
@@ -1431,7 +1465,9 @@
     "description": "Exclusive villa in gated beachside community with private beach access and resort amenities. Features include community pool, tennis court, and 24/7 security.",
     "whatsapp": "+96561234662",
     "views": 234,
-    "images": ["https://placehold.co/800x600/C8E5FF/333?text=Beachside+Community"],
+    "images": [
+      "https://placehold.co/800x600/C8E5FF/333?text=Beachside+Community"
+    ],
     "slug": "beachside-villa-community",
     "transactionType": "rent",
     "propertyType": "villa",
@@ -1521,7 +1557,9 @@
     "description": "Purpose-built educational facility with classrooms, laboratories, and administrative areas. Suitable for private school, training center, or educational institution.",
     "whatsapp": "+96561234668",
     "views": 134,
-    "images": ["https://placehold.co/800x600/FFA5C8/333?text=Educational+Building"],
+    "images": [
+      "https://placehold.co/800x600/FFA5C8/333?text=Educational+Building"
+    ],
     "slug": "educational-institution-building",
     "transactionType": "sale",
     "propertyType": "building",
@@ -1566,7 +1604,9 @@
     "description": "Magnificent waterfront mansion with private beach, boat dock, and extensive grounds. Features include 8 bedrooms, multiple entertainment areas, staff quarters, and luxury amenities throughout.",
     "whatsapp": "+96561234671",
     "views": 312,
-    "images": ["https://placehold.co/800x600/E5A5D4/333?text=Waterfront+Mansion"],
+    "images": [
+      "https://placehold.co/800x600/E5A5D4/333?text=Waterfront+Mansion"
+    ],
     "slug": "waterfront-mansion-estate",
     "transactionType": "rent",
     "propertyType": "villa",
