@@ -169,7 +169,7 @@ export default function AdDetailsModal({
 
             <div className="py-6 sm:py-8">
               <div className="container mx-auto px-4">
-                <div className="flex max-h-[60vh] justify-center">
+                <div className="flex max-h-[450px]  max-w-[500px] m-auto justify-center">
                   {displayImage && (
                     <img
                       alt={ad.title}

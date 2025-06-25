@@ -1,6 +1,6 @@
 // src/context/AuthProvider.js
 import React, { useState, useEffect } from "react";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../AuthContext"; // AuthContext এর সঠিক পাথ
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
     } else {
       setIsAuthenticated(false);
       setUser(null);
-      return { success: false, message: "Invalid mobile number or password." }; //
+      return { success: false, message: "Invalid mobile number or password." };
     }
   };
 
@@ -64,6 +64,8 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("user");
+    // Optionally remove registeredUsers if needed on logout, though usually not.
+    // localStorage.removeItem("registeredUsers");
   };
 
   const registerUser = (mobileNumber, password) => {
@@ -80,10 +82,18 @@ const AuthProvider = ({ children }) => {
       name: `User_${mobileNumber.substring(mobileNumber.length - 4)}`,
     };
     setRegisteredUsers((prevUsers) => [...prevUsers, newUser]);
+
+    // **গুরুত্বপূর্ণ পরিবর্তন:** রেজিস্ট্রেশনের পর স্বয়ংক্রিয়ভাবে লগইন করা হচ্ছে
+    setIsAuthenticated(true);
+    setUser({
+      mobileNumber: newUser.mobileNumber,
+      name: newUser.name,
+    });
+
     return {
       success: true,
-      message: "Registration successful! Please proceed to login.",
-    }; //
+      message: "Registration successful! You are now logged in.",
+    };
   };
 
   return (

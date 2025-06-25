@@ -8,10 +8,13 @@ export const translations = {
       contact: "Contact",
       login: "Login",
       register: "Register",
+      byCredit: "By Credits",
       addFreeAd: "Add Free Ad",
       kuwaitRealEstate: "Kuwait Real Estate",
       myAds: "My Ads",
       myArchives: "My Archives",
+      logout: "Logout",
+      
     },
 
     // Footer
@@ -21,8 +24,8 @@ export const translations = {
     },
 
     creditComponent: {
-      'title': 'Your Ads Credits',
-      'buyCredit': 'Buy Credits',
+      title: "Your Ads Credits",
+      buyCredit: "Buy Credits",
     },
 
     // Home Page
@@ -53,7 +56,6 @@ export const translations = {
       shareAd: "Share Ad",
       copyLinkTitle: "Copy Direct Link",
       copyButton: "Copy URL",
-      noResults: "No results found",
       loadMore: "Load More",
       allItemsLoaded: "All items loaded.",
     },
@@ -127,13 +129,39 @@ export const translations = {
     // Register Page
     register: {
       title: "Register",
-      subtitle: "Enter your mobile number and a new password to register a new account",
+      subtitle:
+        "Enter your mobile number and a new password to register a new account",
       thamsCondition: "By registering you agree to the terms and conditions",
       alradyLogin: "Old user with an account?",
       loginlink: " Login to your account",
       mobileNumber: "Mobile Number",
       passwords: "Password",
       buttontext: "Register",
+    },
+
+    byCredit: {
+      title: "Buy Credits",
+      subtitlefast: "Select the Package and click the button to buy",
+      subtitlastone: "Contact us viay",
+      bycalling: "Call",
+      subtitlasttwo: "or",
+      byWhatsapp: "WhatsApp",
+      superCredit: "Super Credit",
+      superbuttontextFast: "1 Ad - 12 KD",
+      superbuttontextlast: "5 Ads - 55 KD",
+
+      agentsSubscription: "Agents Subscription",
+      agentsbuttontextFast: "2 Months - 30 Ads - 100 KD",
+      agentsbuttontextlast: "6 Months - 90 Ads - 270 KD",
+
+      regularCredit: "Regular Credit",
+      regularbuttontextFast: "3 Ads - 12 KD",
+      regularbuttontextlast: "6 Ads - 23 KD",
+
+      allpaymentmethods:
+        "All payment methods in Boshamlan are secured and trusted 100% by all local banks",
+      cliekclink: " Clieck for details",
+      closebutton: "Closing",
     },
 
     agent: {
@@ -308,12 +336,14 @@ export const translations = {
       agents: "المكاتب",
       about: "من نحن",
       contact: "اتصل بنا",
+      byCredit: "إشحن رصيد",
       login: "تسجيل الدخول",
       register: "تسجيل جديد",
       addFreeAd: "اضافة اعلان مجان",
       kuwaitRealEstate: "العقار الكويتي",
       myAds: "اعلاناتي",
       myArchives: "أرشيفي",
+      logout: "خروج",
     },
 
 
@@ -323,8 +353,8 @@ export const translations = {
     },
 
     creditComponent: {
-      'title': 'احصل على الايجار الان',
-      'buyCredit': 'اشتري الايجار',
+      title: "احصل على الايجار الان",
+      buyCredit: "اشتري الايجار",
     },
 
     // Home Page
@@ -395,12 +425,6 @@ export const translations = {
       archive: "أرشيف",
       deleted: "محذوف",
     },
-
-    footer: {
-      titleFast: "عقارات للايجار",
-      footerChildone: "شقق للايجار",
-    },
-
     ads: {
       recentAdsTitle: "اعلانات عقارية حديثة في الكويت",
       currency: "د.ك",
@@ -439,7 +463,32 @@ export const translations = {
       buttontext: "تسجيل ",
     },
 
-    // Agent
+    byCredit: {
+      title: "إشحن رصيد",
+      subtitlefast: "إختر الباقة المناسبة وإضغط على الزر للشراء",
+      subtitlastone: "تواصل معنا",
+      bycalling: "بالاتصال ",
+      subtitlasttwo: "او",
+      byWhatsapp: "الواتس اب",
+
+      superCredit: "رصيد مميز",
+      superbuttontextFast: "1 إعلان - 12 دك",
+      superbuttontextlast: "5 إعلانات - 55 دك",
+
+      agentsSubscription: "باقة المكاتب",
+      agentsbuttontextFast: "شهرين - 30 إعلان - 100 دك",
+      agentsbuttontextlast: "6 أشهر - 90 إعلان - 270 دك",
+
+      regularCredit: "رصيد إضافي",
+      regularbuttontextFast: "3 إعلانات - 12 دك",
+      regularbuttontextlast: "6 إعلانات - 23 دك",
+
+      allpaymentmethods:
+        "كل وسائل الدفع الإلكترونية في بوشملان معتمدة وموثوقة 100% من البنوك المحلية",
+      cliekclink: " اضغط هنا للتفاصيل ",
+      closebutton: "إغلاق",
+    },
+
     agent: {
       titlefast: "قائمة وكلاء العقارات في الكويت",
       titlelast: "الوكلاء ",

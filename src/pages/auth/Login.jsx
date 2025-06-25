@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import { FiPhone, FiEye, FiEyeOff, FiLock } from "react-icons/fi";
 import { useLanguage } from "../../context/LanguageContext";
 import { useNavigate, Link } from "react-router-dom"; // Link আমদানি করুন
-import lignimg from "../../assits/login/login.png";
+import lignimg from "../../assits/login/login (2).png";
 import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
@@ -52,14 +52,14 @@ const Login = () => {
 
         {/* Right Form Section */}
         <div className="flex w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="mb-2 text-center text-3xl font-bold text-[#32E0BB]">
+          <h2 className="text-primary-500 mb-2 text-center text-3xl font-bold">
             {t.login.title}
           </h2>
           <p className="mb-10 text-center text-sm text-gray-600">
             {t.login.newsuer}
             <Link
               to="/register" // Link কম্পোনেন্ট ব্যবহার করুন
-              className="font-semibold text-[#32E0BB] hover:underline"
+              className="text-primary-500 font-semibold hover:underline px-2"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
               <span>{t.login.singupLink}</span>
@@ -142,7 +142,8 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="bg-background bg-bgcolor-900 flex w-full items-center justify-center gap-3 rounded-xl py-3 text-lg font-semibold text-white transition hover:bg-[#2dcaaa]"
+              className="bg-background bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-3 rounded-xl py-2 text-base font-semibold text-white
+               transition"
             >
               {t.login.buttontext}
             </button>
