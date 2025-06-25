@@ -33,7 +33,7 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
 
     const handleClick = () => {
         // if (onClick) {
-            onClick(ad)
+        onClick(ad)
         // } else {
         //     navigate(`/ ads / ${ad.slug} `)
         // }
@@ -59,7 +59,7 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
     return (
         <>
             <div onClick={handleClick} className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 cursor-pointer border border-transparent bg-white">
-                <DiagonalRibbon text={`Open`} backgroundColor="#556895" />
+                <DiagonalRibbon text={ad.isOpen ? (`${t.myAds.open}`) : (ad.isArchive ? (`${t.myAds.archive}`) : (`${t.myAds.deleted}`))} backgroundColor={ad.isOpen ? (`#556895`) : (ad.isArchive ? (`#556885`) : (`#242424`))} />
 
                 {/* Main Content */}
                 <div className="flex gap-3">

@@ -11,6 +11,7 @@ export const translations = {
       addFreeAd: "Add Free Ad",
       kuwaitRealEstate: "Kuwait Real Estate",
       myAds: "My Ads",
+      myArchives: "My Archives",
     },
 
     // Footer
@@ -106,6 +107,9 @@ export const translations = {
       translateTitle: "تم نشر إعلانك المترجم للغة الإنجليزية",
       translateMessage: "تم حذف هذا الاعلان او إنتهاء مدته",
       currency: "د.ك",
+      open: "Open",
+      archive: "Archive",
+      deleted: "Deleted",
     },
 
     // Login Page
@@ -309,6 +313,7 @@ export const translations = {
       addFreeAd: "اضافة اعلان مجان",
       kuwaitRealEstate: "العقار الكويتي",
       myAds: "اعلاناتي",
+      myArchives: "أرشيفي",
     },
 
 
@@ -333,7 +338,7 @@ export const translations = {
       // 'sale': 'للبيع',
       // 'exchange': 'للتبادل',
       searchButton: "ابحث",
-      searchPlaceholder: "يبحث...",      
+      searchPlaceholder: "يبحث...",
     },
 
     // Search
@@ -386,6 +391,9 @@ export const translations = {
       translateTitle: "Your translated Ad to Arabic is published",
       translateMessage: "This ad has been deleted or expired",
       currency: "KD",
+      open: "مفتوح",
+      archive: "أرشيف",
+      deleted: "محذوف",
     },
 
     footer: {
