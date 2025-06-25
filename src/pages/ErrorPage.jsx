@@ -1,11 +1,45 @@
-import React from "react";
+import { TfiAlert } from "react-icons/tfi";
+import { Link } from "react-router-dom";
 
-export const ErrorPage = () => {
+const ErrorPage = () => {
   return (
-    <>
-      <div className="flex h-screen items-center justify-center text-2xl font-bold">
-        404| Not Found
+    <section className="flex min-h-screen items-center justify-center bg-[#F5F5F9] py-6">
+      <div className="px-4 text-center sm:px-8 md:px-12 lg:px-16">
+        {/* Error Code */}
+        <h1 className="mb-2 text-6xl font-bold text-gray-800 sm:text-7xl md:text-8xl">
+          404
+        </h1>
+
+        {/* Error Message Heading */}
+        <h2 className="mb-2 flex items-center justify-center text-xl font-semibold text-gray-800 sm:text-2xl">
+          Page Not Found
+          <TfiAlert className="ml-2 text-red-500" />
+        </h2>
+
+        {/* Error Description */}
+        <p className="text-md mb-4 text-gray-600">
+          Oops! The page you're looking for can't be found.
+        </p>
+
+        {/* Back to Home Button */}
+        <Link
+          to="/"
+          className="inline-block rounded-full bg-[var(--color-primary-400)] px-8 py-3 text-lg text-white transition duration-300 hover:bg-[var(--color-primary-400)]"
+        >
+          Back To Home
+        </Link>
+
+        {/* Error Illustration */}
+        <div className="mt-6 sm:mt-8 md:mt-10">
+          <img
+            src="/public/error.png"
+            alt="Error Illustration"
+            className="mx-auto h-auto w-80 sm:w-96 md:w-104"
+          />
+        </div>
       </div>
-    </>
+    </section>
   );
 };
+
+export default ErrorPage;

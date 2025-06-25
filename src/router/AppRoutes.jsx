@@ -1,15 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ErrorPage } from "../pages/ErrorPage";
+import ErrorPage from "../pages/ErrorPage";
 import About from "../pages/about/About";
 import { Home } from "../pages/home/Home";
 import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import AgentsDetails from "../pages/propertyDetails/AgentsDetails"; 
+
+import Agent from "../pages/agent/Agent";
+
+import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
+
+
 import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 import AdDetailPage from "../pages/home/AdDetailPage";
 import SearchResults from "../pages/search/SearchResults";
+
+import AdUpload from "../pages/adUpload/AdUpload";
+
 import MyAds from "../pages/myAds/MyAds";
 
 import AgentList from "../testingCode/AgentList";
@@ -17,7 +25,7 @@ import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
 import TestRegister from "../TestingPage/TestRegister";
 import ProtectedRoute from "../authente/AuthProvideer/ProtectedRoute";
 import BuyCredits from "../pages/BuyCredits/BuyCredits";
-// import Agent from "../pages/agent/Agent";
+
 
 const AppRoutes = createBrowserRouter([
   {
@@ -66,12 +74,10 @@ const AppRoutes = createBrowserRouter([
         element: <MyAds />,
       },
       {
-
         path: "agents-details/:id",
         element: <AgentsDetails />,
       },
       {
-
         path: "contact",
         element: <Contact />,
       },
@@ -79,6 +85,11 @@ const AppRoutes = createBrowserRouter([
         path: "terms",
         element: <TermAndCondition />,
       },
+
+      {
+        path: "ad-upload",
+        element: <AdUpload />,
+
 
       {
         path: "agents",
@@ -97,8 +108,6 @@ const AppRoutes = createBrowserRouter([
         path: "buy-credits",
         element: <BuyCredits/>,
       },
-
-      // privade rout setup
 
       {
         element: <ProtectedRoute />,
