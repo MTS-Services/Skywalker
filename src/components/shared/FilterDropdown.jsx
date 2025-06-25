@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 
 /**
- * Reusable MultiSelectDropdown Component
+ * 1. Reusable MultiSelectDropdown Component (Original - Shows selected items)
  */
 export const MultiSelectDropdown = ({
   options,
@@ -10,7 +10,6 @@ export const MultiSelectDropdown = ({
   setSelectedItems,
   placeholder,
   searchPlaceholder,
-  label,
   isRTL,
   isOpen,
   onToggle,
@@ -64,23 +63,23 @@ export const MultiSelectDropdown = ({
         >
           {selectedItems.length > 0
             ? selectedItems.map((item) => (
-                <span
-                  key={item.id}
-                  className="bg-primary-50 text-primary-900 flex items-center rounded-full px-2 py-1 text-xs font-medium"
+              <span
+                key={item.id}
+                className="bg-primary-50 text-primary-900 flex items-center rounded-full px-2 py-1 text-xs font-medium"
+              >
+                {item.name}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleItem(item);
+                  }}
+                  className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
                 >
-                  {item.name}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleItem(item);
-                    }}
-                    className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
-                  >
-                    <LuX />
-                  </button>
-                </span>
-              ))
+                  <LuX />
+                </button>
+              </span>
+            ))
             : placeholder}
         </div>
         <span
@@ -162,8 +161,150 @@ export const MultiSelectDropdown = ({
   );
 };
 
+
 /**
- * Reusable SingleSelectDropdown Component
+ * 2. Reusable OnlyMultiSelectDropdown Component (Does NOT show selected items)
+ */
+export const OnlyMultiSelectDropdown = ({
+  options,
+  selectedItems,
+  setSelectedItems,
+  placeholder,
+  searchPlaceholder,
+  isRTL,
+  isOpen,
+  onToggle,
+}) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        if (isOpen) {
+          onToggle();
+        }
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen, onToggle]);
+
+  const toggleItem = (item) => {
+    setSelectedItems((prev) =>
+      prev.some((selected) => selected.id === item.id)
+        ? prev.filter((selected) => selected.id !== item.id)
+        : [...prev, { ...item }],
+    );
+  };
+
+  const filteredOptions = options.filter((option) =>
+    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  return (
+    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+      <div
+        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-primary-400 ring-1" : ""}`}
+        onClick={onToggle}
+        role="button"
+        tabIndex="0"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onToggle();
+          }
+        }}
+      >
+        {/* <span className="text-primary-400">
+          <LuSearch />
+        </span> */}
+        {/* MODIFIED PART: This section now always shows the placeholder, never the selected items. */}
+        <span>
+          {placeholder}
+        </span>
+        <span
+          className={`text-primary-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </span>
+      </div>
+
+      {isOpen && (
+        <div className="border-primary-200 absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
+          <div className="p-2">
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              className={`border-primary-100 focus:ring-primary-400 w-full rounded-lg border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+          <ul className="p-1">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => (
+                <li
+                  key={option.id}
+                  className={`hover:bg-primary-50 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleItem(option);
+                  }}
+                >
+                  <div
+                    className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
+                  >
+                    <input
+                      type="checkbox"
+                      readOnly
+                      checked={selectedItems.some(
+                        (item) => item.id === option.id,
+                      )}
+                      className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
+                    />
+                    <span
+                      className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
+                    >
+                      {option.name}
+                    </span>
+                  </div>
+                  {option.count && (
+                    <span className="text-primary-900 text-sm">
+                      ({option.count})
+                    </span>
+                  )}
+                </li>
+              ))
+            ) : (
+              <li className="text-primary-900 p-2 text-center">
+                No results found
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+/**
+ * 3. Reusable SingleSelectDropdown Component (Original)
  */
 export const SingleSelectDropdown = ({
   options,
@@ -206,11 +347,7 @@ export const SingleSelectDropdown = ({
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-
-
-        className={`w-full flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
-
-
+        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
       >
         <span>{label}</span>
