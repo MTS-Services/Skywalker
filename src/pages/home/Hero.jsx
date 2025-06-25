@@ -8,7 +8,7 @@ import { MultiSelectDropdown } from "../../components/shared/FilterDropdown"
  */
 export default function Hero({ t, isRTL }) {
   return (
-    <section className="relative flex min-h-[calc(100vh-150px)] items-center justify-center overflow-hidden bg-primary-50/20 md:min-h-[calc(100vh-200px)]">
+    <section className="relative z-10 flex min-h-[calc(100vh-150px)] items-center justify-center bg-primary-50/20 md:min-h-[calc(100vh-200px)]">
       <div className="absolute right-0 bottom-0 left-0 flex w-full justify-center">
         <img
           alt="Cityscape background"
@@ -20,7 +20,7 @@ export default function Hero({ t, isRTL }) {
       </div>
       <div className="relative z-10 container mx-auto flex h-full w-full items-center justify-center p-4">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
-          <h2 className="mb-3 text-2xl font-bold text-primary-900 md:text-4xl">{t.home.bannerTitle}</h2>
+          <h2 className="mb-3 text-xl md:text-2xl font-bold text-primary-900 lg:text-3xl">{t.home.bannerTitle}</h2>
           <p className="mb-8 text-base text-primary-800 md:text-lg">{t.home.bannerSubTitle}</p>
           <div className="w-full max-w-md rounded-2xl bg-primary-50/20 p-4 shadow-lg shadow-primary-900/30 backdrop-blur-sm sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />

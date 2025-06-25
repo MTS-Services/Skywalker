@@ -51,7 +51,7 @@ export default function Agent() {
               <h3
                 className={`text-lg font-bold text-gray-800 ${isRTL ? "mr-2" : "ml-2"}`}
               >
-                {t.agent.titlefast}({" "}
+                {t.agent.titlefast}({" "}dddddddddddddddddddddddddddddd
                 <span className="px-2">{agents.length}</span>
                 {t.agent.titlelast})
               </h3>

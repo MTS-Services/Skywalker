@@ -10,12 +10,18 @@ export const translations = {
       register: "Register",
       addFreeAd: "Add Free Ad",
       kuwaitRealEstate: "Kuwait Real Estate",
+      myAds: "My Ads",
     },
 
     // Footer
     footer: {
       titleFast: "Properties for rent",
       footerChildone: "Apartments for rent",
+    },
+
+    creditComponent: {
+      'title': 'Your Ads Credits',
+      'buyCredit': 'Buy Credits',
     },
 
     // Home Page
@@ -298,6 +304,18 @@ export const translations = {
       register: "تسجيل جديد",
       addFreeAd: "اضافة اعلان مجان",
       kuwaitRealEstate: "العقار الكويتي",
+      myAds: "اعلاناتي",
+    },
+
+
+    footer: {
+      titleFast: "عقارات للايجار",
+      footerChildone: "شقق للايجار",
+    },
+
+     creditComponent: {
+      'title': 'احصل على الايجار الان',
+      'buyCredit': 'اشتري الايجار',
     },
 
     // Home Page
@@ -379,7 +397,7 @@ export const translations = {
       justNow: "الآن",
       minutes: "دقيقة",
       hours: "ساعة",
-      noResults: "لا توجد نتائج",      
+      noResults: "لا توجد نتائج",
     },
 
     // Login Page

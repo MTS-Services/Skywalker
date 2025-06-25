@@ -206,7 +206,11 @@ export const SingleSelectDropdown = ({
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`border-primary-200 text-primary-900 hover:bg-primary-50/60 flex items-center justify-between gap-2 rounded-full border bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors ${isOpen ? "ring-primary-400 ring-1" : ""}`}
+
+
+        className={`w-full flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
+
+
         onClick={onToggle}
       >
         <span>{label}</span>
