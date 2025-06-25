@@ -2,10 +2,12 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
+import ScrollToTop from "./components/ScrollToTop";
 
 function MainLayout() {
   return (
     <>
+    <ScrollToTop />
       <header>
         <Header />
       </header>

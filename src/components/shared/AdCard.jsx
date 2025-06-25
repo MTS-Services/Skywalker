@@ -78,6 +78,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
               </div>
             )}
           </div>
+          
           {/* Details */}
           <div className="flex-1 overflow-hidden">
             <h4 className="font-bold text-base sm:text-lg text-dark line-clamp-2 break-words group-hover:text-primary-600 transition-colors">

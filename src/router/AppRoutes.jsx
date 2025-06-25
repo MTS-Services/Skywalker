@@ -12,12 +12,13 @@ import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
 
 import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
-import AdDetailPage from "../pages/home/AdDetailPage";
+import AdDetailPage from "../pages/adDetails/AdDetailPage";
 import SearchResults from "../pages/search/SearchResults";
 
 import AdUpload from "../pages/adUpload/AdUpload";
 
 import MyAds from "../pages/myAds/MyAds";
+import MyArchive from "../pages/myArchive/MyArchive";
 
 import AgentList from "../testingCode/AgentList";
 import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
@@ -70,6 +71,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "my-ads",
         element: <MyAds />,
+      },
+      {
+        path: "my-archives",
+        element: <MyArchive />,
       },
       {
         path: "agents-details/:id",

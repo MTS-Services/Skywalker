@@ -6,7 +6,7 @@ import MyAdCard from '../../components/shared/MyAdCard';
 import axios from 'axios';
 import DetailsModal from "../adDetails/Modal"
 
-export default function MyAds() {
+export default function MyArchive() {
     const [myAds, setMyAds] = useState([]);
     const [showModal, setShowModal] = useState(false)
     const [selectedAd, setSelectedAd] = useState(null)
@@ -17,9 +17,8 @@ export default function MyAds() {
         try {
             const response = await axios.get('/data/myAds.json');
             const data = response.data;
-            // Filter the data to include only items where isOpen is true
-            const openAds = data.filter(ad => ad.isOpen === true);
-            setMyAds(openAds);
+            const nonOpenAds = data.filter(ad => ad.isOpen !== true);
+            setMyAds(nonOpenAds);
         } catch (error) {
             console.error('Error fetching my ads:', error);
         }
@@ -66,9 +65,9 @@ export default function MyAds() {
                 </div>
                 <div className="max-w-2xl mx-auto">
                     <h1>
-                        <span>{t.myAds.title}</span>
-                        <NavLink to="/my-archives">
-                            <span className="text-xs font-bold"> ({t.myAds.myArchiveAds})</span>
+                        <span>{t.myAds.myArchiveAds}</span>
+                        <NavLink to="/my-ads">
+                            <span className="text-xs font-bold"> ({t.myAds.title})</span>
                         </NavLink>
                     </h1>
                     <div className="relative min-h-48 mt-5">

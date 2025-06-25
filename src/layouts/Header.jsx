@@ -140,6 +140,7 @@ const Navigation = ({
     {/* <NavItem to="/agents" label={t.header.agents} isRTL={isRTL} /> */}
 
     <NavItem to="/my-ads" label={t.header.myAds} isRTL={isRTL} />
+    <NavItem to="/my-archives" label={t.header.myArchives} isRTL={isRTL} />
 
  
 
