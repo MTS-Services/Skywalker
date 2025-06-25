@@ -205,7 +205,7 @@ export const OnlyMultiSelectDropdown = ({
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <div
-        className={`focus-within:ring-primary-400 border-primary-100 flex w-full cursor-pointer items-center rounded-3xl border bg-white p-3 focus-within:ring-1 ${isOpen ? "ring-primary-400 ring-1" : ""}`}
+        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-primary-400 ring-1" : ""}`}
         onClick={onToggle}
         role="button"
         tabIndex="0"
@@ -220,11 +220,9 @@ export const OnlyMultiSelectDropdown = ({
           <LuSearch />
         </span> */}
         {/* MODIFIED PART: This section now always shows the placeholder, never the selected items. */}
-        <div
-          className={`text-primary-900 flex-grow px-2 ${isRTL ? "text-right" : "text-left"} flex min-h-[24px] flex-wrap items-center gap-1`}
-        >
+        <span>
           {placeholder}
-        </div>
+        </span>
         <span
           className={`text-primary-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
         >
@@ -349,7 +347,7 @@ export const SingleSelectDropdown = ({
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`w-full flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
+        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
         onClick={onToggle}
       >
         <span>{label}</span>
