@@ -9,7 +9,7 @@ const ButtonSubmit = ({
     <button
       type="submit"
       onClick={onClick}
-      className={`mx-auto flex w-full cursor-pointer items-center justify-center rounded bg-[var(--color-primary-400)] px-8 py-3 text-center font-medium text-white transition duration-500 ease-in-out hover:bg-[var(--color-primary-400)] sm:w-auto ${className}`}
+      className={`mx-auto flex w-full cursor-pointer items-center justify-center rounded bg-[var(--color-primary-500)] px-8 py-3 text-center font-medium text-white transition duration-500 ease-in-out hover:bg-[var(--color-primary-600)] sm:w-auto ${className}`}
     >
       {text}
     </button>

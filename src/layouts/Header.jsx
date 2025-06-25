@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import {
   FiChevronDown,
@@ -13,8 +13,8 @@ import { IoMdCheckmark } from "react-icons/io";
 
 const navLinkClass = ({ isActive }) =>
   isActive
-    ? "text-[#3a7bb7] border-b-2 border-[#3a7bb7] pb-1"
-    : "hover:text-[#3a7bb7] transition-colors";
+    ? "text-[#26b1e6] border-b-2 border-[#26b1e6] pb-1"
+    : "hover:text-[#26b1e6] transition-colors";
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -22,6 +22,28 @@ function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isRTL, toggleLanguage, t, language } = useLanguage();
   const location = useLocation();
+
+  const dropdownRef = useRef(null);
+  const langDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+      if (
+        langDropdownRef.current &&
+        !langDropdownRef.current.contains(event.target)
+      ) {
+        setLangOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -39,7 +61,7 @@ function Header() {
 
   return (
     <nav
-      className={`relative z-50 border-b border-[var(--color-primary-400)] bg-white px-4 py-4 shadow-sm ${
+      className={`relative z-50 border-b border-[var(--color-primary-500)] bg-white px-4 py-4 shadow-sm ${
         isRTL ? "rtl" : "ltr"
       }`}
     >
@@ -50,7 +72,7 @@ function Header() {
 
         <button
           onClick={() => setMobileMenuOpen((prev) => !prev)}
-          className="text-2xl text-[var(--color-primary-400)] sm:hidden"
+          className="text-2xl text-[var(--color-primary-500)] sm:hidden"
         >
           {mobileMenuOpen ? <FiX /> : <FiMenu />}
         </button>
@@ -69,12 +91,14 @@ function Header() {
             isRTL={isRTL}
             t={t}
             language={language}
+            dropdownRef={dropdownRef}
+            langDropdownRef={langDropdownRef}
           />
         </div>
 
         <NavLink
           to="/ad-upload"
-          className={`hidden items-center rounded bg-[var(--color-primary-400)] px-4 py-2 font-medium text-white transition-colors hover:bg-[var(--color-primary-400)] sm:flex ${
+          className={`hidden items-center rounded bg-[var(--color-primary-500)] px-4 py-2 font-medium text-white transition-colors hover:bg-[var(--color-primary-600)] sm:flex ${
             isRTL ? "flex-row-reverse" : ""
           }`}
         >
@@ -100,10 +124,12 @@ function Header() {
               t={t}
               language={language}
               isMobile={true}
+              dropdownRef={dropdownRef}
+              langDropdownRef={langDropdownRef}
             />
             <NavLink
-              to="/add-ad"
-              className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${
+              to="/ad-upload"
+              className={`flex items-center rounded bg-[var(--color-primary-500)] px-4 py-2 font-medium text-white transition-colors hover:bg-[var(--color-primary-600)] hover:text-white ${
                 isRTL ? "flex-row-reverse" : ""
               }`}
             >
@@ -127,6 +153,8 @@ const Navigation = ({
   t,
   language,
   isMobile = false,
+  dropdownRef,
+  langDropdownRef,
 }) => (
   <div
     className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${
@@ -141,8 +169,6 @@ const Navigation = ({
 
     <NavItem to="/my-ads" label={t.header.myAds} isRTL={isRTL} />
 
- 
-
     <Link to="/testingpage">testing code </Link>
     <Link to="/agents">agent </Link>
     <Link to="/buy-credits"> Buy Credits </Link>
@@ -150,8 +176,8 @@ const Navigation = ({
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className={`flex cursor-pointer items-center transition-colors hover:text-[var(--color-primary-400)] ${
-          isDropdownOpen ? "text-[var(--color-primary-400)]" : ""
+        className={`flex cursor-pointer items-center transition-colors hover:text-[var(--color-primary-600)] ${
+          isDropdownOpen ? "text-[var(--color-primary-500)]" : ""
         } ${isRTL ? "flex-row-reverse" : ""}`}
       >
         {t.header.kuwaitRealEstate}
@@ -163,7 +189,8 @@ const Navigation = ({
       </button>
       {isDropdownOpen && (
         <div
-          className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[var(--color-primary-400)] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${
+          ref={dropdownRef}
+          className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[var(--color-primary-500)] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${
             isRTL ? "right-0 text-right" : "left-0 text-left"
           }`}
         >
@@ -269,7 +296,7 @@ const Navigation = ({
     <div className="relative">
       <button
         onClick={toggleLangDropdown}
-        className={`flex cursor-pointer items-center space-x-1 text-sm font-semibold transition-colors hover:text-[var(--color-primary-400)] ${
+        className={`flex cursor-pointer items-center space-x-1 text-sm font-semibold transition-colors hover:text-[var(--color-primary-600)] ${
           isRTL ? "space-x-reverse" : ""
         }`}
       >
@@ -281,7 +308,8 @@ const Navigation = ({
       </button>
       {langOpen && (
         <div
-          className={`absolute z-50 mt-2 w-36 rounded-md border border-[var(--color-primary-400)] bg-white py-1 text-sm shadow-md ${
+          ref={langDropdownRef}
+          className={`absolute z-50 mt-2 w-36 rounded-md border border-[var(--color-primary-500)] bg-white py-1 text-sm shadow-md ${
             isRTL ? "right-0" : "left-0"
           }`}
         >
@@ -312,7 +340,7 @@ const NavItem = ({ to, label, isRTL }) => (
 const DropdownItem = ({ to, text, isRTL }) => (
   <NavLink
     to={to}
-    className={`block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-400)] ${
+    className={`block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-600)] ${
       isRTL ? "text-right" : "text-left"
     }`}
   >
@@ -336,15 +364,15 @@ const DropdownSection = ({ title, children, isRTL }) => (
 const LanguageItem = ({ label, code, isActive, onClick, isRTL }) => (
   <button
     onClick={onClick}
-    className={`flex w-full cursor-pointer items-center px-4 py-2 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-400)] ${
+    className={`flex w-full cursor-pointer items-center px-4 py-2 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-600)] ${
       isRTL ? "flex-row-reverse text-right" : "text-left"
-    } ${isActive ? "bg-green-50 text-[var(--color-primary-400)]" : ""}`}
+    } ${isActive ? "bg-green-50 text-[var(--color-primary-500)]" : ""}`}
   >
     <span className="text-md">{code}</span>
     <span className={`${isRTL ? "mr-2" : "ml-2"}`}>{label}</span>
     {isActive && (
       <span
-        className={`text-[var(--color-primary-400)] ${
+        className={`text-[var(--color-primary-500)] ${
           isRTL ? "mr-auto" : "ml-auto"
         }`}
       >

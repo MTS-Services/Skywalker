@@ -108,7 +108,7 @@ const pagesLinks = [
     to: "/terms",
     label: { en: "Terms and Conditions", ar: "الشروط والأحكام" },
   },
-  { to: "/sitemap", label: { en: "Sitemap", ar: "خريطة الموقع" } },
+  // { to: "/sitemap", label: { en: "Sitemap", ar: "خريطة الموقع" } },
 ];
 
 // Footer Component
@@ -116,7 +116,7 @@ const Footer = () => {
   const { isRTL } = useLanguage();
 
   return (
-    <footer className="bg-[var(--color-adspart)] px-6 py-10 text-sm text-white">
+    <footer className="bg-[var(--color-primary-600)] px-6 py-10 text-sm text-white">
       <div
         className={`mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 ${
           isRTL ? "rtl" : "ltr"
