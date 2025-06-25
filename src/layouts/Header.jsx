@@ -331,7 +331,7 @@ const Navigation = ({
           <LanguageItem
             label="العربية"
             isActive={language === "ar"}
-            onClick={() => handleLanguageChange("bn")}
+            onClick={() => handleLanguageChange("ar")}
             isRTL={isRTL}
           />
         </div>
