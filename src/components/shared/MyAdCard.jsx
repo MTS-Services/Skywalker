@@ -6,10 +6,7 @@ import DiagonalRibbon from "../DiagonalRibbon"
 import { BsPin, BsPinFill, BsTranslate } from "react-icons/bs";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
-/**
- * Reusable AdCard Component
- * Displays a single ad in a consistent format across the application
- */
+
 const MyAdCard = ({ ad, onClick, showRenew }) => {
     const { isRTL, t, language } = useLanguage()
     const navigate = useNavigate()
@@ -35,11 +32,11 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
     }
 
     const handleClick = () => {
-        if (onClick) {
+        // if (onClick) {
             onClick(ad)
-        } else {
-            navigate(`/ ads / ${ad.slug} `)
-        }
+        // } else {
+        //     navigate(`/ ads / ${ad.slug} `)
+        // }
     }
 
     // Updated handlers to use the new state variable names
@@ -61,7 +58,7 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
 
     return (
         <>
-            <div className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 cursor-pointer border border-transparent bg-white">
+            <div onClick={handleClick} className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 cursor-pointer border border-transparent bg-white">
                 <DiagonalRibbon text={`Open`} backgroundColor="#556895" />
 
                 {/* Main Content */}
@@ -144,15 +141,16 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
             </div>
 
             {/* Modals */}
-            {showMakeSuperModal && addSuperModal({ ad, handleMakeSuperModel })}
-            {showRemoveSuperModal && removeSuperModal({ ad, handleRemoveSuperModel })}
-            {showRenewModal && renewModal({ ad, handleOpenRenewModal })}
-            {showTranslateModal && translateModal({ ad, handleOpenTranslateModal, formatTimeAgo })}
+            {showMakeSuperModal && addSuperModal({ ad, handleMakeSuperModel, t })}
+            {showRemoveSuperModal && removeSuperModal({ ad, handleRemoveSuperModel, t })}
+            {showRenewModal && renewModal({ ad, handleOpenRenewModal, t })}
+            {showTranslateModal && translateModal({ ad, handleOpenTranslateModal, t, language, isRTL })}
+
         </>
     )
 }
 
-function addSuperModal({ ad, handleMakeSuperModel }) {
+function addSuperModal({ ad, handleMakeSuperModel, t }) {
     return (
         <>
             <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
@@ -160,17 +158,17 @@ function addSuperModal({ ad, handleMakeSuperModel }) {
                 <div className="flex min-h-full items-center justify-center p-4">
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
                         <h2 className="text-xl font-bold mb-2">
-                            Confirmation
+                            {t.myAds.confirmation}
                         </h2>
                         <div>
-                            <div>Are you sure you want to make this ad Super? This will deduct from your Super credit balance</div>
+                            <div>{t.myAds.makeSuper}</div>
                             <div className="h-4"></div>
                             <div className="flex flex-row justify-between gap-3">
                                 <button onClick={handleMakeSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-3 py-1">
-                                    Cancel
+                                    {t.myAds.cancel}
                                 </button>
                                 <button onClick={handleMakeSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-bold bg-primary text-white active:bg-active-primary  px-5 py-1 bg-primary-500 hover:bg-primary-600">
-                                    Confirm
+                                    {t.myAds.confirm}
                                 </button>
                             </div>
                         </div>
@@ -180,7 +178,7 @@ function addSuperModal({ ad, handleMakeSuperModel }) {
         </>
     )
 }
-function removeSuperModal({ ad, handleRemoveSuperModel }) {
+function removeSuperModal({ ad, handleRemoveSuperModel, t }) {
     return (
         <>
             <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
@@ -188,17 +186,17 @@ function removeSuperModal({ ad, handleRemoveSuperModel }) {
                 <div className="flex min-h-full items-center justify-center p-4">
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
                         <h2 className="text-xl font-bold mb-2">
-                            Confirmation
+                            {t.myAds.confirmation}
                         </h2>
                         <div>
-                            <div>Are you sure you want to remove Super from this ad?</div>
+                            <div>{t.myAds.removeSuper}</div>
                             <div className="h-4"></div>
                             <div className="flex flex-row justify-between gap-3">
                                 <button onClick={handleRemoveSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-3 py-1">
-                                    Cancel
+                                    {t.myAds.cancel}
                                 </button>
                                 <button onClick={handleRemoveSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-bold bg-primary text-white active:bg-active-primary  px-5 py-1 bg-primary-500 hover:bg-primary-600">
-                                    Confirm
+                                    {t.myAds.confirm}
                                 </button>
                             </div>
                         </div>
@@ -209,7 +207,7 @@ function removeSuperModal({ ad, handleRemoveSuperModel }) {
     )
 }
 
-function renewModal({ ad, handleOpenRenewModal }) {
+function renewModal({ ad, handleOpenRenewModal, t }) {
     return (
         <>
             <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
@@ -217,17 +215,17 @@ function renewModal({ ad, handleOpenRenewModal }) {
                 <div className="flex min-h-full items-center justify-center p-4">
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
                         <h2 className="text-xl font-bold mb-2">
-                            Confirmation
+                            {t.myAds.confirmation}
                         </h2>
                         <div>
-                            <div>Are you sure you want to renew this Ad? This will deduct one credit from your balance</div>
+                            <div>{t.myAds.renew}</div>
                             <div className="h-4"></div>
                             <div className="flex flex-row justify-between gap-3">
                                 <button onClick={handleOpenRenewModal} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-3 py-1">
-                                    Cancel
+                                    {t.myAds.cancel}
                                 </button>
                                 <button onClick={handleOpenRenewModal} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-bold bg-primary text-white active:bg-active-primary  px-5 py-1 bg-primary-500 hover:bg-primary-600">
-                                    Confirm
+                                    {t.myAds.confirm}
                                 </button>
                             </div>
                         </div>
@@ -238,11 +236,24 @@ function renewModal({ ad, handleOpenRenewModal }) {
     )
 }
 
-function translateModal({ ad, handleOpenTranslateModal, language, formatTimeAgo }) {
+function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
+    const formatTimeAgo = (dateString, lang) => {
+        const postDate = new Date(dateString)
+        const now = new Date()
+        const seconds = Math.floor((now - postDate) / 1000)
+        const hours = Math.floor(seconds / 3600)
+
+        if (hours < 1) {
+            const minutes = Math.floor(seconds / 60)
+            if (minutes < 1) return lang === "ar" ? "just now" : "الآن"
+            return `${minutes} ${lang === "ar" ? "minutes" : "دقيقة"}`
+        }
+
+        return `${hours} ${lang === "ar" ? "hours" : "ساعة"}`
+    }
 
     const handleShareClick = async (ad) => {
         const adUrl = `${window.location.origin}/ads/${ad.slug}`
-        const {isRTL, t, language} = useLanguage()
         if (navigator.share) {
             try {
                 await navigator.share({
@@ -267,13 +278,16 @@ function translateModal({ ad, handleOpenTranslateModal, language, formatTimeAgo 
     return (
         <>
             <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
-            <div className="fixed inset-0 w-screen overflow-y-auto z-30" >
+            <div className="fixed inset-0 w-screen overflow-y-auto z-30" dir={isRTL ? "ltr" : "rtl"}>
                 <div className="flex min-h-full items-center justify-center p-4">
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
                         <div>
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <h2 className="text-on-main">{language === "ar" ? "Your translated Ad to Arabic is published" : "تم نشر إعلانك المترجم للغة الإنجليزية"}</h2>
+                                    <h2 className="text-on-main">
+                                        {t.myAds.translateTitle}
+                                        {/* {language === "ar" ? "Your translated Ad to Arabic is published" : } */}
+                                    </h2>
 
                                     <button onClick={handleOpenTranslateModal}><FiX /></button>
                                 </div>
@@ -287,7 +301,8 @@ function translateModal({ ad, handleOpenTranslateModal, language, formatTimeAgo 
                                         تم حذف هذا الاعلان او إنتهاء مدته
                                         if language is Arabic
                                         This post have been deleted or archived */}
-                                        <span>{language === "ar" ? "This post have been deleted or archived" : "تم حذف هذا الاعلان او إنتهاء مدته"}</span>
+                                        <span>{t.myAds.translateMessage}</span>
+                                        {/* <span>{language === "ar" ? "This post have been deleted or archived" : "تم حذف هذا الاعلان او إنتهاء مدته"}</span> */}
                                     </div>
                                     {/* Ad Content Preview Section */}
                                     <div className="flex flex-col items-center bg-primary-400 rounded-b-lg text-white px-6 relative">
@@ -296,7 +311,7 @@ function translateModal({ ad, handleOpenTranslateModal, language, formatTimeAgo 
                                                 {ad.title}
                                             </h1>
                                         </div>
-                                        <div className="text-2xl font-bold mt-1.5">{ad.kd} {language === "ar" ? "KD" : "درهم"}</div>
+                                        <div className="text-2xl font-bold mt-1.5">{ad.kd} {t.myAds.currency}</div>
                                         <div className="h-6"></div>
                                         <div className="flex gap-3">
                                             <div className="flex items-center justify-center gap-1 rounded bg-primary-300 py-1 px-1.5 text-xs">
@@ -330,7 +345,7 @@ function translateModal({ ad, handleOpenTranslateModal, language, formatTimeAgo 
                                         href={`tel:${ad.whatsapp}`}
                                         className="bg-success active:bg-active-success bg-green-600 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
                                     >
-                                        <FiPhone />
+                                        <FiPhone className={isRTL ? "" : "-rotate-90"} />
                                         <div className="text-xl font-normal">{ad.whatsapp}</div>
                                     </a>
                                     <div>

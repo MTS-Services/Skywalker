@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react"
-import DetailsModal from "./Modal"
+import DetailsModal from "../adDetails/Modal"
 import { useLanguage } from "../../context/LanguageContext"
 import AdCard from "../../components/shared/AdCard"
 
@@ -142,6 +142,7 @@ export default function Ads() {
 
   const closeModal = () => {
     setShowModal(false)
+    document.body.style.overflow = ""
     setTimeout(() => setSelectedAd(null), 300)
   }
 
@@ -202,15 +203,17 @@ export default function Ads() {
         </div>
       </section>
 
-      <DetailsModal
-        show={showModal}
-        onClose={closeModal}
-        ad={selectedAd}
-        t={t}
-        isRTL={isRTL}
-        language={language}
-        formatTimeAgo={formatTimeAgo}
-      />
+      {showModal && selectedAd && (
+        <DetailsModal
+          show={showModal}
+          onClose={closeModal}
+          ad={selectedAd}
+          t={t}
+          isRTL={isRTL}
+          language={language}
+          formatTimeAgo={formatTimeAgo}
+        />
+      )}
     </>
   )
 }

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useLanguage } from "../../context/LanguageContext"
 import AdCard from "../../components/shared/AdCard"
 import { MultiSelectDropdown, SingleSelectDropdown } from "../../components/shared/FilterDropdown"
-import DetailsModal from "../home/Modal"
+import DetailsModal from "../adDetails/Modal"
 import { LuChevronDown, LuSearch } from "react-icons/lu"
 import BannerImage from "../../assets/images/home-hero-banner.svg"
 

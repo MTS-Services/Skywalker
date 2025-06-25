@@ -26,6 +26,7 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
     }
   }, [show])
 
+
   // Effect to control lightbox enter/exit animation
   useEffect(() => {
     if (showLightbox) {
