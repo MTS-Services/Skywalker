@@ -20,7 +20,7 @@ function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isRTL, toggleLanguage, t, language } = useLanguage();
+  const { isRTL, t, toggleLanguage, language } = useLanguage();
   const location = useLocation();
 
   useEffect(() => {
@@ -32,17 +32,14 @@ function Header() {
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const toggleLangDropdown = () => setLangOpen((prev) => !prev);
 
-  const handleLanguageChange = () => {
-    toggleLanguage();
+  const handleLanguageChange = (lang) => {
+    toggleLanguage(lang);
+    console.log();
     setLangOpen(false);
   };
 
   return (
-    <nav
-      className={`relative z-50 border-b border-[var(--color-primary-400)] bg-white px-4 py-4 shadow-sm ${
-        isRTL ? "rtl" : "ltr"
-      }`}
-    >
+    <nav className={`relative z-50 border-b border-[var(--color-primary-400)] bg-white px-4 py-4 shadow-sm`} dir={isRTL ? "rtl" : "ltr"}>
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link to="/">
           <img src="/logo.png" alt="Logo" className="w-20" />
@@ -56,9 +53,8 @@ function Header() {
         </button>
 
         <div
-          className={`text-md hidden items-center gap-6 font-medium text-black sm:flex ${
-            isRTL ? "space-x-reverse" : ""
-          }`}
+          className={`text-md hidden items-center gap-6 font-medium text-black sm:flex ${isRTL ? "space-x-reverse" : ""
+            }`}
         >
           <Navigation
             toggleDropdown={toggleDropdown}
@@ -74,9 +70,8 @@ function Header() {
 
         <NavLink
           to="/ad-upload"
-          className={`hidden items-center rounded bg-[var(--color-primary-400)] px-4 py-2 font-medium text-white transition-colors hover:bg-[var(--color-primary-400)] sm:flex ${
-            isRTL ? "flex-row-reverse" : ""
-          }`}
+          className={`hidden items-center rounded bg-[var(--color-primary-400)] px-4 py-2 font-medium text-white transition-colors hover:bg-[var(--color-primary-400)] sm:flex ${isRTL ? "flex-row-reverse" : ""
+            }`}
         >
           <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
           {t.header.addFreeAd}
@@ -86,9 +81,8 @@ function Header() {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 z-44 mt-0.5 w-full bg-gray-50 shadow-md sm:hidden">
           <div
-            className={`flex flex-col items-start gap-4 px-4 py-4 ${
-              isRTL ? "items-end" : "items-start"
-            }`}
+            className={`flex flex-col items-start gap-4 px-4 py-4 ${isRTL ? "items-end" : "items-start"
+              }`}
           >
             <Navigation
               toggleDropdown={toggleDropdown}
@@ -103,9 +97,8 @@ function Header() {
             />
             <NavLink
               to="/add-ad"
-              className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${
-                isRTL ? "flex-row-reverse" : ""
-              }`}
+              className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""
+                }`}
             >
               <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
               {t.header.addFreeAd}
@@ -129,9 +122,8 @@ const Navigation = ({
   isMobile = false,
 }) => (
   <div
-    className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${
-      isRTL && !isMobile ? "space-x-reverse" : ""
-    }`}
+    className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""
+      }`}
   >
     <NavItem to="/" label={t.header.home} isRTL={isRTL} />
     <NavItem to="/login" label={t.header.login} isRTL={isRTL} />
@@ -142,7 +134,7 @@ const Navigation = ({
     <NavItem to="/my-ads" label={t.header.myAds} isRTL={isRTL} />
     <NavItem to="/my-archives" label={t.header.myArchives} isRTL={isRTL} />
 
- 
+
 
     <Link to="/testingpage">testing code </Link>
     <Link to="/agents">agent </Link>
@@ -151,9 +143,8 @@ const Navigation = ({
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className={`flex cursor-pointer items-center transition-colors hover:text-[var(--color-primary-400)] ${
-          isDropdownOpen ? "text-[var(--color-primary-400)]" : ""
-        } ${isRTL ? "flex-row-reverse" : ""}`}
+        className={`flex cursor-pointer items-center transition-colors hover:text-[var(--color-primary-400)] ${isDropdownOpen ? "text-[var(--color-primary-400)]" : ""
+          } ${isRTL ? "flex-row-reverse" : ""}`}
       >
         {t.header.kuwaitRealEstate}
         {isDropdownOpen ? (
@@ -164,9 +155,8 @@ const Navigation = ({
       </button>
       {isDropdownOpen && (
         <div
-          className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[var(--color-primary-400)] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${
-            isRTL ? "right-0 text-right" : "left-0 text-left"
-          }`}
+          className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[var(--color-primary-400)] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${isRTL ? "right-0 text-right" : "left-0 text-left"
+            }`}
         >
           <DropdownSection
             title={isRTL ? "عقارات للايجار" : "Properties for rent"}
@@ -270,9 +260,8 @@ const Navigation = ({
     <div className="relative">
       <button
         onClick={toggleLangDropdown}
-        className={`flex cursor-pointer items-center space-x-1 text-sm font-semibold transition-colors hover:text-[var(--color-primary-400)] ${
-          isRTL ? "space-x-reverse" : ""
-        }`}
+        className={`flex cursor-pointer items-center space-x-1 text-sm font-semibold transition-colors hover:text-[var(--color-primary-400)] ${isRTL ? "space-x-reverse" : ""
+          }`}
       >
         <FiGlobe className="text-lg" />
         <span className="text-lg font-medium">
@@ -282,20 +271,19 @@ const Navigation = ({
       </button>
       {langOpen && (
         <div
-          className={`absolute z-50 mt-2 w-36 rounded-md border border-[var(--color-primary-400)] bg-white py-1 text-sm shadow-md ${
-            isRTL ? "right-0" : "left-0"
-          }`}
+          className={`absolute z-50 mt-2 w-36 rounded-md border border-[var(--color-primary-400)] bg-white py-1 text-sm shadow-md ${isRTL ? "right-0" : "left-0"
+            }`}
         >
           <LanguageItem
             label="English"
             isActive={language === "en"}
-            onClick={handleLanguageChange}
+            onClick={() => handleLanguageChange("en")}
             isRTL={isRTL}
           />
           <LanguageItem
             label="العربية"
             isActive={language === "ar"}
-            onClick={handleLanguageChange}
+            onClick={() => handleLanguageChange("bn")}
             isRTL={isRTL}
           />
         </div>
@@ -313,9 +301,8 @@ const NavItem = ({ to, label, isRTL }) => (
 const DropdownItem = ({ to, text, isRTL }) => (
   <NavLink
     to={to}
-    className={`block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-400)] ${
-      isRTL ? "text-right" : "text-left"
-    }`}
+    className={`block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-400)] ${isRTL ? "text-right" : "text-left"
+      }`}
   >
     {text}
   </NavLink>
@@ -324,9 +311,8 @@ const DropdownItem = ({ to, text, isRTL }) => (
 const DropdownSection = ({ title, children, isRTL }) => (
   <div className="mb-4">
     <div
-      className={`mb-2 font-semibold text-gray-800 ${
-        isRTL ? "text-right" : "text-left"
-      }`}
+      className={`mb-2 font-semibold text-gray-800 ${isRTL ? "text-right" : "text-left"
+        }`}
     >
       {title}
     </div>
@@ -337,17 +323,15 @@ const DropdownSection = ({ title, children, isRTL }) => (
 const LanguageItem = ({ label, code, isActive, onClick, isRTL }) => (
   <button
     onClick={onClick}
-    className={`flex w-full cursor-pointer items-center px-4 py-2 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-400)] ${
-      isRTL ? "flex-row-reverse text-right" : "text-left"
-    } ${isActive ? "bg-green-50 text-[var(--color-primary-400)]" : ""}`}
+    className={`flex w-full cursor-pointer items-center px-4 py-2 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-400)] ${isRTL ? "flex-row-reverse text-right" : "text-left"
+      } ${isActive ? "bg-green-50 text-[var(--color-primary-400)]" : ""}`}
   >
     <span className="text-md">{code}</span>
     <span className={`${isRTL ? "mr-2" : "ml-2"}`}>{label}</span>
     {isActive && (
       <span
-        className={`text-[var(--color-primary-400)] ${
-          isRTL ? "mr-auto" : "ml-auto"
-        }`}
+        className={`text-[var(--color-primary-400)] ${isRTL ? "mr-auto" : "ml-auto"
+          }`}
       >
         <IoMdCheckmark />
       </span>

@@ -25,6 +25,7 @@ const Login = () => {
 
     // AuthProvider এর login ফাংশন কল করুন
     const result = await login(mobileNumber, password); // mobileNumber এবং password পাস করুন
+    localStorage.setItem("user", true);
 
     if (result.success) {
       alert(result.message); // "Login successful!"
