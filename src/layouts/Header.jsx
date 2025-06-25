@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import {
   FiChevronDown,
@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import { useLanguage } from "../context/LanguageContext";
 import { IoMdCheckmark } from "react-icons/io";
+import { AuthContext } from "../context/AuthContext";
 
 const navLinkClass = ({ isActive }) =>
   isActive
@@ -22,6 +23,7 @@ function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isRTL, t, toggleLanguage, language } = useLanguage();
   const location = useLocation();
+  const { isAuthenticated, logout } = useContext(AuthContext); // logout ফাংশনটি AuthContext থেকে নেওয়া হয়েছে
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -36,6 +38,12 @@ function Header() {
     toggleLanguage(lang);
     console.log();
     setLangOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout(); // logout ফাংশন কল করা হয়েছে
+    // ঐচ্ছিকভাবে: লগআউট করার পর ব্যবহারকারীকে হোমপেজে রিডাইরেক্ট করতে পারেন
+    // navigate('/'); // react-router-dom এর useNavigate হুক ব্যবহার করে
   };
 
   return (
@@ -65,17 +73,20 @@ function Header() {
             isRTL={isRTL}
             t={t}
             language={language}
+            isAuthenticated={isAuthenticated}
+            handleLogout={handleLogout} // handleLogout প্রপ হিসাবে পাঠানো হয়েছে
           />
         </div>
 
-        <NavLink
-          to="/ad-upload"
-          className={`hidden items-center rounded bg-[var(--color-primary-400)] px-4 py-2 font-medium text-white transition-colors hover:bg-[var(--color-primary-400)] sm:flex ${isRTL ? "flex-row-reverse" : ""
-            }`}
-        >
-          <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-          {t.header.addFreeAd}
-        </NavLink>
+        {isAuthenticated && ( // শুধুমাত্র যখন isAuthenticated true, তখনই এই NavLink দেখানো হবে
+          <NavLink
+            to="/add-ad"
+            className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white sm:flex ${isRTL ? "flex-row-reverse" : ""}`}
+          >
+            <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
+            {t.header.addFreeAd}
+          </NavLink>
+        )}
       </div>
 
       {mobileMenuOpen && (
@@ -94,15 +105,18 @@ function Header() {
               t={t}
               language={language}
               isMobile={true}
+              isAuthenticated={isAuthenticated}
+              handleLogout={handleLogout} // handleLogout প্রপ হিসাবে পাঠানো হয়েছে
             />
-            <NavLink
-              to="/add-ad"
-              className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""
-                }`}
-            >
-              <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-              {t.header.addFreeAd}
-            </NavLink>
+            {isAuthenticated && ( // মোবাইল মেনুতেও isAuthenticated true হলে "Add Free Ad" দেখানো হবে
+              <NavLink
+                to="/add-ad"
+                className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""}`}
+              >
+                <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
+                {t.header.addFreeAd}
+              </NavLink>
+            )}
           </div>
         </div>
       )}
@@ -120,31 +134,62 @@ const Navigation = ({
   t,
   language,
   isMobile = false,
+  isAuthenticated,
+  handleLogout, // handleLogout প্রপ গ্রহণ করা হয়েছে
 }) => (
   <div
-    className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""
-      }`}
+    className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${
+      isRTL && !isMobile ? "space-x-reverse" : ""
+    }`}
   >
+    {/* এই লিঙ্কগুলো সব ব্যবহারকারীর জন্য সবসময় দেখা যাবে */}
     <NavItem to="/" label={t.header.home} isRTL={isRTL} />
-    <NavItem to="/login" label={t.header.login} isRTL={isRTL} />
-    <NavItem to="/register" label={t.header.register} isRTL={isRTL} />
-
     {/* <NavItem to="/agents" label={t.header.agents} isRTL={isRTL} /> */}
-
-    <NavItem to="/my-ads" label={t.header.myAds} isRTL={isRTL} />
-    <NavItem to="/my-archives" label={t.header.myArchives} isRTL={isRTL} />
-
-
-
     <Link to="/testingpage">testing code </Link>
     <Link to="/agents">agent </Link>
-    <Link to="/buy-credits"> Buy Credits </Link>
-
+    <Link
+      to="/agents"
+      className="pb-1 font-medium text-black transition-colors hover:text-[#32E0BB]"
+    >
+      {t.header.agents}
+    </Link>{" "}
+    {/* Link-কেও NavItem-এর মতো স্টাইল করা হয়েছে */}
+    {/* Login/Register এবং Logout লজিক */}
+    {isAuthenticated ? (
+      <button
+        onClick={handleLogout}
+        className="pb-1 font-medium text-black transition-colors hover:text-[#32E0BB]"
+      >
+        {t.header.logout} {/* Logout টেক্সট দেখাবে */}
+      </button>
+    ) : (
+      <>
+        <NavItem to="/login" label={t.header.login} isRTL={isRTL} />
+        <NavItem to="/register" label={t.header.register} isRTL={isRTL} />
+      </>
+    )}
+    {/* এই লিঙ্কগুলো শুধুমাত্র লগইন করা ব্যবহারকারীদের জন্য দেখা যাবে */}
+    {isAuthenticated && (
+      <>
+        <NavItem to="/my-ads" label={t.header.myAds} isRTL={isRTL} />
+        <NavItem to="/buy-credits" label={t.header.byCredit} isRTL={isRTL} />
+        <NavItem to="/my-archives" label={t.header.myArchives} isRTL={isRTL} />
+        {/* <Link
+          to="/testingpage"
+          className="pb-1 font-medium text-black transition-colors hover:text-[#32E0BB]"
+        >
+          testing code{" "}
+        </Link>{" "} */}
+        {/* Link-কেও NavItem-এর মতো স্টাইল করা হয়েছে */}
+      </>
+    )}
+    {/* Kuwait Real Estate ড্রপডাউন - সবসময় দেখা যাবে */}
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className={`flex cursor-pointer items-center transition-colors hover:text-[var(--color-primary-400)] ${isDropdownOpen ? "text-[var(--color-primary-400)]" : ""
-          } ${isRTL ? "flex-row-reverse" : ""}`}
+        className={`flex cursor-pointer items-center transition-colors hover:text-[var(--color-primary-400)] ${
+          isDropdownOpen ? "text-[var(--color-primary-400)]" : ""
+        } ${isRTL ? "flex-row-reverse" : ""}`}
       >
         {t.header.kuwaitRealEstate}
         {isDropdownOpen ? (
@@ -155,8 +200,9 @@ const Navigation = ({
       </button>
       {isDropdownOpen && (
         <div
-          className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[var(--color-primary-400)] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${isRTL ? "right-0 text-right" : "left-0 text-left"
-            }`}
+          className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[var(--color-primary-400)] bg-white p-4 shadow-lg sm:top-full sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${
+            isRTL ? "right-0 text-right" : "left-0 text-left"
+          }`}
         >
           <DropdownSection
             title={isRTL ? "عقارات للايجار" : "Properties for rent"}
@@ -164,7 +210,7 @@ const Navigation = ({
           >
             <DropdownItem
               to="/rent/apartments"
-              text={isRTL ? "شقق للايجار" : "Apartments for rent"}
+              text={isRTL ? "শقق للايجار" : "Apartments for rent"}
               isRTL={isRTL}
             />
             <DropdownItem
@@ -189,7 +235,7 @@ const Navigation = ({
             />
             <DropdownItem
               to="/rent/farms"
-              text={isRTL ? "مزارع للايجار" : "Farms for rent"}
+              text={isRTL ? "মزارع للايجار" : "Farms for rent"}
               isRTL={isRTL}
             />
             <DropdownItem
@@ -219,7 +265,7 @@ const Navigation = ({
             />
             <DropdownItem
               to="/sale/apartments"
-              text={isRTL ? "شقق للبيع" : "Apartments for sale"}
+              text={isRTL ? "শقق للبيع" : "Apartments for sale"}
               isRTL={isRTL}
             />
             <DropdownItem
@@ -234,7 +280,7 @@ const Navigation = ({
             />
             <DropdownItem
               to="/sale/farms"
-              text={isRTL ? "مزارع للبيع" : "Farms for sale"}
+              text={isRTL ? "মزارع للبيع" : "Farms for sale"}
               isRTL={isRTL}
             />
           </DropdownSection>
@@ -256,12 +302,13 @@ const Navigation = ({
         </div>
       )}
     </div>
-
+    {/* Language ড্রপডাউন - সবসময় দেখা যাবে */}
     <div className="relative">
       <button
         onClick={toggleLangDropdown}
-        className={`flex cursor-pointer items-center space-x-1 text-sm font-semibold transition-colors hover:text-[var(--color-primary-400)] ${isRTL ? "space-x-reverse" : ""
-          }`}
+        className={`flex cursor-pointer items-center space-x-1 text-sm font-semibold transition-colors hover:text-[var(--color-primary-400)] ${
+          isRTL ? "space-x-reverse" : ""
+        }`}
       >
         <FiGlobe className="text-lg" />
         <span className="text-lg font-medium">
@@ -271,8 +318,9 @@ const Navigation = ({
       </button>
       {langOpen && (
         <div
-          className={`absolute z-50 mt-2 w-36 rounded-md border border-[var(--color-primary-400)] bg-white py-1 text-sm shadow-md ${isRTL ? "right-0" : "left-0"
-            }`}
+          className={`absolute z-50 mt-2 w-36 rounded-md border border-[var(--color-primary-400)] bg-white py-1 text-sm shadow-md ${
+            isRTL ? "right-0" : "left-0"
+          }`}
         >
           <LanguageItem
             label="English"

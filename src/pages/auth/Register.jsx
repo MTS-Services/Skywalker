@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { FiPhone, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
-import registerImg from "../../assits/login/register.png";
+import registerImg from "../../assits/login/register (2).png";
+
 import { useLanguage } from "../../context/LanguageContext";
 import { useNavigate, Link } from "react-router-dom"; // Link আমদানি করুন
 import { AuthContext } from "../../context/AuthContext"; // AuthContext আমদানি করুন
@@ -33,7 +34,7 @@ const Register = () => {
 
     if (result.success) {
       alert(result.message); // "Registration successful! Please proceed to login."
-      navigate("/login"); // সফল রেজিস্ট্রেশনের পর লগইন পেজে রিডাইরেক্ট করুন
+      navigate("/"); // সফল রেজিস্ট্রেশনের পর লগইন পেজে রিডাইরেক্ট করুন
     } else {
       alert(result.message); // "Mobile number already registered."
     }
@@ -56,11 +57,11 @@ const Register = () => {
 
         {/* Right Form Section */}
         <div className="my-4 flex h-full w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="mb-2 text-center text-3xl font-bold text-[#32E0BB]">
+          <h2 className="text-primary-500 mb-2 text-center text-3xl font-bold">
             {t.register.title}
           </h2>
 
-          <p className="text-center text-base">{t.register.subtitle}</p>
+          <p className="py-2 text-center text-base">{t.register.subtitle}</p>
 
           <form className="space-y-6" noValidate onSubmit={handleSubmit}>
             {/* Phone Number */}
@@ -128,7 +129,7 @@ const Register = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="bg-background bg-bgcolor-900 flex w-full items-center justify-center gap-3 rounded-xl py-3 text-lg font-semibold text-white transition hover:bg-[#2dcaaa]"
+              className="bg-background bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-3 rounded-xl py-2 text-base font-semibold text-white transition"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
               {t.register.buttontext}
@@ -140,7 +141,7 @@ const Register = () => {
             {t.register.alradyLogin}
             <Link // a ট্যাগ এর পরিবর্তে Link কম্পোনেন্ট ব্যবহার করুন
               to="/login"
-              className="font-semibold text-[#32E0BB] hover:underline"
+              className="text-primary-500 font-semibold hover:underline"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
               {t.register.loginlink}

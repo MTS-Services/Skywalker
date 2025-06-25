@@ -1,41 +1,40 @@
 @import "tailwindcss";
-
+ 
 [dir="rtl"] {
   font-family: "Noto Sans Arabic", Arial, sans-serif;
 }
-
+ 
 [dir="ltr"] {
   font-family: "Inter", system-ui, sans-serif;
 }
-
+ 
 /* Custom RTL utilities */
 .rtl {
   direction: rtl;
 }
-
+ 
 .ltr {
   direction: ltr;
 }
-
+ 
 /* Ensure proper text alignment for RTL */
 [dir="rtl"] .text-left {
   text-align: right;
 }
-
+ 
 [dir="rtl"] .text-right {
   text-align: left;
 }
-
+ 
 /* Fix space-x-reverse for RTL */
 [dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
 }
-
+ 
 /* Smooth transitions */
 * {
   transition: all 0.2s ease-in-out;
 }
-
 @theme {
   --color-primary-50: #d4f1fb; /* Lightest */
   --color-primary-100: #aee5f8;
@@ -53,7 +52,7 @@
 
 
   --shadow-card-shadow: 0 0 2px 0 rgba(37, 42, 49, .16), 0 1px 4px 0 rgba(37, 42, 49, .12);
-
+ 
   --breakpoint-xs: 480px;
 
 }
@@ -63,71 +62,71 @@
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary-500) var(--color-primary-50);
 }
-
+ 
 /* WebKit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
+ 
 ::-webkit-scrollbar-track {
   background: var(--color-primary-50);
 }
-
+ 
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-primary-500);
   border-radius: 4px;
 }
-
+ 
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-primary-600);
 }
-
+ 
 ::-webkit-scrollbar-thumb:active {
   background-color: var(--color-primary-700);
 }
-
+ 
 ::-webkit-scrollbar-corner {
   background: var(--color-primary-50);
 }
-
+ 
 /* For disabled state if needed */
 ::-webkit-scrollbar-thumb:disabled {
   background-color: var(--color-primary-800);
 }
-
+ 
 /* Custom scrollbar class for specific elements */
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary-500) var(--color-primary-50);
 }
-
+ 
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
+ 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: var(--color-primary-50);
 }
-
+ 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: var(--color-primary-500);
   border-radius: 4px;
 }
-
+ 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-primary-600);
 }
-
+ 
 .custom-scrollbar::-webkit-scrollbar-thumb:active {
   background-color: var(--color-primary-700);
 }
-
+ 
 .custom-scrollbar::-webkit-scrollbar-corner {
   background: var(--color-primary-50);
 }
-
+ 
 .custom-scrollbar::-webkit-scrollbar-thumb:disabled {
   background-color: var(--color-primary-800);
 }
