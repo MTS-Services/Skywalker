@@ -1,52 +1,273 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-import { useContext, useEffect, useState } from "react";
-import { FiAlignLeft, FiCreditCard, FiHome, FiInstagram, FiList, FiLogIn, FiLogOut, FiPlus, FiSettings, FiTrash, FiTwitter, FiUserPlus, FiX } from "react-icons/fi";
+import { FiAlignLeft, FiCreditCard, FiHome, FiInstagram, FiList, FiLogIn, FiLogOut, FiPlus, FiTrash, FiTwitter, FiUserPlus, FiX } from "react-icons/fi";
+import { LuChevronDown, LuSearch } from "react-icons/lu";
 import { BsBuildings } from "react-icons/bs";
+import { MultiSelectDropdown, OnlyMultiSelectDropdown, SingleSelectDropdown } from "../components/shared/FilterDropdown";
 
+// Component 1: The main filter bar with its original structure and functionality.
+const SearchFilterBar = ({ initialFilters, t, isRTL }) => {
+    const navigate = useNavigate();
+    const [showDropdown, setShowDropdown] = useState(null);
+
+    // State for all filter data and selected values
+    const [allRegions, setAllRegions] = useState([]);
+    const [allPropertyTypes, setAllPropertyTypes] = useState([]);
+    const [transactionTypes, setTransactionTypes] = useState([]);
+    const [transactionType, setTransactionType] = useState(initialFilters.transactionType);
+    const [selectedRegions, setSelectedRegions] = useState([]);
+    const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
+    const [minPrice, setMinPrice] = useState(initialFilters.minPrice);
+    const [maxPrice, setMaxPrice] = useState(initialFilters.maxPrice);
+    const [searchText, setSearchText] = useState(initialFilters.searchText);
+
+    // Fetch filter data from JSON files
+    useEffect(() => {
+        const fetchFilterData = async () => {
+            try {
+                const [regionsRes, propertyTypesRes, transactionTypesRes] = await Promise.all([
+                    fetch("/data/regions.json"),
+                    fetch("/data/propertyTypes.json"),
+                    fetch("/data/transactionTypes.json"),
+                ]);
+                setAllRegions(await regionsRes.json());
+                setAllPropertyTypes(await propertyTypesRes.json());
+                setTransactionTypes(await transactionTypesRes.json());
+            } catch (error) {
+                console.error("Error fetching filter data:", error);
+            }
+        };
+        fetchFilterData();
+    }, []);
+
+    // Effect to set initial selected items from URL params once data is loaded
+    useEffect(() => {
+        if (allRegions.length > 0) {
+            const initialSelected = allRegions.filter((r) => initialFilters.regions.includes(r.id));
+            setSelectedRegions(initialSelected);
+        }
+        if (allPropertyTypes.length > 0) {
+            const initialSelected = allPropertyTypes.filter((p) => initialFilters.propertyTypes.includes(p.id));
+            setSelectedPropertyTypes(initialSelected);
+        }
+    }, [allRegions, allPropertyTypes, initialFilters.regions, initialFilters.propertyTypes]);
+
+    // Function to update URL with current filter state
+    const updateURL = useCallback(() => {
+        const params = new URLSearchParams();
+        if (transactionType) params.set("transactionType", transactionType);
+        selectedRegions.forEach((region) => params.append("region", region.id));
+        selectedPropertyTypes.forEach((type) => params.append("propertyType", type.id));
+        if (minPrice !== "" && minPrice !== undefined) params.set("minPrice", minPrice.toString());
+        if (maxPrice !== "" && maxPrice !== undefined) params.set("maxPrice", maxPrice.toString());
+        if (searchText) params.set("searchText", searchText);
+        navigate(`/search?${params.toString()}`, { replace: true });
+    }, [transactionType, selectedRegions, selectedPropertyTypes, minPrice, maxPrice, searchText, navigate]);
+
+    // Debounced effect to update URL when any filter changes
+    useEffect(() => {
+        const handler = setTimeout(() => updateURL(), 300);
+        return () => clearTimeout(handler);
+    }, [selectedRegions, selectedPropertyTypes, transactionType, minPrice, maxPrice, searchText, updateURL]);
+
+    const toggleDropdown = useCallback((dropdownName) => {
+        setShowDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+    }, []);
+
+    // This is the exact JSX structure from your original SearchFilterBar component
+    return (
+        <div className="w-full space-y-4">
+            <MultiSelectDropdown
+                options={allRegions}
+                selectedItems={selectedRegions}
+                setSelectedItems={setSelectedRegions}
+                placeholder={t.search.areaPlaceholder}
+                searchPlaceholder={t.search.searchPlaceholder}
+                label={t.search.area}
+                isRTL={isRTL}
+                isOpen={showDropdown === "area"}
+                onToggle={() => toggleDropdown("area")}
+            />
+            <OnlyMultiSelectDropdown
+                options={allPropertyTypes}
+                selectedItems={selectedPropertyTypes}
+                setSelectedItems={setSelectedPropertyTypes}
+                placeholder={t.search.propertyTypePlaceholder}
+                searchPlaceholder={t.search.searchPlaceholder}
+                label={t.search.propertyType}
+                isRTL={isRTL}
+                isOpen={showDropdown === "propertyTypes"}
+                onToggle={() => toggleDropdown("propertyTypes")}
+            />
+            <div className="flex flex-wrap items-center justify-center gap-4">
+                <SingleSelectDropdown
+                    options={transactionTypes}
+                    selectedValue={transactionType}
+                    setSelectedValue={setTransactionType}
+                    placeholder={t.search.transactionTypePlaceholder}
+                    label={t.search.transactionType}
+                    isRTL={isRTL}
+                    isOpen={showDropdown === "transactionType"}
+                    onToggle={() => toggleDropdown("transactionType")}
+                />
+                <PriceRangeFilter
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
+                    setMinPrice={setMinPrice}
+                    setMaxPrice={setMaxPrice}
+                    t={t}
+                    isRTL={isRTL}
+                    isOpen={showDropdown === "price"}
+                    onToggle={() => toggleDropdown("price")}
+                    onApply={() => setShowDropdown(null)}
+                />
+                <TextSearchFilter
+                    searchTerm={searchText}
+                    setSearchTerm={setSearchText}
+                    t={t}
+                    isRTL={isRTL}
+                    isOpen={showDropdown === "text"}
+                    onToggle={() => toggleDropdown("text")}
+                    onApply={() => setShowDropdown(null)}
+                />
+            </div>
+        </div>
+    );
+};
+
+// Component 2: Price Range Filter (Full Original Code)
+function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isRTL, isOpen, onToggle, onApply }) {
+    const dropdownRef = useRef(null);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                if (isOpen) onToggle();
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [isOpen, onToggle]);
+
+    const handleMinChange = (e) => setMinPrice(e.target.value === "" ? "" : Number.parseInt(e.target.value));
+    const handleMaxChange = (e) => setMaxPrice(e.target.value === "" ? "" : Number.parseInt(e.target.value));
+    const handleReset = () => { setMinPrice(""); setMaxPrice(""); onApply(); };
+    const handleSearch = () => onApply();
+
+    const MAX_POSSIBLE_PRICE = 3000000;
+    const MIN_POSSIBLE_PRICE = 0;
+
+    return (
+        <div className="relative w-full xs:w-auto" ref={dropdownRef}>
+            <button type="button" onClick={onToggle} className={`w-full flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}>
+                <span>{t.search.price}</span>
+                <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}><LuChevronDown /></span>
+            </button>
+            {isOpen && (
+                <div className={`absolute z-20 mt-2 rounded-lg border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`} style={{ minWidth: "300px" }}>
+                    <div className="mb-4 flex items-center justify-between text-sm font-medium text-primary-900">
+                        <span>{minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} {t.search.currency}</span>
+                        <span>{maxPrice === "" ? `${MAX_POSSIBLE_PRICE}+` : `${maxPrice}+`} {t.search.currency}</span>
+                    </div>
+                    <input type="range" min={MIN_POSSIBLE_PRICE} max={MAX_POSSIBLE_PRICE} value={minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} onChange={handleMinChange} className="w-full h-2 bg-primary-100/80 rounded-lg appearance-none cursor-pointer range-lg" />
+                    <input type="range" min={MIN_POSSIBLE_PRICE} max={MAX_POSSIBLE_PRICE} value={maxPrice === "" ? MAX_POSSIBLE_PRICE : maxPrice} onChange={handleMaxChange} className="w-full h-2 bg-primary-100/80 rounded-lg appearance-none cursor-pointer range-lg mt-2" />
+                    <div className="mt-4 flex gap-2">
+                        <input type="number" placeholder={t.search.minPrice} value={minPrice} onChange={handleMinChange} className={`w-1/2 rounded-lg border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`} />
+                        <input type="number" placeholder={t.search.maxPrice} value={maxPrice} onChange={handleMaxChange} className={`w-1/2 rounded-lg border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`} />
+                    </div>
+                    <div className="mt-4 flex justify-end gap-2">
+                        <button onClick={handleReset} className="rounded-lg px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100">{t.search.reset}</button>
+                        <button onClick={handleSearch} className="rounded-lg bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500">{t.search.search}</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+// Component 3: Text Search Filter (Full Original Code)
+function TextSearchFilter({ searchTerm, setSearchTerm, t, isRTL, isOpen, onToggle, onApply }) {
+    const dropdownRef = useRef(null);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                if (isOpen) onToggle();
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [isOpen, onToggle]);
+
+    const handleReset = () => { setSearchTerm(""); onApply(); };
+    const handleSearch = () => onApply();
+
+    return (
+        <div className="relative w-full xs:w-auto" ref={dropdownRef}>
+            <button type="button" onClick={onToggle} className={`w-full flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-700 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}>
+                <span>{t.search.text}</span>
+                <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}><LuChevronDown /></span>
+            </button>
+            {isOpen && (
+                <div className={`w-full absolute z-20 mt-2 rounded-lg border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`} style={{ minWidth: "300px" }}>
+                    <p className="mb-2 text-sm text-primary-900">{t.search.searchUsingTextExample}</p>
+                    <div className="relative">
+                        <span className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-primary-400`}><LuSearch /></span>
+                        <input type="text" placeholder={t.search.searchByText} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className={`w-full rounded-lg border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "pr-10 text-right" : "pl-10 text-left"} text-sm`} />
+                    </div>
+                    <div className="mt-4 flex justify-end gap-2">
+                        <button onClick={handleReset} className="rounded-lg px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100">{t.search.reset}</button>
+                        <button onClick={handleSearch} className="rounded-lg bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500">{t.search.search}</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+// Component 4: Main Header Component
 export default function SearchPageHeader() {
     const { isRTL, t, toggleLanguage } = useLanguage();
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const location = useLocation();
 
-    const handleToggleLanguage = (lang) => {
-        toggleLanguage(lang);
-        console.log(lang);
-        // Optionally close sidebar after language change, if desired
-        // setSidebarOpen(false);
-    };
+    const handleToggleLanguage = () => toggleLanguage();
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+    const initialFilters = useMemo(() => {
+        const params = new URLSearchParams(location.search);
+        return {
+            transactionType: params.get("transactionType") || "",
+            regions: params.getAll("region"),
+            propertyTypes: params.getAll("propertyType"),
+            minPrice: params.get("minPrice") || "",
+            maxPrice: params.get("maxPrice") || "",
+            searchText: params.get("searchText") || "",
+        };
+    }, [location.search]);
 
     return (
         <>
-            <nav
-                className={`relative z-50 border-b border-primary-400 bg-white px-4 py-4 shadow-sm`}
-                dir={isRTL ? "rtl" : "ltr"}
-            >
-                <div className="mx-auto flex max-w-7xl items-center justify-start gap-5">
-                    <div className="flex items-center ">
-                        <button onClick={toggleSidebar} className="text-2xl">
-                            <FiAlignLeft />
-                        </button>
-
-                        <NavLink to="/">
-                            <img src="/logo.png" alt="Logo" className="w-20" />
-                        </NavLink>
+            <header className="relative z-30" dir={isRTL ? "rtl" : "ltr"}>
+                <nav className="border-b border-primary-200 bg-white px-4 py-4 shadow-sm">
+                    <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
+                        <div className="flex items-center gap-10">
+                            <button onClick={toggleSidebar} className="text-2xl"><FiAlignLeft /></button>
+                            <NavLink to="/"><img src="/logo.png" alt="Logo" className="w-20" /></NavLink>
+                        </div>
+                    </div>
+                </nav>
+                <div className="bg-primary-50/20 p-4 shadow-inner-sm">
+                    <div className="mx-auto max-w-md">
+                        <SearchFilterBar initialFilters={initialFilters} t={t} isRTL={isRTL} />
                     </div>
                 </div>
-            </nav>
-
-            {/* Render SideBar always, but control its visibility with CSS classes */}
-            <SideBar
-                t={t}
-                isRTL={isRTL}
-                sidebarOpen={sidebarOpen}
-                toggleSidebar={toggleSidebar}
-                handleToggleLanguage={handleToggleLanguage}
-            />
+            </header>
+            <SideBar t={t} isRTL={isRTL} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} handleToggleLanguage={handleToggleLanguage} />
         </>
     );
 }
 
+// Component 5: SideBar (Full Original Code)
 const SideBar = ({ t, isRTL, sidebarOpen, toggleSidebar, handleToggleLanguage }) => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
@@ -62,149 +283,68 @@ const SideBar = ({ t, isRTL, sidebarOpen, toggleSidebar, handleToggleLanguage })
         localStorage.removeItem("user");
         setUser(null);
         navigate('/search');
+        toggleSidebar(); // Close sidebar on logout
     };
 
-    const baseNavItems = [
-        {
-            label: "Home (Search)",
-            icon: <FiHome />,
-            to: "/",
-        },
-    ];
-    const authNavItems = [
-        {
-            label: "Login",
-            icon: <FiLogIn />,
-            to: "/login",
-        },
-        {
-            label: "Register",
-            icon: <FiUserPlus />,
-            to: "/register",
-        }
-    ]
+    const navItems = useMemo(() => {
+        const base = [{ label: "Home (Search)", icon: <FiHome />, to: "/" }];
+        const auth = [
+            { label: "Login", icon: <FiLogIn />, to: "/login" },
+            { label: "Register", icon: <FiUserPlus />, to: "/register" }
+        ];
+        const protectedItems = [
+            { label: "My Ads", icon: <FiList />, to: "/my-ads" },
+            { label: "My Archives", icon: <FiTrash />, to: "/my-archives" },
+            { label: "Buy Credits", icon: <FiCreditCard />, to: "/buy-credits" },
+            { label: "Logout", icon: <FiLogOut />, action: handleLogout },
+        ];
+        const end = [{ label: "Agents", icon: <BsBuildings />, to: "/agents" }];
 
-    const protectedNavItems = [
-        {
-            label: "Logout",
-            icon: <FiLogOut />,
-        },
-        {
-            label: "My Ads",
-            icon: <FiList />,
-            to: "/my-ads",
-        },
-        {
-            label: "My Archives",
-            icon: <FiTrash />,
-            to: "/my-archives",
-        },
-        {
-            label: "Buy Credits",
-            icon: <FiCreditCard />,
-            to: "/buy-credits",
-        },
-    ]
-
-    const endNavItems = [
-        {
-            label: "Agents",
-            icon: <BsBuildings />,
-            to: "/agents",
-        }
-    ];
-
-
-    let navItems = [...baseNavItems];
-    if (user) {
-        navItems = [...navItems, ...protectedNavItems];
-    } else {
-        navItems = [...navItems, ...authNavItems];
-    }
-    navItems = [...navItems, ...endNavItems];
-
+        return [...base, ...(user ? protectedItems : auth), ...end];
+    }, [user]);
 
     const baseTransformClass = isRTL ? "translate-x-full" : "-translate-x-full";
     const activeTransformClass = "translate-x-0";
+
     return (
         <>
-            {/* Overlay for background dimming */}
-            {sidebarOpen && (
-                <div
-                    className="fixed inset-0 z-40 bg-black/20 transition-opacity duration-300 ease-in-out"
-                    onClick={toggleSidebar}
-                ></div>
-            )}
-            <div
-                className={`fixed top-0 z-50 h-full transform transition-transform duration-300 ease-in-out w-64 bg-white shadow-lg
-                ${sidebarOpen ? activeTransformClass : baseTransformClass}
-                ${isRTL ? "right-0" : "left-0"}`}
-                dir={isRTL ? "rtl" : "ltr"}
-            >
+            {sidebarOpen && <div className="fixed inset-0 z-40 bg-black/20 transition-opacity duration-300 ease-in-out" onClick={toggleSidebar}></div>}
+            <div className={`fixed top-0 z-50 h-full transform transition-transform duration-300 ease-in-out w-64 bg-white shadow-lg ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`} dir={isRTL ? "rtl" : "ltr"}>
                 <div className="h-full bg-main text-lg">
-                    <div className="border-b border-primary-400 py-4">
+                    <div className="border-b border-primary-400 py-4 px-4">
                         <div className="flex items-center justify-between">
-                            <NavLink to="/">
-                                <img src="/logo.png" alt="Logo" className="w-20" />
-                            </NavLink>
-                            <button
-                                onClick={toggleSidebar}
-                                className="flex items-center justify-center p-2 text-primary-900 bg-primary-50 rounded-full relative right-5"
-                            >
-                                <FiX className="text-2xl" />
-                            </button>
+                            <NavLink to="/"><img src="/logo.png" alt="Logo" className="w-20" /></NavLink>
+                            <button onClick={toggleSidebar} className="flex items-center justify-center p-2 text-primary-900 bg-primary-50 rounded-full"><FiX className="text-2xl" /></button>
                         </div>
                     </div>
                     <div className="flex flex-col pe-2 pt-2">
-                        {navItems && navItems.map((item, index) => (
+                        {navItems.map((item, index) => (
                             <div className="rounded-e-2xl active:bg-active" key={index}>
                                 {item.to ? (
-                                    <NavLink
-                                        to={item.to} onClick={toggleSidebar}
-                                        className="font-bold text-dark ps-6 w-full py-3 gap-3 flex items-center hover:text-primary-700"
-                                    >
-                                        {item.icon}
-                                        <span>{item.label}</span>
+                                    <NavLink to={item.to} onClick={toggleSidebar} className="font-bold text-dark ps-6 w-full py-3 gap-3 flex items-center hover:text-primary-700">
+                                        {item.icon}<span>{item.label}</span>
                                     </NavLink>
                                 ) : (
-                                    <button
-                                        onClick={handleLogout}
-                                        className="font-bold text-dark ps-6 w-full py-3 gap-3 flex items-center hover:text-primary-700"
-                                    >
-                                        {item.icon}
-                                        <span>{item.label}</span>
+                                    <button onClick={item.action} className="font-bold text-dark ps-6 w-full py-3 gap-3 flex items-center hover:text-primary-700">
+                                        {item.icon}<span>{item.label}</span>
                                     </button>
                                 )}
                             </div>
                         ))}
                     </div>
                     <div className="my-4 border-b"></div>
-                    <NavLink to="/add-ad" className="cursor-pointer ps-6 w-full py-3 gap-3 flex items-center">
-                        <FiPlus />
-                        <span className="font-bold text-primary-900">Create Ad</span>
+                    <NavLink to="/add-ad" onClick={toggleSidebar} className="cursor-pointer ps-6 w-full py-3 gap-3 flex items-center">
+                        <FiPlus /><span className="font-bold text-primary-900">Create Ad</span>
                     </NavLink>
-                    <div className="absolute bottom-14 end-0 start-0 flex items-center justify-center gap-4">
-                        <button onClick={handleToggleLanguage}
-                            className="bg-primary-400 text-white rounded-lg p-0 h-10 w-10 flex items-center justify-center active:bg-primary-600 hover:bg-primary-600 transition-all ease-linear duration-300">
-                            <span className={`text-xl ${isRTL ? "" : "bottom-1 relative"}`}>
-                                {isRTL ? "En" : "ع"}
-                            </span>
+                    <div className="absolute bottom-4 end-0 start-0 flex items-center justify-center gap-4">
+                        <button onClick={handleToggleLanguage} className="bg-primary-400 text-white rounded-lg p-0 h-10 w-10 flex items-center justify-center active:bg-primary-600 hover:bg-primary-600 transition-all ease-linear duration-300">
+                            <span className={`text-xl ${isRTL ? "" : "bottom-1 relative"}`}>{isRTL ? "En" : "ع"}</span>
                         </button>
-                        <a
-                            target="_blank"
-                            className="bg-primary-400 text-white rounded-lg p-0 h-10 w-10 flex items-center justify-center active:bg-primary-600 hover:bg-primary-600 transition-all ease-linear duration-300"
-                            href="https://www.instagram.com/"
-                            rel="noopener noreferrer"
-                        >
-                            <FiInstagram className="shrink-0 size-5 fill-none" />
+                        <a target="_blank" href="https://www.instagram.com/" rel="noopener noreferrer" className="bg-primary-400 text-white rounded-lg p-0 h-10 w-10 flex items-center justify-center active:bg-primary-600 hover:bg-primary-600 transition-all ease-linear duration-300">
+                            <FiInstagram className="shrink-0 size-5" />
                         </a>
-                        <a
-                            target="_blank"
-                            className="bg-primary-400 text-white rounded-lg p-0 h-10 w-10 flex items-center justify-center active:bg-primary-600 hover:bg-primary-600 transition-all ease-linear duration-300"
-                            href="https://x.com/"
-                            rel="noopener noreferrer"
-                        >
-                            <FiTwitter className="shrink-0 size-5 fill-none" />
+                        <a target="_blank" href="https://x.com/" rel="noopener noreferrer" className="bg-primary-400 text-white rounded-lg p-0 h-10 w-10 flex items-center justify-center active:bg-primary-600 hover:bg-primary-600 transition-all ease-linear duration-300">
+                            <FiTwitter className="shrink-0 size-5" />
                         </a>
                     </div>
                 </div>
