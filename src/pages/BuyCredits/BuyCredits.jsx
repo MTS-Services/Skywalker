@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 // Card Component for reusability
@@ -30,48 +31,16 @@ const CreditCard = ({
       <h4 className="text-xl font-semibold">{title}</h4>
     </div>
 
-    {/* NEW: Ad Package clickable area with background image and text overlay */}
-    {/* This div acts as the clickable background area. Now all cards use an image background with an overlay. */}
     <div
       className="relative mb-4 flex h-40 w-full cursor-pointer flex-col items-center justify-end overflow-hidden rounded-lg py-4 shadow-md" // justify-end to push link to bottom
       style={{
-        backgroundImage: `url(${imageSrc})`, // All cards now explicitly use imageSrc as background
-        backgroundSize: "cover",
+        backgroundImage: `url(${imageSrc})`,
+        backgroundSize: "cover", // Ensure the image covers the area
         backgroundPosition: "center",
       }}
-      onClick={() => onImageClick(title)} // Pass title to identify which modal to open
+      onClick={() => onImageClick(title)}
     >
-      {/* Overlay for all cards to darken background image and make text more readable */}
       <div className="absolute inset-0 rounded-lg bg-black opacity-40"></div>
-
-      {/* Dynamic Content for two circular packages inside the main area, z-index ensures they are above overlay */}
-      {/* This entire section is now removed as per your request */}
-      {/*
-      <div className="relative z-10 flex justify-around w-full px-4 items-center">
-        <div className="flex flex-col items-center">
-          <div className="w-24 h-24 bg-white bg-opacity-20 text-white rounded-full flex flex-col items-center justify-center text-md font-bold border border-white">
-            <span>{package1.adCount}</span>
-            <span>{package1.packageType}</span>
-          </div>
-          <p className="mt-2 text-white text-lg font-bold">{package1.price}</p>
-        </div>
-
-        {package2 && (
-          <div className="flex flex-col items-center relative">
-            <div className="w-24 h-24 bg-white bg-opacity-20 text-white rounded-full flex flex-col items-center justify-center text-md font-bold border border-white">
-              <span>{package2.adCount}</span>
-              <span>{package2.packageType}</span>
-            </div>
-            <p className="mt-2 text-white text-lg font-bold">{package2.price}</p>
-            {package2.discount && (
-              <div className="absolute top-0 right-0 -mr-4 -mt-4 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full rotate-12 transform shadow-lg">
-                {package2.discount}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-      */}
 
       <a
         href="#"
@@ -90,8 +59,12 @@ const CreditCard = ({
       <ul className="mb-6 w-full space-y-2 text-left">
         {features.map((feature, index) => (
           <li key={index} className="flex items-start text-sm text-gray-700">
-            <svg
+            <img
               className="mr-2 h-5 w-5 flex-shrink-0 text-green-500"
+              src="./assets/byCridit/img.png"
+              alt=""
+            />
+            <img
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -103,7 +76,7 @@ const CreditCard = ({
                 strokeWidth="2"
                 d="M5 13l4 4L19 7"
               ></path>
-            </svg>
+            </img>
             <span>{feature}</span>
           </li>
         ))}
@@ -201,7 +174,7 @@ const BuyCredits = () => {
         {/* Super Credit Card Data */}
         <CreditCard
           title="Super Credit"
-          imageSrc="https://placehold.co/400x200/B22222/FFFFFF?text=RED+BG" // Demo background for Super Credit
+          imageSrc="public/assets/byCridit/img3.png" // Using img3.png for Super Credit
           features={commonFeatures}
           profileName="Dr. Shamim" // Still passed, but not rendered in CreditCard
           onImageClick={openModal}
@@ -225,7 +198,7 @@ const BuyCredits = () => {
         {/* Agents Subscript Card Data - Replicated design */}
         <CreditCard
           title="Agents Subscript"
-          imageSrc="https://placehold.co/400x200/1A5693/FFFFFF?text=BLUE+BG" // Demo background for Agents
+          imageSrc="public/assets/byCridit/img2.png" // Using img2.png for Agents Subscript
           features={commonFeatures}
           profileName="Dr. Shamim" // Still passed, but not rendered in CreditCard
           onImageClick={openModal}
@@ -249,7 +222,7 @@ const BuyCredits = () => {
         {/* Regular Credit Card Data - Replicated design */}
         <CreditCard
           title="Regular Credit"
-          imageSrc="https://placehold.co/400x200/4CAF50/000000?text=GREEN+BG" // Demo background for Regular
+          imageSrc="public/assets/byCridit/img.png" // Using img.png for Regular Credit
           features={commonFeatures}
           profileName="Dr. Shamim" // Still passed, but not rendered in CreditCard
           onImageClick={openModal}
