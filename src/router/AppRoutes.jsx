@@ -10,7 +10,6 @@ import Agent from "../pages/agent/Agent";
 
 import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
 
-
 import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 import AdDetailPage from "../pages/home/AdDetailPage";
@@ -25,7 +24,6 @@ import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
 import TestRegister from "../TestingPage/TestRegister";
 import ProtectedRoute from "../authente/AuthProvideer/ProtectedRoute";
 import BuyCredits from "../pages/BuyCredits/BuyCredits";
-
 
 const AppRoutes = createBrowserRouter([
   {
@@ -89,7 +87,7 @@ const AppRoutes = createBrowserRouter([
       {
         path: "ad-upload",
         element: <AdUpload />,
-
+      },
 
       {
         path: "agents",
@@ -106,7 +104,7 @@ const AppRoutes = createBrowserRouter([
 
       {
         path: "buy-credits",
-        element: <BuyCredits/>,
+        element: <BuyCredits />,
       },
 
       {
