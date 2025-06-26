@@ -321,7 +321,7 @@ export const translations = {
   },
   "ar": {
     "header": {
-      "home": "الصفحة الرئيسية (البحث)",
+      "home": "الصفحة الرئيسية",
       "agents": "الوكلاء",
       "about": "حول",
       "contact": "اتصل",
