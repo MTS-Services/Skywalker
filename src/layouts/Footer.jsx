@@ -5,7 +5,7 @@ import { useLanguage } from "../context/LanguageContext";
 // Individual footer column
 const FooterColumn = ({ title, links, isRTL }) => (
   <div>
-    <h4 className="mb-2 text-base font-bold">{title}</h4>
+    <h2 className="mb-2 text-base font-bold">{title}</h2>
     <ul className="space-y-1">
       {links.map(({ to, label }) => (
         <FooterLink key={to} to={to} label={label} isRTL={isRTL} />
@@ -138,9 +138,9 @@ const Footer = () => {
           isRTL={isRTL}
         />
         <div>
-          <h4 className="mb-2 text-base font-semibold">
+          <h2 className="mb-2 text-base font-semibold">
             {isRTL ? "صفحات " : "Pages"}
-          </h4>
+          </h2>
           <ul className="space-y-1">
             {pagesLinks.map(({ to, label }) => (
               <FooterLink key={to} to={to} label={label} isRTL={isRTL} />
