@@ -80,7 +80,7 @@ function Header() {
 
         {isAuthenticated && ( // শুধুমাত্র যখন isAuthenticated true, তখনই এই NavLink দেখানো হবে
           <NavLink
-            to="/add-ad"
+            to="/"
             className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white sm:flex ${isRTL ? "flex-row-reverse" : ""}`}
           >
             <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
@@ -114,7 +114,7 @@ function Header() {
                 className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""}`}
               >
                 <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-                {t?.header?.addFreeAd}
+                {t?.header?.agents}
               </NavLink>
 
               
@@ -333,7 +333,7 @@ const Navigation = ({
           <LanguageItem
             label="العربية"
             isActive={language === "ar"}
-            onClick={() => handleLanguageChange("bn")}
+            onClick={() => handleLanguageChange("ar")}
             isRTL={isRTL}
           />
         </div>
