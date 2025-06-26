@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // আপনার Assets থেকে লোগো এবং আইকন ইম্পোর্ট করুন
 // নিশ্চিত করুন এই পাথগুলো আপনার প্রজেক্ট স্ট্রাকচারের সাথে মেলে
 
-import defaultLogo from"../assits/login/login.png";
+import defaultLogo from "../assits/login/login.png";
 // ডিফল্ট লোগো যদি কোম্পানির লোগো না থাকে
 import { useLanguage } from "../context/LanguageContext";
 
@@ -82,7 +82,7 @@ export default function AgentList() {
 
   return (
     <>
-      <section className="bg-gray-100 px-4 py-8 md:px-5 md:py-10">
+      <section className="h-screen bg-gray-100 px-4 py-8 md:px-5 md:py-10">
         <div className="container mx-auto w-full max-w-7xl">
           <div className={`mx-auto mb-4 w-full max-w-xl md:max-w-full`}>
             <div className="w-full text-center md:w-[770px] lg:ml-20">
