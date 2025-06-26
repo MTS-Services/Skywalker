@@ -1,5 +1,4 @@
 [
-  { "id": "all", "name": "All Property Types" },
   { "id": "apartment", "name": "Apartment" },
   { "id": "house", "name": "House" },
   { "id": "land", "name": "Land" },
