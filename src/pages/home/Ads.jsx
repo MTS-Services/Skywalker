@@ -168,9 +168,7 @@ export default function Ads() {
       <section className="bg-white py-10 md:py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto w-full max-w-3xl">
-            <h3 className="mb-6 px-2 text-2xl font-bold text-black">
-              {t.ads.recentAdsTitle}
-            </h3>
+            <h2 className="mb-6 text-lg">{t.ads.recentAdsTitle}</h2>
             <div className="flex flex-col items-center justify-start gap-4">
               {displayedAds.map((ad) => (
                 <div key={ad.id}>

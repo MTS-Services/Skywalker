@@ -60,7 +60,7 @@
   /* Text Colors */
   --text-color-heading: #000;
   --text-color-title: #000;
-  --text-color-paragraph: #4b5563;
+  --text-color-paragraph: #4a5565;
 
   /* Font Sizes */
   --text-xs: 12px;
@@ -110,30 +110,38 @@
   }
 
   h1 {
-    font-size: var(--text-6xl);
+    @apply text-2xl font-bold;
     font-family: var(--font-primary);
-    font-weight: var(--font-bold);
-    color: var(--text-color-heading);
+    font-weight: 700;
+    line-height: 34px;
   }
 
   h2 {
-    font-size: var(--text-4xl);
+    @apply text-md font-bold;
     font-family: var(--font-primary);
-    font-weight: var(--font-semibold);
-    color: var(--text-color-title);
+    font-weight: 700;
+    line-height: 24px;
   }
 
   h3 {
-    font-size: var(--text-xl);
+    @apply text-sm font-semibold;
     font-family: var(--font-primary);
-    font-weight: var(--font-medium);
-    color: var(--text-color-title);
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  h4 {
+    @apply text-xs font-normal;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    line-height: 23px;
   }
 
   p {
-    font-size: var(--text-base);
+    @apply text-sm font-normal;
     font-family: var(--font-secondary);
-    font-weight: var(--font-normal);
+    font-weight: 400;
+    line-height: 24px;
     color: var(--text-color-pargraph);
   }
 

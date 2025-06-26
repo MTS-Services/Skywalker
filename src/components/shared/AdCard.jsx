@@ -32,7 +32,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
   };
   return (
     <div onClick={handleClick} className="group w-full cursor-pointer">
-      <div className="shadow-primary-100/50 active:border-primary-500 relative w-full rounded-lg border border-transparent bg-rose-50 p-3 text-black shadow transition-shadow duration-300 hover:shadow-lg sm:p-4">
+      <div className="active:border-primary-500 relative w-full rounded-lg border border-transparent bg-rose-50 p-3 text-black shadow shadow-gray-200 transition-shadow duration-300 hover:shadow-md sm:p-4">
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Image */}
           <div className="relative flex-shrink-0">
@@ -89,9 +89,9 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
                   </svg>
                 )}
                 <div className="absolute start-0.5 top-0 flex h-[28px] w-full items-center justify-center">
-                  <div className="overflow-hidden px-1 text-sm font-bold whitespace-nowrap text-gray-600">
+                  <h4 className="overflow-hidden px-1 text-sm font-bold whitespace-nowrap text-gray-600">
                     {t.ads.super}
-                  </div>
+                  </h4>
                 </div>
               </div>
             )}
@@ -99,21 +99,17 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
 
           {/* Details */}
           <div className="flex-1 overflow-hidden">
-            <h4 className="text-dark group-hover:text-primary-600 line-clamp-2 text-base font-bold break-words transition-colors sm:text-lg">
-              {ad.title}
-            </h4>
-            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-              <div className="text-primary-dark text-base font-bold">
+            <h2 className="">{ad.title}</h2>
+            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <h3 className="text-primary-900">
                 {ad.kd} {t.ads.currency}
-              </div>
-              <div className="text-primary-800 flex items-center gap-1">
-                <FiClock className="size-4" />
-                <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
+              </h3>
+              <div className="flex items-center gap-1 text-gray-600">
+                <FiClock size={16} />
+                <h4>{formatTimeAgo(ad.postCreateAt, language)}</h4>
               </div>
             </div>
-            <p className="text-primary-900 mt-2 line-clamp-2 text-sm">
-              {ad.description}
-            </p>
+            <p className="mt-2 line-clamp-2 text-gray-600">{ad.description}</p>
           </div>
         </div>
       </div>
