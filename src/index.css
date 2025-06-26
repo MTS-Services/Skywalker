@@ -1,4 +1,14 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+.open-sans-font {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: 15px;
+  font-style: normal;
+  line-height: 24px;
+}
 
 [dir="rtl"] {
   font-family: "Noto Sans Arabic", Arial, sans-serif;
@@ -37,16 +47,17 @@
 }
 
 @theme {
-  --color-primary-50: #d4f1fb; /* Lightest */
-  --color-primary-100: #aee5f8;
-  --color-primary-200: #87d7f4;
-  --color-primary-300: #60c9f0;
-  --color-primary-400: #39bceb; /* Base Color Lighter */
-  --color-primary-500: #26b1e6; /* Base Color */
-  --color-primary-600: #2099c9;
-  --color-primary-700: #1a80aa;
-  --color-primary-800: #14688c;
-  --color-primary-900: #0e4f6d; /* Darkest */
+  --color-primary-50: #a7e1f9; /* Lightest */
+  --color-primary-100: #89d8f7;
+  --color-primary-200: #6bcff6;
+  --color-primary-300: #4cc5f4;
+  --color-primary-400: #2ecbf2; /* Base Color Lighter */
+  --color-primary-500: #1eaeed; /* Base Color */
+  --color-primary-600: #1a96d0;
+  --color-primary-700: #1781b3;
+  --color-primary-800: #136b96;
+  --color-primary-900: #10557a; /* Darkest */
+
   --color-descripton: #556885;
   --color-adspart: #2e6290;
   --color-bgcolor-900: #26b0e5;
