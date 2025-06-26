@@ -1,11 +1,10 @@
-import { useEffect, useState, useMemo, useRef, useCallback, useContext } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-import { FiAlignLeft, FiCreditCard, FiHome, FiInstagram, FiList, FiLogIn, FiLogOut, FiPlus, FiSettings, FiTrash, FiTwitter, FiUserPlus, FiX } from "react-icons/fi";
+import { FiAlignLeft } from "react-icons/fi";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
-import { BsBuildings } from "react-icons/bs";
-import { FaArrowLeft, FaBars, FaPlusCircle } from "react-icons/fa";
-import { AuthContext } from "../context/AuthContext";
+import { FaArrowLeft, FaBars } from "react-icons/fa";
+import { SideBar } from "./Sidebar";
 
 // Component 1: Multi-Select Filter
 const DesktopRegionFilter = ({
@@ -77,18 +76,14 @@ const DesktopRegionFilter = ({
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         toggleItem(item);
-                                    }}
-                                    className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
-                                >
+                                    }} className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`} >
                                     <LuX />
                                 </button>
                             </span>
                         ))
                         : placeholder}
                 </div>
-                <span
-                    className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-                >
+                <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>
                     <LuChevronDown />
                 </span>
             </div>
@@ -727,7 +722,7 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
 
 // Component 7: Main Header Component (NOW RESPONSIVE)
 export default function SearchPageHeader() {
-    const { isRTL, t, toggleLanguage } = useLanguage();
+    const { isRTL, t } = useLanguage();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const location = useLocation();
 
@@ -743,7 +738,7 @@ export default function SearchPageHeader() {
             maxPrice: params.get("maxPrice") || "",
             searchText: params.get("searchText") || "",
         };
-    }, [location.search]);
+    }, [location.search, t]);
 
     return (
         <>
@@ -818,94 +813,7 @@ export default function SearchPageHeader() {
                     )}
                 </SearchFilterBar>
             </nav>
-            <SideBar t={t} isRTL={isRTL} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} handleToggleLanguage={toggleLanguage} />
+            <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
         </>
     );
 }
-
-// Component 8: SideBar (Unchanged)
-const SideBar = ({ t, isRTL, sidebarOpen, toggleSidebar, handleToggleLanguage }) => {
-    const navigate = useNavigate();
-    const { isAuthenticated, logout } = useContext(AuthContext);
-
-    const handleLogout = () => {
-        logout();
-    };
-
-    const navItems = useMemo(() => {
-        const base = [{ label: "Home (Search)", icon: <FiHome />, to: "/" }];
-        const auth = [
-            { label: "Login", icon: <FiLogIn />, to: "/login" },
-            { label: "Register", icon: <FiUserPlus />, to: "/register" }
-        ];
-        const protectedItems = [
-            { label: "My Ads", icon: <FiList />, to: "/my-ads" },
-            { label: "My Archives", icon: <FiTrash />, to: "/my-archives" },
-            { label: "Buy Credits", icon: <FiCreditCard />, to: "/buy-credits" },
-            { label: "Logout", icon: <FiLogOut />, action: handleLogout },
-        ];
-        const end = [{ label: "Agents", icon: <BsBuildings />, to: "/agents" }];
-
-        return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
-    }, [isAuthenticated]);
-
-    const baseTransformClass = isRTL ? "translate-x-full" : "-translate-x-full";
-    const activeTransformClass = "translate-x-0";
-
-    return (
-        <>
-            {sidebarOpen && <div className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-300 ease-in-out" onClick={toggleSidebar}></div>}
-            <div className={`fixed top-0 z-50 h-full min-w-80 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`} dir={isRTL ? "rtl" : "ltr"}>
-                <div className="h-full bg-main text-lg">
-                    <div className="border-b border-gray-200 px-4 py-2">
-                        <div className="flex items-center justify-between">
-                            <NavLink to="/" className={`flex items-center gap-2 justify-start`}>
-                                <img src="/logo.png" alt="Logo" className="w-14" />
-                                <div>
-                                    <p className="font-bold text-lg capitalize">Mr Aquar</p>
-                                    <p className="text-[8px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">Property Finder</p>
-                                </div>
-                            </NavLink>
-                            <button onClick={toggleSidebar} className="text-gray-500"><FiX className="text-2xl" /></button>
-                        </div>
-                    </div>
-                    <div className="flex flex-col pt-2">
-                        {navItems.map((item, index) => (
-                            <div className="rounded-e-2xl active:bg-active" key={index}>
-                                {item.to ? (
-                                    <NavLink to={item.to} onClick={toggleSidebar} className="flex w-full items-center gap-3 py-3 ps-6 font-semibold text-dark hover:bg-primary-300/20 hover:text-primary-900">
-                                        <span className="text-primary-900">{item.icon}</span><span>{item.label}</span>
-                                    </NavLink>
-                                ) : (
-                                    <button onClick={item.action} className="flex w-full items-center gap-3 py-3 ps-6 font-semibold text-dark hover:bg-primary-300/20 hover:text-primary-700">
-                                        {item.icon}<span>{item.label}</span>
-                                    </button>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="my-4 border-b border-gray-200"></div>
-                    <NavLink to="/add-ad" onClick={toggleSidebar} className="flex w-full cursor-pointer items-center gap-3 py-3 ps-6 text-primary-700">
-                        <FaPlusCircle /><span className="font-bold">Create Ad</span>
-                    </NavLink>
-                    <div className="absolute bottom-4 end-0 start-0 flex items-center justify-center gap-4">
-                        {isAuthenticated && (
-                            <Link to="/settings" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
-                                <FiSettings className="h-5 w-5 shrink-0" />
-                            </Link>
-                        )}
-                        <button onClick={handleToggleLanguage} className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
-                            <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>{isRTL ? "En" : "ع"}</span>
-                        </button>
-                        <a target="_blank" href="https://www.instagram.com/" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
-                            <FiInstagram className="h-5 w-5 shrink-0" />
-                        </a>
-                        <a target="_blank" href="https://x.com/" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
-                            <FiTwitter className="h-5 w-5 shrink-0" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
-};

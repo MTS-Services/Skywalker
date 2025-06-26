@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useContext, useMemo } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { FiChevronDown, FiChevronUp, FiMenu, FiX, FiSettings } from "react-icons/fi";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaBars, FaPlusCircle } from "react-icons/fa";
 import axios from "axios";
 import { useLanguage } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
+import { SideBar } from "./Sidebar";
 
 const navLinkClass = ({ isActive }) =>
   isActive
@@ -14,13 +15,14 @@ const navLinkClass = ({ isActive }) =>
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isRTL, t, toggleLanguage, language } = useLanguage();
-  const location = useLocation();
   const { isAuthenticated, logout } = useContext(AuthContext);
-
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const dropdownRef = useRef(null);
   const langDropdownRef = useRef(null);
+
+
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -34,12 +36,6 @@ function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  useEffect(() => {
-    setIsDropdownOpen(false);
-    setLangOpen(false);
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const toggleLangDropdown = () => setLangOpen((prev) => !prev);
@@ -78,11 +74,9 @@ function Header() {
           </div>
         </NavLink>
 
-        <button onClick={() => setMobileMenuOpen((prev) => !prev)} className="text-primary-500 text-2xl sm:hidden">
-          {mobileMenuOpen ? <FiX /> : <FiMenu />}
-        </button>
+        <button onClick={toggleSidebar} className="lg:hidden text-2xl text-[#556885]"><FaBars /></button>
 
-        <div className={`hidden items-center gap-6 font-medium text-black sm:flex ${isRTL ? "space-x-reverse" : ""}`}>
+        <div className={`hidden items-center gap-6 font-medium text-black lg:flex ${isRTL ? "space-x-reverse" : ""}`}>
           <Navigation
             toggleDropdown={toggleDropdown}
             isDropdownOpen={isDropdownOpen}
@@ -100,37 +94,14 @@ function Header() {
           {isAuthenticated && <Link to="/settings"><FiSettings /></Link>}
         </div>
 
-        <NavLink to={isAuthenticated ? "/add-upload" : "/login"} className="flex items-center gap-2 bg-primary-300/10 px-5 py-2 rounded-md border border-primary-300/40">
+        <NavLink to={isAuthenticated ? "/add-upload" : "/login"} className="hidden lg:flex items-center gap-2 bg-primary-300/10 px-5 py-2 rounded-md border border-primary-300/40">
           <FaPlusCircle className="text-primary-600 text-lg" />
           {t.header.addFreeAd}
         </NavLink>
       </div>
 
-      {mobileMenuOpen && (
-        <div className="absolute top-full left-0 z-44 mt-0.5 w-full bg-gray-50 shadow-md sm:hidden">
-          <div className={`flex flex-col items-start gap-4 px-4 py-4 ${isRTL ? "items-end" : "items-start"}`}>
-            <Navigation
-              toggleDropdown={toggleDropdown}
-              isDropdownOpen={isDropdownOpen}
-              toggleLangDropdown={toggleLangDropdown}
-              langOpen={langOpen}
-              handleLanguageChange={handleLanguageChange}
-              isRTL={isRTL}
-              t={t}
-              language={language}
-              isMobile={true}
-              isAuthenticated={isAuthenticated}
-              handleLogout={handleLogout}
-            />
-            {isAuthenticated && (
-              <NavLink to="/add-ad" className="flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white">
-                <FiPlus className="text-lg" />
-                {t.header.addFreeAd}
-              </NavLink>
-            )}
-          </div>
-        </div>
-      )}
+      <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+
     </nav>
   );
 }
