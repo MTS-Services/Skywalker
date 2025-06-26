@@ -32,7 +32,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
   }
   return (
     <div onClick={handleClick} className="w-full cursor-pointer group">
-      <div className="relative w-full rounded-lg shadow shadow-primary-100/50 hover:shadow-lg transition-shadow duration-300 p-3 sm:p-4 border border-transparent bg-rose-50 active:border-primary-500">
+      <div className="relative w-full rounded-lg shadow-card-shadow transition-shadow duration-300 p-3 sm:p-4 border border-transparent bg-rose-50/50 active:border-primary-500">
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Image */}
           <div className="flex-shrink-0 relative">
@@ -81,19 +81,19 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
           
           {/* Details */}
           <div className="flex-1 overflow-hidden">
-            <h4 className="font-bold text-base sm:text-lg text-dark line-clamp-2 break-words group-hover:text-primary-600 transition-colors">
+            <h4 className="font-bold text-base sm:text-lg text-dark line-clamp-2 break-words">
               {ad.title}
             </h4>
             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-              <div className="font-bold text-primary-dark text-base">
+              <div className="font-bold text-primary-900 text-base">
                 {ad.kd} {t.ads.currency}
               </div>
               <div className="flex items-center gap-1 text-primary-800">
                 <FiClock className="size-4" />
-                <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
+                <span className="text-gray-500">{formatTimeAgo(ad.postCreateAt, language)}</span>
               </div>
             </div>
-            <p className="mt-2 text-primary-900 line-clamp-2 text-sm">{ad.description}</p>
+            <p className="mt-2 text-gray-500 line-clamp-2 text-sm">{ad.description}</p>
           </div>
         </div>
       </div>

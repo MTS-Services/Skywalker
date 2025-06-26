@@ -63,6 +63,7 @@ export const translations = {
       copyButton: "Copy URL",
       loadMore: "Load More",
       allItemsLoaded: "All items loaded.",
+      noAds: "No ads found."
     },
 
     // Search
@@ -376,7 +377,8 @@ export const translations = {
       "copyLinkTitle": "نسخ الرابط المباشر",
       "copyButton": "نسخ الرابط",
       "loadMore": "تحميل المزيد",
-      "allItemsLoaded": "تم تحميل جميع العناصر."
+      "allItemsLoaded": "تم تحميل جميع العناصر.",
+      "noAds": "لا يوجد اعلانات."
     },
     "search": {
       "super": "مميز",
