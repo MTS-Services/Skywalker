@@ -32,7 +32,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
   };
   return (
     <div onClick={handleClick} className="group w-full cursor-pointer">
-      <div className="shadow-primary-100/50 active:border-primary-500 relative w-full rounded-lg border border-transparent bg-rose-50 p-3 shadow transition-shadow duration-300 hover:shadow-lg sm:p-4">
+      <div className="shadow-primary-100/50 active:border-primary-500 relative w-full rounded-lg border border-transparent bg-rose-50 p-3 text-black shadow transition-shadow duration-300 hover:shadow-lg sm:p-4">
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Image */}
           <div className="relative flex-shrink-0">
@@ -89,7 +89,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
                   </svg>
                 )}
                 <div className="absolute start-0.5 top-0 flex h-[28px] w-full items-center justify-center">
-                  <div className="overflow-hidden px-1 text-sm font-bold whitespace-nowrap text-white">
+                  <div className="overflow-hidden px-1 text-sm font-bold whitespace-nowrap text-gray-600">
                     {t.ads.super}
                   </div>
                 </div>
