@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import BannerImage from "../../assets/images/home-hero-banner.svg"
+// import BannerImage from "../../assets/images/home-hero-banner.svg"
 import { MultiSelectDropdown } from "../../components/shared/FilterDropdown"
 
 /**
@@ -8,21 +8,28 @@ import { MultiSelectDropdown } from "../../components/shared/FilterDropdown"
  */
 export default function Hero({ t, isRTL }) {
   return (
-    <section className="relative z-10 flex min-h-[calc(100vh-150px)] items-center justify-center bg-primary-50/20 md:min-h-[calc(100vh-200px)]">
+    <section className="relative z-10 flex items-center justify-center bg-white min-h-[calc(100vh-90px)]">
       <div className="absolute right-0 bottom-0 left-0 flex w-full justify-center">
         <img
-          alt="Cityscape background"
+          alt={t.site.name}
           width="1920"
           height="426"
-          className="h-auto w-full max-w-screen-2xl object-cover"
-          src={BannerImage || "/placeholder.svg"}
+          className="h-auto w-full max-w-screen-2xl object-cover hidden lg:block"
+          src="/home-hero-desktop-hd.svg"
+        />
+        <img
+          alt={t.site.name}
+          width="1920"
+          height="426"
+          className="h-auto w-full max-w-screen-2xl object-cover lg:hidden"
+          src="/home-hero-mobile-hd.svg"
         />
       </div>
       <div className="relative z-10 container mx-auto flex h-full w-full items-center justify-center p-4">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
-          <h2 className="mb-3 text-xl md:text-2xl font-bold text-primary-900 lg:text-3xl">{t.home.bannerTitle}</h2>
-          <p className="mb-8 text-base text-primary-800 md:text-lg">{t.home.bannerSubTitle}</p>
-          <div className="w-full max-w-md rounded-2xl bg-primary-50/20 p-4 shadow-lg shadow-primary-900/30 backdrop-blur-sm sm:p-6">
+          <h2 className="mb-3 text-xl md:text-2xl font-bold lg:text-3xl">{t.home.bannerTitle}</h2>
+          <p className="mb-8 text-base text-gray-600 md:text-lg">{t.home.bannerSubTitle}</p>
+          <div className="w-full max-w-md rounded-2xl bg-white/10 p-4 shadow-card-shadow shadow-primary-900/30 backdrop-blur-xs sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>

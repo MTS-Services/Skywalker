@@ -153,12 +153,12 @@ const Navigation = ({
 
       {!isAuthenticated && (
         <div className="relative">
-          <button onClick={toggleDropdown} className={`flex cursor-pointer items-center transition-colors hover:text-[var(--color-primary-400)] ${isDropdownOpen ? "text-[var(--color-primary-400)]" : ""} ${isRTL ? "flex-row-reverse" : ""}`}>
+          <button onClick={toggleDropdown} className={`flex cursor-pointer items-center transition-colors hover:text-primary-400 ${isDropdownOpen ? "text-primary-400" : ""} ${isRTL ? "flex-row-reverse" : ""}`}>
             {t.header.kuwaitRealEstate}
             {isDropdownOpen ? <FiChevronUp className={`${isRTL ? "mr-1" : "ml-1"}`} /> : <FiChevronDown className={`${isRTL ? "mr-1" : "ml-1"}`} />}
           </button>
           {isDropdownOpen && propertyTypes.length > 0 && (
-            <div className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-[var(--color-primary-400)] bg-white p-4 shadow-lg sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${isRTL ? "right-0 text-right" : "left-0 text-left"}`}>
+            <div className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-gray-300 bg-white p-2 shadow-lg sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${isRTL ? "right-0 text-right" : "left-0 text-left"}`}>
               {propertyTypes.map((item, index) => (
                 <DropdownItem key={index} to={`/search?propertyType=${item.id}`} text={item.name} isRTL={isRTL} />
               ))}
@@ -175,7 +175,7 @@ const Navigation = ({
 };
 
 const DropdownItem = ({ to, text, isRTL }) => (
-  <NavLink to={to} className={`block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-[var(--color-primary-600)] ${isRTL ? "text-right" : "text-left"}`}>
+  <NavLink to={to} className={`block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-primary-600 ${isRTL ? "text-right" : "text-left"}`}>
     {text}
   </NavLink>
 );
