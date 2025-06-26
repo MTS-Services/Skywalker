@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { FiAlignLeft, FiCreditCard, FiHome, FiInstagram, FiList, FiLogIn, FiLogOut, FiPlus, FiTrash, FiTwitter, FiUserPlus, FiX } from "react-icons/fi";
-import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
+import { LuChevronDown, LuSearch } from "react-icons/lu";
 import { BsBuildings } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
 
@@ -15,6 +15,8 @@ function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isR
                 if (isOpen) onToggle();
             }
         };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [isOpen, onToggle]);
 
     const handleMinChange = (e) => setMinPrice(e.target.value === "" ? "" : Number.parseInt(e.target.value));
@@ -27,35 +29,27 @@ function PriceRangeFilter({ minPrice, maxPrice, setMinPrice, setMaxPrice, t, isR
 
     return (
         <div className="relative w-full xs:w-auto" ref={dropdownRef}>
-            <button type="button" onClick={onToggle} className={`w-full flex items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 transition-colors hover:bg-[#e8f0f7] ${isOpen ? "ring-1 ring-pri-400" : ""}`}>
+            <button type="button" onClick={onToggle} className={`w-full flex items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 transition-colors hover:bg-[#e8f0f7] ${isOpen ? "ring-1 ring-primary-400" : ""}`}>
                 <span>{t.search.price}</span>
                 <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}><LuChevronDown /></span>
             </button>
             {isOpen && (
-
-                <>
-                    <div className={`fixed inset-0 z-10`}>
-                        <div className="relative w-full h-full px-4">
-                            <div className="absolute inset-0 bg-black opacity-10 z-[11]" onClick={onToggle}></div>
-                            <div className={`relative z-[12] max-w-lg mx-auto top-32 rounded-md border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`} style={{ minWidth: "300px" }}>
-                                <div className="mb-4 flex items-center justify-between text-sm font-medium text-primary-900">
-                                    <span>{minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} {t.search.currency}</span>
-                                    <span>{maxPrice === "" ? `${MAX_POSSIBLE_PRICE}+` : `${maxPrice}+`} {t.search.currency}</span>
-                                </div>
-                                <input type="range" min={MIN_POSSIBLE_PRICE} max={MAX_POSSIBLE_PRICE} value={minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} onChange={handleMinChange} className="w-full h-2 bg-primary-100/80 rounded-md appearance-none cursor-pointer range-lg" />
-                                <input type="range" min={MIN_POSSIBLE_PRICE} max={MAX_POSSIBLE_PRICE} value={maxPrice === "" ? MAX_POSSIBLE_PRICE : maxPrice} onChange={handleMaxChange} className="w-full h-2 bg-primary-100/80 rounded-md appearance-none cursor-pointer range-lg mt-2" />
-                                <div className="mt-4 flex gap-2">
-                                    <input type="number" placeholder={t.search.minPrice} value={minPrice} onChange={handleMinChange} className={`w-1/2 rounded-md border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`} />
-                                    <input type="number" placeholder={t.search.maxPrice} value={maxPrice} onChange={handleMaxChange} className={`w-1/2 rounded-md border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`} />
-                                </div>
-                                <div className="mt-4 flex justify-end gap-2">
-                                    <button onClick={handleReset} className="rounded-md px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100">{t.search.reset}</button>
-                                    <button onClick={handleSearch} className="rounded-md bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500">{t.search.search}</button>
-                                </div>
-                            </div>
-                        </div>
+                <div className={`fixed z-50 mt-2 rounded-md border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`} style={{ minWidth: "300px" }}>
+                    <div className="mb-4 flex items-center justify-between text-sm font-medium text-primary-900">
+                        <span>{minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} {t.search.currency}</span>
+                        <span>{maxPrice === "" ? `${MAX_POSSIBLE_PRICE}+` : `${maxPrice}+`} {t.search.currency}</span>
                     </div>
-                </>
+                    <input type="range" min={MIN_POSSIBLE_PRICE} max={MAX_POSSIBLE_PRICE} value={minPrice === "" ? MIN_POSSIBLE_PRICE : minPrice} onChange={handleMinChange} className="w-full h-2 bg-primary-100/80 rounded-md appearance-none cursor-pointer range-lg" />
+                    <input type="range" min={MIN_POSSIBLE_PRICE} max={MAX_POSSIBLE_PRICE} value={maxPrice === "" ? MAX_POSSIBLE_PRICE : maxPrice} onChange={handleMaxChange} className="w-full h-2 bg-primary-100/80 rounded-md appearance-none cursor-pointer range-lg mt-2" />
+                    <div className="mt-4 flex gap-2">
+                        <input type="number" placeholder={t.search.minPrice} value={minPrice} onChange={handleMinChange} className={`w-1/2 rounded-md border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`} />
+                        <input type="number" placeholder={t.search.maxPrice} value={maxPrice} onChange={handleMaxChange} className={`w-1/2 rounded-md border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "text-right" : "text-left"}`} />
+                    </div>
+                    <div className="mt-4 flex justify-end gap-2">
+                        <button onClick={handleReset} className="rounded-md px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100">{t.search.reset}</button>
+                        <button onClick={handleSearch} className="rounded-md bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500">{t.search.search}</button>
+                    </div>
+                </div>
             )}
         </div>
     );
@@ -70,6 +64,8 @@ function TextSearchFilter({ searchTerm, setSearchTerm, t, isRTL, isOpen, onToggl
                 if (isOpen) onToggle();
             }
         };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [isOpen, onToggle]);
 
     const handleReset = () => { setSearchTerm(""); onApply(); };
@@ -82,32 +78,24 @@ function TextSearchFilter({ searchTerm, setSearchTerm, t, isRTL, isOpen, onToggl
                 <span className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}><LuChevronDown /></span>
             </button>
             {isOpen && (
-                <>
-                    <div className={`fixed inset-0 z-10`}>
-                        <div className="relative w-full h-full px-4">
-                            <div className="absolute inset-0 bg-black opacity-10 z-[11]" onClick={onToggle}></div>
-                            <div className={`relative z-[12] max-w-lg mx-auto top-32 rounded-md border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`} style={{ minWidth: "300px" }}>
-                                <p className="mb-2 text-sm text-primary-900">{t.search.searchUsingTextExample}</p>
-                                <div className="relative">
-                                    <span className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-primary-400`}><LuSearch /></span>
-                                    <input type="text" placeholder={t.search.searchByText} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className={`w-full rounded-md border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "pr-10 text-right" : "pl-10 text-left"} text-sm`} />
-                                </div>
-                                <div className="mt-4 flex justify-end gap-2">
-                                    <button onClick={handleReset} className="rounded-md px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100">{t.search.reset}</button>
-                                    <button onClick={handleSearch} className="rounded-md bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500">{t.search.search}</button>
-                                </div>
-                            </div>
-
-                        </div>
+                <div className={`w-full absolute z-20 mt-2 rounded-md border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`} style={{ minWidth: "300px" }}>
+                    <p className="mb-2 text-sm text-primary-900">{t.search.searchUsingTextExample}</p>
+                    <div className="relative">
+                        <span className={`absolute inset-y-0 flex items-center ${isRTL ? "right-3" : "left-3"} text-primary-400`}><LuSearch /></span>
+                        <input type="text" placeholder={t.search.searchByText} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className={`w-full rounded-md border border-primary-200 p-2 text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-100 ${isRTL ? "pr-10 text-right" : "pl-10 text-left"} text-sm`} />
                     </div>
-                </>
+                    <div className="mt-4 flex justify-end gap-2">
+                        <button onClick={handleReset} className="rounded-md px-4 py-2 text-sm font-medium border border-primary-100 text-primary-900 hover:bg-primary-100">{t.search.reset}</button>
+                        <button onClick={handleSearch} className="rounded-md bg-primary-400 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500">{t.search.search}</button>
+                    </div>
+                </div>
             )}
         </div>
     );
 }
 
 // Component 3: Multi-Select Filter
-const DesktopRegionFilter = ({
+const MultiSelectDropdown = ({
     options,
     selectedItems,
     setSelectedItems,
@@ -128,8 +116,8 @@ const DesktopRegionFilter = ({
                 }
             }
         };
-        // document.addEventListener("mousedown", handleClickOutside);
-        // return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [isOpen, onToggle]);
 
     const toggleItem = (item) => {
@@ -264,8 +252,8 @@ const DesktopRegionFilter = ({
     );
 };
 
-// Component 4: Only DesktopRegionFilter
-const PropertyDropdown = ({
+// Component 4: Only MultiSelectDropdown
+const OnlyMultiSelectDropdown = ({
     options,
     selectedItems,
     setSelectedItems,
@@ -286,6 +274,8 @@ const PropertyDropdown = ({
                 }
             }
         };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [isOpen, onToggle]);
 
     const toggleItem = (item) => {
@@ -314,77 +304,87 @@ const PropertyDropdown = ({
                     }
                 }}
             >
+                {/* <span className="text-primary-400">
+          <LuSearch />
+        </span> */}
+                {/* MODIFIED PART: This section now always shows the placeholder, never the selected items. */}
                 <span>
                     {placeholder}
                 </span>
                 <span
                     className={`text-primary-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
                 >
-                    <LuChevronDown />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        className="h-5 w-5"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                        />
+                    </svg>
                 </span>
             </div>
 
             {isOpen && (
-                <>
-                    <div className={`fixed inset-0 z-10`}>
-                        <div className="relative w-full h-full px-4">
-                            <div className="absolute inset-0 bg-black opacity-10 z-[11]" onClick={onToggle}></div>
-                            <div className="relative z-[12] max-w-lg mx-auto top-32 rounded-md border border-primary-200 bg-white p-4 shadow-lg">
-                                <div className="p-2">
-                                    <input
-                                        type="text"
-                                        placeholder={searchPlaceholder}
-                                        className={`border-primary-100 focus:ring-primary-400 w-full rounded-md border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                        onClick={(e) => e.stopPropagation()}
-                                    />
-                                </div>
-                                <ul className="p-1">
-                                    {filteredOptions.length > 0 ? (
-                                        filteredOptions.map((option) => (
-                                            <li
-                                                key={option.id}
-                                                className={`hover:bg-primary-50 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    toggleItem(option);
-                                                }}
-                                            >
-                                                <div
-                                                    className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
-                                                >
-                                                    <input
-                                                        type="checkbox"
-                                                        readOnly
-                                                        checked={selectedItems.some(
-                                                            (item) => item.id === option.id,
-                                                        )}
-                                                        className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
-                                                    />
-                                                    <span
-                                                        className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
-                                                    >
-                                                        {option.name}
-                                                    </span>
-                                                </div>
-                                                {option.count && (
-                                                    <span className="text-primary-900 text-sm">
-                                                        ({option.count})
-                                                    </span>
-                                                )}
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <li className="text-primary-900 p-2 text-center">
-                                            No results found
-                                        </li>
-                                    )}
-                                </ul>
-                            </div>
-                        </div>
+                <div className="border-primary-200 absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
+                    <div className="p-2">
+                        <input
+                            type="text"
+                            placeholder={searchPlaceholder}
+                            className={`border-primary-100 focus:ring-primary-400 w-full rounded-md border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onClick={(e) => e.stopPropagation()}
+                        />
                     </div>
-                </>
+                    <ul className="p-1">
+                        {filteredOptions.length > 0 ? (
+                            filteredOptions.map((option) => (
+                                <li
+                                    key={option.id}
+                                    className={`hover:bg-primary-50 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        toggleItem(option);
+                                    }}
+                                >
+                                    <div
+                                        className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            readOnly
+                                            checked={selectedItems.some(
+                                                (item) => item.id === option.id,
+                                            )}
+                                            className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
+                                        />
+                                        <span
+                                            className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
+                                        >
+                                            {option.name}
+                                        </span>
+                                    </div>
+                                    {option.count && (
+                                        <span className="text-primary-900 text-sm">
+                                            ({option.count})
+                                        </span>
+                                    )}
+                                </li>
+                            ))
+                        ) : (
+                            <li className="text-primary-900 p-2 text-center">
+                                No results found
+                            </li>
+                        )}
+                    </ul>
+                </div>
             )}
         </div>
     );
@@ -415,6 +415,8 @@ const SingleSelectDropdown = ({
                 }
             }
         };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [isOpen, onToggle]);
 
     const handleSelect = (value) => {
@@ -443,51 +445,46 @@ const SingleSelectDropdown = ({
             </button>
 
             {isOpen && (
-                <>
-                    <div className={`fixed inset-0 z-10`}>
-                        <div className="relative w-full h-full px-4">
-                            <div className="absolute inset-0 bg-black opacity-10 z-[11]" onClick={onToggle}></div>
-                            <div className={`relative z-[12] max-w-lg mx-auto top-32 rounded-md border border-primary-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}>
-                                {hasSearch && (
-                                    <div className="border-primary-100 border-b p-2">
-                                        <input
-                                            type="text"
-                                            placeholder={searchPlaceholder || "Search..."}
-                                            className={`border-primary-100 focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
-                                            value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
-                                        />
-                                    </div>
-                                )}
-                                <ul className="p-1">
-                                    {filteredOptions.length > 0 ? (
-                                        filteredOptions.map((option) => (
-                                            <li
-                                                key={option.id}
-                                                className={`hover:bg-primary-50 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""}`}
-                                                onClick={() => handleSelect(option.id)}
-                                            >
-                                                <input
-                                                    type="radio"
-                                                    readOnly
-                                                    checked={selectedValue === option.id}
-                                                    className="text-primary-400 h-4 w-4 cursor-pointer"
-                                                />
-                                                <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
-                                                    {option.name}
-                                                </span>
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <li className="p-2 text-center text-gray-500">
-                                            {searchPlaceholder || "No results"}
-                                        </li>
-                                    )}
-                                </ul>
-                            </div>
+                <div
+                    className={`border-primary-200 absolute z-20 mt-2 max-h-60 w-fit min-w-44 overflow-y-auto rounded-md border bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+                >
+                    {hasSearch && (
+                        <div className="border-primary-100 border-b p-2">
+                            <input
+                                type="text"
+                                placeholder={searchPlaceholder || "Search..."}
+                                className={`border-primary-100 focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
                         </div>
-                    </div>
-                </>
+                    )}
+                    <ul className="p-1">
+                        {filteredOptions.length > 0 ? (
+                            filteredOptions.map((option) => (
+                                <li
+                                    key={option.id}
+                                    className={`hover:bg-primary-50 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""}`}
+                                    onClick={() => handleSelect(option.id)}
+                                >
+                                    <input
+                                        type="radio"
+                                        readOnly
+                                        checked={selectedValue === option.id}
+                                        className="text-primary-400 h-4 w-4 cursor-pointer"
+                                    />
+                                    <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
+                                        {option.name}
+                                    </span>
+                                </li>
+                            ))
+                        ) : (
+                            <li className="p-2 text-center text-gray-500">
+                                {searchPlaceholder || "No results"}
+                            </li>
+                        )}
+                    </ul>
+                </div>
             )}
         </div>
     );
@@ -598,51 +595,25 @@ export default function SearchPageHeader() {
 
     return (
         <>
-
-            <nav className="border-b border-primary-200 bg-white px-4 py-2 shadow-sm" dir={isRTL ? "rtl" : "ltr"}>
-                <SearchFilterBar initialFilters={initialFilters} t={t} isRTL={isRTL}>
-                    {(props) => (
-                        <div className="max-w-7xl mx-auto">
-                            {/* ================== Desktop Header ================== */}
-                            <div className="hidden md:flex items-center justify-start gap-5">
-                                <div className="flex items-center gap-10">
-                                    <button onClick={toggleSidebar} className="text-2xl text-[#556885]"><FaBars /></button>
-                                    <NavLink to="/" className={`flex items-center gap-2 justify-start`}>
-                                        <img src="/logo.png" alt="Logo" className="w-20" />
-                                        <div>
-                                            <p className="font-bold text-xl capitalize">Mr Aquar</p>
-                                            <p className="text-[10px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">Property Finder</p>
-                                        </div>
-                                    </NavLink>
-                                </div>
-                                <div className="w-full space-y-2 max-w-3xl">
-                                    <DesktopRegionFilter
-                                        options={props.allRegions}
-                                        selectedItems={props.selectedRegions}
-                                        setSelectedItems={props.setSelectedRegions}
-                                        placeholder={t.search.areaPlaceholder}
-                                        searchPlaceholder={t.search.searchPlaceholder}
-                                        label={t.search.area}
-                                        isRTL={isRTL}
-                                        isOpen={props.showDropdown === "area"}
-                                        onToggle={() => props.toggleDropdown("area")}
-                                    />
-                                    <div className="flex flex-wrap items-center justify-start gap-2">
-                                        <PropertyDropdown options={props.allPropertyTypes} selectedItems={props.selectedPropertyTypes} setSelectedItems={props.setSelectedPropertyTypes} placeholder={t.search.propertyTypePlaceholder} searchPlaceholder={t.search.searchPlaceholder} label={t.search.propertyType} isRTL={isRTL} isOpen={props.showDropdown === "propertyTypes"} onToggle={() => props.toggleDropdown("propertyTypes")} />
-                                        <SingleSelectDropdown options={props.transactionTypes} selectedValue={props.transactionType} setSelectedValue={props.setTransactionType} placeholder={t.search.transactionTypePlaceholder} label={t.search.transactionType} isRTL={isRTL} isOpen={props.showDropdown === "transactionType"} onToggle={() => props.toggleDropdown("transactionType")} />
-                                        <PriceRangeFilter minPrice={props.minPrice} maxPrice={props.maxPrice} setMinPrice={props.setMinPrice} setMaxPrice={props.setMaxPrice} t={t} isRTL={isRTL} isOpen={props.showDropdown === "price"} onToggle={() => props.toggleDropdown("price")} onApply={props.onApply} />
-                                        <TextSearchFilter searchTerm={props.searchText} setSearchTerm={props.setSearchText} t={t} isRTL={isRTL} isOpen={props.showDropdown === "text"} onToggle={() => props.toggleDropdown("text")} onApply={props.onApply} />
+            <header className="relative z-30" dir={isRTL ? "rtl" : "ltr"}>
+                <nav className="border-b border-primary-200 bg-white px-4 py-2 shadow-sm">
+                    <SearchFilterBar initialFilters={initialFilters} t={t} isRTL={isRTL}>
+                        {(props) => (
+                            <div className="max-w-7xl mx-auto">
+                                {/* ================== Desktop Header ================== */}
+                                <div className="hidden md:flex items-center justify-start gap-5">
+                                    <div className="flex items-center gap-10">
+                                        <button onClick={toggleSidebar} className="text-2xl text-[#556885]"><FaBars /></button>
+                                        <NavLink to="/" className={`flex items-center gap-2 justify-start`}>
+                                            <img src="/logo.png" alt="Logo" className="w-20" />
+                                            <div>
+                                                <p className="font-bold text-xl capitalize">Mr Aquar</p>
+                                                <p className="text-[10px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">Property Finder</p>
+                                            </div>
+                                        </NavLink>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* ================== Mobile Header ================== */}
-                            <div className="flex flex-col gap-3 md:hidden">
-                                {/* Top Row: Hamburger, Search, Avatar */}
-                                <div className="flex items-center gap-3">
-                                    <button onClick={toggleSidebar} className="text-2xl"><FiAlignLeft /></button>
-                                    <div className="relative flex-grow">
-                                        <DesktopRegionFilter
+                                    <div className="w-full space-y-2 max-w-3xl">
+                                        <MultiSelectDropdown
                                             options={props.allRegions}
                                             selectedItems={props.selectedRegions}
                                             setSelectedItems={props.setSelectedRegions}
@@ -653,23 +624,50 @@ export default function SearchPageHeader() {
                                             isOpen={props.showDropdown === "area"}
                                             onToggle={() => props.toggleDropdown("area")}
                                         />
+                                        <div className="flex flex-wrap items-center justify-start gap-2">
+                                            <OnlyMultiSelectDropdown options={props.allPropertyTypes} selectedItems={props.selectedPropertyTypes} setSelectedItems={props.setSelectedPropertyTypes} placeholder={t.search.propertyTypePlaceholder} searchPlaceholder={t.search.searchPlaceholder} label={t.search.propertyType} isRTL={isRTL} isOpen={props.showDropdown === "propertyTypes"} onToggle={() => props.toggleDropdown("propertyTypes")} />
+                                            <SingleSelectDropdown options={props.transactionTypes} selectedValue={props.transactionType} setSelectedValue={props.setTransactionType} placeholder={t.search.transactionTypePlaceholder} label={t.search.transactionType} isRTL={isRTL} isOpen={props.showDropdown === "transactionType"} onToggle={() => props.toggleDropdown("transactionType")} />
+                                            <PriceRangeFilter minPrice={props.minPrice} maxPrice={props.maxPrice} setMinPrice={props.setMinPrice} setMaxPrice={props.setMaxPrice} t={t} isRTL={isRTL} isOpen={props.showDropdown === "price"} onToggle={() => props.toggleDropdown("price")} onApply={props.onApply} />
+                                            <TextSearchFilter searchTerm={props.searchText} setSearchTerm={props.setSearchText} t={t} isRTL={isRTL} isOpen={props.showDropdown === "text"} onToggle={() => props.toggleDropdown("text")} onApply={props.onApply} />
+                                        </div>
                                     </div>
-                                    {/* User Avatar Placeholder */}
-                                    <img src="/logo.png" alt="User" className="h-9 w-9 rounded-md" />
                                 </div>
 
-                                {/* Bottom Row: Filter Buttons */}
-                                <div className="flex items-center gap-2 pb-2 -mb-2 overflow-x-auto">
-                                    <SingleSelectDropdown options={props.transactionTypes} selectedValue={props.transactionType} setSelectedValue={props.setTransactionType} placeholder={t.search.transactionTypePlaceholder} label={t.search.transactionType} isRTL={isRTL} isOpen={props.showDropdown === "transactionType"} onToggle={() => props.toggleDropdown("transactionType")} />
-                                    <PropertyDropdown options={props.allPropertyTypes} selectedItems={props.selectedPropertyTypes} setSelectedItems={props.setSelectedPropertyTypes} placeholder={t.search.propertyTypePlaceholder} searchPlaceholder={t.search.searchPlaceholder} label={t.search.propertyType} isRTL={isRTL} isOpen={props.showDropdown === "propertyTypes"} onToggle={() => props.toggleDropdown("propertyTypes")} />
-                                    <PriceRangeFilter minPrice={props.minPrice} maxPrice={props.maxPrice} setMinPrice={props.setMinPrice} setMaxPrice={props.setMaxPrice} t={t} isRTL={isRTL} isOpen={props.showDropdown === "price"} onToggle={() => props.toggleDropdown("price")} onApply={props.onApply} />
-                                    <TextSearchFilter searchTerm={props.searchText} setSearchTerm={props.setSearchText} t={t} isRTL={isRTL} isOpen={props.showDropdown === "text"} onToggle={() => props.toggleDropdown("text")} onApply={props.onApply} />
+                                {/* ================== Mobile Header ================== */}
+                                <div className="flex flex-col gap-3 md:hidden">
+                                    {/* Top Row: Hamburger, Search, Avatar */}
+                                    <div className="flex items-center gap-3">
+                                        <button onClick={toggleSidebar} className="text-2xl"><FiAlignLeft /></button>
+                                        <div className="relative flex-grow">
+                                            <MultiSelectDropdown
+                                                options={props.allRegions}
+                                                selectedItems={props.selectedRegions}
+                                                setSelectedItems={props.setSelectedRegions}
+                                                placeholder={t.search.areaPlaceholder}
+                                                searchPlaceholder={t.search.searchPlaceholder}
+                                                label={t.search.area}
+                                                isRTL={isRTL}
+                                                isOpen={props.showDropdown === "area"}
+                                                onToggle={() => props.toggleDropdown("area")}
+                                            />
+                                        </div>
+                                        {/* User Avatar Placeholder */}
+                                        <img src="/logo.png" alt="User" className="h-9 w-9 rounded-md" />
+                                    </div>
+
+                                    {/* Bottom Row: Filter Buttons */}
+                                    <div className="flex items-center gap-2 pb-2 -mb-2 overflow-x-auto">
+                                        <SingleSelectDropdown options={props.transactionTypes} selectedValue={props.transactionType} setSelectedValue={props.setTransactionType} placeholder={t.search.transactionTypePlaceholder} label={t.search.transactionType} isRTL={isRTL} isOpen={props.showDropdown === "transactionType"} onToggle={() => props.toggleDropdown("transactionType")} />
+                                        <OnlyMultiSelectDropdown options={props.allPropertyTypes} selectedItems={props.selectedPropertyTypes} setSelectedItems={props.setSelectedPropertyTypes} placeholder={t.search.propertyTypePlaceholder} searchPlaceholder={t.search.searchPlaceholder} label={t.search.propertyType} isRTL={isRTL} isOpen={props.showDropdown === "propertyTypes"} onToggle={() => props.toggleDropdown("propertyTypes")} />
+                                        <PriceRangeFilter minPrice={props.minPrice} maxPrice={props.maxPrice} setMinPrice={props.setMinPrice} setMaxPrice={props.setMaxPrice} t={t} isRTL={isRTL} isOpen={props.showDropdown === "price"} onToggle={() => props.toggleDropdown("price")} onApply={props.onApply} />
+                                        <TextSearchFilter searchTerm={props.searchText} setSearchTerm={props.setSearchText} t={t} isRTL={isRTL} isOpen={props.showDropdown === "text"} onToggle={() => props.toggleDropdown("text")} onApply={props.onApply} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
-                </SearchFilterBar>
-            </nav>
+                        )}
+                    </SearchFilterBar>
+                </nav>
+            </header>
             <SideBar t={t} isRTL={isRTL} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} handleToggleLanguage={toggleLanguage} />
         </>
     );

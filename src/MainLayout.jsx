@@ -10,7 +10,7 @@ function MainLayout() {
   return (
     <>
       <ScrollToTop />
-      <header>
+      <header className="sticky top-0 left-0 z-30 w-full">
         {location.pathname === '/search' ? (
           <SearchPageHeader />
         ) : (
