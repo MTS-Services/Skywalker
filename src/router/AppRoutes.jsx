@@ -40,7 +40,7 @@ const AppRoutes = createBrowserRouter([
         path: "ads/:slug",
         element: <AdDetailPage />,
       },
-     
+
       {
         path: "register",
         element: <Register />,
@@ -53,10 +53,6 @@ const AppRoutes = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-      {
-        path: "settings",
-        element: <Setting />,
-      },      
       {
         path: "contact",
         element: <Contact />,
@@ -75,7 +71,7 @@ const AppRoutes = createBrowserRouter([
         path: "agents",
         element: <AgentList />,
       },
-      
+
       {
         path: "agents-details/:id",
         element: <AgentsDetails />,
@@ -109,7 +105,10 @@ const AppRoutes = createBrowserRouter([
             path: "buy-credits",
             element: <BuyCredits />,
           },
-        
+          {
+            path: "settings",
+            element: <Setting />,
+          },
         ],
       },
     ],
