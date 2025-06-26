@@ -82,7 +82,7 @@ function Header() {
           />
         </div>
 
-        {isAuthenticated && ( // শুধুমাত্র যখন isAuthenticated true, তখনই এই NavLink দেখানো হবে
+      
           <NavLink
             to="/add-ad"
             className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white sm:flex ${isRTL ? "flex-row-reverse" : ""}`}
@@ -90,7 +90,7 @@ function Header() {
             <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
             {t.header.addFreeAd}
           </NavLink>
-        )}
+      
       </div>
 
       {mobileMenuOpen && (
@@ -113,7 +113,7 @@ function Header() {
               isAuthenticated={isAuthenticated}
               handleLogout={handleLogout} // handleLogout প্রপ হিসাবে পাঠানো হয়েছে
             />
-            {isAuthenticated && ( // মোবাইল মেনুতেও isAuthenticated true হলে "Add Free Ad" দেখানো হবে
+            
               <NavLink
                 to="/add-ad"
                 className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""}`}
@@ -121,7 +121,7 @@ function Header() {
                 <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
                 {t.header.addFreeAd}
               </NavLink>
-            )}
+          
           </div>
         </div>
       )}
@@ -163,28 +163,14 @@ const Navigation = ({
         <NavItem to="/register" label={t.header.register} isRTL={isRTL} />
       </>
     )}
-    {/* Link-কেও NavItem-এর মতো স্টাইল করা হয়েছে */}
-    {/* Login/Register এবং Logout লজিক */}
-    {/* এই লিঙ্কগুলো শুধুমাত্র লগইন করা ব্যবহারকারীদের জন্য দেখা যাবে */}
     {isAuthenticated && (
       <>
         <NavItem to="/my-ads" label={t.header.myAds} isRTL={isRTL} />
         <NavItem to="/my-archives" label={t.header.myArchives} isRTL={isRTL} />
         <NavItem to="/buy-credits" label={t.header.byCredit} isRTL={isRTL} />
-
-        {/* <Link
-          to="/testingpage"
-          className="pb-1 font-medium text-black transition-colors hover:text-[#32E0BB]"
-        >
-          testing code{" "}
-        </Link>{" "} */}
-        {/* Link-কেও NavItem-এর মতো স্টাইল করা হয়েছে */}
       </>
     )}
-    {/* "Agents" লিঙ্কটি সবসময় দেখা যাবে */}
-    <NavItem to="/" label={t.header.agents} isRTL={isRTL} />
-    {/* Kuwait Real Estate ড্রপডাউন - ব্যবহারকারী লগইন/রেজিস্টার করার আগে দেখা যাবে */}
-    {/* এটি এখন !isAuthenticated প্রপের উপর নির্ভর করে রেন্ডার হবে */}
+    <NavItem to="/agents" label={t.header.agents} isRTL={isRTL} />
     {!isAuthenticated && (
       <div className="relative">
         <button
