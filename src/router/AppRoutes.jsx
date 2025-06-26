@@ -5,11 +5,7 @@ import { Home } from "../pages/home/Home";
 import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-
-import Agent from "../pages/agent/Agent";
-
 import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
-
 import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
 import AdDetailPage from "../pages/adDetails/AdDetailPage";
@@ -22,7 +18,6 @@ import MyArchive from "../pages/myArchive/MyArchive";
 
 import AgentList from "../testingCode/AgentList";
 import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
-import TestRegister from "../TestingPage/TestRegister";
 import ProtectedRoute from "../authente/AuthProvideer/ProtectedRoute";
 import BuyCredits from "../pages/BuyCredits/BuyCredits";
 
@@ -44,10 +39,7 @@ const AppRoutes = createBrowserRouter([
         path: "ads/:slug",
         element: <AdDetailPage />,
       },
-      {
-        path: "login",
-        element: <Login />,
-      },
+     
       {
         path: "register",
         element: <Register />,
@@ -60,10 +52,10 @@ const AppRoutes = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-      {
-        path: "register",
-        element: <Register />,
-      },
+      // {
+      //   path: "register",
+      //   element: <Register />,
+      // },
       // {
       //   path: "agents",
       //   element: <Agent />,
@@ -127,10 +119,7 @@ const AppRoutes = createBrowserRouter([
             path: "buy-credits",
             element: <BuyCredits />,
           },
-          {
-            path: "testingpage",
-            element: <TestRegister></TestRegister>,
-          },
+        
         ],
       },
     ],
