@@ -70,8 +70,9 @@ function Header() {
 
   return (
     <nav
-      className={`relative z-50 border-b border-primary-500 bg-white px-4 py-4 shadow-sm ${isRTL ? "rtl" : "ltr"
-        }`}
+      className={`border-primary-500 relative z-50 border-b bg-white px-4 py-4 shadow-sm ${
+        isRTL ? "rtl" : "ltr"
+      }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link to="/">
@@ -80,14 +81,15 @@ function Header() {
 
         <button
           onClick={() => setMobileMenuOpen((prev) => !prev)}
-          className="text-2xl text-primary-500 sm:hidden"
+          className="text-primary-500 text-2xl sm:hidden"
         >
           {mobileMenuOpen ? <FiX /> : <FiMenu />}
         </button>
 
         <div
-          className={`text-md hidden items-center gap-6 font-medium text-black sm:flex ${isRTL ? "space-x-reverse" : ""
-            }`}
+          className={`text-md hidden items-center gap-6 font-medium text-black sm:flex ${
+            isRTL ? "space-x-reverse" : ""
+          }`}
         >
           <Navigation
             toggleDropdown={toggleDropdown}
@@ -99,55 +101,54 @@ function Header() {
             t={t}
             language={language}
             isAuthenticated={isAuthenticated}
-        handleLogout={handleLogout} // handleLogout প্রপ হিসাবে পাঠানো হয়েছে
+            handleLogout={handleLogout} // handleLogout প্রপ হিসাবে পাঠানো হয়েছে
           />
-      </div>
-
-      {isAuthenticated && ( // শুধুমাত্র যখন isAuthenticated true, তখনই এই NavLink দেখানো হবে
-        <NavLink
-          to="/add-ad"
-          className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white sm:flex ${isRTL ? "flex-row-reverse" : ""}`}
-        >
-          <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-          {t.header.addFreeAd}
-        </NavLink>
-      )}
-    </div>
-
-      {
-    mobileMenuOpen && (
-      <div className="absolute top-full left-0 z-44 mt-0.5 w-full bg-gray-50 shadow-md sm:hidden">
-        <div
-          className={`flex flex-col items-start gap-4 px-4 py-4 ${isRTL ? "items-end" : "items-start"
-            }`}
-        >
-          <Navigation
-            toggleDropdown={toggleDropdown}
-            isDropdownOpen={isDropdownOpen}
-            toggleLangDropdown={toggleLangDropdown}
-            langOpen={langOpen}
-            handleLanguageChange={handleLanguageChange}
-            isRTL={isRTL}
-            t={t}
-            language={language}
-            isMobile={true}
-              isAuthenticated={isAuthenticated}
-          handleLogout={handleLogout} // handleLogout প্রপ হিসাবে পাঠানো হয়েছে
-            />
-          {isAuthenticated && ( // মোবাইল মেনুতেও isAuthenticated true হলে "Add Free Ad" দেখানো হবে
-            <NavLink
-              to="/add-ad"
-              className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""}`}
-            >
-              <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-              {t.header.addFreeAd}
-            </NavLink>
-          )}
         </div>
+
+        {isAuthenticated && ( // শুধুমাত্র যখন isAuthenticated true, তখনই এই NavLink দেখানো হবে
+          <NavLink
+            to="/ad-upload"
+            className={`hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white sm:flex ${isRTL ? "flex-row-reverse" : ""}`}
+          >
+            <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
+            {t.header.addFreeAd}
+          </NavLink>
+        )}
       </div>
-    )
-  }
-    </nav >
+
+      {mobileMenuOpen && (
+        <div className="absolute top-full left-0 z-44 mt-0.5 w-full bg-gray-50 shadow-md sm:hidden">
+          <div
+            className={`flex flex-col items-start gap-4 px-4 py-4 ${
+              isRTL ? "items-end" : "items-start"
+            }`}
+          >
+            <Navigation
+              toggleDropdown={toggleDropdown}
+              isDropdownOpen={isDropdownOpen}
+              toggleLangDropdown={toggleLangDropdown}
+              langOpen={langOpen}
+              handleLanguageChange={handleLanguageChange}
+              isRTL={isRTL}
+              t={t}
+              language={language}
+              isMobile={true}
+              isAuthenticated={isAuthenticated}
+              handleLogout={handleLogout} // handleLogout প্রপ হিসাবে পাঠানো হয়েছে
+            />
+            {isAuthenticated && ( // মোবাইল মেনুতেও isAuthenticated true হলে "Add Free Ad" দেখানো হবে
+              <NavLink
+                to="/add-ad"
+                className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""}`}
+              >
+                <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
+                {t.header.addFreeAd}
+              </NavLink>
+            )}
+          </div>
+        </div>
+      )}
+    </nav>
   );
 }
 
@@ -205,7 +206,7 @@ const Navigation = ({
       </>
     )}
 {/* "Agents" লিঙ্কটি সবসময় দেখা যাবে */ }
-<NavItem to="/" label={t.header.agents} isRTL={isRTL} />
+<NavItem to="/agents" label={t.header.agents} isRTL={isRTL} />
 {/* Kuwait Real Estate ড্রপডাউন - ব্যবহারকারী লগইন/রেজিস্টার করার আগে দেখা যাবে */ }
 {/* এটি এখন !isAuthenticated প্রপের উপর নির্ভর করে রেন্ডার হবে */ }
 {
