@@ -1,23 +1,21 @@
-import React from "react";
-
-const CardComponent = () => {
+const CardComponent = ({tag}) => {
   return (
     <div className="bg-main relative w-full rounded-lg p-4 shadow-lg">
       <div className="relative shrink-0">
         <div className="absolute -top-1.5 left-1/2 z-10 -translate-x-1/2">
-          <div className="scale-x-[-1] transform">
+          <div className="relative scale-x-[-1] transform">
             <svg
               width="162"
               height="49"
               viewBox="0 0 162 49"
               fill="none"
               xmlns="./assets/byCridit/img.png"
-            >dfdasfsdafasdfasdfdasfasdf
+            >
               <path
                 d="M8.09529 2.97709L1.58951 7.21841L10.4993 6.97306L9.05818 4.87062L8.09529 2.97709Z"
                 fill="#242424"
-              >fadsfasdfasdfasdfasdfa</path>
-              <g filter="url(#filter0_d_1990_8920)">fdsfasdfasdfds
+              ></path>
+              <g filter="url(#filter0_d_1990_8920)">
                 <path
                   d="M149.401 31.2622C149.004 34.0974 146.659 36.2571 143.801 36.4202L33.6596 42.7031C30.4959 42.8836 27.5239 41.1797 26.0812 38.3584L8.00005 3.00001L153.5 2L149.401 31.2622Z"
                   fill="#CE3635"
@@ -26,8 +24,8 @@ const CardComponent = () => {
               <path
                 d="M153.5 2L160.361 7L152.5 6.973L152.956 4.36485L153.5 2Z"
                 fill="#242424"
-              >adsfdasfasdfasdfasdfa</path>
-              <path fill="white">afdfadfdasfadsfasdfasdf</path>
+              ></path>
+              <path fill="white"></path>
               <defs>
                 <filter
                   id="filter0_d_1990_8920"
@@ -69,9 +67,11 @@ const CardComponent = () => {
                 </filter>
               </defs>
             </svg>
+            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+              {tag}
+            </span>
           </div>
 
-          
           <div className="absolute top-0 left-1/2 -translate-x-1/2">
             <div className="absolute top-1.5 left-1/2 max-w-full -translate-x-1/2 overflow-hidden font-bold whitespace-nowrap text-white">
               Super Credit
