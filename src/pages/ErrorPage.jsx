@@ -24,7 +24,7 @@ const ErrorPage = () => {
         {/* Back to Home Button */}
         <Link
           to="/"
-          className="inline-block rounded-full bg-[var(--color-primary-400)] px-8 py-3 text-lg text-white transition duration-300 hover:bg-[var(--color-primary-400)]"
+          className="bg-primary-500 hover:bg-primary-600 inline-block rounded-full px-8 py-3 text-lg text-white transition duration-300"
         >
           Back To Home
         </Link>

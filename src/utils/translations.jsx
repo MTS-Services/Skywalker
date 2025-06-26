@@ -14,7 +14,6 @@ export const translations = {
       myAds: "My Ads",
       myArchives: "My Archives",
       logout: "Logout",
-      
     },
 
     // Footer
@@ -103,9 +102,11 @@ export const translations = {
       confirmation: "Confirmation",
       cancel: "Cancel",
       confirm: "Confirm",
-      makeSuper: "Are you sure you want to make this ad Super? This will deduct from your Super credit balance",
+      makeSuper:
+        "Are you sure you want to make this ad Super? This will deduct from your Super credit balance",
       removeSuper: "Are you sure you want to remove Super from this ad?",
-      renew: "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
+      renew:
+        "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
       translateTitle: "تم نشر إعلانك المترجم للغة الإنجليزية",
       translateMessage: "تم حذف هذا الاعلان او إنتهاء مدته",
       currency: "د.ك",
@@ -335,11 +336,6 @@ export const translations = {
       logout: "خروج",
     },
 
-    footer: {
-      titleFast: "عقارات للايجار",
-      footerChildone: "شقق للايجار",
-    },
-
     creditComponent: {
       title: "احصل على الايجار الان",
       buyCredit: "اشتري الايجار",
@@ -405,7 +401,7 @@ export const translations = {
       noResults: "لا توجد نتائج",
     },
 
-    // My Ads Page 
+    // My Ads Page
     myAds: {
       title: "إعلاناتي",
       myArchiveAds: "إعلاناتي المؤرشفة",
@@ -413,9 +409,11 @@ export const translations = {
       confirmation: "تأكيد",
       cancel: "إلغاء",
       confirm: "تأكيد",
-      makeSuper: "هل أنت متأكد أنك تريد جعل هذا الإعلان مميزاً؟ سيؤدي هذا إلى خصم رصيد من رصيد الإعلانات المميزة لديك",
+      makeSuper:
+        "هل أنت متأكد أنك تريد جعل هذا الإعلان مميزاً؟ سيؤدي هذا إلى خصم رصيد من رصيد الإعلانات المميزة لديك",
       removeSuper: "هل أنت متأكد أنك تريد إزالة الإعلان المميز من هذا الإعلان؟",
-      renew: "هل أنت متأكد أنك تريد تجديد هذا الإعلان؟ سيؤدي هذا إلى خصم رصيد واحد من رصيدك",
+      renew:
+        "هل أنت متأكد أنك تريد تجديد هذا الإعلان؟ سيؤدي هذا إلى خصم رصيد واحد من رصيدك",
       translateTitle: "Your translated Ad to Arabic is published",
       translateMessage: "This ad has been deleted or expired",
       currency: "KD",
