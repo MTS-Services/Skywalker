@@ -1,6 +1,12 @@
 export const translations = {
   en: {
-    // Header
+
+    site: {
+      name: "MR-AQAR",
+      tagline: "Property Finder"
+    },
+
+    // Header 
     header: {
       home: "Home (Search)",
       agents: "Agents",
@@ -319,7 +325,12 @@ export const translations = {
       fileLimitError: "You can only upload up to 12 images or videos.",
     },
   },
+
   "ar": {
+    site: {
+      name: "السيد-عقار",
+      tagline: "الباحث عن العقارات"
+    },
     "header": {
       "home": "الصفحة الرئيسية",
       "agents": "الوكلاء",

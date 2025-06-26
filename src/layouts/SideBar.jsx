@@ -15,36 +15,36 @@ export const SideBar = ({ sidebarOpen, toggleSidebar }) => {
     };
 
     const navItems = useMemo(() => {
-        const base = [{ label: "Home (Search)", icon: <FiHome />, to: "/" }];
+        const base = [{ label: (t.header.home), icon: <FiHome />, to: "/" }];
         const auth = [
-            { label: "Login", icon: <FiLogIn />, to: "/login" },
-            { label: "Register", icon: <FiUserPlus />, to: "/register" }
+            { label: (t.header.login), icon: <FiLogIn />, to: "/login" },
+            { label: (t.header.register), icon: <FiUserPlus />, to: "/register" }
         ];
         const protectedItems = [
-            { label: "My Ads", icon: <FiList />, to: "/my-ads" },
-            { label: "My Archives", icon: <FiTrash />, to: "/my-archives" },
-            { label: "Buy Credits", icon: <FiCreditCard />, to: "/buy-credits" },
-            { label: "Logout", icon: <FiLogOut />, action: handleLogout },
+            { label: (t.header.myAds), icon: <FiList />, to: "/my-ads" },
+            { label: (t.header.myArchives), icon: <FiTrash />, to: "/my-archives" },
+            { label: (t.header.buyCredit), icon: <FiCreditCard />, to: "/buy-credits" },
+            { label: (t.header.logout), icon: <FiLogOut />, action: handleLogout },
         ];
-        const end = [{ label: "Agents", icon: <BsBuildings />, to: "/agents" }];
+        const end = [{ label: (t.header.agents), icon: <BsBuildings />, to: "/agents" }];
         return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
-    }, [isAuthenticated]);
+    }, [isAuthenticated, t]);
 
     const baseTransformClass = isRTL ? "translate-x-full" : "-translate-x-full";
-    const activeTransformClass = "translate-x-0";
+    const activeTransformClass = "translate-x-0 visible";
 
     return (
         <>
             {sidebarOpen && <div className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-300 ease-in-out" onClick={toggleSidebar}></div>}
-            <div className={`fixed top-0 z-50 h-full min-w-80 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}>
+            <div className={`fixed top-0 z-50 h-full min-w-80 transform bg-white shadow-lg transition-transform duration-300 ease-in-out invisible ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}>
                 <div className="h-full bg-main text-lg">
                     <div className="border-b border-gray-200 px-4 py-2">
                         <div className="flex items-center justify-between">
                             <NavLink to="/" className={`flex items-center gap-2 justify-start`}>
                                 <img src="/logo.png" alt="Logo" className="w-14" />
                                 <div>
-                                    <p className="font-bold text-lg capitalize">Mr Aquar</p>
-                                    <p className="text-[8px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">Property Finder</p>
+                                    <p className="font-bold text-lg capitalize">{t.site.name}</p>
+                                    <p className="text-[8px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">{t.site.tagline}</p>
                                 </div>
                             </NavLink>
                             <button onClick={toggleSidebar} className="text-gray-500"><FiX className="text-2xl" /></button>
@@ -67,7 +67,7 @@ export const SideBar = ({ sidebarOpen, toggleSidebar }) => {
                     </div>
                     <div className="my-4 border-b border-gray-200"></div>
                     <NavLink to="/add-ad" onClick={toggleSidebar} className="flex w-full cursor-pointer items-center gap-3 py-3 ps-6 text-primary-700">
-                        <FaPlusCircle /><span className="font-bold">Create Ad</span>
+                        <FaPlusCircle /><span className="font-bold">{t.header.addFreeAd}</span>
                     </NavLink>
                     <div className="absolute bottom-4 end-0 start-0 flex items-center justify-center gap-4">
                         {isAuthenticated && (
