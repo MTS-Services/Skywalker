@@ -26,6 +26,7 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
     }
   }, [show])
 
+
   // Effect to control lightbox enter/exit animation
   useEffect(() => {
     if (showLightbox) {
@@ -137,7 +138,7 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
             <div className="flex flex-col items-center justify-center gap-3 px-4 sm:flex-row">
               <a
                 href={`tel:${ad.whatsapp}`}
-                className="bg-success text-on-success active:bg-active-success bg-primary-300 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
+                className="bg-success active:bg-active-success bg-green-600 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
               >
                 <FiPhone className="text-xl" />
                 <span className="text-lg font-normal">{ad.whatsapp}</span>
@@ -146,7 +147,7 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-primary-300 text-primary-600 bg-main hover:bg-primary-100 flex h-12 w-full items-center justify-center rounded-lg border p-1 text-2xl transition-colors sm:w-12"
+                className="border-green-600 text-green-600 bg-main hover:bg-green-100 flex h-12 w-full items-center justify-center rounded-lg border p-1 text-2xl transition-colors sm:w-12"
               >
                 <FaWhatsapp />
               </a>

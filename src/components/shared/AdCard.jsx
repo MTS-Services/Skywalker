@@ -32,7 +32,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
   }
   return (
     <div onClick={handleClick} className="w-full cursor-pointer group">
-      <div className="relative w-full rounded-lg shadow shadow-primary-100/50 hover:shadow-lg transition-shadow duration-300 p-3 sm:p-4 border border-transparent bg-white active:border-primary-500">
+      <div className="relative w-full rounded-lg shadow shadow-primary-100/50 hover:shadow-lg transition-shadow duration-300 p-3 sm:p-4 border border-transparent bg-rose-50 active:border-primary-500">
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Image */}
           <div className="flex-shrink-0 relative">
@@ -53,20 +53,20 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
               <div className="absolute -top-1.5 -start-1.5">
                 {isRTL ? (
                   <svg width="49" height="37" viewBox="0 0 49 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M49 27.6018L40 37V20L49 27.6018Z" fill="#1e8877"></path>
+                    <path d="M49 27.6018L40 37V20L49 27.6018Z" fill="#821220"></path>
                     <path
                       d="M0.5 2C0.5 1.17157 1.17157 0.5 2 0.5H47C47.8284 0.5 48.5 1.17157 48.5 2V27.5H2C1.17157 27.5 0.5 26.8284 0.5 26V2Z"
-                      fill="#2dcaaa"
-                      stroke="#32e0bb"
+                      fill="#D7263D"
+                      stroke="#D7263D"
                     ></path>
                   </svg>
                 ) : (
                   <svg width="49" height="37" viewBox="0 0 49 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 27.6018L9 37V20L0 27.6018Z" fill="#1e8877"></path>
+                    <path d="M0 27.6018L9 37V20L0 27.6018Z" fill="#821220"></path>
                     <path
                       d="M48.5 2C48.5 1.17157 47.8284 0.5 47 0.5H2C1.17157 0.5 0.5 1.17157 0.5 2V27.5H47C47.8284 27.5 48.5 26.8284 48.5 26V2Z"
-                      fill="#2dcaaa"
-                      stroke="#32e0bb"
+                      fill="#D7263D"
+                      stroke="#D7263D"
                     ></path>
                   </svg>
                 )}
@@ -78,6 +78,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
               </div>
             )}
           </div>
+          
           {/* Details */}
           <div className="flex-1 overflow-hidden">
             <h4 className="font-bold text-base sm:text-lg text-dark line-clamp-2 break-words group-hover:text-primary-600 transition-colors">

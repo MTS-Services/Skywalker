@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react"
-import DetailsModal from "./Modal"
+import DetailsModal from "../adDetails/Modal"
 import { useLanguage } from "../../context/LanguageContext"
 import AdCard from "../../components/shared/AdCard"
+import { useNavigate } from "react-router-dom"
 
 /**
  * Generates a URL-friendly slug from a string.
@@ -26,11 +27,12 @@ export default function Ads() {
   const [displayedAds, setDisplayedAds] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [selectedAd, setSelectedAd] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [loadingMore, setLoadingMore] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
-  const [loadMoreClicked, setLoadMoreClicked] = useState(false) // Track if load more was clicked
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
+  // const [loadingMore, setLoadingMore] = useState(false)
+  // const [loadMoreClicked, setLoadMoreClicked] = useState(false) // Track if load more was clicked
   const { isRTL, t, language } = useLanguage()
 
   const ITEMS_PER_PAGE = 10
@@ -64,61 +66,62 @@ export default function Ads() {
   }, [])
 
   // Load more ads function
-  const loadMoreAds = useCallback(() => {
-    if (loadingMore || !hasMore) return
+  // const loadMoreAds = useCallback(() => {
+  //   if (loadingMore || !hasMore) return
 
-    setLoadingMore(true)
+  //   setLoadingMore(true)
 
-    // Simulate loading delay for better UX
-    setTimeout(() => {
-      const nextPage = currentPage + 1
-      const startIndex = (nextPage - 1) * ITEMS_PER_PAGE
-      const endIndex = startIndex + ITEMS_PER_PAGE
-      const newAds = allAds.slice(startIndex, endIndex)
+  //   // Simulate loading delay for better UX
+  //   setTimeout(() => {
+  //     const nextPage = currentPage + 1
+  //     const startIndex = (nextPage - 1) * ITEMS_PER_PAGE
+  //     const endIndex = startIndex + ITEMS_PER_PAGE
+  //     const newAds = allAds.slice(startIndex, endIndex)
 
-      if (newAds.length > 0) {
-        setDisplayedAds((prev) => [...prev, ...newAds])
-        setCurrentPage(nextPage)
-        setHasMore(endIndex < allAds.length)
-      } else {
-        setHasMore(false)
-      }
+  //     if (newAds.length > 0) {
+  //       setDisplayedAds((prev) => [...prev, ...newAds])
+  //       setCurrentPage(nextPage)
+  //       setHasMore(endIndex < allAds.length)
+  //     } else {
+  //       setHasMore(false)
+  //     }
 
-      setLoadingMore(false)
-    }, 100)
-  }, [allAds, currentPage, loadingMore, hasMore])
+  //     setLoadingMore(false)
+  //   }, 100)
+  // }, [allAds, currentPage, loadingMore, hasMore])
 
   // Handle load more button click
   const handleLoadMoreClick = () => {
-    setLoadMoreClicked(true) // Hide the button and enable infinite scroll
-    loadMoreAds()
+    // setLoadMoreClicked(true) // Hide the button and enable infinite scroll
+    // loadMoreAds()
+    navigate("/search")
   }
 
   // Intersection Observer for infinite scroll - only after load more is clicked
-  useEffect(() => {
-    if (!loadMoreClicked) return // Don't start infinite scroll until load more is clicked
+  // useEffect(() => {
+  //   if (!loadMoreClicked) return // Don't start infinite scroll until load more is clicked
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore && !loadingMore) {
-          loadMoreAds()
-        }
-      },
-      { threshold: 0.1 },
-    )
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting && hasMore && !loadingMore) {
+  //         loadMoreAds()
+  //       }
+  //     },
+  //     { threshold: 0.1 },
+  //   )
 
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current)
-    }
+  //   if (loadMoreRef.current) {
+  //     observer.observe(loadMoreRef.current)
+  //   }
 
-    observerRef.current = observer
+  //   observerRef.current = observer
 
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-      }
-    }
-  }, [loadMoreAds, hasMore, loadingMore, loadMoreClicked])
+  //   return () => {
+  //     if (observerRef.current) {
+  //       observerRef.current.disconnect()
+  //     }
+  //   }
+  // }, [loadMoreAds, hasMore, loadingMore, loadMoreClicked])
 
   const formatTimeAgo = (dateString, lang) => {
     const postDate = new Date(dateString)
@@ -142,6 +145,7 @@ export default function Ads() {
 
   const closeModal = () => {
     setShowModal(false)
+    document.body.style.overflow = ""
     setTimeout(() => setSelectedAd(null), 300)
   }
 
@@ -173,44 +177,46 @@ export default function Ads() {
               ))}
 
               {/* Loading More Indicator */}
-              {loadingMore && (
+              {/* {loadingMore && (
                 <div className="flex justify-center items-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
                   <span className="ml-3 text-primary-900">{t.search.loading}</span>
                 </div>
-              )}
+              )} */}
 
               {/* Load More Button - only show if not clicked and has more items */}
-              {hasMore && !loadingMore && !loadMoreClicked && (
-                <button
-                  onClick={handleLoadMoreClick}
-                  className="mt-6 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50"
-                >
-                  {t.ads.loadMore}
-                </button>
-              )}
+              {/* {hasMore && !loadingMore && !loadMoreClicked && ( */}
+              <button
+                onClick={handleLoadMoreClick}
+                className="mt-6 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50"
+              >
+                {t.ads.loadMore}
+              </button>
+              {/* )} */}
 
               {/* Infinite Scroll Trigger - only active after load more is clicked */}
-              {loadMoreClicked && <div ref={loadMoreRef} className="h-4 w-full" />}
+              {/* {loadMoreClicked && <div ref={loadMoreRef} className="h-4 w-full" />} */}
 
               {/* End of Results */}
-              {!hasMore && displayedAds.length > 0 && (
+              {/* {!hasMore && displayedAds.length > 0 && (
                 <div className="text-center py-8 text-primary-900">{t.ads.allItemsLoaded}</div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
       </section>
 
-      <DetailsModal
-        show={showModal}
-        onClose={closeModal}
-        ad={selectedAd}
-        t={t}
-        isRTL={isRTL}
-        language={language}
-        formatTimeAgo={formatTimeAgo}
-      />
+      {showModal && selectedAd && (
+        <DetailsModal
+          show={showModal}
+          onClose={closeModal}
+          ad={selectedAd}
+          t={t}
+          isRTL={isRTL}
+          language={language}
+          formatTimeAgo={formatTimeAgo}
+        />
+      )}
     </>
   )
 }

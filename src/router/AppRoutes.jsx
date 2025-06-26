@@ -5,23 +5,19 @@ import { Home } from "../pages/home/Home";
 import MainLayout from "../MainLayout";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-
-import Agent from "../pages/agent/Agent";
-
 import AgentsDetails from "../pages/propertyDetails/AgentsDetails";
-
 import Contact from "../pages/contact/Contact";
 import TermAndCondition from "../pages/termAndCondition/TermAndCondition";
-import AdDetailPage from "../pages/home/AdDetailPage";
+import AdDetailPage from "../pages/adDetails/AdDetailPage";
 import SearchResults from "../pages/search/SearchResults";
 
 import AdUpload from "../pages/adUpload/AdUpload";
 
 import MyAds from "../pages/myAds/MyAds";
+import MyArchive from "../pages/myArchive/MyArchive";
 
 import AgentList from "../testingCode/AgentList";
 import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
-import TestRegister from "../TestingPage/TestRegister";
 import ProtectedRoute from "../authente/AuthProvideer/ProtectedRoute";
 import BuyCredits from "../pages/BuyCredits/BuyCredits";
 
@@ -43,10 +39,7 @@ const AppRoutes = createBrowserRouter([
         path: "ads/:slug",
         element: <AdDetailPage />,
       },
-      {
-        path: "login",
-        element: <Login />,
-      },
+     
       {
         path: "register",
         element: <Register />,
@@ -59,22 +52,22 @@ const AppRoutes = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-      {
-        path: "register",
-        element: <Register />,
-      },
+      // {
+      //   path: "register",
+      //   element: <Register />,
+      // },
       // {
       //   path: "agents",
       //   element: <Agent />,
       // },
-      {
-        path: "my-ads",
-        element: <MyAds />,
-      },
-      {
-        path: "agents-details/:id",
-        element: <AgentsDetails />,
-      },
+      // {
+      //   path: "my-ads",
+      //   element: <MyAds />,
+      // },
+      // {
+      //   path: "agents-details/:id",
+      //   element: <AgentsDetails />,
+      // },
       {
         path: "contact",
         element: <Contact />,
@@ -102,18 +95,31 @@ const AppRoutes = createBrowserRouter([
         element: <CompanyAdsPage />,
       },
 
-      {
-        path: "buy-credits",
-        element: <BuyCredits />,
-      },
+      // {
+      //   path: "buy-credits",
+      //   element: <BuyCredits />,
+      // },
+      // {
+      //   path: "buy-credits",
+      //   element: <BuyCredits/>,
+      // },
 
       {
         element: <ProtectedRoute />,
         children: [
           {
-            path: "testingpage",
-            element: <TestRegister></TestRegister>,
+            path: "my-ads",
+            element: <MyAds />,
           },
+          {
+            path: "my-archives",
+            element: <MyArchive />,
+          },
+          {
+            path: "buy-credits",
+            element: <BuyCredits />,
+          },
+        
         ],
       },
     ],

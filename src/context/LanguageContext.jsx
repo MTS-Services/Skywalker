@@ -23,13 +23,18 @@ export const LanguageProvider = ({ children }) => {
     document.documentElement.lang = savedLanguage;
   }, []);
 
-  const toggleLanguage = () => {
-    const newLanguage = language === "en" ? "ar" : "en";
-    setLanguage(newLanguage);
-    setIsRTL(newLanguage === "ar");
-    localStorage.setItem("language", newLanguage);
-    document.documentElement.dir = newLanguage === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = newLanguage;
+  const toggleLanguage = (newLanguage) => {
+    // If no specific language is provided, toggle between 'en' and 'ar'
+    // if newLanguage is not object then newLanguage = language === "en" ? "ar" : "en";
+    if (typeof newLanguage === "object") {
+      newLanguage = (language === "en" ? "ar" : "en");
+    };
+    const finalLanguage = newLanguage;
+    setLanguage(finalLanguage);
+    setIsRTL(finalLanguage === "ar");
+    localStorage.setItem("language", finalLanguage);
+    document.documentElement.dir = finalLanguage === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = finalLanguage;
   };
 
   const t = translations[language];
