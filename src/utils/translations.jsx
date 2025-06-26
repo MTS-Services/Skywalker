@@ -20,8 +20,8 @@ export const translations = {
     },
 
     creditComponent: {
-      'title': 'Your Ads Credits',
-      'buyCredit': 'Buy Credits',
+      title: "Your Ads Credits",
+      buyCredit: "Buy Credits",
     },
 
     // Home Page
@@ -119,7 +119,8 @@ export const translations = {
     // Register Page
     register: {
       title: "Register",
-      subtitle: "Enter your mobile number and a new password to register a new account",
+      subtitle:
+        "Enter your mobile number and a new password to register a new account",
       thamsCondition: "By registering you agree to the terms and conditions",
       alradyLogin: "Old user with an account?",
       loginlink: " Login to your account",
@@ -256,42 +257,31 @@ export const translations = {
     },
 
     // Ads Upload
-    // adUpload: {
-    //   purpose: "Purpose",
-    //   propertyType: "Property Type",
-    //   description: "Description",
-    //   area: "Area",
-    //   price: "Price (KD)",
-    //   uploadMedia: "Upload Image or Video",
-    //   selectMedia: "Select Images or Video",
-    //   uploadButton: "Upload Your Advertising",
-    //   regions: [
-    //     { id: "all", name: "All Region", count: 2155 },
-    //     { id: "hawally", name: "Hawally Governorate", count: 744 },
-    //     { id: "salmiya", name: "Salmiya", count: 104 },
-    //     { id: "salwa", name: "Salwa", count: 92 },
-    //     { id: "jabriya", name: "Jabriya", count: 82 },
-    //     { id: "rumaithiya", name: "Rumaithiya", count: 67 },
-    //     { id: "zehra", name: "Zehra", count: 67 },
-    //     { id: "hawally_new", name: "Hawally", count: 65 },
-    //     { id: "siddeeq", name: "Siddeeq", count: 62 },
-    //     { id: "salam", name: "Salam", count: 58 },
-    //   ],
-    //   propertyTypes: [
-    //     { id: "apartment", name: "Apartment" },
-    //     { id: "house", name: "House" },
-    //     { id: "land", name: "Land" },
-    //     { id: "building", name: "Building" },
-    //     { id: "chalet", name: "Chalet" },
-    //     { id: "farm", name: "Farm" },
-    //     { id: "commercial", name: "Commercial" },
-    //   ],
-    //   transactionTypes: [
-    //     { id: "rent", name: "Rent" },
-    //     { id: "sale", name: "Sale" },
-    //     { id: "exchange", name: "Exchange" },
-    //   ],
-    // },
+    adUploadForm: {
+      loading: "Loading form...",
+      purposeLabel: "Purpose",
+      purposePlaceholder: "Select Purposes",
+      propertyTypeLabel: "Property Type",
+      propertyTypePlaceholder: "Select Property Types",
+      descriptionLabel: "Description",
+      descriptionPlaceholder: "Add a description",
+      areaLabel: "Area",
+      areaPlaceholder: "Select Areas",
+      priceLabel: "Price (KD)",
+      pricePlaceholder: "Price in KD",
+      mediaUploadTitle: "Upload Image or Video",
+      mediaUploadSubtitle:
+        "Pick images from different angles. You can upload up to 12 images.",
+      mediaSelectButton: "Select Images or Video",
+      fileSingular: "file",
+      filePlural: "files",
+      filesSelected: "selected",
+      submitButton: "Upload Your Advertising",
+      noResults: "No results found",
+      searchPlaceholder: "Search...",
+      dataLoadError: "Could not load necessary data. Please try again later.",
+      fileLimitError: "You can only upload up to 12 images or videos.",
+    },
   },
   ar: {
     // Header
@@ -307,15 +297,14 @@ export const translations = {
       myAds: "اعلاناتي",
     },
 
-
     footer: {
       titleFast: "عقارات للايجار",
       footerChildone: "شقق للايجار",
     },
 
-     creditComponent: {
-      'title': 'احصل على الايجار الان',
-      'buyCredit': 'اشتري الايجار',
+    creditComponent: {
+      title: "احصل على الايجار الان",
+      buyCredit: "اشتري الايجار",
     },
 
     // Home Page
@@ -351,7 +340,7 @@ export const translations = {
       search: "ابحث",
       textSearchHint: "ابحث بالنص او كلمات مفتاحية",
     },
-    
+
     footer: {
       titleFast: "عقارات للايجار",
       footerChildone: "شقق للايجار",
@@ -561,41 +550,31 @@ export const translations = {
     },
 
     // adUpload
-    // adUpload: {
-    //   purpose: "الغرض",
-    //   propertyType: "نوع العقار",
-    //   description: "الوصف",
-    //   area: "المساحة",
-    //   price: "السعر (د.ك)",
-    //   uploadMedia: "رفع صورة أو فيديو",
-    //   selectMedia: "حدد الصور أو الفيديو",
-    //   uploadButton: "رفع إعلانك",
-    //   regions: [
-    //     { id: "all", name: "جميع المناطق", count: 2155 },
-    //     { id: "hawally", name: "محافظة حولي", count: 744 },
-    //     { id: "salmiya", name: "السالمية", count: 104 },
-    //     { id: "salwa", name: "سلوى", count: 92 },
-    //     { id: "jabriya", name: "الجابرية", count: 82 },
-    //     { id: "rumaithiya", name: "الرميثية", count: 67 },
-    //     { id: "zehra", name: "زهرة", count: 67 },
-    //     { id: "hawally_new", name: "حولى", count: 65 },
-    //     { id: "siddeeq", name: "الصديق", count: 62 },
-    //     { id: "salam", name: "السلام", count: 58 },
-    //   ],
-    //   propertyTypes: [
-    //     { id: "apartment", name: "شقة" },
-    //     { id: "house", name: "منزل" },
-    //     { id: "land", name: "أرض" },
-    //     { id: "building", name: "مبنى" },
-    //     { id: "chalet", name: "شاليه" },
-    //     { id: "farm", name: "مزرعة" },
-    //     { id: "commercial", name: "تجاري" },
-    //   ],
-    //   transactionTypes: [
-    //     { id: "rent", name: "إيجار" },
-    //     { id: "sale", name: "بيع" },
-    //     { id: "exchange", name: "تبادل" },
-    //   ],
-    // },
+    adUploadForm: {
+      loading: "جاري تحميل النموذج...",
+      purposeLabel: "الغرض",
+      purposePlaceholder: "اختر الأغراض",
+      propertyTypeLabel: "نوع العقار",
+      propertyTypePlaceholder: "اختر أنواع العقارات",
+      descriptionLabel: "الوصف",
+      descriptionPlaceholder: "أضف وصفًا",
+      areaLabel: "المنطقة",
+      areaPlaceholder: "اختر المناطق",
+      priceLabel: "السعر (د.ك)",
+      pricePlaceholder: "السعر بالدينار الكويتي",
+      mediaUploadTitle: "رفع صورة أو فيديو",
+      mediaUploadSubtitle:
+        "اختر صورًا من زوايا مختلفة. يمكنك رفع ما يصل إلى 12 صورة.",
+      mediaSelectButton: "اختر الصور أو الفيديو",
+      fileSingular: "ملف",
+      filePlural: "ملفات",
+      filesSelected: "محددة",
+      submitButton: "ارفع إعلانك",
+      noResults: "لم يتم العثور على نتائج",
+      searchPlaceholder: "بحث...",
+      dataLoadError:
+        "لا يمكن تحميل البيانات اللازمة. يرجى المحاولة مرة أخرى في وقت لاحق.",
+      fileLimitError: "يمكنك فقط رفع ما يصل إلى 12 صورة أو مقطع فيديو.",
+    },
   },
 };

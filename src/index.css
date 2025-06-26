@@ -51,11 +51,10 @@
   --color-adspart: #2e6290;
   --color-bgcolor-900: #26b0e5;
 
-
-  --shadow-card-shadow: 0 0 2px 0 rgba(37, 42, 49, .16), 0 1px 4px 0 rgba(37, 42, 49, .12);
+  --shadow-card-shadow:
+    0 0 2px 0 rgba(37, 42, 49, 0.16), 0 1px 4px 0 rgba(37, 42, 49, 0.12);
 
   --breakpoint-xs: 480px;
-
 }
 
 /* Global scrollbar styles (works on Firefox) */
