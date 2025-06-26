@@ -114,8 +114,10 @@ function Header() {
                 className={`flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black transition-colors hover:bg-[var(--color-primary-400)] hover:text-white ${isRTL ? "flex-row-reverse" : ""}`}
               >
                 <FiPlus className={`text-lg ${isRTL ? "ml-1" : "mr-1"}`} />
-                {t.header.addFreeAd}
+                {t?.header?.addFreeAd}
               </NavLink>
+
+              
             )}
           </div>
         </div>
