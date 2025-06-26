@@ -14,7 +14,6 @@ export const translations = {
       myAds: "My Ads",
       myArchives: "My Archives",
       logout: "Logout",
-
     },
 
     // Footer
@@ -103,9 +102,11 @@ export const translations = {
       confirmation: "Confirmation",
       cancel: "Cancel",
       confirm: "Confirm",
-      makeSuper: "Are you sure you want to make this ad Super? This will deduct from your Super credit balance",
+      makeSuper:
+        "Are you sure you want to make this ad Super? This will deduct from your Super credit balance",
       removeSuper: "Are you sure you want to remove Super from this ad?",
-      renew: "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
+      renew:
+        "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
       translateTitle: "تم نشر إعلانك المترجم للغة الإنجليزية",
       translateMessage: "تم حذف هذا الاعلان او إنتهاء مدته",
       currency: "د.ك",

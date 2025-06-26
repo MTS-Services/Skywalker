@@ -81,9 +81,9 @@ const MultiSelectDropdown = ({
         {/* CHANGED: Applied global color */}
         <div className="flex-shrink-0">
           {isOpen ? (
-            <FiChevronUp className="text-[var(--color-primary-500)]" />
+            <FiChevronUp className="text-primary-500" />
           ) : (
-            <FiChevronDown className="text-[var(--color-primary-500)]" />
+            <FiChevronDown className="text-primary-500" />
           )}
         </div>
       </div>
@@ -94,7 +94,7 @@ const MultiSelectDropdown = ({
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className="w-full rounded-md border border-gray-300 p-2 focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
+              className="focus:border-primary-500 focus:ring-primary-500 w-full rounded-md border border-gray-300 p-2"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
