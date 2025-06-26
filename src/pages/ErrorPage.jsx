@@ -32,7 +32,7 @@ const ErrorPage = () => {
         {/* Error Illustration */}
         <div className="mt-6 sm:mt-8 md:mt-10">
           <img
-            src="./error.png"
+            src="/error.png"
             alt="Error Illustration"
             className="mx-auto h-auto w-80 sm:w-96 md:w-104"
           />
