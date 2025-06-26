@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import { Link } from "react-router-dom";
+import CardComponent from "../../testingPart/TestingCart";
 
 const CreditCard = ({ title, imageSrc, onImageClick, buttons, t }) => (
   <div className="flex w-full flex-col items-center rounded-xl border border-gray-200 bg-white p-4 text-center shadow-lg transition-transform duration-300 hover:scale-105 sm:p-6">
@@ -33,7 +34,7 @@ const CreditCard = ({ title, imageSrc, onImageClick, buttons, t }) => (
       <div className="absolute inset-0 rounded-lg bg-black bg-cover opacity-65"></div>
       <a
         href="#"
-        className="text-[#fff]  text-sm relative z-10 mb-10 text-center   hover:underline sm:mb-12 sm:text-lg"
+        className="relative z-10 mb-10 text-center text-sm text-[#fff] hover:underline sm:mb-12 sm:text-lg"
         onClick={(e) => {
           e.preventDefault();
           onImageClick(title, imageSrc);
@@ -257,6 +258,9 @@ const BuyCredits = () => {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
       `}</style>
+      <CardComponent tag={`Text 1`} />
+      <CardComponent tag={`Shakil Munshi`} />
+      <CardComponent tag={`Text 1`} />
     </div>
   );
 };
