@@ -1,10 +1,11 @@
-import { useEffect, useState, useMemo, useRef, useCallback } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback, useContext } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-import { FiAlignLeft, FiCreditCard, FiHome, FiInstagram, FiList, FiLogIn, FiLogOut, FiPlus, FiTrash, FiTwitter, FiUserPlus, FiX } from "react-icons/fi";
+import { FiAlignLeft, FiCreditCard, FiHome, FiInstagram, FiList, FiLogIn, FiLogOut, FiPlus, FiSettings, FiTrash, FiTwitter, FiUserPlus, FiX } from "react-icons/fi";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 import { BsBuildings } from "react-icons/bs";
-import { FaArrowLeft, FaBars } from "react-icons/fa";
+import { FaArrowLeft, FaBars, FaPlusCircle } from "react-icons/fa";
+import { AuthContext } from "../context/AuthContext";
 
 // Component 1: Multi-Select Filter
 const DesktopRegionFilter = ({
@@ -801,8 +802,8 @@ export default function SearchPageHeader() {
                                             onToggle={() => props.toggleDropdown("area")}
                                         />
                                     </div>
-                                    {/* User Avatar Placeholder */}
-                                    <Link to="/" className="min-w-9 min-h-9 max-w-9 max-h-9 rounded-md"><img src="/logo.png" alt="User" className="w-full h-full object-cover" /></Link>
+                                    {/* Site Logo */}
+                                    <Link to="/" className="min-w-9 min-h-9 max-w-9 max-h-9 rounded-md"><img src="/logo.png" alt="Logo" className="w-full h-full object-cover" /></Link>
                                 </div>
 
                                 {/* Bottom Row: Filter Buttons */}
@@ -824,21 +825,11 @@ export default function SearchPageHeader() {
 
 // Component 8: SideBar (Unchanged)
 const SideBar = ({ t, isRTL, sidebarOpen, toggleSidebar, handleToggleLanguage }) => {
-    const [user, setUser] = useState(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+    const { isAuthenticated, logout } = useContext(AuthContext);
 
     const handleLogout = () => {
-        localStorage.removeItem("user");
-        setUser(null);
-        navigate('/search');
-        toggleSidebar(); // Close sidebar on logout
+        logout();
     };
 
     const navItems = useMemo(() => {
@@ -855,51 +846,61 @@ const SideBar = ({ t, isRTL, sidebarOpen, toggleSidebar, handleToggleLanguage })
         ];
         const end = [{ label: "Agents", icon: <BsBuildings />, to: "/agents" }];
 
-        return [...base, ...(user ? protectedItems : auth), ...end];
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+        return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
+    }, [isAuthenticated]);
 
     const baseTransformClass = isRTL ? "translate-x-full" : "-translate-x-full";
     const activeTransformClass = "translate-x-0";
 
     return (
         <>
-            {sidebarOpen && <div className="fixed inset-0 z-40 bg-black/20 transition-opacity duration-300 ease-in-out" onClick={toggleSidebar}></div>}
-            <div className={`fixed top-0 z-50 h-full w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`} dir={isRTL ? "rtl" : "ltr"}>
+            {sidebarOpen && <div className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-300 ease-in-out" onClick={toggleSidebar}></div>}
+            <div className={`fixed top-0 z-50 h-full min-w-80 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`} dir={isRTL ? "rtl" : "ltr"}>
                 <div className="h-full bg-main text-lg">
-                    <div className="border-b border-primary-400 px-4 py-4">
+                    <div className="border-b border-gray-200 px-4 py-2">
                         <div className="flex items-center justify-between">
-                            <NavLink to="/"><img src="/logo.png" alt="Logo" className="w-20" /></NavLink>
-                            <button onClick={toggleSidebar} className="flex items-center justify-center rounded-md bg-primary-50 p-2 text-black"><FiX className="text-2xl" /></button>
+                            <NavLink to="/" className={`flex items-center gap-2 justify-start`}>
+                                <img src="/logo.png" alt="Logo" className="w-14" />
+                                <div>
+                                    <p className="font-bold text-lg capitalize">Mr Aquar</p>
+                                    <p className="text-[8px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">Property Finder</p>
+                                </div>
+                            </NavLink>
+                            <button onClick={toggleSidebar} className="text-gray-500"><FiX className="text-2xl" /></button>
                         </div>
                     </div>
-                    <div className="flex flex-col pe-2 pt-2">
+                    <div className="flex flex-col pt-2">
                         {navItems.map((item, index) => (
                             <div className="rounded-e-2xl active:bg-active" key={index}>
                                 {item.to ? (
-                                    <NavLink to={item.to} onClick={toggleSidebar} className="flex w-full items-center gap-3 py-3 ps-6 font-bold text-dark hover:text-primary-700">
-                                        {item.icon}<span>{item.label}</span>
+                                    <NavLink to={item.to} onClick={toggleSidebar} className="flex w-full items-center gap-3 py-3 ps-6 font-semibold text-dark hover:bg-primary-300/20 hover:text-primary-900">
+                                        <span className="text-primary-900">{item.icon}</span><span>{item.label}</span>
                                     </NavLink>
                                 ) : (
-                                    <button onClick={item.action} className="flex w-full items-center gap-3 py-3 ps-6 font-bold text-dark hover:text-primary-700">
+                                    <button onClick={item.action} className="flex w-full items-center gap-3 py-3 ps-6 font-semibold text-dark hover:bg-primary-300/20 hover:text-primary-700">
                                         {item.icon}<span>{item.label}</span>
                                     </button>
                                 )}
                             </div>
                         ))}
                     </div>
-                    <div className="my-4 border-b"></div>
-                    <NavLink to="/add-ad" onClick={toggleSidebar} className="flex w-full cursor-pointer items-center gap-3 py-3 ps-6">
-                        <FiPlus /><span className="font-bold text-black">Create Ad</span>
+                    <div className="my-4 border-b border-gray-200"></div>
+                    <NavLink to="/add-ad" onClick={toggleSidebar} className="flex w-full cursor-pointer items-center gap-3 py-3 ps-6 text-primary-700">
+                        <FaPlusCircle /><span className="font-bold">Create Ad</span>
                     </NavLink>
                     <div className="absolute bottom-4 end-0 start-0 flex items-center justify-center gap-4">
-                        <button onClick={handleToggleLanguage} className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-400 p-0 text-white transition-all duration-300 ease-linear active:bg-primary-600 hover:bg-primary-600">
+                        {isAuthenticated && (
+                            <Link to="/settings" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
+                                <FiSettings className="h-5 w-5 shrink-0" />
+                            </Link>
+                        )}
+                        <button onClick={handleToggleLanguage} className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
                             <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>{isRTL ? "En" : "ع"}</span>
                         </button>
-                        <a target="_blank" href="https://www.instagram.com/" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-400 p-0 text-white transition-all duration-300 ease-linear active:bg-primary-600 hover:bg-primary-600">
+                        <a target="_blank" href="https://www.instagram.com/" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
                             <FiInstagram className="h-5 w-5 shrink-0" />
                         </a>
-                        <a target="_blank" href="https://x.com/" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-400 p-0 text-white transition-all duration-300 ease-linear active:bg-primary-600 hover:bg-primary-600">
+                        <a target="_blank" href="https://x.com/" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-300/20 p-0 text-primary-900">
                             <FiTwitter className="h-5 w-5 shrink-0" />
                         </a>
                     </div>
