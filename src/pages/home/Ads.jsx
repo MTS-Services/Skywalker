@@ -3,6 +3,8 @@ import DetailsModal from "../adDetails/Modal";
 import { useLanguage } from "../../context/LanguageContext";
 import AdCard from "../../components/shared/AdCard";
 import { useNavigate } from "react-router-dom";
+import { FaCirclePlus } from "react-icons/fa6";
+import ButtonSubmit from "../../common/button/ButtonSubmit";
 
 /**
  * Generates a URL-friendly slug from a string.
@@ -138,12 +140,27 @@ export default function Ads() {
 
               {/* Load More Button - only show if not clicked and has more items */}
               {/* {hasMore && !loadingMore && !loadMoreClicked && ( */}
-              <button
+              {/* <button
                 onClick={handleLoadMoreClick}
-                className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 mt-6 rounded-full px-8 py-3 font-semibold text-white transition-colors duration-300 focus:ring-2 focus:outline-none"
+                className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 mt-6 w-full rounded-full px-8 py-3 text-white transition-colors duration-300 focus:ring-2 focus:outline-none"
               >
-                {t.ads.loadMore}
-              </button>
+                <span className="flex items-center justify-center gap-2">
+                  <FaCirclePlus size={18} />
+                  {t.ads.loadMore}
+                </span>
+              </button> */}
+
+              <ButtonSubmit
+                onClick={handleLoadMoreClick}
+                text={
+                  <span className="flex items-center justify-center rounded-2xl">
+                    <FaCirclePlus className="mr-2 text-xl" />
+                    {t.ads.loadMore}
+                  </span>
+                }
+                className="!w-full rounded-4xl"
+              />
+
               {/* )} */}
 
               {/* Infinite Scroll Trigger - only active after load more is clicked */}
