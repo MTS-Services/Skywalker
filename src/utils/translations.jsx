@@ -3,7 +3,12 @@ export const translations = {
 
     site: {
       name: "MR-AQAR",
-      tagline: "Property Finder"
+      tagline: "Property Finder",
+      contactUs: "Contact us",
+      via: "via",
+      call: "Call",
+      or: "Or",
+      whatsapp: "WhatsApp",
     },
 
     // Header 
@@ -330,7 +335,12 @@ export const translations = {
   "ar": {
     site: {
       name: "السيد-عقار",
-      tagline: "الباحث عن العقارات"
+      tagline: "الباحث عن العقارات",
+      contactUs: "تواصل معنا",
+      via: "عبر",
+      call: "اتصل",
+      or: "أو",
+      whatsapp: "واتساب",
     },
     "header": {
       "home": "الصفحة الرئيسية",

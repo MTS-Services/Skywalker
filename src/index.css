@@ -28,7 +28,7 @@
 }
 
 /* Fix space-x-reverse for RTL */
-[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+[dir="rtl"] .space-x-reverse> :not([hidden])~ :not([hidden]) {
   --tw-space-x-reverse: 1;
 }
 
@@ -48,7 +48,8 @@
   --color-primary-200: #6bcff6;
   --color-primary-300: #4cc5f4;
   --color-primary-400: #2ecbf2;
-  --color-primary-500: #1eaeed; /* Base Color */
+  --color-primary-500: #1eaeed;
+  /* Base Color */
   --color-primary-600: #1a96d0;
   --color-primary-700: #1781b3;
   --color-primary-800: #136b96;
@@ -100,6 +101,10 @@
 }
 
 @layer base {
+  body {
+    @apply text-base font-primary;
+  }
+
   h1,
   h2,
   h3,

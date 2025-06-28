@@ -58,8 +58,9 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
 
     return (
         <>
-            <div onClick={handleClick} className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 cursor-pointer border border-transparent bg-white">
+            <div className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 cursor-pointer border border-transparent bg-white">
                 <DiagonalRibbon text={ad.isOpen ? (`${t.myAds.open}`) : (ad.isArchive ? (`${t.myAds.archive}`) : (`${t.myAds.deleted}`))} backgroundColor={ad.isOpen ? (`#556895`) : (ad.isArchive ? (`#556885`) : (`#242424`))} />
+                <div className="absolute inset-0 bg-transparent rounded-lg z-[1]" onClick={handleClick}></div>
 
                 {/* Main Content */}
                 <div className="flex gap-3">
@@ -115,14 +116,14 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
                 <div className="flex gap-3 items-center justify-center">
                     {/* Action Button 1 */}
                     {showRenew && (
-                        <button onClick={handleOpenRenewModal} className="text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
+                        <button onClick={handleOpenRenewModal} className="relative z-[2] text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
                             <div className="relative flex items-center justify-center rounded cursor-pointer h-6 w-6 active:border bg-green-200">
                                 <RxReload className="text-green-700" />
                             </div>
                         </button>
                     )}
                     {/* Action Button 2 */}
-                    <button onClick={ad.isSuper ? handleRemoveSuperModel : handleMakeSuperModel} className="text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
+                    <button onClick={ad.isSuper ? handleRemoveSuperModel : handleMakeSuperModel} className="relative z-[2] text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
                         <div className="relative flex items-center justify-center rounded cursor-pointer h-6 w-6 active:border bg-red-200">
                             {ad.isSuper ? (
                                 <BsPinFill className="text-red-700" />
@@ -132,7 +133,7 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
                         </div>
                     </button>
                     {/* Action Button 3 */}
-                    <button onClick={handleOpenTranslateModal} className="text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
+                    <button onClick={handleOpenTranslateModal} className="relative z-[2] text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
                         <div className="relative flex items-center justify-center rounded cursor-pointer h-6 w-6 active:border bg-indigo-200">
                             <BsTranslate className="text-indigo-700" />
                         </div>
