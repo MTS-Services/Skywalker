@@ -752,10 +752,10 @@ export default function SearchPageHeader() {
                                 <div className="flex items-center gap-10">
                                     <button onClick={toggleSidebar} className="text-2xl text-[#556885]"><FaBars /></button>
                                     <NavLink to="/" className={`flex items-center gap-2 justify-start`}>
-                                        <img src="/logo.png" alt="Logo" className="w-20" />
+                                        <img src="/logo.png" alt="Logo" className="w-14" />
                                         <div>
-                                            <p className="font-bold text-xl capitalize">Mr Aquar</p>
-                                            <p className="text-[10px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">Property Finder</p>
+                                            <p className="font-bold text-lg capitalize">{t.site.name}</p>
+                                            <p className="text-[8px] w-fit mx-auto bg-primary-300 px-2 py-1 rounded-md text-white leading-normal">{t.site.tagline}</p>
                                         </div>
                                     </NavLink>
                                 </div>
