@@ -31,7 +31,7 @@ export default function AgentList() {
       try {
         // public/companies.json থেকে ডেটা ফেচ করুন
         // আপনার পুরনো কোডে `/agent.json` ছিল, সেটি `/companies.json` হবে
-        const response = await fetch("/companies.json");
+        const response = await fetch("src/data/companies.json");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
