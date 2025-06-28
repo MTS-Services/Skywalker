@@ -68,7 +68,7 @@ export const SideBar = ({ sidebarOpen, toggleSidebar }) => {
                         ))}
                     </div>
                     <div className="my-4 border-b border-gray-200"></div>
-                    <NavLink to="/add-ad" onClick={toggleSidebar} className="flex w-full cursor-pointer items-center gap-3 py-3 ps-6 text-primary-700">
+                    <NavLink to="/ad-upload" onClick={toggleSidebar} className="flex w-full cursor-pointer items-center gap-3 py-3 ps-6 text-primary-700">
                         <FaPlusCircle /><span className="font-bold">{t.header.addFreeAd}</span>
                     </NavLink>
                     <div className="absolute bottom-4 end-0 start-0 flex items-center justify-center gap-4">

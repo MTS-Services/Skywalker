@@ -3,6 +3,11 @@ export const translations = {
     site: {
       name: "MR-AQAR",
       tagline: "Property Finder",
+      contactUs: "Contact us",
+      via: "via",
+      call: "Call",
+      or: "Or",
+      whatsapp: "WhatsApp",
     },
 
     // Header
@@ -113,7 +118,7 @@ export const translations = {
       removeSuper: "Are you sure you want to remove Super from this ad?",
       renew:
         "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
-      translateTitle: "تم نشر إعلانك المترجم للغة الإنجليزية",
+      translateTitle: "Your translated Ad to Arabic is published",
       translateMessage: "تم حذف هذا الاعلان او إنتهاء مدته",
       currency: "د.ك",
       open: "Open",
@@ -123,7 +128,8 @@ export const translations = {
 
     // Login Page
     login: {
-      title: "Hello again",
+      title: "Login",
+      shortTitle: "Enter your registered mobile number and password to login",
       newsuer: "New User?",
       singupLink: "Sign up",
       mobileNumber: "Mobile Number",
@@ -331,6 +337,11 @@ export const translations = {
     site: {
       name: "السيد-عقار",
       tagline: "الباحث عن العقارات",
+      contactUs: "تواصل معنا",
+      via: "عبر",
+      call: "اتصل",
+      or: "أو",
+      whatsapp: "واتساب",
     },
     header: {
       home: "الصفحة الرئيسية",
@@ -425,16 +436,16 @@ export const translations = {
         "هل أنت متأكد أنك تريد جعل هذا الإعلان مميزًا؟ هذا سيخصم من رصيدك المميز",
       removeSuper: "هل أنت متأكد أنك تريد إزالة التميز من هذا الإعلان؟",
       renew: "هل أنت متأكد أنك تريد تجديد هذا الإعلان؟ هذا سيخصم من رصيدك",
-      translateTitle: "تم نشر إعلانك المترجم للغة الإنجليزية",
-      translateMessage: "تم حذف هذا الإعلان أو انتهت مدته",
+      translateTitle: "تم نشر إعلانك المترجم إلى الإنجليزية.",
+      translateMessage: "This Ad has been deleted or has expired",
       currency: "د.ك",
       open: "فتح",
       archive: "أرشفة",
       deleted: "تم الحذف",
     },
     login: {
-      title: "مرحبًا مجددًا",
-      newsuer: "مستخدم جديد؟",
+      title: "دخول",
+      shortTitle: "أكتب رقم موبايلك المسجل وكلمة السر للدخول في حسابك",
       singupLink: "سجل الآن",
       mobileNumber: "رقم الهاتف",
       passwords: "كلمة المرور",
