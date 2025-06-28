@@ -1,6 +1,5 @@
 export const translations = {
   en: {
-
     site: {
       name: "MR-AQAR",
       tagline: "Property Finder",
@@ -11,7 +10,7 @@ export const translations = {
       whatsapp: "WhatsApp",
     },
 
-    // Header 
+    // Header
     header: {
       home: "Home (Search)",
       agents: "Agents",
@@ -68,7 +67,7 @@ export const translations = {
       copyButton: "Copy URL",
       loadMore: "Load More",
       allItemsLoaded: "All items loaded.",
-      noAds: "No ads found."
+      noAds: "No ads found.",
     },
 
     // Search
@@ -129,7 +128,8 @@ export const translations = {
 
     // Login Page
     login: {
-      title: "Hello again",
+      title: "Login",
+      shortTitle: "Enter your registered mobile number and password to login",
       newsuer: "New User?",
       singupLink: "Sign up",
       mobileNumber: "Mobile Number",
@@ -179,6 +179,7 @@ export const translations = {
 
     agent: {
       titlefast: "Real Estate Agents List in Kuwait ",
+      titlelast: "Agents",
     },
 
     // About Page
@@ -332,7 +333,7 @@ export const translations = {
     },
   },
 
-  "ar": {
+  ar: {
     site: {
       name: "السيد-عقار",
       tagline: "الباحث عن العقارات",
@@ -342,234 +343,257 @@ export const translations = {
       or: "أو",
       whatsapp: "واتساب",
     },
-    "header": {
-      "home": "الصفحة الرئيسية",
-      "agents": "الوكلاء",
-      "about": "حول",
-      "contact": "اتصل",
-      "login": "تسجيل الدخول",
-      "register": "التسجيل",
-      "buyCredit": "شراء رصيد",
-      "addFreeAd": "أضف إعلان مجاني",
-      "kuwaitRealEstate": "العقارات في الكويت",
-      "myAds": "إعلاناتي",
-      "myArchives": "أرشيفي",
-      "logout": "تسجيل الخروج"
+    header: {
+      home: "الصفحة الرئيسية",
+      agents: "الوكلاء",
+      about: "حول",
+      contact: "اتصل",
+      login: "تسجيل الدخول",
+      register: "التسجيل",
+      buyCredit: "شراء رصيد",
+      addFreeAd: "أضف إعلان مجاني",
+      kuwaitRealEstate: "العقارات في الكويت",
+      myAds: "إعلاناتي",
+      myArchives: "أرشيفي",
+      logout: "تسجيل الخروج",
     },
-    "footer": {
-      "titleFast": "العقارات للإيجار",
-      "footerChildone": "شقق للإيجار"
+    footer: {
+      titleFast: "العقارات للإيجار",
+      footerChildone: "شقق للإيجار",
     },
-    "creditComponent": {
-      "title": "رصيد إعلاناتك",
-      "buyCredit": "شراء رصيد"
+    creditComponent: {
+      title: "رصيد إعلاناتك",
+      buyCredit: "شراء رصيد",
     },
-    "home": {
-      "bannerTitle": "شقق للإيجار | منازل للبيع",
-      "bannerSubTitle": "ابحث عن عقارك بسهولة وبشكل مجاني",
-      "typeAreaPlaceholder": "اكتب المنطقة للبحث",
-      "propertyTypePlaceholder": "نوع العقار",
-      "searchButton": "بحث",
-      "searchPlaceholder": "بحث...",
-      "loadMore": "تحميل المزيد"
+    home: {
+      bannerTitle: "شقق للإيجار | منازل للبيع",
+      bannerSubTitle: "ابحث عن عقارك بسهولة وبشكل مجاني",
+      typeAreaPlaceholder: "اكتب المنطقة للبحث",
+      propertyTypePlaceholder: "نوع العقار",
+      searchButton: "بحث",
+      searchPlaceholder: "بحث...",
+      loadMore: "تحميل المزيد",
     },
-    "ads": {
-      "searchButton": "بحث",
-      "searchPlaceholder": "بحث...",
-      "noResults": "لا توجد نتائج",
-      "recentAdsTitle": "أحدث الإعلانات العقارية في الكويت",
-      "currency": "د.ك",
-      "super": "مميز",
-      "linkCopied": "تم نسخ الرابط إلى الحافظة!",
-      "failedToCopy": "فشل في نسخ الرابط.",
-      "whatsapp": "واتساب",
-      "shareAd": "مشاركة الإعلان",
-      "copyLinkTitle": "نسخ الرابط المباشر",
-      "copyButton": "نسخ الرابط",
-      "loadMore": "تحميل المزيد",
-      "allItemsLoaded": "تم تحميل جميع العناصر.",
-      "noAds": "لا يوجد اعلانات."
+    ads: {
+      searchButton: "بحث",
+      searchPlaceholder: "بحث...",
+      noResults: "لا توجد نتائج",
+      recentAdsTitle: "أحدث الإعلانات العقارية في الكويت",
+      currency: "د.ك",
+      super: "مميز",
+      linkCopied: "تم نسخ الرابط إلى الحافظة!",
+      failedToCopy: "فشل في نسخ الرابط.",
+      whatsapp: "واتساب",
+      shareAd: "مشاركة الإعلان",
+      copyLinkTitle: "نسخ الرابط المباشر",
+      copyButton: "نسخ الرابط",
+      loadMore: "تحميل المزيد",
+      allItemsLoaded: "تم تحميل جميع العناصر.",
+      noAds: "لا يوجد اعلانات.",
     },
-    "search": {
-      "super": "مميز",
-      "currency": "د.ك",
-      "activeFilters": "الفلاتر النشطة",
-      "searchResults": "نتائج البحث",
-      "loading": "جار التحميل...",
-      "noResultsFound": "لم يتم العثور على نتائج.",
-      "ads": "إعلانات",
-      "transaction": "الفئة",
-      "propertyType": "العقار",
-      "price": "السعر",
-      "textSearch": "بحث نصي",
-      "apply": "تطبيق",
-      "minPrice": "أدنى سعر",
-      "maxPrice": "أعلى سعر",
-      "searchByText": "بحث باستخدام النص",
-      "textSearchHint": "ابحث باستخدام النص أو الكلمات المفتاحية",
-      "loadMore": "تحميل المزيد",
-      "allItemsLoaded": "تم تحميل جميع العناصر.",
-      "transactionType": "الفئة",
-      "transactionTypePlaceholder": "اختر النوع",
-      "propertyTypePlaceholder": "عقار",
-      "area": "المنطقة",
-      "areaPlaceholder": "اختر المنطقة",
-      "searchPlaceholder": "بحث...",
-      "text": "نص",
-      "searchUsingTextExample": "ابحث باستخدام النص...",
-      "reset": "إعادة تعيين",
-      "search": "بحث",
-      "justNow": "الآن",
-      "minutes": "دقائق",
-      "hours": "ساعات",
-      "noResults": "لا توجد نتائج"
+    search: {
+      super: "مميز",
+      currency: "د.ك",
+      activeFilters: "الفلاتر النشطة",
+      searchResults: "نتائج البحث",
+      loading: "جار التحميل...",
+      noResultsFound: "لم يتم العثور على نتائج.",
+      ads: "إعلانات",
+      transaction: "الفئة",
+      propertyType: "العقار",
+      price: "السعر",
+      textSearch: "بحث نصي",
+      apply: "تطبيق",
+      minPrice: "أدنى سعر",
+      maxPrice: "أعلى سعر",
+      searchByText: "بحث باستخدام النص",
+      textSearchHint: "ابحث باستخدام النص أو الكلمات المفتاحية",
+      loadMore: "تحميل المزيد",
+      allItemsLoaded: "تم تحميل جميع العناصر.",
+      transactionType: "الفئة",
+      transactionTypePlaceholder: "اختر النوع",
+      propertyTypePlaceholder: "عقار",
+      area: "المنطقة",
+      areaPlaceholder: "اختر المنطقة",
+      searchPlaceholder: "بحث...",
+      text: "نص",
+      searchUsingTextExample: "ابحث باستخدام النص...",
+      reset: "إعادة تعيين",
+      search: "بحث",
+      justNow: "الآن",
+      minutes: "دقائق",
+      hours: "ساعات",
+      noResults: "لا توجد نتائج",
     },
-    "myAds": {
-      "title": "إعلاناتي",
-      "myArchiveAds": "إعلاناتي في الأرشيف",
-      "noResults": "لا توجد نتائج أخرى",
-      "confirmation": "تأكيد",
-      "cancel": "إلغاء",
-      "confirm": "تأكيد",
-      "makeSuper": "هل أنت متأكد أنك تريد جعل هذا الإعلان مميزًا؟ هذا سيخصم من رصيدك المميز",
-      "removeSuper": "هل أنت متأكد أنك تريد إزالة التميز من هذا الإعلان؟",
-      "renew": "هل أنت متأكد أنك تريد تجديد هذا الإعلان؟ هذا سيخصم من رصيدك",
-      "translateTitle": "تم نشر إعلانك المترجم إلى الإنجليزية.",
-      "translateMessage": "This Ad has been deleted or has expired",
-      "currency": "د.ك",
-      "open": "فتح",
-      "archive": "أرشفة",
-      "deleted": "تم الحذف"
+    myAds: {
+      title: "إعلاناتي",
+      myArchiveAds: "إعلاناتي في الأرشيف",
+      noResults: "لا توجد نتائج أخرى",
+      confirmation: "تأكيد",
+      cancel: "إلغاء",
+      confirm: "تأكيد",
+      makeSuper:
+        "هل أنت متأكد أنك تريد جعل هذا الإعلان مميزًا؟ هذا سيخصم من رصيدك المميز",
+      removeSuper: "هل أنت متأكد أنك تريد إزالة التميز من هذا الإعلان؟",
+      renew: "هل أنت متأكد أنك تريد تجديد هذا الإعلان؟ هذا سيخصم من رصيدك",
+      translateTitle: "تم نشر إعلانك المترجم إلى الإنجليزية.",
+      translateMessage: "This Ad has been deleted or has expired",
+      currency: "د.ك",
+      open: "فتح",
+      archive: "أرشفة",
+      deleted: "تم الحذف",
     },
-    "login": {
-      "title": "مرحبًا مجددًا",
-      "newsuer": "مستخدم جديد؟",
-      "singupLink": "سجل الآن",
-      "mobileNumber": "رقم الهاتف",
-      "passwords": "كلمة المرور",
-      "buttontext": "تسجيل الدخول",
-      "remember": "تذكرني",
-      "forgetPss": "نسيت كلمة المرور"
+    login: {
+      title: "دخول",
+      shortTitle: "أكتب رقم موبايلك المسجل وكلمة السر للدخول في حسابك",
+      singupLink: "سجل الآن",
+      mobileNumber: "رقم الهاتف",
+      passwords: "كلمة المرور",
+      buttontext: "تسجيل الدخول",
+      remember: "تذكرني",
+      forgetPss: "نسيت كلمة المرور",
     },
-    "register": {
-      "title": "التسجيل",
-      "subtitle": "أدخل رقم هاتفك وكلمة مرور جديدة للتسجيل في الحساب",
-      "thamsCondition": "من خلال التسجيل، فإنك توافق على الشروط والأحكام",
-      "alradyLogin": "مستخدم قديم؟",
-      "loginlink": "تسجيل الدخول إلى حسابك",
-      "mobileNumber": "رقم الهاتف",
-      "passwords": "كلمة المرور",
-      "buttontext": "التسجيل"
+    register: {
+      title: "التسجيل",
+      subtitle: "أدخل رقم هاتفك وكلمة مرور جديدة للتسجيل في الحساب",
+      thamsCondition: "من خلال التسجيل، فإنك توافق على الشروط والأحكام",
+      alradyLogin: "مستخدم قديم؟",
+      loginlink: "تسجيل الدخول إلى حسابك",
+      mobileNumber: "رقم الهاتف",
+      passwords: "كلمة المرور",
+      buttontext: "التسجيل",
     },
-    "byCredit": {
-      "title": "شراء رصيد",
-      "subtitlefast": "اختر الحزمة واضغط على الزر للشراء",
-      "subtitlastone": "اتصل بنا عبر",
-      "bycalling": "اتصل",
-      "subtitlasttwo": "أو",
-      "byWhatsapp": "واتساب",
-      "superCredit": "رصيد مميز",
-      "superbuttontextFast": "1 إعلان - 12 د.ك",
-      "superbuttontextlast": "5 إعلانات - 55 د.ك",
-      "agentsSubscription": "اشتراك الوكلاء",
-      "agentsbuttontextFast": "شهرين - 30 إعلان - 100 د.ك",
-      "agentsbuttontextlast": "6 أشهر - 90 إعلان - 270 د.ك",
-      "regularCredit": "رصيد عادي",
-      "regularbuttontextFast": "3 إعلانات - 12 د.ك",
-      "regularbuttontextlast": "6 إعلانات - 23 د.ك",
-      "allpaymentmethods": "جميع طرق الدفع في Boshamlan مؤمنة وموثوقة 100% من جميع البنوك المحلية",
-      "cliekclink": "اضغط للحصول على التفاصيل",
-      "closebutton": "إغلاق"
+    byCredit: {
+      title: "شراء رصيد",
+      subtitlefast: "اختر الحزمة واضغط على الزر للشراء",
+      subtitlastone: "اتصل بنا عبر",
+      bycalling: "اتصل",
+      subtitlasttwo: "أو",
+      byWhatsapp: "واتساب",
+      superCredit: "رصيد مميز",
+      superbuttontextFast: "1 إعلان - 12 د.ك",
+      superbuttontextlast: "5 إعلانات - 55 د.ك",
+      agentsSubscription: "اشتراك الوكلاء",
+      agentsbuttontextFast: "شهرين - 30 إعلان - 100 د.ك",
+      agentsbuttontextlast: "6 أشهر - 90 إعلان - 270 د.ك",
+      regularCredit: "رصيد عادي",
+      regularbuttontextFast: "3 إعلانات - 12 د.ك",
+      regularbuttontextlast: "6 إعلانات - 23 د.ك",
+      allpaymentmethods:
+        "جميع طرق الدفع في Boshamlan مؤمنة وموثوقة 100% من جميع البنوك المحلية",
+      cliekclink: "اضغط للحصول على التفاصيل",
+      closebutton: "إغلاق",
     },
-    "agent": {
-      "titlefast": "قائمة وكلاء العقارات في الكويت"
+    agent: {
+      titlefast: "قائمة وكلاء العقارات في الكويت",
+      titlelast: "مكتب",
     },
-    "about": {
-      "heading": "دليل العقارات الشامل في الكويت",
-      "intro": "مرحبًا بك في Mr Aqar، منصتك الموثوقة للبحث والإعلان عن العقارات في الكويت. سواء كنت تبحث عن عقار أحلامك أو تريد إدراج عقارك للإيجار أو البيع، يجعل Mr Aqar العملية سلسة. من الشقق للإيجار إلى الفلل للبيع والأراضي للتبادل، ستجد كل ما تحتاجه بنقرة واحدة.",
-      "whyChooseTitle": "لماذا تختار Mr Aqar؟",
-      "whyChoose": [
+    about: {
+      heading: "دليل العقارات الشامل في الكويت",
+      intro:
+        "مرحبًا بك في Mr Aqar، منصتك الموثوقة للبحث والإعلان عن العقارات في الكويت. سواء كنت تبحث عن عقار أحلامك أو تريد إدراج عقارك للإيجار أو البيع، يجعل Mr Aqar العملية سلسة. من الشقق للإيجار إلى الفلل للبيع والأراضي للتبادل، ستجد كل ما تحتاجه بنقرة واحدة.",
+      whyChooseTitle: "لماذا تختار Mr Aqar؟",
+      whyChoose: [
         {
-          "title": "منصة سهلة الاستخدام",
-          "desc": "تمتع بواجهة بسيطة وسهلة الاستخدام تجعل البحث والإعلان عن العقارات أمرًا سهلاً."
+          title: "منصة سهلة الاستخدام",
+          desc: "تمتع بواجهة بسيطة وسهلة الاستخدام تجعل البحث والإعلان عن العقارات أمرًا سهلاً.",
         },
         {
-          "title": "مجموعة واسعة من العقارات",
-          "desc": "استكشف مجموعة متنوعة من الفئات العقارية، بما في ذلك المنازل، الفلل، الأراضي، الشاليهات، المكاتب، المساحات التجارية، والمزارع."
+          title: "مجموعة واسعة من العقارات",
+          desc: "استكشف مجموعة متنوعة من الفئات العقارية، بما في ذلك المنازل، الفلل، الأراضي، الشاليهات، المكاتب، المساحات التجارية، والمزارع.",
         },
         {
-          "title": "جمهور مستهدف",
-          "desc": "تستهدف منصتنا سوق العقارات في الكويت فقط، مما يضمن وصول إعلاناتك إلى الجمهور الصحيح."
+          title: "جمهور مستهدف",
+          desc: "تستهدف منصتنا سوق العقارات في الكويت فقط، مما يضمن وصول إعلاناتك إلى الجمهور الصحيح.",
         },
         {
-          "title": "خدمات مجانية",
-          "desc": "سجل وانشر إعلاناتك العقارية مجانًا."
-        }
+          title: "خدمات مجانية",
+          desc: "سجل وانشر إعلاناتك العقارية مجانًا.",
+        },
       ],
-      "servicesTitle": "خدماتنا",
-      "services": [
+      servicesTitle: "خدماتنا",
+      services: [
         "شقق للإيجار في جميع أنحاء الكويت.",
         "فلل للبيع بأسعار تنافسية.",
         "أراضٍ في مواقع مميزة.",
         "شاليهات للاسترخاء أو الاستثمار.",
         "مكاتب ومتاجر تجارية.",
-        "مزارع ومرافق صناعية وتجارية."
+        "مزارع ومرافق صناعية وتجارية.",
       ],
-      "featuresTitle": "ميزاتنا",
-      "features": [
+      featuresTitle: "ميزاتنا",
+      features: [
         {
-          "title": "محرك بحث متقدم",
-          "desc": "ابحث عن العقار الذي يلبي احتياجاتك بدقة وسرعة."
+          title: "محرك بحث متقدم",
+          desc: "ابحث عن العقار الذي يلبي احتياجاتك بدقة وسرعة.",
         },
         {
-          "title": "إعلانات موثوقة",
-          "desc": "نحن نوفر بيئة آمنة للمتسوقين والبائعين والمالكين والمستأجرين للتواصل."
+          title: "إعلانات موثوقة",
+          desc: "نحن نوفر بيئة آمنة للمتسوقين والبائعين والمالكين والمستأجرين للتواصل.",
         },
         {
-          "title": "تغطية شاملة",
-          "desc": "الوصول إلى قوائم العقارات في جميع مناطق الكويت، بما في ذلك السالمية، حولي، الجابرية، صباح السالم، وغيرها."
-        }
+          title: "تغطية شاملة",
+          desc: "الوصول إلى قوائم العقارات في جميع مناطق الكويت، بما في ذلك السالمية، حولي، الجابرية، صباح السالم، وغيرها.",
+        },
       ],
-      "ourVision": "رؤيتنا",
-      "ourVisionDesc": "أن نكون منصة العقارات الرائدة في الكويت، من خلال تقديم خدمات استثنائية تجعلنا الخيار الأول للمستخدمين.",
-      "ourMission": "مهمتنا",
-      "ourMissionDesc": "تقديم حلول مبتكرة تدعم سوق العقارات في الكويت، وتعزز المعاملات العقارية، وتبسط عملية البحث أو الإعلان للجميع.",
-      "ourGoal": "هدفنا",
-      "ourGoalDesc": "أن نكون الوجهة الأولى لأي شخص يبحث عن أو يعلن عن عقار في الكويت. نهدف إلى توفير سوق آمن وفعال وشامل يلبي احتياجات المشترين والبائعين.",
-      "callToAction": "ابحث عن عقارك اليوم!",
-      "callToActionDesc": "ابدأ رحلتك للعثور على العقار المثالي مع Mr Aqar. اكتشف مجموعة واسعة من الخيارات في سوق العقارات الكويتي.",
-      "hashtags": "#عقارات_الكويت #شقق_للايجار #فلل_للبيع #مزارع_الكويت #شاليهات_الكويت",
-      "finalNote": "انضم إلى الآلاف من المستخدمين الراضين الذين وجدوا حلولهم العقارية المثالية مع"
+      ourVision: "رؤيتنا",
+      ourVisionDesc:
+        "أن نكون منصة العقارات الرائدة في الكويت، من خلال تقديم خدمات استثنائية تجعلنا الخيار الأول للمستخدمين.",
+      ourMission: "مهمتنا",
+      ourMissionDesc:
+        "تقديم حلول مبتكرة تدعم سوق العقارات في الكويت، وتعزز المعاملات العقارية، وتبسط عملية البحث أو الإعلان للجميع.",
+      ourGoal: "هدفنا",
+      ourGoalDesc:
+        "أن نكون الوجهة الأولى لأي شخص يبحث عن أو يعلن عن عقار في الكويت. نهدف إلى توفير سوق آمن وفعال وشامل يلبي احتياجات المشترين والبائعين.",
+      callToAction: "ابحث عن عقارك اليوم!",
+      callToActionDesc:
+        "ابدأ رحلتك للعثور على العقار المثالي مع Mr Aqar. اكتشف مجموعة واسعة من الخيارات في سوق العقارات الكويتي.",
+      hashtags:
+        "#عقارات_الكويت #شقق_للايجار #فلل_للبيع #مزارع_الكويت #شاليهات_الكويت",
+      finalNote:
+        "انضم إلى الآلاف من المستخدمين الراضين الذين وجدوا حلولهم العقارية المثالية مع",
     },
-    "contact": {
-      "heading": "اتصل بنا",
-      "description": "شكرًا لك على ثقتك في Mr Aqar. نحن سعداء بالإجابة على استفساراتك من خلال القنوات التالية:",
-      "mobile": "الهاتف",
-      "whatsapp": "واتساب",
-      "email": "البريد الإلكتروني",
-      "instagram": "إنستغرام",
-      "twitter": "تويتر"
+    contact: {
+      heading: "اتصل بنا",
+      description:
+        "شكرًا لك على ثقتك في Mr Aqar. نحن سعداء بالإجابة على استفساراتك من خلال القنوات التالية:",
+      mobile: "الهاتف",
+      whatsapp: "واتساب",
+      email: "البريد الإلكتروني",
+      instagram: "إنستغرام",
+      twitter: "تويتر",
     },
-    "termsAndConditions": {
-      "title": "الشروط والأحكام لمنصة Mr Aqar",
-      "definitions": "التعريفات والمصطلحات",
-      "boshamlan": "Mr Aqar تشير إلى الموقع الإلكتروني ​https://www.mr-aqar.com أو خدمات Mr Aqar العقارية، بما في ذلك جميع تطبيقاته وبرامجه وحسابات وسائل التواصل الاجتماعي التابعة له وفروعه.",
-      "user": "المستخدم، أنت: يشير إلى أي فرد أو كيان يستخدم خدمات Mr Aqar، سواء كزائر أو عضو مسجل.",
-      "advertiser": "المعلن: يشير إلى أي مستخدم مسجل يقوم بنشر إعلانات العقارات على منصة Mr Aqar.",
-      "acceptanceOfTerms": "من خلال استخدام Mr Aqar، سواء كزائر يتصفح المنصة أو بتسجيلك كعضو، فإنك تقر وتوافق على الالتزام بهذه الشروط والأحكام.",
-      "platformNatureAndDisclaimer": "تقدم منصة Mr Aqar منصة عبر الإنترنت للمستخدمين لنشر الإعلانات العقارية. Mr Aqar ليست وكالة عقارية أو شركة عقارات.",
-      "userConduct": "باستخدامك لـ Mr Aqar، فإنك توافق على الالتزام بالشروط المقررة.",
-      "registrationAndAdvertisements": "عند التسجيل كمستخدم أو معلن على Mr Aqar، فإنك تقر وتضمن أن جميع المعلومات التي تكتبها في إعلاناتك دقيقة وصحيحة.",
-      "privacyPolicy": "يلتزم Mr Aqar بحماية خصوصية مستخدميه.",
-      "intellectualProperty": "الملكية: جميع المواد والمحتويات المتاحة على Mr Aqar، باستثناء المحتوى الذي ينشئه المستخدم، هي ملك لـ Mr Aqar.",
-      "disputeResolution": "القانون المعمول به: تحكم هذه الشروط والأحكام من قبل قوانين دولة الكويت.",
-      "serviceModifications": "يحتفظ Mr Aqar بالحق في تعديل أو تعليق أو إيقاف أي جزء من المنصة أو خدماتها في أي وقت دون إشعار مسبق.",
-      "paidServicesRefundPolicy": "يتم دفع رسوم الخدمات على Mr Aqar ولا يمكن استردادها.",
-      "accountSecurity": "المسؤولية عن أمان الحساب تقع على المستخدم.",
-      "limitationOfLiability": "دور Mr Aqar محدود بتوفير مساحة للإعلانات فقط.",
-      "disclaimer": "يتم استخدام Mr Aqar على مسؤوليتك الخاصة.",
-      "thirdPartyLinks": "قد يحتوي Mr Aqar على روابط لمواقع أو خدمات من أطراف ثالثة.",
-      "forceMajeure": "لن يكون Mr Aqar مسؤولًا عن أي تأخير أو فشل في الأداء بسبب ظروف خارجة عن إرادته."
-    }
-  }
+    termsAndConditions: {
+      title: "الشروط والأحكام لمنصة Mr Aqar",
+      definitions: "التعريفات والمصطلحات",
+      boshamlan:
+        "Mr Aqar تشير إلى الموقع الإلكتروني ​https://www.mr-aqar.com أو خدمات Mr Aqar العقارية، بما في ذلك جميع تطبيقاته وبرامجه وحسابات وسائل التواصل الاجتماعي التابعة له وفروعه.",
+      user: "المستخدم، أنت: يشير إلى أي فرد أو كيان يستخدم خدمات Mr Aqar، سواء كزائر أو عضو مسجل.",
+      advertiser:
+        "المعلن: يشير إلى أي مستخدم مسجل يقوم بنشر إعلانات العقارات على منصة Mr Aqar.",
+      acceptanceOfTerms:
+        "من خلال استخدام Mr Aqar، سواء كزائر يتصفح المنصة أو بتسجيلك كعضو، فإنك تقر وتوافق على الالتزام بهذه الشروط والأحكام.",
+      platformNatureAndDisclaimer:
+        "تقدم منصة Mr Aqar منصة عبر الإنترنت للمستخدمين لنشر الإعلانات العقارية. Mr Aqar ليست وكالة عقارية أو شركة عقارات.",
+      userConduct:
+        "باستخدامك لـ Mr Aqar، فإنك توافق على الالتزام بالشروط المقررة.",
+      registrationAndAdvertisements:
+        "عند التسجيل كمستخدم أو معلن على Mr Aqar، فإنك تقر وتضمن أن جميع المعلومات التي تكتبها في إعلاناتك دقيقة وصحيحة.",
+      privacyPolicy: "يلتزم Mr Aqar بحماية خصوصية مستخدميه.",
+      intellectualProperty:
+        "الملكية: جميع المواد والمحتويات المتاحة على Mr Aqar، باستثناء المحتوى الذي ينشئه المستخدم، هي ملك لـ Mr Aqar.",
+      disputeResolution:
+        "القانون المعمول به: تحكم هذه الشروط والأحكام من قبل قوانين دولة الكويت.",
+      serviceModifications:
+        "يحتفظ Mr Aqar بالحق في تعديل أو تعليق أو إيقاف أي جزء من المنصة أو خدماتها في أي وقت دون إشعار مسبق.",
+      paidServicesRefundPolicy:
+        "يتم دفع رسوم الخدمات على Mr Aqar ولا يمكن استردادها.",
+      accountSecurity: "المسؤولية عن أمان الحساب تقع على المستخدم.",
+      limitationOfLiability: "دور Mr Aqar محدود بتوفير مساحة للإعلانات فقط.",
+      disclaimer: "يتم استخدام Mr Aqar على مسؤوليتك الخاصة.",
+      thirdPartyLinks:
+        "قد يحتوي Mr Aqar على روابط لمواقع أو خدمات من أطراف ثالثة.",
+      forceMajeure:
+        "لن يكون Mr Aqar مسؤولًا عن أي تأخير أو فشل في الأداء بسبب ظروف خارجة عن إرادته.",
+    },
+  },
 };

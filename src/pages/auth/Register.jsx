@@ -92,6 +92,7 @@ const Register = () => {
                   value={mobileNumber}
                   onChange={(e) => setMobileNumber(e.target.value)}
                   required
+                  
                 />
               </div>
             </div>
@@ -116,6 +117,7 @@ const Register = () => {
                     <FiEye className="text-gray-400" />
                   )}
                 </button>
+
                 <input
                   id="password"
                   type={passwordVisible ? "text" : "password"}
@@ -127,6 +129,7 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                   <FiLock className="text-gray-400" />
                 </span>
