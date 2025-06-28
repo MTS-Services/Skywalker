@@ -71,7 +71,7 @@ export default function MyArchive() {
                         </NavLink>
                     </h1>
                     <div className="relative min-h-48 mt-5">
-                        <div className="!overflow-visible h-auto flex flex-col gap-5">
+                        <div className="!overflow-visible h-auto flex flex-col gap-5 px-0.5">
                             {myAds.length > 0 ? (
                                 myAds.map((ad, index) => (
                                     <MyAdCard key={index} ad={ad} showRenew={true} onClick={handleAdClick} />

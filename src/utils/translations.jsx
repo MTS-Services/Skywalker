@@ -128,7 +128,8 @@ export const translations = {
 
     // Login Page
     login: {
-      title: "Hello again",
+      title: "Login",
+      shortTitle: "Enter your registered mobile number and password to login",
       newsuer: "New User?",
       singupLink: "Sign up",
       mobileNumber: "Mobile Number",
@@ -178,6 +179,7 @@ export const translations = {
 
     agent: {
       titlefast: "Real Estate Agents List in Kuwait ",
+      titlelast: "Agents",
     },
 
     // About Page

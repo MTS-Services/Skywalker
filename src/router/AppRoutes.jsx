@@ -13,11 +13,11 @@ import SearchResults from "../pages/search/SearchResults";
 import AdUpload from "../pages/adUpload/AdUpload";
 import MyAds from "../pages/myAds/MyAds";
 import MyArchive from "../pages/myArchive/MyArchive";
-import AgentList from "../testingCode/AgentList";
 import CompanyAdsPage from "../testingCode/AgentDetailsPage/CompanyAdsPage";
 import ProtectedRoute from "../authente/AuthProvideer/ProtectedRoute";
 import BuyCredits from "../pages/BuyCredits/BuyCredits";
 import Setting from "../pages/settings/Setting";
+import Agent from "../pages/agent/Agent";
 import PublicRoute from "../authente/AuthProvideer/PublicRoute";
 
 const AppRoutes = createBrowserRouter([
@@ -52,7 +52,7 @@ const AppRoutes = createBrowserRouter([
       },
       {
         path: "agents",
-        element: <AgentList />,
+        element: <Agent />,
       },
 
       {
