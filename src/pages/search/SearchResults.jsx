@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import AdCard from "../../components/shared/AdCard";
 import DetailsModal from "../adDetails/Modal";
+import axios from "axios";
 
 /**
  * Main SearchResults Page Component
@@ -56,8 +57,8 @@ const SearchResults = () => {
     const fetchAds = async () => {
       setLoading(true);
       try {
-        const response = await fetch("/data/ads.json");
-        const data = await response.json();
+        const response = await axios.get("/data/ads.json");
+        const data = await response.data;
         setAllAds(data);
       } catch (error) {
         console.error("Error fetching ads:", error);

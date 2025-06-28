@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import BannerImage from "../../assets/images/home-hero-banner.svg";
-import { MultiSelectDropdown } from "../../components/shared/FilterDropdown";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+// import BannerImage from "../../assets/images/home-hero-banner.svg"
+import { MultiSelectDropdown } from "../../components/shared/FilterDropdown"
 
 /**
  * Hero Component: Displays the main hero section with a background and search filters.
@@ -10,10 +10,19 @@ export default function Hero({ t, isRTL }) {
   return (
     <section className="relative py-6 sm:py-12 md:py-12 lg:py-20">
       <div className="absolute right-0 bottom-0 left-0 w-full">
+      <img
+          alt={t.site.name}
+          width="1920"
+          height="426"
+          className="h-auto w-full max-w-screen-2xl object-cover hidden lg:block"
+          src="/home-hero-desktop-hd.svg"
+        />
         <img
-          alt="Cityscape background"
-          className="h-auto w-full object-cover"
-          src={BannerImage || "/placeholder.svg"}
+          alt={t.site.name}
+          width="1920"
+          height="426"
+          className="h-auto w-full max-w-screen-2xl object-cover lg:hidden"
+          src="/home-hero-mobile-hd.svg"
         />
       </div>
 

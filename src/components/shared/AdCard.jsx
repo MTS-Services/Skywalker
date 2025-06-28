@@ -99,7 +99,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
 
           {/* Details */}
           <div className="flex-1 overflow-hidden">
-            <h2 className="">{ad.title}</h2>
+            <h2 className="line-clamp-2 break-words">{ad.title}</h2>
             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
               <h3 className="text-primary-900">
                 {ad.kd} {t.ads.currency}

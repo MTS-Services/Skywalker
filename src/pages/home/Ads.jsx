@@ -18,10 +18,6 @@ const generateSlug = (title) => {
     .trim();
 };
 
-/**
- * Ads Component with Pagination and Infinite Scroll
- * Fetches and displays a list of recent advertisements with load more functionality.
- */
 export default function Ads() {
   const [allAds, setAllAds] = useState([]);
   const [displayedAds, setDisplayedAds] = useState([]);
@@ -65,63 +61,12 @@ export default function Ads() {
     fetchAds();
   }, []);
 
-  // Load more ads function
-  // const loadMoreAds = useCallback(() => {
-  //   if (loadingMore || !hasMore) return
-
-  //   setLoadingMore(true)
-
-  //   // Simulate loading delay for better UX
-  //   setTimeout(() => {
-  //     const nextPage = currentPage + 1
-  //     const startIndex = (nextPage - 1) * ITEMS_PER_PAGE
-  //     const endIndex = startIndex + ITEMS_PER_PAGE
-  //     const newAds = allAds.slice(startIndex, endIndex)
-
-  //     if (newAds.length > 0) {
-  //       setDisplayedAds((prev) => [...prev, ...newAds])
-  //       setCurrentPage(nextPage)
-  //       setHasMore(endIndex < allAds.length)
-  //     } else {
-  //       setHasMore(false)
-  //     }
-
-  //     setLoadingMore(false)
-  //   }, 100)
-  // }, [allAds, currentPage, loadingMore, hasMore])
-
   // Handle load more button click
   const handleLoadMoreClick = () => {
     // setLoadMoreClicked(true) // Hide the button and enable infinite scroll
     // loadMoreAds()
     navigate("/search");
   };
-
-  // Intersection Observer for infinite scroll - only after load more is clicked
-  // useEffect(() => {
-  //   if (!loadMoreClicked) return // Don't start infinite scroll until load more is clicked
-
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting && hasMore && !loadingMore) {
-  //         loadMoreAds()
-  //       }
-  //     },
-  //     { threshold: 0.1 },
-  //   )
-
-  //   if (loadMoreRef.current) {
-  //     observer.observe(loadMoreRef.current)
-  //   }
-
-  //   observerRef.current = observer
-
-  //   return () => {
-  //     if (observerRef.current) {
-  //       observerRef.current.disconnect()
-  //     }
-  //   }
-  // }, [loadMoreAds, hasMore, loadingMore, loadMoreClicked])
 
   const formatTimeAgo = (dateString, lang) => {
     const postDate = new Date(dateString);
