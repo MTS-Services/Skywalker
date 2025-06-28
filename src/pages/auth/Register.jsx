@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useLanguage } from "../../context/LanguageContext";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import ButtonSubmit from "../../common/button/ButtonSubmit";
 
 const Register = () => {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -44,12 +45,9 @@ const Register = () => {
   };
 
   return (
-    <section
-      className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-12"
-      style={{ fontFamily: "var(--font-secondary)" }}
-    >
-      <div className="container flex h-full max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:flex-row">
-        {/* Left Image */}
+    <section className="flex items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-10 md:py-28 lg:h-screen">
+      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:h-auto md:flex-row md:px-8">
+        {/* Left Image (Hidden on small screens, visible on md and up) */}
         <div className="hidden p-12 md:block md:w-1/2">
           <img
             src={registerImg}
@@ -59,12 +57,12 @@ const Register = () => {
         </div>
 
         {/* Form */}
-        <div className="my-4 flex h-full w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="text-[#242424] font-primary mb-2 text-center text-[18px]">
+        <div className="flex w-full flex-col justify-center p-6 md:w-1/2 md:p-8">
+          <h1 className="font-primary mb-2 text-center text-black">
             {t.register.title}
-          </h2>
+          </h1>
 
-          <p className="font-primary mb-6 text-center text-sm text-[#556885]">
+          <p className="font-primary mb-6 text-center text-sm text-gray-600">
             {t.register.subtitle}
           </p>
 
@@ -73,15 +71,13 @@ const Register = () => {
             <div>
               <label
                 htmlFor="phone"
-                className="mb-2 block text-sm font-semibold text-gray-700"
-              >
-                
-              </label>
+                className="mb-2 block text-sm font-semibold text-gray-600"
+              ></label>
               <input
                 id="phone"
                 type="tel"
                 placeholder={t.register.mobileNumber}
-                className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-left text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none" // Added text-right here
+                className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
                 style={{ fontFamily: "var(--font-secondary)" }}
                 value={mobileNumber}
                 onChange={(e) => setMobileNumber(e.target.value)}
@@ -93,7 +89,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="password"
-                className="mb-2 block text-sm font-semibold text-gray-700"
+                className="mb-2 block text-sm font-semibold text-gray-600"
               ></label>
               <div className="relative">
                 <input
@@ -101,7 +97,7 @@ const Register = () => {
                   type={passwordVisible ? "text" : "password"}
                   placeholder={t.register.passwords}
                   autoComplete="new-password"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
+                  className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -110,14 +106,14 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="bg-background bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-3 rounded-xl py-2 text-base font-semibold text-white transition"
-              style={{ fontFamily: "var(--font-secondary)" }}
-            >
-              {t.register.buttontext}
-            </button>
+            <ButtonSubmit
+              text={
+                <span className="flex items-center gap-2">
+                  {t.register.buttontext}
+                </span>
+              }
+              className="!w-full rounded-xl"
+            />
           </form>
 
           {/* Link to Login */}
