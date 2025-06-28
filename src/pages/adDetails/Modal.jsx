@@ -126,17 +126,17 @@ export default function DetailsModal({
                 {ad.kd} {t.ads.currency}
               </div>
               <div className="mt-4 flex flex-wrap justify-center sm:gap-3">
-                <div className="bg-primary-600 font-primary flex items-center gap-1.5 rounded-full px-2 py-2 !text-xs sm:text-sm">
+                <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
                   <FiClock />
                   <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
                 </div>
-                <div className="bg-primary-600 font-primary flex items-center gap-1.5 rounded-full px-2 py-2 text-xs sm:text-sm">
+                <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
                   <FiEye />
                   <span>{ad.views}</span>
                 </div>
                 <button
                   onClick={() => handleShareClick(ad)}
-                  className="bg-primary-600 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-2 py-2 text-xs transition-colors sm:text-sm"
+                  className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-md px-4 py-2 text-xs transition-colors sm:text-sm"
                 >
                   <FiShare2 />
                 </button>
