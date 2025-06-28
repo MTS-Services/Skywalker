@@ -94,7 +94,7 @@ function Header() {
           {isAuthenticated && <Link to="/settings"><FiSettings /></Link>}
         </div>
 
-        <NavLink to={isAuthenticated ? "/add-upload" : "/login"} className="hidden lg:flex items-center gap-2 bg-primary-300/10 px-5 py-2 rounded-md border border-primary-300/40">
+        <NavLink to={isAuthenticated ? "/ad-upload" : "/login"} className="hidden lg:flex items-center gap-2 bg-primary-300/10 px-5 py-2 rounded-md border border-primary-300/40">
           <FaPlusCircle className="text-primary-600 text-lg" />
           {t.header.addFreeAd}
         </NavLink>
