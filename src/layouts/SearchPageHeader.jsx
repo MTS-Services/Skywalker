@@ -4,7 +4,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { FiAlignLeft } from "react-icons/fi";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 import { FaArrowLeft, FaBars } from "react-icons/fa";
-import { SideBar } from "./Sidebar";
+import { SideBar } from "./SideBar";
 
 // Component 1: Multi-Select Filter
 const DesktopRegionFilter = ({
