@@ -1,37 +1,53 @@
-// src/pages/auth/Login.jsx
 import React, { useState, useContext } from "react";
 import { FiPhone, FiEye, FiEyeOff, FiLock } from "react-icons/fi";
-import { useLanguage } from "../../context/LanguageContext";
-import { useNavigate, Link } from "react-router-dom"; // Link আমদানি করুন
-import lignimg from "../../assits/login/login (2).png";
-import { AuthContext } from "../../context/AuthContext";
+import { useLanguage } from "../../context/LanguageContext"; // Importing language context for translation
+import { useNavigate, Link } from "react-router-dom";
+import lignimg from "../../assits/login/login (2).png"; // Login image for visual representation
+import { AuthContext } from "../../context/AuthContext"; // Importing Auth context
+import toast from 'react-hot-toast'; // For displaying toast notifications
 
 const Login = () => {
+  // State variables for mobile number and password input fields
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
 
-  const { login } = useContext(AuthContext); // AuthProvider থেকে login ফাংশন আমদানি করুন
-  const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { login } = useContext(AuthContext); // Accessing login function from AuthContext
+  const navigate = useNavigate(); // To navigate to different pages
+  const { t } = useLanguage(); // Language context for translations
 
+  // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
-    // async ব্যবহার করুন যদি login ফাংশন async হয়
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
 
-    // AuthProvider এর login ফাংশন কল করুন
-    const result = await login(mobileNumber, password); // mobileNumber এবং password পাস করুন
-    localStorage.setItem("user", true);
+    // Basic form validation (optional but good practice)
+    if (!mobileNumber || !password) {
+      toast.error("Please enter both mobile number and password."); // Display error toast if any field is empty
+      return;
+    }
 
-    if (result.success) {
-      alert(result.message); // "Login successful!"
-      navigate("/");
-    } else {
-      alert(result.message); // "Invalid mobile number or password."
+    try {
+      // Calling login function from AuthContext
+      const result = await login(mobileNumber, password);
+
+      // If login is successful
+      if (result.success) {
+        toast.success(result.message); // Show success toast
+        // Redirect to home after a short delay to show toast message
+        setTimeout(() => {
+          navigate("/"); 
+        }, 1500);
+      } else {
+        toast.error(result.message); // Display error toast if login fails
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An unexpected error occurred. Please try again."); // Display generic error toast if any issue occurs
     }
   };
 
@@ -53,16 +69,16 @@ const Login = () => {
         {/* Right Form Section */}
         <div className="flex w-full flex-col justify-center p-10 md:w-1/2">
           <h2 className="text-primary-500 mb-2 text-center text-3xl font-bold">
-            {t.login.title}
+            {t.login.title} {/* Translated title */}
           </h2>
           <p className="mb-10 text-center text-sm text-gray-600">
             {t.login.newsuer}
             <Link
-              to="/register" // Link কম্পোনেন্ট ব্যবহার করুন
-              className="text-primary-500 font-semibold hover:underline px-2"
+              to="/register" // Link to the register page
+              className="text-primary-500 px-2 font-semibold hover:underline"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
-              <span>{t.login.singupLink}</span>
+              <span>{t.login.singupLink}</span> {/* Translated signup link */}
             </Link>
           </p>
 
@@ -71,7 +87,7 @@ const Login = () => {
             <div>
               <div className="relative">
                 <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <FiPhone className="text-gray-400" />
+                  <FiPhone className="text-gray-400" /> {/* Phone icon */}
                 </span>
                 <input
                   id="phone"
@@ -92,7 +108,7 @@ const Login = () => {
                 htmlFor="password"
                 className="mb-2 block text-sm font-semibold text-gray-700"
               >
-                {t.register.passwords}{" "}
+                {t.register.passwords} {/* Translated password label */}
               </label>
               <div className="relative">
                 <button
@@ -118,7 +134,7 @@ const Login = () => {
                   required
                 />
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <FiLock className="text-gray-400" />
+                  <FiLock className="text-gray-400" /> {/* Lock icon */}
                 </span>
               </div>
             </div>
@@ -135,21 +151,22 @@ const Login = () => {
                 htmlFor="remember-me"
                 className="ml-2 block pr-1 text-sm text-gray-900"
               >
-                {t.login.remember}
+                {t.login.remember} {/* Translated remember me label */}
               </label>
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="bg-background bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-3 rounded-xl py-2 text-base font-semibold text-white
-               transition"
+              className="bg-background bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-3 rounded-xl py-2 text-base font-semibold text-white transition"
             >
-              {t.login.buttontext}
+              {t.login.buttontext} {/* Translated button text */}
             </button>
           </form>
         </div>
       </div>
+      
+   
     </section>
   );
 };

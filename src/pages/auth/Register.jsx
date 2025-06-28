@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { FiPhone, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import registerImg from "../../assits/login/register (2).png";
-
+import toast from "react-hot-toast"; // toast আমদানি করুন
 import { useLanguage } from "../../context/LanguageContext";
-import { useNavigate, Link } from "react-router-dom"; // Link আমদানি করুন
-import { AuthContext } from "../../context/AuthContext"; // AuthContext আমদানি করুন
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Register = () => {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -13,30 +13,37 @@ const Register = () => {
 
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const { registerUser } = useContext(AuthContext); // AuthContext থেকে registerUser ফাংশন নিন
+  const { registerUser } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
   const handleSubmit = async (e) => {
-    // async ব্যবহার করুন কারণ registerUser একটি প্রমিস রিটার্ন করে
     e.preventDefault();
 
+    // Basic password validation
     if (password.length < 6) {
-      // প্রাথমিক পাসওয়ার্ড ভ্যালিডেশন
-      alert("Password must be at least 6 characters long.");
+      toast.error("Password must be at least 6 characters long."); // Show error toast
       return;
     }
 
-    // AuthProvider এর registerUser ফাংশন কল করুন
-    const result = await registerUser(mobileNumber, password);
+    try {
+      // Call the registerUser function from AuthContext
+      const result = await registerUser(mobileNumber, password);
 
-    if (result.success) {
-      alert(result.message); // "Registration successful! Please proceed to login."
-      navigate("/"); // সফল রেজিস্ট্রেশনের পর লগইন পেজে রিডাইরেক্ট করুন
-    } else {
-      alert(result.message); // "Mobile number already registered."
+      if (result.success) {
+        toast.success(result.message); // Show success toast
+        // Redirect to login page after successful registration
+        setTimeout(() => {
+          navigate("/");
+        }, 1500); // Redirect after 1.5 seconds so user can see the toast
+      } else {
+        toast.error(result.message); // Show error toast for failed registration
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("An unexpected error occurred. Please try again."); // Generic error toast
     }
   };
 
@@ -139,7 +146,7 @@ const Register = () => {
           {/* Link to Login */}
           <p className="mt-6 text-center text-gray-600">
             {t.register.alradyLogin}
-            <Link // a ট্যাগ এর পরিবর্তে Link কম্পোনেন্ট ব্যবহার করুন
+            <Link
               to="/login"
               className="text-primary-500 font-semibold hover:underline"
               style={{ fontFamily: "var(--font-secondary)" }}
