@@ -1,192 +1,188 @@
 [
-    {
-        "id": 1,
-        "isArchive": true,
-        "title": "Spacious 3BR Apartment in Hawally",
-        "kd": "950",
-        "postCreateAt": "2025-06-20T10:30:00Z",
-        "description": "Modern 3-bedroom apartment with 2 bathrooms, large living area, and fully equipped kitchen. Located near shopping centers and schools. Features include central AC, built-in wardrobes, and covered parking.",
-        "whatsapp": "+96561234567",
-        "views": 120,
-        "images": [
-            "https://placehold.co/800x600/A5D8FF/333?text=Apt+Living+Room",
-            "https://placehold.co/800x600/A5D8FF/333?text=Apt+Kitchen",
-            "https://placehold.co/800x600/A5D8FF/333?text=Apt+Bedroom"
-        ],
-        "slug": "spacious-3br-apartment-hawally",
-        "transactionType": "rent",
-        "propertyType": "apartment",
-        "region": "hawally",
-        "isSuper": true
-    },
-    {
-        "id": 2,
-        "isArchive": true,
-        "title": "Luxury Villa for Sale in Salwa",
-        "kd": "450000",
-        "postCreateAt": "2025-06-18T14:15:00Z",
-        "description": "Exquisite 5-bedroom villa with private pool, landscaped garden, and high-end finishes. Perfect for large families seeking comfort and luxury. Features marble floors, designer kitchen, and maid's room.",
-        "whatsapp": "+96561234568",
-        "views": 250,
-        "images": [
-            "https://placehold.co/800x600/FFC8A5/333?text=Villa+Exterior",
-            "https://placehold.co/800x600/FFC8A5/333?text=Pool+Area",
-            "https://placehold.co/800x600/FFC8A5/333?text=Master+Bedroom"
-        ],
-        "slug": "luxury-villa-sale-salwa",
-        "transactionType": "sale",
-        "propertyType": "villa",
-        "region": "salwa",
-        "isSuper": true
-    },
-    {
-        "id": 3,
-        "isArchive": true,
-        "title": "Prime Commercial Shop in Salmiya",
-        "kd": "700",
-        "postCreateAt": "2025-06-15T09:45:00Z",
-        "description": "Prime commercial shop in bustling Salmiya area, perfect for retail or small businesses. High foot traffic location with excellent visibility. Includes storage area and customer parking.",
-        "whatsapp": "+96561234569",
-        "views": 80,
-        "images": [
-            "https://placehold.co/800x600/C8A5FF/333?text=Shop+Front",
-            "https://placehold.co/800x600/C8A5FF/333?text=Interior+Space"
-        ],
-        "slug": "prime-commercial-shop-salmiya",
-        "transactionType": "rent",
-        "propertyType": "commercial",
-        "region": "salmiya",
-        "isSuper": false
-    },
-    {
-        "id": 4,
-        "isOpen": true,
-        "title": "Cozy Studio for Exchange in Jabriya",
-        "kd": "250",
-        "postCreateAt": "2025-06-12T16:20:00Z",
-        "description": "Cozy studio apartment perfect for singles or young professionals. Includes compact kitchen and private bathroom. Looking to exchange for a 1-bedroom apartment in similar area.",
-        "whatsapp": "+96561234570",
-        "views": 95,
-        "images": [
-            "https://placehold.co/800x600/FFFDC8/333?text=Studio+Interior"
-        ],
-        "slug": "cozy-studio-exchange-jabriya",
-        "transactionType": "exchange",
-        "propertyType": "apartment",
-        "region": "jabriya",
-        "isSuper": false
-    },
-    {
-        "id": 5,
-        "isDelete": true,
-        "title": "Investment Land Plot in Hawally",
-        "kd": "120000",
-        "postCreateAt": "2025-06-10T11:00:00Z",
-        "description": "Large residential land plot available for immediate development. Great investment opportunity in developing area of Hawally. Suitable for apartment building or villa construction.",
-        "whatsapp": "+96561234571",
-        "views": 45,
-        "images": [
-            "https://placehold.co/800x600/A5FFAA/333?text=Land+Plot"
-        ],
-        "slug": "investment-land-plot-hawally",
-        "transactionType": "sale",
-        "propertyType": "land",
-        "region": "hawally",
-        "isSuper": true
-    },
-    {
-        "id": 6,
-        "isOpen": true,
-        "title": "Modern 4BR House in Jabriya",
-        "kd": "1800",
-        "postCreateAt": "2025-06-08T13:30:00Z",
-        "description": "Stylish 4-bedroom house with contemporary design and access to community amenities. Family-friendly neighborhood with parks and schools nearby. Features include garden, garage, and modern appliances.",
-        "whatsapp": "+96561234572",
-        "views": 180,
-        "images": [
-            "https://placehold.co/800x600/FFA5A5/333?text=Modern+House",
-            "https://placehold.co/800x600/FFA5A5/333?text=Garden+View"
-        ],
-        "slug": "modern-4br-house-jabriya",
-        "transactionType": "rent",
-        "propertyType": "house",
-        "region": "jabriya",
-        "isSuper": false
-    },
-    {
-        "id": 7,
-        "isDelete": true,
-        "title": "Investment Building in Salmiya",
-        "kd": "250000",
-        "postCreateAt": "2025-06-05T08:15:00Z",
-        "description": "Entire residential building for sale in prime Salmiya location. Includes 10 apartments and ground floor parking. Excellent investment opportunity with high rental yield potential.",
-        "whatsapp": "+96561234573",
-        "views": 100,
-        "images": [
-            "https://placehold.co/800x600/A5E9FF/333?text=Building+Exterior",
-            "https://placehold.co/800x600/A5E9FF/333?text=Apartment+Sample"
-        ],
-        "slug": "investment-building-salmiya",
-        "transactionType": "sale",
-        "propertyType": "building",
-        "region": "salmiya",
-        "isSuper": true
-    },
-    {
-        "id": 8,
-        "isArchive": true,
-        "title": "Agricultural Farm in Wafra",
-        "kd": "1000",
-        "postCreateAt": "2025-05-18T07:45:00Z",
-        "description": "Large agricultural farm with farmhouse, perfect for farming or quiet retreat. Fully equipped with irrigation system, storage facilities, and worker accommodation.",
-        "whatsapp": "+96561234579",
-        "views": 55,
-        "images": [
-            "https://placehold.co/800x600/D4FFA5/333?text=Farm+House",
-            "https://placehold.co/800x600/D4FFA5/333?text=Agricultural+Land"
-        ],
-        "slug": "agricultural-farm-wafra",
-        "transactionType": "rent",
-        "propertyType": "farm",
-        "region": "wafra",
-        "isSuper": false
-    },
-    {
-        "id": 9,
-        "isOpen": true,
-        "title": "Beachfront Chalet in Khiran",
-        "kd": "600",
-        "postCreateAt": "2025-05-15T12:00:00Z",
-        "description": "Beautiful beachfront chalet with direct sea access, ideal for weekend getaways. Features include private beach area, BBQ facilities, and stunning sea views. Willing to exchange for city apartment.",
-        "whatsapp": "+96561234580",
-        "views": 88,
-        "images": [
-            "https://placehold.co/800x600/A5C8FF/333?text=Chalet+Exterior",
-            "https://placehold.co/800x600/A5C8FF/333?text=Beach+View"
-        ],
-        "slug": "beachfront-chalet-khiran",
-        "transactionType": "exchange",
-        "propertyType": "chalet",
-        "region": "ahmadi",
-        "isSuper": true
-    },
-    {
-        "id": 10,
-        "isDelete": true,
-        "title": "Executive Office Space in Capital",
-        "kd": "1200",
-        "postCreateAt": "2025-05-12T10:30:00Z",
-        "description": "Premium office space in Kuwait City's business district. Features include reception area, conference room, and modern amenities. Perfect for corporate headquarters or professional services.",
-        "whatsapp": "+96561234581",
-        "views": 67,
-        "images": [
-            "https://placehold.co/800x600/FFE5A5/333?text=Office+Reception",
-            "https://placehold.co/800x600/FFE5A5/333?text=Conference+Room"
-        ],
-        "slug": "executive-office-space-capital",
-        "transactionType": "rent",
-        "propertyType": "office",
-        "region": "capital",
-        "isSuper": false
-    }
+  {
+    "id": 1,
+    "isArchive": true,
+    "title": "Spacious 3BR Apartment in Hawally",
+    "kd": "950",
+    "postCreateAt": "2025-06-20T10:30:00Z",
+    "description": "Modern 3-bedroom apartment with 2 bathrooms, large living area, and fully equipped kitchen. Located near shopping centers and schools. Features include central AC, built-in wardrobes, and covered parking.",
+    "whatsapp": "61234567",
+    "views": 120,
+    "images": [
+      "https://placehold.co/800x600/A5D8FF/333?text=Apt+Living+Room",
+      "https://placehold.co/800x600/A5D8FF/333?text=Apt+Kitchen",
+      "https://placehold.co/800x600/A5D8FF/333?text=Apt+Bedroom"
+    ],
+    "slug": "spacious-3br-apartment-hawally",
+    "transactionType": "rent",
+    "propertyType": "apartment",
+    "region": "hawally",
+    "isSuper": true
+  },
+  {
+    "id": 2,
+    "isArchive": true,
+    "title": "Luxury Villa for Sale in Salwa",
+    "kd": "450000",
+    "postCreateAt": "2025-06-18T14:15:00Z",
+    "description": "Exquisite 5-bedroom villa with private pool, landscaped garden, and high-end finishes. Perfect for large families seeking comfort and luxury. Features marble floors, designer kitchen, and maid's room.",
+    "whatsapp": "61234568",
+    "views": 250,
+    "images": [
+      "https://placehold.co/800x600/FFC8A5/333?text=Villa+Exterior",
+      "https://placehold.co/800x600/FFC8A5/333?text=Pool+Area",
+      "https://placehold.co/800x600/FFC8A5/333?text=Master+Bedroom"
+    ],
+    "slug": "luxury-villa-sale-salwa",
+    "transactionType": "sale",
+    "propertyType": "villa",
+    "region": "salwa",
+    "isSuper": true
+  },
+  {
+    "id": 3,
+    "isArchive": true,
+    "title": "Prime Commercial Shop in Salmiya",
+    "kd": "700",
+    "postCreateAt": "2025-06-15T09:45:00Z",
+    "description": "Prime commercial shop in bustling Salmiya area, perfect for retail or small businesses. High foot traffic location with excellent visibility. Includes storage area and customer parking.",
+    "whatsapp": "61234569",
+    "views": 80,
+    "images": [
+      "https://placehold.co/800x600/C8A5FF/333?text=Shop+Front",
+      "https://placehold.co/800x600/C8A5FF/333?text=Interior+Space"
+    ],
+    "slug": "prime-commercial-shop-salmiya",
+    "transactionType": "rent",
+    "propertyType": "commercial",
+    "region": "salmiya",
+    "isSuper": false
+  },
+  {
+    "id": 4,
+    "isOpen": true,
+    "title": "Cozy Studio for Exchange in Jabriya",
+    "kd": "250",
+    "postCreateAt": "2025-06-12T16:20:00Z",
+    "description": "Cozy studio apartment perfect for singles or young professionals. Includes compact kitchen and private bathroom. Looking to exchange for a 1-bedroom apartment in similar area.",
+    "whatsapp": "61234570",
+    "views": 95,
+    "images": ["https://placehold.co/800x600/FFFDC8/333?text=Studio+Interior"],
+    "slug": "cozy-studio-exchange-jabriya",
+    "transactionType": "exchange",
+    "propertyType": "apartment",
+    "region": "jabriya",
+    "isSuper": false
+  },
+  {
+    "id": 5,
+    "isDelete": true,
+    "title": "Investment Land Plot in Hawally",
+    "kd": "120000",
+    "postCreateAt": "2025-06-10T11:00:00Z",
+    "description": "Large residential land plot available for immediate development. Great investment opportunity in developing area of Hawally. Suitable for apartment building or villa construction.",
+    "whatsapp": "61234571",
+    "views": 45,
+    "images": ["https://placehold.co/800x600/A5FFAA/333?text=Land+Plot"],
+    "slug": "investment-land-plot-hawally",
+    "transactionType": "sale",
+    "propertyType": "land",
+    "region": "hawally",
+    "isSuper": true
+  },
+  {
+    "id": 6,
+    "isOpen": true,
+    "title": "Modern 4BR House in Jabriya",
+    "kd": "1800",
+    "postCreateAt": "2025-06-08T13:30:00Z",
+    "description": "Stylish 4-bedroom house with contemporary design and access to community amenities. Family-friendly neighborhood with parks and schools nearby. Features include garden, garage, and modern appliances.",
+    "whatsapp": "61234572",
+    "views": 180,
+    "images": [
+      "https://placehold.co/800x600/FFA5A5/333?text=Modern+House",
+      "https://placehold.co/800x600/FFA5A5/333?text=Garden+View"
+    ],
+    "slug": "modern-4br-house-jabriya",
+    "transactionType": "rent",
+    "propertyType": "house",
+    "region": "jabriya",
+    "isSuper": false
+  },
+  {
+    "id": 7,
+    "isDelete": true,
+    "title": "Investment Building in Salmiya",
+    "kd": "250000",
+    "postCreateAt": "2025-06-05T08:15:00Z",
+    "description": "Entire residential building for sale in prime Salmiya location. Includes 10 apartments and ground floor parking. Excellent investment opportunity with high rental yield potential.",
+    "whatsapp": "61234573",
+    "views": 100,
+    "images": [
+      "https://placehold.co/800x600/A5E9FF/333?text=Building+Exterior",
+      "https://placehold.co/800x600/A5E9FF/333?text=Apartment+Sample"
+    ],
+    "slug": "investment-building-salmiya",
+    "transactionType": "sale",
+    "propertyType": "building",
+    "region": "salmiya",
+    "isSuper": true
+  },
+  {
+    "id": 8,
+    "isArchive": true,
+    "title": "Agricultural Farm in Wafra",
+    "kd": "1000",
+    "postCreateAt": "2025-05-18T07:45:00Z",
+    "description": "Large agricultural farm with farmhouse, perfect for farming or quiet retreat. Fully equipped with irrigation system, storage facilities, and worker accommodation.",
+    "whatsapp": "61234579",
+    "views": 55,
+    "images": [
+      "https://placehold.co/800x600/D4FFA5/333?text=Farm+House",
+      "https://placehold.co/800x600/D4FFA5/333?text=Agricultural+Land"
+    ],
+    "slug": "agricultural-farm-wafra",
+    "transactionType": "rent",
+    "propertyType": "farm",
+    "region": "wafra",
+    "isSuper": false
+  },
+  {
+    "id": 9,
+    "isOpen": true,
+    "title": "Beachfront Chalet in Khiran",
+    "kd": "600",
+    "postCreateAt": "2025-05-15T12:00:00Z",
+    "description": "Beautiful beachfront chalet with direct sea access, ideal for weekend getaways. Features include private beach area, BBQ facilities, and stunning sea views. Willing to exchange for city apartment.",
+    "whatsapp": "61234580",
+    "views": 88,
+    "images": [
+      "https://placehold.co/800x600/A5C8FF/333?text=Chalet+Exterior",
+      "https://placehold.co/800x600/A5C8FF/333?text=Beach+View"
+    ],
+    "slug": "beachfront-chalet-khiran",
+    "transactionType": "exchange",
+    "propertyType": "chalet",
+    "region": "ahmadi",
+    "isSuper": true
+  },
+  {
+    "id": 10,
+    "isDelete": true,
+    "title": "Executive Office Space in Capital",
+    "kd": "1200",
+    "postCreateAt": "2025-05-12T10:30:00Z",
+    "description": "Premium office space in Kuwait City's business district. Features include reception area, conference room, and modern amenities. Perfect for corporate headquarters or professional services.",
+    "whatsapp": "61234581",
+    "views": 67,
+    "images": [
+      "https://placehold.co/800x600/FFE5A5/333?text=Office+Reception",
+      "https://placehold.co/800x600/FFE5A5/333?text=Conference+Room"
+    ],
+    "slug": "executive-office-space-capital",
+    "transactionType": "rent",
+    "propertyType": "office",
+    "region": "capital",
+    "isSuper": false
+  }
 ]
