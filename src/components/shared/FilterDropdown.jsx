@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
+import { useLanguage } from "../../context/LanguageContext";
 
 /**
  * 1. Reusable MultiSelectDropdown Component (Original - Shows selected items)
@@ -14,6 +15,7 @@ export const MultiSelectDropdown = ({
   isOpen,
   onToggle,
 }) => {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
 
@@ -44,7 +46,7 @@ export const MultiSelectDropdown = ({
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <div
-        className={`focus-within:ring-primary-400 border-primary-100 flex w-full cursor-pointer items-center rounded-3xl border bg-white p-3 focus-within:ring-1 ${isOpen ? "ring-primary-400 ring-1" : ""}`}
+        className={`focus-within:ring-gray-200 border-gray-200 flex w-full cursor-pointer items-center rounded-3xl border bg-white p-3 focus-within:ring-1 ${isOpen ? "ring-gray-300 ring-1" : ""}`}
         onClick={onToggle}
         role="button"
         tabIndex="0"
@@ -55,17 +57,17 @@ export const MultiSelectDropdown = ({
           }
         }}
       >
-        <span className="text-primary-400">
+        <span className="text-gray-400">
           <LuSearch />
         </span>
         <div
-          className={`text-primary-900 flex-grow px-2 ${isRTL ? "text-right" : "text-left"} flex min-h-[24px] flex-wrap gap-1`}
+          className={`flex-grow px-2 ${isRTL ? "text-right" : "text-left"} flex min-h-[24px] flex-wrap gap-1`}
         >
           {selectedItems.length > 0
             ? selectedItems.map((item) => (
               <span
                 key={item.id}
-                className="bg-primary-50 text-primary-900 flex items-center rounded-full px-2 py-1 text-xs font-medium"
+                className="bg-primary-300/20 flex items-center rounded-full px-2 py-1 text-xs font-medium"
               >
                 {item.name}
                 <button
@@ -83,32 +85,19 @@ export const MultiSelectDropdown = ({
             : placeholder}
         </div>
         <span
-          className={`text-primary-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
-          </svg>
+          <LuChevronDown />
         </span>
       </div>
 
       {isOpen && (
-        <div className="border-primary-200 absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
+        <div className="border-gray-200 absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
           <div className="p-2">
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className={`border-primary-100 focus:ring-primary-400 w-full rounded-lg border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+              className={`border-gray-300 focus:ring-gray-300 w-full rounded-lg border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onClick={(e) => e.stopPropagation()}
@@ -119,7 +108,7 @@ export const MultiSelectDropdown = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`hover:bg-primary-50 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);
@@ -134,24 +123,24 @@ export const MultiSelectDropdown = ({
                       checked={selectedItems.some(
                         (item) => item.id === option.id,
                       )}
-                      className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
+                      className="form-checkbox h-4 w-4 cursor-pointer rounded"
                     />
                     <span
-                      className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
+                      className={`${isRTL ? "mr-2" : "ml-2"}`}
                     >
                       {option.name}
                     </span>
                   </div>
                   {option.count && (
-                    <span className="text-primary-900 text-sm">
+                    <span className=" text-sm">
                       ({option.count})
                     </span>
                   )}
                 </li>
               ))
             ) : (
-              <li className="text-primary-900 p-2 text-center">
-                No results found
+              <li className="text-gray-800 p-2 text-center">
+                {t.search.noResultsFound}
               </li>
             )}
           </ul>
@@ -177,6 +166,7 @@ export const OnlyMultiSelectDropdown = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -205,7 +195,7 @@ export const OnlyMultiSelectDropdown = ({
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <div
-        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-primary-400 ring-1" : ""}`}
+        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-left text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 ${isRTL ? "flex-row-reverse" : ""}`}
         onClick={onToggle}
         role="button"
         tabIndex="0"
@@ -216,40 +206,23 @@ export const OnlyMultiSelectDropdown = ({
           }
         }}
       >
-        {/* <span className="text-primary-400">
-          <LuSearch />
-        </span> */}
-        {/* MODIFIED PART: This section now always shows the placeholder, never the selected items. */}
         <span>
           {placeholder}
         </span>
         <span
-          className={`text-primary-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={` transition-transform ${isOpen ? "rotate-180" : ""}`}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
-          </svg>
+          <LuChevronDown />
         </span>
       </div>
 
       {isOpen && (
-        <div className="border-primary-200 absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
+        <div className="border-gray-200 absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
           <div className="p-2">
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className={`border-primary-100 focus:ring-primary-400 w-full rounded-lg border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+              className={`border-gray-300 focus:ring-gray-300 w-full rounded-lg border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onClick={(e) => e.stopPropagation()}
@@ -260,7 +233,7 @@ export const OnlyMultiSelectDropdown = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`hover:bg-primary-50 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);
@@ -275,24 +248,24 @@ export const OnlyMultiSelectDropdown = ({
                       checked={selectedItems.some(
                         (item) => item.id === option.id,
                       )}
-                      className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
+                      className="form-checkbox h-4 w-4 cursor-pointer rounded"
                     />
                     <span
-                      className={`text-primary-900 ${isRTL ? "mr-2" : "ml-2"}`}
+                      className={`${isRTL ? "mr-2" : "ml-2"}`}
                     >
                       {option.name}
                     </span>
                   </div>
                   {option.count && (
-                    <span className="text-primary-900 text-sm">
+                    <span className="text-sm">
                       ({option.count})
                     </span>
                   )}
                 </li>
               ))
             ) : (
-              <li className="text-primary-900 p-2 text-center">
-                No results found
+              <li className="text-gray-800 p-2 text-center">
+                {t.search.noResultsFound}
               </li>
             )}
           </ul>
@@ -320,6 +293,7 @@ export const SingleSelectDropdown = ({
 }) => {
   const dropdownRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -347,7 +321,7 @@ export const SingleSelectDropdown = ({
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-medium text-primary-900 shadow-sm transition-colors hover:bg-primary-50/60 ${isOpen ? "ring-1 ring-primary-400" : ""}`}
+        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-left text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 ${isRTL ? "flex-row-reverse" : ""}`}
         onClick={onToggle}
       >
         <span>{label}</span>
@@ -360,14 +334,14 @@ export const SingleSelectDropdown = ({
 
       {isOpen && (
         <div
-          className={`border-primary-200 absolute z-20 mt-2 max-h-60 w-fit min-w-44 overflow-y-auto rounded-lg border bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+          className={`border-gray-200 absolute z-20 mt-2 max-h-60 w-fit min-w-44 overflow-y-auto rounded-lg border bg-white shadow-lg ${isRTL ? "left-0" : "right-0"}`}
         >
           {hasSearch && (
-            <div className="border-primary-100 border-b p-2">
+            <div className="border-gray-200 border-b p-2">
               <input
                 type="text"
                 placeholder={searchPlaceholder || "Search..."}
-                className={`border-primary-100 focus:border-primary-400 focus:ring-primary-400 w-full rounded-lg border p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
+                className={`border-gray-300  focus:ring-gray-300 w-full rounded-lg border p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -378,14 +352,14 @@ export const SingleSelectDropdown = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`hover:bg-primary-50 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""}`}
+                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""}`}
                   onClick={() => handleSelect(option.id)}
                 >
                   <input
                     type="radio"
                     readOnly
                     checked={selectedValue === option.id}
-                    className="text-primary-400 h-4 w-4 cursor-pointer"
+                    className="form-radio h-4 w-4 cursor-pointer"
                   />
                   <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
                     {option.name}
@@ -394,7 +368,7 @@ export const SingleSelectDropdown = ({
               ))
             ) : (
               <li className="p-2 text-center text-gray-500">
-                {searchPlaceholder || "No results"}
+                {t.search.noResultsFound}
               </li>
             )}
           </ul>
