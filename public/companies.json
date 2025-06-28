@@ -1,11 +1,10 @@
-
 [
   {
     "id": "aman_real_estate",
     "name": "Aman Real Estate Brokerage Company",
     "logo_url": "/assets/images/cart2.png",
     "social_media": {
-      "whatsapp": "96561234567",
+      "whatsapp": "6561234567",
       "instagram": "https://www.instagram.com/amanrealestate_kw/"
     },
     "description": "Aman Real Estate Brokerage Company with a legacy of trust and excellence in Kuwaiti real estate. We offer a wide range of properties for rent, sale, and exchange, ensuring top-notch services for our clients.",
@@ -16,7 +15,7 @@
         "kd": "950",
         "postCreateAt": "2025-06-20",
         "description": "A modern 3-bedroom apartment with 2 bathrooms, a large living area, and a fully equipped kitchen. Located near shopping centers and schools.",
-        "whatsapp": "+96561234567",
+        "whatsapp": "61234567",
         "views": 120,
         "images": ["/assets/images/cart2.png", "/assets/ads/apt2.jpg"],
         "slug": "spacious-apartment-in-hawally",
@@ -31,7 +30,7 @@
         "kd": "450,000",
         "postCreateAt": "2025-06-18",
         "description": "An exquisite 5-bedroom villa with private pool, landscaped garden, and high-end finishes. Ideal for a large family seeking comfort and luxury.",
-        "whatsapp": "+96561234568",
+        "whatsapp": "61234568",
         "views": 250,
         "images": ["/assets/images/cart2.png", "/assets/ads/villa2.jpg"],
         "slug": "luxury-villa-in-salwa",
@@ -46,7 +45,7 @@
         "kd": "1,000",
         "postCreateAt": "2025-05-18",
         "description": "Large farmhouse with vast agricultural land, perfect for farming or a quiet retreat. Fully equipped.",
-        "whatsapp": "+96561234579",
+        "whatsapp": "61234579",
         "views": 55,
         "images": ["/assets/images/cart2.png"],
         "slug": "farmhouse-for-rent-in-wafra",
@@ -55,14 +54,8 @@
         "region": "hawally",
         "isSuper": false
       }
-      
     ]
   },
-
-
-
-
-
 
   {
     "id": "east_real_estate",
@@ -80,7 +73,7 @@
         "kd": "700",
         "postCreateAt": "2025-06-15",
         "description": "Prime commercial shop located in a bustling area of Salmiya, suitable for retail or small businesses. High foot traffic.",
-        "whatsapp": "+96561234569",
+        "whatsapp": "61234569",
         "views": 80,
         "images": ["/assets/images/cart1.png"],
         "slug": "commercial-shop-in-salmiya",
@@ -89,7 +82,6 @@
         "region": "salmiya",
         "isSuper": false
       }
-     
     ]
   },
 
@@ -97,7 +89,7 @@
     "id": "real_estate_office",
     "name": "Real Estate Office",
     "logo_url": "/assets/images/cart9.jpg",
-   
+
     "social_media": {
       "whatsapp": "96561234570",
       "facebook": "/assets/images/cart1.png"
@@ -110,7 +102,7 @@
         "kd": "250",
         "postCreateAt": "2025-06-12",
         "description": "Cozy studio apartment, perfect for singles. Includes a compact kitchen and private bathroom. Looking to exchange for a 1-bedroom.",
-        "whatsapp": "+96561234570",
+        "whatsapp": "61234570",
         "views": 95,
         "images": ["/assets/images/cart9.jpg"],
         "slug": "studio-for-exchange-in-jabriya",
@@ -125,7 +117,7 @@
         "kd": "1,800",
         "postCreateAt": "2025-06-08",
         "description": "Stylish 4-bedroom house with contemporary design and access to community amenities. Family-friendly neighborhood in Jabriya.",
-        "whatsapp": "+96561234572",
+        "whatsapp": "61234572",
         "views": 180,
         "images": ["/assets/images/cart9.jpgg"],
         "slug": "modern-house-in-jabriya",
@@ -137,17 +129,11 @@
     ]
   },
 
-
-
-
-
-
   {
     "id": "real_estate_distance",
     "name": "Real Estate Distance Company",
     "logo_url": "assets/images/cart8.jpg",
 
-   
     "social_media": {
       "whatsapp": "96561234571"
     },
@@ -159,9 +145,9 @@
         "kd": "1,200,000",
         "postCreateAt": "2025-06-10",
         "description": "Large plot of land available for immediate development. Great investment opportunity in a developing area of Hawally.",
-        "whatsapp": "+96561234571",
+        "whatsapp": "61234571",
         "views": 45,
-        "images":  ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
+        "images": ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
         "slug": "land-for-sale-in-hawally",
         "transactionType": "sale",
         "propertyType": "land",
@@ -174,9 +160,9 @@
         "kd": "2,500,000",
         "postCreateAt": "2025-06-05",
         "description": "Entire residential building for sale in a prime Salmiya location. Includes 10 apartments and ground floor parking. Excellent for investors.",
-        "whatsapp": "+96561234573",
+        "whatsapp": "61234573",
         "views": 100,
-        "images":  ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
+        "images": ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
         "slug": "building-for-sale-in-salmiya",
         "transactionType": "sale",
         "propertyType": "building",
@@ -189,10 +175,10 @@
         "kd": "600",
         "postCreateAt": "2025-05-15",
         "description": "Beachfront chalet with direct access to the sea, ideal for weekend getaways. Willing to exchange for a city apartment.",
-        "whatsapp": "+96561234580",
+        "whatsapp": "61234580",
         "views": 88,
         "images": ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
-        
+
         "slug": "chalet-in-khiran-resort",
         "transactionType": "exchange",
         "propertyType": "chalet",
