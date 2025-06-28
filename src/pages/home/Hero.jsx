@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import BannerImage from "../../assets/images/home-hero-banner.svg"
 import { MultiSelectDropdown } from "../../components/shared/FilterDropdown";
+import ButtonSubmit from "../../common/button/ButtonSubmit";
 
 /**
  * Hero Component: Displays the main hero section with a background and search filters.
@@ -34,7 +35,7 @@ export default function Hero({ t, isRTL }) {
           <p className="text-primary-800 mb-8 text-base md:text-lg">
             {t.home.bannerSubTitle}
           </p>
-          <div className="bg-white/20 shadow-primary-900/30 w-full max-w-md rounded-2xl p-4 shadow-lg backdrop-blur-xs sm:p-6">
+          <div className="shadow-primary-900/30 w-full max-w-md rounded-2xl bg-white/20 p-4 shadow-lg backdrop-blur-xs sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>
@@ -138,24 +139,31 @@ function FilterComponent({ t, isRTL }) {
         isOpen={openDropdown === "propertyTypes"}
         onToggle={() => toggleDropdown("propertyTypes")}
       />
-      <div className="border-gray-300 flex justify-center gap-1 overflow-hidden rounded-full border bg-white p-1">
+      <div className="flex justify-center gap-1 overflow-hidden rounded-full border border-gray-300 bg-white p-1">
         {transactionTypes.map((option) => (
           <button
             key={option.id}
             type="button"
-            className={`flex-1 rounded-full px-4 py-2 text-sm transition-colors duration-300 ease-in-out font-bold ${selectedOption === option.id ? "bg-primary-400 text-white" : "text-primary-900 hover:bg-primary-300/20 bg-transparent"}`}
+            className={`flex-1 rounded-full px-4 py-2 text-sm font-bold transition-colors duration-300 ease-in-out ${selectedOption === option.id ? "bg-primary-500 text-white" : "text-primary-900 hover:bg-primary-300/20 bg-transparent"}`}
             onClick={() => setSelectedOption(option.id)}
           >
             {option.name}
           </button>
         ))}
       </div>
-      <button
+      {/* <button
         type="submit"
         className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 font-primary w-full rounded-full py-3 text-white shadow-lg transition-colors duration-300 focus:ring-2 focus:outline-none"
       >
         {t.home.searchButton}
-      </button>
+      </button> */}
+
+      <ButtonSubmit
+        text={
+          <span className="flex items-center gap-2">{t.home.searchButton}</span>
+        }
+        className="!w-full rounded-4xl"
+      />
     </form>
   );
 }
