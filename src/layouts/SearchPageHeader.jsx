@@ -14,6 +14,7 @@ const DesktopRegionFilter = ({
     placeholder,
     searchPlaceholder,
     isRTL,
+    t,
     isOpen,
     onToggle,
 }) => {
@@ -120,7 +121,7 @@ const DesktopRegionFilter = ({
                                             checked={selectedItems.some(
                                                 (item) => item.id === option.id,
                                             )}
-                                            className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
+                                            className="form-checkbox h-4 w-4 cursor-pointer rounded"
                                         />
                                         <span
                                             className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}
@@ -137,7 +138,7 @@ const DesktopRegionFilter = ({
                             ))
                         ) : (
                             <li className="text-black p-2 text-center">
-                                No results found
+                                {t.search.noResultsFound}
                             </li>
                         )}
                     </ul>
@@ -768,12 +769,13 @@ export default function SearchPageHeader() {
                                         searchPlaceholder={t.search.searchPlaceholder}
                                         label={t.search.area}
                                         isRTL={isRTL}
+                                        t={t}
                                         isOpen={props.showDropdown === "area"}
                                         onToggle={() => props.toggleDropdown("area")}
                                     />
                                     <div className="flex flex-wrap items-center justify-start gap-2">
-                                        <CategoryFilter options={props.transactionTypes} selectedValue={props.transactionType} setSelectedValue={props.setTransactionType} placeholder={t.search.transactionTypePlaceholder} label={t.search.transactionType} isRTL={isRTL} isOpen={props.showDropdown === "transactionType"} onToggle={() => props.toggleDropdown("transactionType")} />
-                                        <PropertyDropdown options={props.allPropertyTypes} selectedItems={props.selectedPropertyTypes} setSelectedItems={props.setSelectedPropertyTypes} placeholder={t.search.propertyTypePlaceholder} searchPlaceholder={t.search.searchPlaceholder} label={t.search.propertyType} isRTL={isRTL} isOpen={props.showDropdown === "propertyTypes"} onToggle={() => props.toggleDropdown("propertyTypes")} />
+                                        <CategoryFilter options={props.transactionTypes} selectedValue={props.transactionType} setSelectedValue={props.setTransactionType} placeholder={t.search.transactionTypePlaceholder} label={t.search.transactionType} isRTL={isRTL} t={t} isOpen={props.showDropdown === "transactionType"} onToggle={() => props.toggleDropdown("transactionType")} />
+                                        <PropertyDropdown options={props.allPropertyTypes} selectedItems={props.selectedPropertyTypes} setSelectedItems={props.setSelectedPropertyTypes} placeholder={t.search.propertyTypePlaceholder} searchPlaceholder={t.search.searchPlaceholder} label={t.search.propertyType} isRTL={isRTL} t={t} isOpen={props.showDropdown === "propertyTypes"} onToggle={() => props.toggleDropdown("propertyTypes")} />
                                         <PriceRangeFilter minPrice={props.minPrice} maxPrice={props.maxPrice} setMinPrice={props.setMinPrice} setMaxPrice={props.setMaxPrice} t={t} isRTL={isRTL} isOpen={props.showDropdown === "price"} onToggle={() => props.toggleDropdown("price")} onApply={props.onApply} />
                                         <TextSearchFilter searchTerm={props.searchText} setSearchTerm={props.setSearchText} t={t} isRTL={isRTL} isOpen={props.showDropdown === "text"} onToggle={() => props.toggleDropdown("text")} onApply={props.onApply} />
                                     </div>

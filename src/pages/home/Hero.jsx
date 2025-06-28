@@ -34,7 +34,7 @@ export default function Hero({ t, isRTL }) {
           <p className="text-primary-800 mb-8 text-base md:text-lg">
             {t.home.bannerSubTitle}
           </p>
-          <div className="bg-white/20 shadow-primary-900/30 w-full max-w-md rounded-2xl p-4 shadow-lg backdrop-blur-[2px] sm:p-6">
+          <div className="bg-white/20 shadow-primary-900/30 w-full max-w-md rounded-2xl p-4 shadow-lg backdrop-blur-xs sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>
@@ -143,7 +143,7 @@ function FilterComponent({ t, isRTL }) {
           <button
             key={option.id}
             type="button"
-            className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300 ease-in-out ${selectedOption === option.id ? "bg-primary-400 text-white" : "text-primary-400 hover:bg-primary-50 bg-transparent"}`}
+            className={`flex-1 rounded-full px-4 py-2 text-sm transition-colors duration-300 ease-in-out font-bold ${selectedOption === option.id ? "bg-primary-400 text-white" : "text-primary-900 hover:bg-primary-300/20 bg-transparent"}`}
             onClick={() => setSelectedOption(option.id)}
           >
             {option.name}
