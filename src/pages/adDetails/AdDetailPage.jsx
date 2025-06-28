@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import { useLanguage } from "../../context/LanguageContext"
-import { FiClock, FiEye, FiX, FiShare2, FiPhone } from "react-icons/fi"
-import { FaWhatsapp } from "react-icons/fa"
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useLanguage } from "../../context/LanguageContext";
+import { FiClock, FiEye, FiX, FiShare2, FiPhone } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 /**
  * AdDetailPage Component
@@ -10,14 +10,14 @@ import { FaWhatsapp } from "react-icons/fa"
  * It fetches ad data based on the slug from the URL parameters.
  */
 const AdDetailPage = () => {
-  const { slug } = useParams()
-  const navigate = useNavigate()
-  const { t, isRTL, language } = useLanguage()
-  const [ad, setAd] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [displayImage, setDisplayImage] = useState("")
-  const [showLightbox, setShowLightbox] = useState(false)
-  const [isLightboxActive, setIsLightboxActive] = useState(false)
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const { t, isRTL, language } = useLanguage();
+  const [ad, setAd] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [displayImage, setDisplayImage] = useState("");
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [isLightboxActive, setIsLightboxActive] = useState(false);
 
   /**
    * Formats a date string into a "time ago" format.
@@ -26,19 +26,19 @@ const AdDetailPage = () => {
    * @returns {string} The formatted time ago string.
    */
   const formatTimeAgo = (dateString, language) => {
-    const postDate = new Date(dateString)
-    const now = new Date()
-    const seconds = Math.floor((now - postDate) / 1000)
-    const hours = Math.floor(seconds / 3600)
+    const postDate = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now - postDate) / 1000);
+    const hours = Math.floor(seconds / 3600);
 
     if (hours < 1) {
-      const minutes = Math.floor(seconds / 60)
-      if (minutes < 1) return language === "ar" ? "الآن" : "just now"
-      return `${minutes} ${language === "ar" ? "دقيقة" : "minutes"}`
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 1) return language === "ar" ? "الآن" : "just now";
+      return `${minutes} ${language === "ar" ? "دقيقة" : "minutes"}`;
     }
 
-    return `${hours} ${language === "ar" ? "ساعة" : "hours"}`
-  }
+    return `${hours} ${language === "ar" ? "ساعة" : "hours"}`;
+  };
 
   /**
    * Handles the share functionality.
@@ -46,110 +46,122 @@ const AdDetailPage = () => {
    * @param {object} ad - The ad object to be shared.
    */
   const handleShareClick = async (ad) => {
-    const adUrl = `${window.location.origin}/ads/${ad.slug}`
+    const adUrl = `${window.location.origin}/ads/${ad.slug}`;
     if (navigator.share) {
       try {
         await navigator.share({
           title: ad.title,
           text: ad.description,
           url: adUrl,
-        })
+        });
       } catch (error) {
-        console.error("Error sharing:", error)
+        console.error("Error sharing:", error);
       }
     } else {
       try {
-        await navigator.clipboard.writeText(adUrl)
-        alert(t.ads.linkCopied)
+        await navigator.clipboard.writeText(adUrl);
+        alert(t.ads.linkCopied);
       } catch (err) {
-        console.error("Failed to copy text: ", err)
-        alert(t.ads.failedToCopy)
+        console.error("Failed to copy text: ", err);
+        alert(t.ads.failedToCopy);
       }
     }
-  }
+  };
 
   // Effect to fetch ad details
   useEffect(() => {
     const fetchAd = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const response = await fetch("/data/ads.json")
-        const data = await response.json()
-        const foundAd = data.find((ad) => ad.slug === slug)
+        const response = await fetch("/data/ads.json");
+        const data = await response.json();
+        const foundAd = data.find((ad) => ad.slug === slug);
         if (foundAd) {
-          setAd(foundAd)
+          setAd(foundAd);
           if (foundAd.images && foundAd.images.length > 0) {
-            setDisplayImage(foundAd.images[0])
+            setDisplayImage(foundAd.images[0]);
           }
         } else {
-          navigate("/404")
+          navigate("/404");
         }
       } catch (error) {
-        console.error("Error fetching ad:", error)
+        console.error("Error fetching ad:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchAd()
-  }, [slug, navigate])
+    };
+    fetchAd();
+  }, [slug, navigate]);
 
   // Effect for lightbox animation
   useEffect(() => {
-    let timer
+    let timer;
     if (showLightbox) {
-      timer = setTimeout(() => setIsLightboxActive(true), 5)
+      timer = setTimeout(() => setIsLightboxActive(true), 5);
     } else {
-      setIsLightboxActive(false)
+      setIsLightboxActive(false);
     }
-    return () => clearTimeout(timer)
-  }, [showLightbox])
+    return () => clearTimeout(timer);
+  }, [showLightbox]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Loading...
+      </div>
+    );
   }
 
   if (!ad) {
-    return <div className="flex justify-center items-center h-screen">Ad not found</div>
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Ad not found
+      </div>
+    );
   }
 
-  const whatsappLink = `https://wa.me/${ad.whatsapp.replace(/\D/g, "")}`
+  const whatsappLink = `https://wa.me/${ad.whatsapp.replace(/\D/g, "")}`;
 
   return (
     <>
       <div className="overflow-x-hidden" dir={isRTL ? "rtl" : "ltr"}>
-        <div className="flex flex-col items-center bg-primary-700 text-primary-50 rounded-b-lg px-4 sm:px-6 py-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-xl md:text-2xl font-bold text-on-primary">{ad.title}</h1>
-            <div className="mt-2 text-2xl md:text-3xl font-bold">
+        <div className="bg-primary-600 flex flex-col items-center rounded-b-lg px-4 py-6 text-white sm:px-6">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mt-4 text-center text-lg md:text-lg lg:text-2xl">
+              {ad.title}
+            </h1>
+            <div className="font-primary mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
               {ad.kd} {t.ads.currency}
             </div>
           </div>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <div className="flex items-center justify-center gap-1.5 rounded-full bg-primary-600 py-1.5 px-3 text-sm">
+          <div className="mt-4 flex flex-wrap justify-center sm:gap-3">
+            <div className="bg-primary-600 font-primary flex items-center gap-1.5 rounded-full px-2 py-2 !text-xs sm:text-sm">
               <FiClock />
               <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
             </div>
-            <div className="flex items-center justify-center gap-1.5 rounded-full bg-primary-600 py-1.5 px-3 text-sm">
+            <div className="bg-primary-600 font-primary flex items-center gap-1.5 rounded-full px-2 py-2 text-xs sm:text-sm">
               <FiEye />
               <span>{ad.views}</span>
             </div>
             <button
               onClick={() => handleShareClick(ad)}
-              className="flex items-center justify-center gap-1.5 rounded-full bg-primary-600 py-1.5 px-3 text-sm hover:bg-primary-500 transition-colors"
+              className="bg-primary-600 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-2 py-2 text-xs transition-colors sm:text-sm"
             >
               <FiShare2 />
             </button>
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="p-4 sm:p-6 text-center text-dark text-base md:text-lg leading-relaxed">{ad.description}</div>
+        <div className="mx-auto max-w-4xl">
+          <div className="text-dark mt-4 p-4 text-center text-base leading-relaxed sm:p-6 md:text-base">
+            {ad.description}
+          </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center px-4">
+        <div className="flex flex-col items-center justify-center gap-3 px-4 sm:flex-row">
           <a
             href={`tel:${ad.whatsapp}`}
-            className="w-full sm:w-auto text-base shrink-0 inline-flex items-center justify-center gap-2 select-none whitespace-nowrap transition-colors disabled:opacity-50 h-12 rounded-lg font-bold bg-success text-on-success active:bg-active-success px-6 bg-primary-300 text-white"
+            className="bg-success active:bg-active-success inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-green-600 px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
           >
             <FiPhone className="text-xl" />
             <span className="text-lg font-normal">{ad.whatsapp}</span>
@@ -158,19 +170,19 @@ const AdDetailPage = () => {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-primary-300 text-primary-600 rounded-lg p-1 bg-main text-2xl h-12 w-full sm:w-12 flex items-center justify-center hover:bg-primary-100 transition-colors"
+            className="bg-main flex h-12 w-full items-center justify-center rounded-lg border border-green-600 p-1 text-2xl text-green-600 transition-colors hover:bg-green-100 sm:w-12"
           >
             <FaWhatsapp />
           </a>
         </div>
 
         <div className="py-8 sm:py-12">
-          <div className="container max-w-7xl mx-auto px-4">
-            <div className="flex justify-center main-image-container max-h-[70vh]">
+          <div className="container mx-auto max-w-7xl px-4">
+            <div className="main-image-container flex max-h-[70vh] justify-center">
               {displayImage && (
                 <img
                   alt={ad.title}
-                  className="rounded-lg object-contain max-w-full max-h-full cursor-pointer"
+                  className="max-h-full max-w-full cursor-pointer rounded-lg object-contain"
                   src={displayImage || "/placeholder.svg"}
                   onClick={() => setShowLightbox(true)}
                 />
@@ -178,11 +190,11 @@ const AdDetailPage = () => {
             </div>
             {ad.images && ad.images.length > 1 && (
               <div className="mt-4 flex justify-center">
-                <div className="flex overflow-x-auto gap-2 p-1">
+                <div className="flex gap-2 overflow-x-auto p-1">
                   {ad.images.map((imgSrc, index) => (
                     <div
                       key={index}
-                      className={`h-16 w-16 flex-shrink-0 rounded-md overflow-hidden cursor-pointer border-2 ${displayImage === imgSrc ? "border-primary-500" : "border-transparent"}`}
+                      className={`h-16 w-16 flex-shrink-0 cursor-pointer overflow-hidden rounded-md border-2 ${displayImage === imgSrc ? "border-primary-500" : "border-transparent"}`}
                       onClick={() => setDisplayImage(imgSrc)}
                     >
                       <img
@@ -201,22 +213,22 @@ const AdDetailPage = () => {
 
       {showLightbox && (
         <div
-          className="fixed inset-0 bg-black/80 flex justify-center items-center z-[100] p-4 sm:p-6 transition-opacity duration-300 ease-in-out"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 transition-opacity duration-300 ease-in-out sm:p-6"
           onClick={() => setShowLightbox(false)}
         >
           <div
             className={`relative w-full max-w-5xl transform transition-all duration-300 ease-out ${isLightboxActive ? "scale-100 opacity-100" : "scale-90 opacity-0"}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full h-auto max-h-[85vh] aspect-video overflow-hidden rounded-md flex justify-center items-center">
+            <div className="flex aspect-video h-auto max-h-[85vh] w-full items-center justify-center overflow-hidden rounded-md">
               <img
                 src={displayImage || "/placeholder.svg"}
                 alt="Lightbox"
-                className="w-auto h-auto max-w-full max-h-full object-contain"
+                className="h-auto max-h-full w-auto max-w-full object-contain"
               />
             </div>
             <button
-              className="absolute top-0 -right-0 mt-2 mr-2 sm:-top-4 sm:-right-4 text-white text-2xl p-2 rounded-full bg-black/50 hover:bg-black/80 transition-all duration-200"
+              className="absolute top-0 -right-0 mt-2 mr-2 rounded-full bg-black/50 p-2 text-2xl text-white transition-all duration-200 hover:bg-black/80 sm:-top-4 sm:-right-4"
               onClick={() => setShowLightbox(false)}
             >
               <FiX />
@@ -225,7 +237,7 @@ const AdDetailPage = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default AdDetailPage
+export default AdDetailPage;
