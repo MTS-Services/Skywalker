@@ -4,6 +4,7 @@ import lignimg from "../../assits/login/login (2).png";
 import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import { useLanguage } from "../../context/LanguageContext";
+import ButtonSubmit from "../../common/button/ButtonSubmit";
 
 const Login = () => {
   // State variables for mobile number and password input fields
@@ -43,11 +44,11 @@ const Login = () => {
   // The JSX that defines the structure and appearance of the login form.
   return (
     <section
-      className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-12"
+      className="flex items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-10 md:py-28 lg:h-screen"
       style={{ fontFamily: "var(--font-secondary)" }}
       dir={isRTL ? "rtl" : "ltr"}
     >
-      <div className="container flex max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:flex-row">
+      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:h-auto md:flex-row md:px-8">
         <div className="hidden p-12 md:block md:w-1/2">
           <img
             src={lignimg}
@@ -56,11 +57,11 @@ const Login = () => {
           />
         </div>
 
-        <div className="flex w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="text-[#242424 ] font-primary mb-2 text-center text-[18px]">
+        <div className="flex w-full flex-col justify-center p-6 md:w-1/2 md:p-8">
+          <h1 className="ffont-primary mb-2 text-center text-black">
             {t.login.title}
-          </h2>
-          <p className="font-primary mb-6 text-center text-sm text-[#556885]">
+          </h1>
+          <p className="font-primary mb-6 text-center text-sm text-gray-600">
             {t.login.shortTitle}
           </p>
 
@@ -74,7 +75,7 @@ const Login = () => {
                   placeholder={t.login.mobileNumber}
                   value={mobileNumber}
                   onChange={(e) => setMobileNumber(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-left text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none" // Added text-right here
+                  className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
                   required
                 />
@@ -85,7 +86,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="password"
-                className="mb-2 block text-sm font-semibold text-gray-700"
+                className="mb-2 block text-sm font-semibold text-gray-600"
               ></label>
               <div className="relative">
                 <input
@@ -95,7 +96,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
-                  className="**text-right** w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none" // Added text-right here
+                  className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
                   required
                 />
@@ -109,7 +110,7 @@ const Login = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="text-primary-500 focus:ring-primary-700 h-4 w-4 rounded border-gray-300"
+                className="text-primary-500 focus:ring-primary-500 h-4 w-4 rounded border-gray-300"
               />
               <label
                 htmlFor="remember-me"
@@ -120,12 +121,23 @@ const Login = () => {
             </div>
 
             {/* The submit button */}
-            <button
+            {/* <button
               type="submit"
               className="bg-background bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-3 rounded-xl py-2 text-base font-semibold text-white transition"
             >
               {t.login.buttontext}
-            </button>
+            </button> */}
+
+            <ButtonSubmit
+              text={
+                <span>
+                  <span className="flex items-center gap-2">
+                    {t.login.buttontext}
+                  </span>
+                </span>
+              }
+              className="!w-full rounded-xl"
+            />
           </form>
         </div>
       </div>

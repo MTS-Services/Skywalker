@@ -1,79 +1,88 @@
-import { useState, useEffect } from "react"
-import { TfiAngleLeft } from "react-icons/tfi"
-import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi"
-import { FaWhatsapp } from "react-icons/fa"
+import { useState, useEffect } from "react";
+import { TfiAngleLeft } from "react-icons/tfi";
+import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 /**
  * DetailsModal Component
  * A modal that displays detailed information about an advertisement.
  * It includes an image gallery, ad details, and contact actions.
  */
-export default function DetailsModal({ ad, show, onClose, t, isRTL, language, formatTimeAgo }) {
-  const [displayImage, setDisplayImage] = useState("")
-  const [showLightbox, setShowLightbox] = useState(false)
-  const [isModalActive, setIsModalActive] = useState(false)
-  const [isLightboxActive, setIsLightboxActive] = useState(false)
+export default function DetailsModal({
+  ad,
+  show,
+  onClose,
+  t,
+  isRTL,
+  language,
+  formatTimeAgo,
+}) {
+  const [displayImage, setDisplayImage] = useState("");
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [isLightboxActive, setIsLightboxActive] = useState(false);
 
   // Effect to control modal enter/exit animation
   useEffect(() => {
     if (show) {
-      document.body.style.overflow = "hidden"
-      const timer = setTimeout(() => setIsModalActive(true), 5)
-      return () => clearTimeout(timer)
+      document.body.style.overflow = "hidden";
+      const timer = setTimeout(() => setIsModalActive(true), 5);
+      return () => clearTimeout(timer);
     } else {
-      document.body.style.overflow = ""
-      setIsModalActive(false)
+      document.body.style.overflow = "";
+      setIsModalActive(false);
     }
-  }, [show])
-
+  }, [show]);
 
   // Effect to control lightbox enter/exit animation
   useEffect(() => {
     if (showLightbox) {
-      const timer = setTimeout(() => setIsLightboxActive(true), 5)
-      return () => clearTimeout(timer)
+      const timer = setTimeout(() => setIsLightboxActive(true), 5);
+      return () => clearTimeout(timer);
     } else {
-      setIsLightboxActive(false)
+      setIsLightboxActive(false);
     }
-  }, [showLightbox])
+  }, [showLightbox]);
 
   // Effect to set the initial display image when an ad is selected
   useEffect(() => {
     if (ad && ad.images && ad.images.length > 0) {
-      setDisplayImage(ad.images[0])
+      setDisplayImage(ad.images[0]);
     } else {
-      setDisplayImage("https://placehold.co/800x600/EBF4FF/333333?text=No+Image")
+      setDisplayImage(
+        "https://placehold.co/800x600/EBF4FF/333333?text=No+Image",
+      );
     }
-  }, [ad])
+  }, [ad]);
 
   if (!ad) {
-    return null
+    return null;
   }
 
-  const whatsappLink = `https://wa.me/${ad.whatsapp.replace(/\D/g, "")}`
+  const whatsappLink = `https://wa.me/${ad.whatsapp.replace(/\D/g, "")}`;
 
   const handleShareClick = async (ad) => {
-    const adUrl = `${window.location.origin}/ads/${ad.slug}`
+    const adUrl = `${window.location.origin}/ads/${ad.slug}`;
     if (navigator.share) {
       try {
         await navigator.share({
           title: ad.title,
           text: ad.description,
           url: adUrl,
-        })
+        });
       } catch (error) {
-        console.error("Error sharing:", error)
+        console.error("Error sharing:", error);
       }
     } else {
       try {
-        await navigator.clipboard.writeText(adUrl)
-        alert(t.ads.linkCopied)
+        await navigator.clipboard.writeText(adUrl);
+        alert(t.ads.linkCopied);
       } catch (err) {
-        console.error("Failed to copy text: ", err)
-        alert(t.ads.failedToCopy)
+        console.error("Failed to copy text: ", err);
+        alert(t.ads.failedToCopy);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -82,18 +91,19 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
         onClick={onClose}
       >
         <div
-          className={`relative flex h-full w-full max-w-5xl transform flex-col bg-white text-primary-900 shadow-lg transition-transform duration-300 ease-out ${isRTL
-            ? isModalActive
-              ? "translate-x-0"
-              : "translate-x-full"
-            : isModalActive
-              ? "translate-x-0"
-              : "-translate-x-full"
-            }`}
+          className={`relative flex h-full w-full max-w-7xl transform flex-col bg-white transition-transform duration-300 ease-out ${
+            isRTL
+              ? isModalActive
+                ? "translate-x-0"
+                : "translate-x-full"
+              : isModalActive
+                ? "translate-x-0"
+                : "-translate-x-full"
+          }`}
           onClick={(e) => e.stopPropagation()}
           dir={isRTL ? "rtl" : "ltr"}
         >
-          <header className="relative flex h-20 flex-shrink-0 items-center border-b border-primary-200 px-4 py-4 sm:px-6">
+          <header className="border-primary-200 relative flex h-20 flex-shrink-0 items-center border-b px-4 py-4 sm:px-6">
             <button
               className={`text-primary-500 -m-2 cursor-pointer p-2 text-2xl ${isRTL ? "rotate-180" : ""}`}
               onClick={onClose}
@@ -108,23 +118,25 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
           </header>
 
           <main className="flex-1 overflow-y-auto">
-            <div className="bg-primary-700 text-primary-50 flex flex-col items-center px-4 py-6 sm:px-6">
-              <h1 className="text-on-primary text-center text-xl font-bold sm:text-2xl">{ad.title}</h1>
-              <div className="mt-2 text-2xl font-bold sm:text-3xl">
+            <div className="bg-primary-600 flex flex-col items-center px-4 py-6 text-white sm:px-6">
+              <h1 className="mt-4 text-center text-lg md:text-lg lg:text-2xl">
+                {ad.title}
+              </h1>
+              <div className="font-primary mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
                 {ad.kd} {t.ads.currency}
               </div>
-              <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-                <div className="bg-primary-600 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
+              <div className="mt-4 flex flex-wrap justify-center sm:gap-3">
+                <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
                   <FiClock />
                   <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
                 </div>
-                <div className="bg-primary-600 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
+                <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
                   <FiEye />
                   <span>{ad.views}</span>
                 </div>
                 <button
                   onClick={() => handleShareClick(ad)}
-                  className="bg-primary-600 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs transition-colors sm:text-sm"
+                  className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-md px-4 py-2 text-xs transition-colors sm:text-sm"
                 >
                   <FiShare2 />
                 </button>
@@ -132,22 +144,24 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
             </div>
 
             <div className="mx-auto max-w-4xl">
-              <p className="text-dark p-4 text-center text-base leading-relaxed sm:p-6 md:text-lg">{ad.description}</p>
+              <p className="text-dark mt-4 p-4 text-center text-base leading-relaxed sm:p-6 md:text-base">
+                {ad.description}
+              </p>
             </div>
 
             <div className="flex flex-col items-center justify-center gap-3 px-4 sm:flex-row">
               <a
                 href={`tel:${ad.whatsapp}`}
-                className="bg-success active:bg-active-success bg-green-600 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
+                className="bg-success active:bg-active-success inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-green-600 px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
               >
                 <FiPhone className="text-xl" />
-                <span className="text-lg font-normal">{ad.whatsapp}</span>
+                <span className="font-primary text-base">{ad.whatsapp}</span>
               </a>
               <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-green-600 text-green-600 bg-main hover:bg-green-100 flex h-12 w-full items-center justify-center rounded-lg border p-1 text-2xl transition-colors sm:w-12"
+                className="bg-main flex h-12 w-full items-center justify-center rounded-lg border border-green-600 p-1 text-2xl text-green-600 transition-colors hover:bg-green-100 sm:w-12"
               >
                 <FaWhatsapp />
               </a>
@@ -195,10 +209,11 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 transition-opacity duration-300 sm:p-6"
           onClick={() => setShowLightbox(false)}
         >
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div className="relative flex h-full w-full items-center justify-center">
             <div
-              className={`w-full max-w-5xl mx-auto transform transition-all duration-300 ease-out ${isLightboxActive ? "scale-100 opacity-100" : "scale-90 opacity-0"}`}
-              onClick={(e) => e.stopPropagation()}>
+              className={`mx-auto w-full max-w-5xl transform transition-all duration-300 ease-out ${isLightboxActive ? "scale-100 opacity-100" : "scale-90 opacity-0"}`}
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex aspect-video h-auto max-h-[85vh] w-full items-center justify-center overflow-hidden rounded-md">
                 <img
                   src={displayImage || "/placeholder.svg"}
@@ -208,7 +223,7 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
               </div>
             </div>
             <button
-              className="absolute -top-4 -right-4 mt-2 mr-2 rounded-full bg-primary-100/50 p-2 text-2xl text-white transition-all hover:bg-primary-100/80"
+              className="bg-primary-100/50 hover:bg-primary-100/80 absolute -top-4 -right-4 mt-2 mr-2 rounded-full p-2 text-2xl text-white transition-all"
               onClick={() => setShowLightbox(false)}
             >
               <FiX />
@@ -217,5 +232,5 @@ export default function DetailsModal({ ad, show, onClose, t, isRTL, language, fo
         </div>
       )}
     </>
-  )
+  );
 }
