@@ -44,7 +44,7 @@ export const SideBar = ({ sidebarOpen, toggleSidebar }) => {
                                 <img src="/logo.png" alt="Logo" className="w-14" />
                                 <div>
                                     <p className="font-bold text-lg capitalize">{t.site.name}</p>
-                                    <p className="text-[8px] w-fit mx-auto bg-primary-300 px-1 rounded-md text-white">{t.site.tagline}</p>
+                                    <p className="text-[8px] w-fit mx-auto bg-primary-300 px-2 py-1 rounded-md text-white leading-normal">{t.site.tagline}</p>
                                 </div>
                             </NavLink>
                             <button onClick={toggleSidebar} className="text-gray-500"><FiX className="text-2xl" /></button>
@@ -54,7 +54,9 @@ export const SideBar = ({ sidebarOpen, toggleSidebar }) => {
                         {navItems.map((item, index) => (
                             <div className="rounded-e-2xl active:bg-active" key={index}>
                                 {item.to ? (
-                                    <NavLink to={item.to} onClick={toggleSidebar} className="flex w-full items-center gap-3 py-3 ps-6 font-semibold text-dark hover:bg-primary-300/20 hover:text-primary-900">
+                                    <NavLink to={item.to} onClick={toggleSidebar} className={({ isActive }) =>
+                                        `flex w-full items-center gap-3 py-3 ps-6 my-0.5 font-semibold text-dark hover:bg-primary-300/20 hover:text-primary-900 ${isActive ? "bg-primary-300/20 text-primary-900" : ""}`}>
+                                            
                                         <span className="text-primary-900">{item.icon}</span><span>{item.label}</span>
                                     </NavLink>
                                 ) : (
