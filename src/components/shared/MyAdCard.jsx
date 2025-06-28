@@ -58,8 +58,9 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
 
     return (
         <>
-            <div onClick={handleClick} className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 cursor-pointer border border-transparent bg-white">
+            <div className="relative w-full rounded-lg shadow-card-shadow p-3 xl:p-4 cursor-pointer border border-transparent bg-white">
                 <DiagonalRibbon text={ad.isOpen ? (`${t.myAds.open}`) : (ad.isArchive ? (`${t.myAds.archive}`) : (`${t.myAds.deleted}`))} backgroundColor={ad.isOpen ? (`#556895`) : (ad.isArchive ? (`#556885`) : (`#242424`))} />
+                <div className="absolute inset-0 bg-transparent rounded-lg z-[1]" onClick={handleClick}></div>
 
                 {/* Main Content */}
                 <div className="flex gap-3">
@@ -81,7 +82,7 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
 
                     {/* Details */}
                     <div className="overflow-hidden pe-6">
-                        <div className="font-bold text-lg text-dark line-clamp-2 break-words">
+                        <div className="font-[700] line-clamp-2 break-words">
                             {ad.title}
                         </div>
 
@@ -89,25 +90,27 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
 
                         {/* Price & Stats */}
                         <div className="flex gap-3">
-                            <div className="rounded font-bold text-primary-900">{ad.kd} {t.ads.currency}</div>
+                            <div className="rounded font-[700] text-primary-900">{ad.kd} {t.ads.currency}</div>
 
-                            <div className="rounded text-xs flex items-center gap-1">
+                            <div className="rounded text-xs text-primary-900 flex items-center gap-1">
                                 <RxClock />
                                 <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
                             </div>
 
-                            <div className="flex items-center gap-1">
+                            <div className="flex text-xs text-primary-900 items-center gap-1">
                                 <FiEye />
                                 <div className="text-xs">{ad.views}</div>
                             </div>
                         </div>
 
                         {/* Description */}
-                        <div className="h-2"></div>
-                        <div className="line-clamp-2 text-sm">
+                        <div className="line-clamp-2 text-sm text-gray-600 mt-2 hidden lg:block">
                             {ad.description}
                         </div>
                     </div>
+                </div>
+                <div className="line-clamp-2 text-sm text-gray-600 mt-2 lg:hidden">
+                    {ad.description}
                 </div>
 
                 {/* Actions */}
@@ -115,14 +118,14 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
                 <div className="flex gap-3 items-center justify-center">
                     {/* Action Button 1 */}
                     {showRenew && (
-                        <button onClick={handleOpenRenewModal} className="text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
+                        <button onClick={handleOpenRenewModal} className="relative z-[2] text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
                             <div className="relative flex items-center justify-center rounded cursor-pointer h-6 w-6 active:border bg-green-200">
                                 <RxReload className="text-green-700" />
                             </div>
                         </button>
                     )}
                     {/* Action Button 2 */}
-                    <button onClick={ad.isSuper ? handleRemoveSuperModel : handleMakeSuperModel} className="text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
+                    <button onClick={ad.isSuper ? handleRemoveSuperModel : handleMakeSuperModel} className="relative z-[2] text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
                         <div className="relative flex items-center justify-center rounded cursor-pointer h-6 w-6 active:border bg-red-200">
                             {ad.isSuper ? (
                                 <BsPinFill className="text-red-700" />
@@ -132,7 +135,7 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
                         </div>
                     </button>
                     {/* Action Button 3 */}
-                    <button onClick={handleOpenTranslateModal} className="text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
+                    <button onClick={handleOpenTranslateModal} className="relative z-[2] text-base shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 rounded-lg font-bold text-on-primary bg-transparent m-0 p-0 h-auto active:bg-transparent">
                         <div className="relative flex items-center justify-center rounded cursor-pointer h-6 w-6 active:border bg-indigo-200">
                             <BsTranslate className="text-indigo-700" />
                         </div>
@@ -157,17 +160,17 @@ function addSuperModal({ ad, handleMakeSuperModel, t }) {
             <div className="fixed inset-0 w-screen overflow-y-auto z-30">
                 <div className="flex min-h-full items-center justify-center p-4">
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-                        <h2 className="text-xl font-bold mb-2">
+                        <h2 className="font-[700] mb-2">
                             {t.myAds.confirmation}
                         </h2>
                         <div>
-                            <div>{t.myAds.makeSuper}</div>
+                            <p className="text-sm text-gray-600">{t.myAds.makeSuper}</p>
                             <div className="h-4"></div>
                             <div className="flex flex-row justify-between gap-3">
-                                <button onClick={handleMakeSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-3 py-1">
+                                <button onClick={handleMakeSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-4 lg:px-8 py-2 lg:py-4 text-sm">
                                     {t.myAds.cancel}
                                 </button>
-                                <button onClick={handleMakeSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-bold bg-primary text-white active:bg-active-primary  px-5 py-1 bg-primary-500 hover:bg-primary-600">
+                                <button onClick={handleMakeSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-[700] bg-primary text-white active:bg-active-primary px-4 lg:px-8 py-2 lg:py-4 text-sm bg-primary-500 hover:bg-primary-600">
                                     {t.myAds.confirm}
                                 </button>
                             </div>
@@ -185,17 +188,17 @@ function removeSuperModal({ ad, handleRemoveSuperModel, t }) {
             <div className="fixed inset-0 w-screen overflow-y-auto z-30">
                 <div className="flex min-h-full items-center justify-center p-4">
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-                        <h2 className="text-xl font-bold mb-2">
+                        <h2 className="font-[700] mb-2">
                             {t.myAds.confirmation}
                         </h2>
                         <div>
                             <div>{t.myAds.removeSuper}</div>
                             <div className="h-4"></div>
                             <div className="flex flex-row justify-between gap-3">
-                                <button onClick={handleRemoveSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-3 py-1">
+                                <button onClick={handleRemoveSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-4 lg:px-8 py-2 lg:py-4 text-sm">
                                     {t.myAds.cancel}
                                 </button>
-                                <button onClick={handleRemoveSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-bold bg-primary text-white active:bg-active-primary  px-5 py-1 bg-primary-500 hover:bg-primary-600">
+                                <button onClick={handleRemoveSuperModel} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-[700] bg-primary text-white active:bg-active-primary px-4 lg:px-8 py-2 lg:py-4 text-sm bg-primary-500 hover:bg-primary-600">
                                     {t.myAds.confirm}
                                 </button>
                             </div>
@@ -214,17 +217,17 @@ function renewModal({ ad, handleOpenRenewModal, t }) {
             <div className="fixed inset-0 w-screen overflow-y-auto z-30">
                 <div className="flex min-h-full items-center justify-center p-4">
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-                        <h2 className="text-xl font-bold mb-2">
+                        <h2 className="font-[700] mb-2">
                             {t.myAds.confirmation}
                         </h2>
                         <div>
-                            <div>{t.myAds.renew}</div>
+                            <p className="text-sm text-gray-600">{t.myAds.renew}</p>
                             <div className="h-4"></div>
                             <div className="flex flex-row justify-between gap-3">
-                                <button onClick={handleOpenRenewModal} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-3 py-1">
+                                <button onClick={handleOpenRenewModal} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-4 lg:px-8 py-2 lg:py-4 text-sm">
                                     {t.myAds.cancel}
                                 </button>
-                                <button onClick={handleOpenRenewModal} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-bold bg-primary text-white active:bg-active-primary  px-5 py-1 bg-primary-500 hover:bg-primary-600">
+                                <button onClick={handleOpenRenewModal} className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto  rounded-md font-[700] text-sm bg-primary text-white active:bg-active-primary px-4 lg:px-8 py-2 lg:py-4 bg-primary-500 hover:bg-primary-600">
                                     {t.myAds.confirm}
                                 </button>
                             </div>
@@ -283,10 +286,9 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
                     <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
                         <div>
                             <div>
-                                <div className="flex items-center justify-between">
-                                    <h2 className="text-on-main">
+                                <div className="flex items-center justify-between" dir={isRTL ? "rtl" : "ltr"}>
+                                    <h2 className="text-sm font-[700] text-gray-600">
                                         {t.myAds.translateTitle}
-                                        {/* {language === "ar" ? "Your translated Ad to Arabic is published" : } */}
                                     </h2>
 
                                     <button onClick={handleOpenTranslateModal}><FiX /></button>
@@ -307,13 +309,12 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
                                     {/* Ad Content Preview Section */}
                                     <div className="flex flex-col items-center bg-primary-400 rounded-b-lg text-white px-6 relative">
                                         <div className="max-w-2xl mx-auto mt-4">
-                                            <h1 className="text-on-primary text-center">
+                                            <h1 className="text-lg font-[700] text-center">
                                                 {ad.title}
                                             </h1>
                                         </div>
-                                        <div className="text-2xl font-bold mt-1.5">{ad.kd} {t.myAds.currency}</div>
-                                        <div className="h-6"></div>
-                                        <div className="flex gap-3">
+                                        <div className="text-lg font-[700] mt-1.5">{ad.kd} {t.myAds.currency}</div>
+                                        <div className="flex gap-3 mt-6">
                                             <div className="flex items-center justify-center gap-1 rounded bg-primary-300 py-1 px-1.5 text-xs">
                                                 <RxClock />
                                                 {formatTimeAgo(ad.postCreateAt, language)}
@@ -335,7 +336,7 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
                                 </div>
                                 {/* Ad Description */}
                                 <div className="max-w-2xl mx-auto">
-                                    <div className="p-6 text-center text-xl leading-lg">
+                                    <div className="p-6 text-center leading-lg">
                                         {ad.description}
                                     </div>
                                 </div>
@@ -346,7 +347,7 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
                                         className="bg-success active:bg-active-success bg-green-600 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
                                     >
                                         <FiPhone className={isRTL ? "" : "-rotate-90"} />
-                                        <div className="text-xl font-normal">{ad.whatsapp}</div>
+                                        <div className="font-normal">{ad.whatsapp}</div>
                                     </a>
                                     <div>
                                         <a
