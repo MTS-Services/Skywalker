@@ -126,13 +126,15 @@ export default function AgentList() {
                             </div>
                           </div>
                           <div className="flex-1 overflow-hidden">
-                            <div className="text-dark line-clamp-2 text-base font-bold break-words">
-                              {company.name} {/* 'agent.name' */}
-                            </div>
+                            <h4
+                              className="text-[15px] text-[#242424] font-[700]"
+                            >
+                              {company.name}
+                            </h4>
 
                             <div>
                               <div
-                                className={`flex items-center gap-1 space-x-2`}
+                                className={`flex items-center gap-1 py-1 space-x-2`}
                               >
                                 {/* বিজ্ঞাপনের সংখ্যা - ক্লিকযোগ্য লিঙ্ক */}
                                 <Link
@@ -168,30 +170,16 @@ export default function AgentList() {
                                     <FaInstagram className="text-primary-300 text-sm md:text-base" />
                                   </a>
                                 )}
-
-                                {/* যদি Facebook আইকন ব্যবহার করেন */}
-                                {/* {company.social_media?.facebook && (
-                                <a 
-                                  href={company.social_media.facebook} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className=""
-                                >
-                                  <FaFacebook className="text-primary-300 text-sm md:text-base" />
-                                </a>
-                              )} */}
                               </div>
+
                             </div>
                             <div className="flex gap-3">
-                              <div className="text-primary-dark rounded font-bold">
-                                {/* {agent.price} {t.home.currency} - এটি এজেন্টের জন্য প্রযোজ্য নয় */}
-                              </div>
+                              <div className="text-primary-dark rounded font-bold"></div>
                             </div>
                             <div>
                               <div className="text- line-clamp-2">
-                                <p className="text-descripton text-xs font-normal md:text-sm">
+                                <p className="text-descripton text-[14px] font-normal md:text-sm">
                                   {company.description}{" "}
-                                  {/* 'agent.description' */}
                                 </p>
                               </div>
                             </div>
