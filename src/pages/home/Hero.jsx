@@ -138,7 +138,7 @@ function FilterComponent({ t, isRTL }) {
         isOpen={openDropdown === "propertyTypes"}
         onToggle={() => toggleDropdown("propertyTypes")}
       />
-      <div className="border-primary-400 flex justify-center gap-1 overflow-hidden rounded-full border bg-white p-1">
+      <div className="border-gray-300 flex justify-center gap-1 overflow-hidden rounded-full border bg-white p-1">
         {transactionTypes.map((option) => (
           <button
             key={option.id}
