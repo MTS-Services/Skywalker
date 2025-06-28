@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import BannerImage from "../../assets/images/home-hero-banner.svg"
-import { MultiSelectDropdown } from "../../components/shared/FilterDropdown"
+import { MultiSelectDropdown } from "../../components/shared/FilterDropdown";
 
 /**
  * Hero Component: Displays the main hero section with a background and search filters.
  */
 export default function Hero({ t, isRTL }) {
   return (
-    <section className="relative z-10 flex items-center justify-center bg-white min-h-[calc(100vh-90px)]">
-      <div className="absolute right-0 bottom-0 left-0 flex w-full justify-center">
+    <section className="relative py-6 sm:py-12 md:py-12 lg:py-20">
+      <div className="absolute right-0 bottom-0 left-0 w-full">
         <img
           alt={t.site.name}
           width="1920"
           height="426"
-          className="h-auto w-full max-w-screen-2xl object-cover hidden lg:block"
+          className="hidden h-auto w-full object-cover lg:block"
           src="/home-hero-desktop-hd.svg"
         />
         <img
@@ -25,90 +25,96 @@ export default function Hero({ t, isRTL }) {
           src="/home-hero-mobile-hd.svg"
         />
       </div>
-      <div className="relative z-10 container mx-auto flex h-full w-full items-center justify-center p-4">
+
+      <div className="container mx-auto flex h-full w-full items-center justify-center p-4">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
-          <h2 className="mb-3 text-xl md:text-2xl font-bold lg:text-3xl">{t.home.bannerTitle}</h2>
-          <p className="mb-8 text-base text-gray-600 md:text-lg">{t.home.bannerSubTitle}</p>
-          <div className="w-full max-w-md rounded-2xl bg-white/10 p-4 shadow-card-shadow shadow-primary-900/30 backdrop-blur-xs sm:p-6">
+          <h1 className="text-lx mb-3 text-black md:text-xl lg:text-2xl">
+            {t.home.bannerTitle}
+          </h1>
+          <p className="text-primary-800 mb-8 text-base md:text-lg">
+            {t.home.bannerSubTitle}
+          </p>
+          <div className="bg-white/20 shadow-primary-900/30 w-full max-w-md rounded-2xl p-4 shadow-lg backdrop-blur-[2px] sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 /**
  * FilterComponent: Renders the search controls and handles search submission.
  */
 function FilterComponent({ t, isRTL }) {
-  const navigate = useNavigate()
-  const [selectedOption, setSelectedOption] = useState("rent")
-  const [selectedRegions, setSelectedRegions] = useState([])
-  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([])
-  const [regionsData, setRegionsData] = useState([])
-  const [propertyTypeData, setPropertyTypeData] = useState([])
-  const [transactionTypes, setTransactionTypes] = useState([])
+  const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState("rent");
+  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
+  const [regionsData, setRegionsData] = useState([]);
+  const [propertyTypeData, setPropertyTypeData] = useState([]);
+  const [transactionTypes, setTransactionTypes] = useState([]);
 
   // Add dropdown state management
-  const [openDropdown, setOpenDropdown] = useState(null)
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   // Fetch data from JSON files
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [regionsRes, propertyTypesRes, transactionTypesRes] = await Promise.all([
-          fetch("/data/regions.json"),
-          fetch("/data/propertyTypes.json"),
-          fetch("/data/transactionTypes.json"),
-        ])
+        const [regionsRes, propertyTypesRes, transactionTypesRes] =
+          await Promise.all([
+            fetch("/data/regions.json"),
+            fetch("/data/propertyTypes.json"),
+            fetch("/data/transactionTypes.json"),
+          ]);
 
-        const regions = await regionsRes.json()
-        const propertyTypes = await propertyTypesRes.json()
-        const transactions = await transactionTypesRes.json()
+        const regions = await regionsRes.json();
+        const propertyTypes = await propertyTypesRes.json();
+        const transactions = await transactionTypesRes.json();
 
-        setRegionsData(regions)
-        setPropertyTypeData(propertyTypes)
-        setTransactionTypes(transactions)
-        setSelectedOption(transactions[0]?.id || "rent")
+        setRegionsData(regions);
+        setPropertyTypeData(propertyTypes);
+        setTransactionTypes(transactions);
+        setSelectedOption(transactions[0]?.id || "rent");
       } catch (error) {
-        console.error("Error fetching filter data:", error)
+        console.error("Error fetching filter data:", error);
       }
-    }
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const toggleDropdown = (dropdownName) => {
-    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName))
-  }
+    setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
 
   const handleSearch = (e) => {
-    e.preventDefault()
-    const params = new URLSearchParams()
+    e.preventDefault();
+    const params = new URLSearchParams();
 
     // Add transaction type
     if (selectedOption) {
-      params.set("transactionType", selectedOption)
+      params.set("transactionType", selectedOption);
     }
 
     // Add regions - use the exact same parameter name as SearchResults expects
     selectedRegions.forEach((region) => {
       if (region.id && region.id !== "all") {
-        params.append("region", region.id) // Use 'region' not 'regions'
+        params.append("region", region.id); // Use 'region' not 'regions'
       }
-    })
+    });
 
-    // Add property types - use the exact same parameter name as SearchResults expects  
+    // Add property types - use the exact same parameter name as SearchResults expects
     selectedPropertyTypes.forEach((type) => {
       if (type.id && type.id !== "all") {
-        params.append("propertyType", type.id) // Use 'propertyType' not 'propertyTypes'
+        params.append("propertyType", type.id); // Use 'propertyType' not 'propertyTypes'
       }
-    })
+    });
 
-    console.log("Hero search params:", params.toString()) // Debug log
-    navigate(`/search?${params.toString()}`)
-  }
+    console.log("Hero search params:", params.toString()); // Debug log
+    navigate(`/search?${params.toString()}`);
+  };
 
   return (
     <form onSubmit={handleSearch} className="space-y-4">
@@ -146,10 +152,10 @@ function FilterComponent({ t, isRTL }) {
       </div>
       <button
         type="submit"
-        className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 w-full rounded-full py-3 font-semibold text-white shadow-lg transition-colors duration-300 focus:ring-2 focus:outline-none"
+        className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 font-primary w-full rounded-full py-3 text-white shadow-lg transition-colors duration-300 focus:ring-2 focus:outline-none"
       >
         {t.home.searchButton}
       </button>
     </form>
-  )
+  );
 }

@@ -38,27 +38,35 @@
 }
 
 @theme {
+  /* Font Families */
   --font-primary: "Open Sans", sans-serif;
   --font-secondary: "Open Sans", sans-serif;
-  --color-primary-50: #a7e1f9; /* Lightest */
+
+  /* Core Colors */
+  --color-primary-50: #a7e1f9;
   --color-primary-100: #89d8f7;
   --color-primary-200: #6bcff6;
   --color-primary-300: #4cc5f4;
-  --color-primary-400: #2ecbf2; /* Base Color Lighter */
+  --color-primary-400: #2ecbf2;
   --color-primary-500: #1eaeed; /* Base Color */
   --color-primary-600: #1a96d0;
   --color-primary-700: #1781b3;
   --color-primary-800: #136b96;
-  --color-primary-900: #10557a; /* Darkest */
-
+  --color-primary-900: #10557a;
   --color-black: #000;
   --color-white: #fff;
   --color-header: #000;
 
+  /* Text Colors */
+  --text-color-heading: #000;
+  --text-color-title: #000;
+  --text-color-paragraph: #4a5565;
+
+  /* Font Sizes */
   --text-xs: 12px;
   --text-sm: 14px;
   --text-base: 16px;
-  --text-md: 16px;
+  --text-md: 15px;
   --text-lg: 18px;
   --text-xl: 20px;
   --text-2xl: 24px;
@@ -69,6 +77,17 @@
   --text-7xl: 72px;
   --text-8xl: 96px;
   --text-9xl: 128px;
+
+  /* Font Weights */
+  --font-thin: 100;
+  --font-extralight: 200;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
 
   --color-descripton: #556885;
   --color-adspart: #2e6290;
@@ -81,31 +100,48 @@
 }
 
 @layer base {
-  h1 {
-    font-size: var(--text-6xl);
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-primary);
-    font-weight: var(--font-bold);
-    color: var(--text-color-heading);
+  }
+
+  h1 {
+    @apply text-2xl font-bold;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    line-height: 34px;
   }
 
   h2 {
-    font-size: var(--text-4xl);
+    @apply text-md font-bold;
     font-family: var(--font-primary);
-    font-weight: var(--font-semibold);
-    color: var(--text-color-title);
+    font-weight: 700;
+    line-height: 24px;
   }
 
   h3 {
-    font-size: var(--text-xl); /* 18px */
+    @apply text-sm font-semibold;
     font-family: var(--font-primary);
-    font-weight: var(--font-medium);
-    color: var(--text-color-title);
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  h4 {
+    @apply text-xs font-normal;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    line-height: 23px;
   }
 
   p {
-    font-size: var(--text-base);
+    @apply text-sm font-normal;
     font-family: var(--font-secondary);
-    font-weight: var(--font-normal);
+    font-weight: 400;
+    line-height: 24px;
     color: var(--text-color-pargraph);
   }
 
