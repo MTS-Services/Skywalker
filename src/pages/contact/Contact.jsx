@@ -33,7 +33,7 @@ export default function Contact() {
 
   return (
     <div dir={isRTL ? "rtl" : "ltr"} className="mt-10 mb-10 px-4">
-      <section className="container mx-auto h-screen max-w-4xl space-y-6">
+      <section className="container mx-auto min-h-[60vh] max-w-4xl space-y-6">
         <h1 className="text-2xl font-bold">{t.contact.heading}</h1>
 
         <p>{t.contact.description}</p>

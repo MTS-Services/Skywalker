@@ -124,7 +124,7 @@ const Navigation = ({
 
   const fetchPropertyType = async () => {
     try {
-      const response = await axios.get('/data/propertyTypes.json');
+      const response = await axios.get('/data/groupPropertyTypes.json');
       setPropertyTypes(response.data);
     } catch (error) {
       console.error('Error fetching property types:', error);
@@ -158,9 +158,22 @@ const Navigation = ({
             {isDropdownOpen ? <FiChevronUp className={`${isRTL ? "mr-1" : "ml-1"}`} /> : <FiChevronDown className={`${isRTL ? "mr-1" : "ml-1"}`} />}
           </button>
           {isDropdownOpen && propertyTypes.length > 0 && (
-            <div className={`absolute z-10 mt-2 max-h-[40vh] w-[220px] overflow-y-auto rounded-md border border-gray-300 bg-white p-2 shadow-lg sm:left-0 sm:mt-2 sm:max-h-none sm:w-54 sm:overflow-visible ${isRTL ? "right-0 text-right" : "left-0 text-left"}`}>
+            <div className={`absolute z-10 mt-2 min-w-64 w-fit divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow max-h-[40vh] overflow-y-auto ${isRTL ? "right-0" : "left-0"}`} >
               {propertyTypes.map((item, index) => (
-                <DropdownItem key={index} to={`/search?propertyType=${item.id}`} text={item.name} isRTL={isRTL} />
+                <div key={index} className="p-3">
+                  {Array.isArray(item.properties) && item.properties.length > 0 && (
+                    <>
+                      <p className="font-[700] text-gray-800 text-base mb-2">{item.title}</p>
+                      {item.properties.map((subItem, subIndex) => (
+                        <div key={subIndex}>
+                          <NavLink to={`/search?transactionType=${item.id}&propertyType=${subItem.id}`} className={`block rounded px-2 py-1 my-0.5 text-sm font-[700] text-primary-900`}>
+                            {subItem.name}
+                          </NavLink>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
               ))}
             </div>
           )}
