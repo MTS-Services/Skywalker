@@ -138,9 +138,7 @@ const Footer = () => {
           isRTL={isRTL}
         />
         <div>
-          <h2 className="mb-2 text-base font-semibold">
-            {isRTL ? "صفحات " : "Pages"}
-          </h2>
+          <h2 className="mb-2 text-base">{isRTL ? "صفحات " : "Pages"}</h2>
           <ul className="space-y-1">
             {pagesLinks.map(({ to, label }) => (
               <FooterLink key={to} to={to} label={label} isRTL={isRTL} />
