@@ -25,7 +25,6 @@ export default function Ads() {
   const [displayedAds, setDisplayedAds] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedAd, setSelectedAd] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -34,8 +33,6 @@ export default function Ads() {
   const { isRTL, t, language } = useLanguage();
 
   const ITEMS_PER_PAGE = 10;
-  const observerRef = useRef();
-  const loadMoreRef = useRef();
 
   // Fetch all ads on component mount
   useEffect(() => {
@@ -130,26 +127,6 @@ export default function Ads() {
                 </div>
               ))}
 
-              {/* Loading More Indicator */}
-              {/* {loadingMore && (
-                <div className="flex justify-center items-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
-                  <span className="ml-3 text-primary-900">{t.search.loading}</span>
-                </div>
-              )} */}
-
-              {/* Load More Button - only show if not clicked and has more items */}
-              {/* {hasMore && !loadingMore && !loadMoreClicked && ( */}
-              {/* <button
-                onClick={handleLoadMoreClick}
-                className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 mt-6 w-full rounded-full px-8 py-3 text-white transition-colors duration-300 focus:ring-2 focus:outline-none"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <FaCirclePlus size={18} />
-                  {t.ads.loadMore}
-                </span>
-              </button> */}
-
               <ButtonSubmit
                 onClick={handleLoadMoreClick}
                 text={
@@ -160,16 +137,6 @@ export default function Ads() {
                 }
                 className="!w-full rounded-4xl"
               />
-
-              {/* )} */}
-
-              {/* Infinite Scroll Trigger - only active after load more is clicked */}
-              {/* {loadMoreClicked && <div ref={loadMoreRef} className="h-4 w-full" />} */}
-
-              {/* End of Results */}
-              {/* {!hasMore && displayedAds.length > 0 && (
-                <div className="text-center py-8 text-primary-900">{t.ads.allItemsLoaded}</div>
-              )} */}
             </div>
           </div>
         </div>
