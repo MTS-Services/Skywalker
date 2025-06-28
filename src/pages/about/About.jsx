@@ -46,7 +46,7 @@ export default function About() {
         {/* Intro */}
         <div className="space-y-4">
           <h1 className="text-2xl leading-snug font-bold">
-            <span className="text-[var(--color-primary-400)]">Mr Aqar</span> |{" "}
+            <span className="text-[var(--color-primary-400)]">{t.site.name}</span> |{" "}
             {t.about.heading}
           </h1>
           <p>{t.about.intro}</p>
@@ -111,7 +111,7 @@ export default function About() {
           <p className="mt-2">
             {t.about.finalNote}{" "}
             <span className="font-bold text-[var(--color-primary-400)]">
-              Mr Aqar.
+              {t.site.name}
             </span>
           </p>
         </div>
