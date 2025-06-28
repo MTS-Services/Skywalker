@@ -89,9 +89,9 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
                   </svg>
                 )}
                 <div className="absolute start-0.5 top-0 flex h-[28px] w-full items-center justify-center">
-                  <h4 className="overflow-hidden px-1 text-sm font-bold whitespace-nowrap text-gray-600">
+                  <h3 className="overflow-hidden px-1 whitespace-nowrap text-white">
                     {t.ads.super}
-                  </h4>
+                  </h3>
                 </div>
               </div>
             )}
