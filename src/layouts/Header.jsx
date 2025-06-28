@@ -5,7 +5,7 @@ import { FaBars, FaPlusCircle } from "react-icons/fa";
 import axios from "axios";
 import { useLanguage } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
-import { SideBar } from "./Sidebar";
+import { SideBar } from "./SideBar";
 
 const navLinkClass = ({ isActive }) =>
   isActive
