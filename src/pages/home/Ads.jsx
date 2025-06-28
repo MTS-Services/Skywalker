@@ -38,7 +38,7 @@ export default function Ads() {
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const response = await fetch("/src/data/ads.json");
+        const response = await fetch("/ads.json");
         const data = await response.json();
         const processedAds = data.map((ad) => ({
           ...ad,

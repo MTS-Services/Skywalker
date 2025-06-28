@@ -4,7 +4,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { FiClock, FiPhone } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 
-import companiesData from "../../data/companies.json";
+import companiesData from "../../../public/companies.json";
 import AdDetailsModal from "../AdDetailsModal";
 
 const generateSlug = (title) => {
