@@ -1,6 +1,12 @@
 export const translations = {
   en: {
-    // Header
+
+    site: {
+      name: "MR-AQAR",
+      tagline: "Property Finder"
+    },
+
+    // Header 
     header: {
       home: "Home (Search)",
       agents: "Agents",
@@ -8,13 +14,12 @@ export const translations = {
       contact: "Contact",
       login: "Login",
       register: "Register",
-      byCredit: "By Credits",
+      buyCredit: "Buy Credits",
       addFreeAd: "Add Free Ad",
       kuwaitRealEstate: "Kuwait Real Estate",
       myAds: "My Ads",
       myArchives: "My Archives",
       logout: "Logout",
-
     },
 
     // Footer
@@ -58,6 +63,7 @@ export const translations = {
       copyButton: "Copy URL",
       loadMore: "Load More",
       allItemsLoaded: "All items loaded.",
+      noAds: "No ads found."
     },
 
     // Search
@@ -103,9 +109,11 @@ export const translations = {
       confirmation: "Confirmation",
       cancel: "Cancel",
       confirm: "Confirm",
-      makeSuper: "Are you sure you want to make this ad Super? This will deduct from your Super credit balance",
+      makeSuper:
+        "Are you sure you want to make this ad Super? This will deduct from your Super credit balance",
       removeSuper: "Are you sure you want to remove Super from this ad?",
-      renew: "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
+      renew:
+        "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
       translateTitle: "تم نشر إعلانك المترجم للغة الإنجليزية",
       translateMessage: "تم حذف هذا الاعلان او إنتهاء مدته",
       currency: "د.ك",
@@ -318,15 +326,20 @@ export const translations = {
       fileLimitError: "You can only upload up to 12 images or videos.",
     },
   },
+
   "ar": {
+    site: {
+      name: "السيد-عقار",
+      tagline: "الباحث عن العقارات"
+    },
     "header": {
-      "home": "الصفحة الرئيسية (البحث)",
+      "home": "الصفحة الرئيسية",
       "agents": "الوكلاء",
       "about": "حول",
       "contact": "اتصل",
       "login": "تسجيل الدخول",
       "register": "التسجيل",
-      "byCredit": "شراء رصيد",
+      "buyCredit": "شراء رصيد",
       "addFreeAd": "أضف إعلان مجاني",
       "kuwaitRealEstate": "العقارات في الكويت",
       "myAds": "إعلاناتي",
@@ -364,7 +377,8 @@ export const translations = {
       "copyLinkTitle": "نسخ الرابط المباشر",
       "copyButton": "نسخ الرابط",
       "loadMore": "تحميل المزيد",
-      "allItemsLoaded": "تم تحميل جميع العناصر."
+      "allItemsLoaded": "تم تحميل جميع العناصر.",
+      "noAds": "لا يوجد اعلانات."
     },
     "search": {
       "super": "مميز",

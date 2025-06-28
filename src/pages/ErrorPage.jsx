@@ -6,12 +6,12 @@ const ErrorPage = () => {
     <section className="flex min-h-screen items-center justify-center bg-[#F5F5F9] py-6">
       <div className="px-4 text-center sm:px-8 md:px-12 lg:px-16">
         {/* Error Code */}
-        <h1 className="mb-2 text-6xl font-bold text-gray-800 sm:text-7xl md:text-8xl">
+        <h1 className="mb-2 text-6xl text-gray-800 sm:text-7xl md:text-8xl">
           404
         </h1>
 
         {/* Error Message Heading */}
-        <h2 className="mb-2 flex items-center justify-center text-xl font-semibold text-gray-800 sm:text-2xl">
+        <h2 className="mb-2 flex items-center justify-center text-xl text-gray-800 sm:text-2xl">
           Page Not Found
           <TfiAlert className="ml-2 text-red-500" />
         </h2>
@@ -24,7 +24,7 @@ const ErrorPage = () => {
         {/* Back to Home Button */}
         <Link
           to="/"
-          className="inline-block rounded-full bg-[var(--color-primary-400)] px-8 py-3 text-lg text-white transition duration-300 hover:bg-[var(--color-primary-400)]"
+          className="bg-primary-500 hover:bg-primary-600 font-primary inline-block rounded-full px-8 py-3 text-lg text-white transition duration-300"
         >
           Back To Home
         </Link>
