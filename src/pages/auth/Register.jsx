@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
-import { FiPhone, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import registerImg from "../../assits/login/register (2).png";
-import toast from "react-hot-toast"; // toast আমদানি করুন
+import toast from "react-hot-toast";
 import { useLanguage } from "../../context/LanguageContext";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -22,28 +21,25 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic password validation
     if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long."); // Show error toast
+      toast.error("Password must be at least 6 characters long.");
       return;
     }
 
     try {
-      // Call the registerUser function from AuthContext
       const result = await registerUser(mobileNumber, password);
 
       if (result.success) {
-        toast.success(result.message); // Show success toast
-        // Redirect to login page after successful registration
+        toast.success(result.message);
         setTimeout(() => {
           navigate("/");
-        }, 1500); // Redirect after 1.5 seconds so user can see the toast
+        }, 1500);
       } else {
-        toast.error(result.message); // Show error toast for failed registration
+        toast.error(result.message);
       }
     } catch (error) {
       console.error("Registration error:", error);
-      toast.error("An unexpected error occurred. Please try again."); // Generic error toast
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -53,7 +49,7 @@ const Register = () => {
       style={{ fontFamily: "var(--font-secondary)" }}
     >
       <div className="container flex h-full max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:flex-row">
-        {/* Left Image Section */}
+        {/* Left Image */}
         <div className="hidden p-12 md:block md:w-1/2">
           <img
             src={registerImg}
@@ -62,39 +58,35 @@ const Register = () => {
           />
         </div>
 
-        {/* Right Form Section */}
+        {/* Form */}
         <div className="my-4 flex h-full w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="text-primary-500 mb-2 text-center text-3xl font-bold">
+          <h2 className="text-[#242424] font-primary mb-2 text-center text-[18px]">
             {t.register.title}
           </h2>
 
-          <p className="py-2 text-center text-base">{t.register.subtitle}</p>
+          <p className="font-primary mb-6 text-center text-sm text-[#556885]">
+            {t.register.subtitle}
+          </p>
 
           <form className="space-y-6" noValidate onSubmit={handleSubmit}>
-            {/* Phone Number */}
+            {/* Mobile Number */}
             <div>
               <label
                 htmlFor="phone"
                 className="mb-2 block text-sm font-semibold text-gray-700"
               >
-                {t.register.mobileNumber}
+                
               </label>
-              <div className="relative">
-                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <FiPhone className="text-gray-400" />
-                </span>
-                <input
-                  id="phone"
-                  type="tel"
-                  placeholder={t.register.mobileNumber}
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                  value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                  required
-                  
-                />
-              </div>
+              <input
+                id="phone"
+                type="tel"
+                placeholder={t.register.mobileNumber}
+                className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-left text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none" // Added text-right here
+                style={{ fontFamily: "var(--font-secondary)" }}
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                required
+              />
             </div>
 
             {/* Password */}
@@ -102,37 +94,19 @@ const Register = () => {
               <label
                 htmlFor="password"
                 className="mb-2 block text-sm font-semibold text-gray-700"
-              >
-                {t.register.passwords}
-              </label>
+              ></label>
               <div className="relative">
-                <button
-                  type="button"
-                  onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
-                >
-                  {passwordVisible ? (
-                    <FiEyeOff className="text-gray-400" />
-                  ) : (
-                    <FiEye className="text-gray-400" />
-                  )}
-                </button>
-
                 <input
                   id="password"
                   type={passwordVisible ? "text" : "password"}
-                  placeholder="********"
+                  placeholder={t.register.passwords}
                   autoComplete="new-password"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <FiLock className="text-gray-400" />
-                </span>
               </div>
             </div>
 
@@ -148,7 +122,7 @@ const Register = () => {
 
           {/* Link to Login */}
           <p className="mt-6 text-center text-gray-600">
-            {t.register.alradyLogin}
+            {t.register.alradyLogin}{" "}
             <Link
               to="/login"
               className="text-primary-500 font-semibold hover:underline"
