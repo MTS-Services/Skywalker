@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import BannerImage from "../../assets/images/home-hero-banner.svg"
-import { MultiSelectDropdown } from "../../components/shared/FilterDropdown"
+import { MultiSelectDropdown } from "../../components/shared/FilterDropdown";
 
 /**
  * Hero Component: Displays the main hero section with a background and search filters.
@@ -10,11 +10,11 @@ export default function Hero({ t, isRTL }) {
   return (
     <section className="relative py-6 sm:py-12 md:py-12 lg:py-20">
       <div className="absolute right-0 bottom-0 left-0 w-full">
-      <img
+        <img
           alt={t.site.name}
           width="1920"
           height="426"
-          className="h-auto w-full max-w-screen-2xl object-cover hidden lg:block"
+          className="hidden h-auto w-full object-cover lg:block"
           src="/home-hero-desktop-hd.svg"
         />
         <img
@@ -34,7 +34,7 @@ export default function Hero({ t, isRTL }) {
           <p className="text-primary-800 mb-8 text-base md:text-lg">
             {t.home.bannerSubTitle}
           </p>
-          <div className="bg-primary-50/20 shadow-primary-900/30 w-full max-w-md rounded-2xl p-4 shadow-lg backdrop-blur-sm sm:p-6">
+          <div className="bg-white/20 shadow-primary-900/30 w-full max-w-md rounded-2xl p-4 shadow-lg backdrop-blur-[2px] sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>
