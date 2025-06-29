@@ -79,10 +79,10 @@ export default function CompanyAdsPage() {
     <>
       <section className="bg-primary-700 text-on-primary py-10 md:py-16">
         <div className="container mx-auto px-4 text-center">
-          <div className="mx-auto mb-4 flex h-34 w-34 items-center justify-center overflow-hidden rounded-xl p-1 bg-white">
-            {company.logo_url ? ( 
+          <div className="mx-auto mb-4 flex h-34 w-34 items-center justify-center overflow-hidden rounded-xl bg-white p-1">
+            {company.logo_url ? (
               <img
-                src={company.logo_url} 
+                src={company.logo_url}
                 alt={company.name}
                 className="h-full w-full object-contain"
               />
@@ -90,15 +90,14 @@ export default function CompanyAdsPage() {
               <span className="text-4xl text-gray-400">🏢</span>
             )}
           </div>
-          
-          <h1 className="text-2xl font-bold text-white sm:text-lg">
+
+          <h4 className="text-[15px] font-[700] text-[#242424]">
             {company.name}
-          </h1>
-          <p className="mt-2 px-2 text-[14px] font-normal text-white lg:px-70">
+          </h4>
+          <span className="text-[#2e6290]  mt-2 px-2 text-[14px] font-bold lg:px-70">
             {company.description}
-          </p>
+          </span>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
-           
             {company.social_media && company.social_media.whatsapp && (
               <a
                 href={`tel:${company.social_media.whatsapp}`}
@@ -117,36 +116,35 @@ export default function CompanyAdsPage() {
                 rel="noopener noreferrer"
                 className="hover:bg-primary-100 flex h-12 w-12 items-center justify-center rounded-lg border-1 border-[#38A854] bg-white p-1 text-2xl text-[#38A854] transition-colors"
               >
-                <FaWhatsapp />
+                < FaWhatsapp className="f"></FaWhatsapp>
               </a>
             )}
-            {company.social_media &&
-              company.social_media.instagram && ( 
-                <a
-                  href={company.social_media.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:bg-primary-100 flex h-12 w-12 items-center justify-center rounded-lg border-1 border-[#38A854] bg-white p-1 text-2xl text-[#38A854] transition-colors"
+            {company.social_media && company.social_media.instagram && (
+              <a
+                href={company.social_media.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:bg-primary-100 flex h-12 w-12 items-center justify-center rounded-lg border-1 border-[#38A854] bg-white p-1 text-2xl text-[#38A854] transition-colors"
+              >
+                {/* Instagram icon (example, assuming you have an icon for it) */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-instagram"
                 >
-                  {/* Instagram icon (example, assuming you have an icon for it) */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-instagram"
-                  >
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.5" y1="6.5" y2="6.5" />
-                  </svg>
-                </a>
-              )}
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" x2="17.5" y1="6.5" y2="6.5" />
+                </svg>
+              </a>
+            )}
           </div>
         </div>
       </section>
@@ -164,7 +162,7 @@ export default function CompanyAdsPage() {
                 companyAds.map((ad) => (
                   <div
                     key={ad.id}
-                    onClick={() => handleAdClick(ad)} 
+                    onClick={() => handleAdClick(ad)}
                     className="group w-full cursor-pointer"
                   >
                     <div className="active:border-primary-500 relative w-full rounded-lg border border-transparent bg-white p-3 shadow-md transition-shadow duration-300 hover:shadow-xl sm:p-4">
@@ -184,7 +182,7 @@ export default function CompanyAdsPage() {
                             />
                           </div>
                         </div>
-                      
+
                         <div className="flex-1 overflow-hidden">
                           <h4 className="text-dark group-hover:text-primary-600 line-clamp-2 text-base font-bold break-words transition-colors sm:text-lg">
                             {ad.title}
@@ -218,8 +216,8 @@ export default function CompanyAdsPage() {
 
       {/* Ad Details Modal Component */}
       <AdDetailsModal
-        show={showAdModal} 
-        onClose={closeAdModal} 
+        show={showAdModal}
+        onClose={closeAdModal}
         ad={selectedAd}
         t={t}
         isRTL={isRTL}
