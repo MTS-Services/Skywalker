@@ -47,20 +47,6 @@ export default function AgentList() {
     fetchCompanies();
   }, []);
 
-  // formatTimeAgo ফাংশনটি এই কম্পোনেন্টে ব্যবহৃত হচ্ছে না, কিন্তু আপনি চাইলে রাখতে পারেন
-  const formatTimeAgo = (dateString, language) => {
-    const postDate = new Date(dateString);
-    const now = new Date();
-    const seconds = Math.floor((now - postDate) / 1000);
-    const hours = Math.floor(seconds / 3600);
-
-    if (hours === 0) {
-      return language === "ar" ? "0 ساعة" : "0 hours";
-    }
-
-    return hours + (language === "ar" ? "ساعة" : " hours");
-  };
-
   if (loading) {
     return (
       <section className="bg-gray-100 px-4 py-8 text-center md:px-5 md:py-10">
@@ -85,9 +71,9 @@ export default function AgentList() {
       <section className="h-screen bg-gray-100 px-4 py-8 md:px-5 md:py-10">
         <div className="container mx-auto w-full max-w-7xl">
           <div className={`mx-auto mb-4 w-full max-w-xl md:max-w-full`}>
-            <div className="w-full text-center md:w-[770px] lg:ml-20">
+            <div className="w-full text-center md:w-[770px] lg:ml-12">
               <h3
-                className={`text-lg font-bold text-gray-800 ${isRTL ? "mr-2" : "ml-2"}`}
+                className={`mb-6 px-2 text-base font-[700] text-gray-800 ${isRTL ? "mr-2" : "ml-2"}`}
               >
                 {t?.agent?.titlefast || "Real Estate Agents List in Kuwait"} ({" "}
                 <span className="px-2">{companies.length}</span>
@@ -126,20 +112,18 @@ export default function AgentList() {
                             </div>
                           </div>
                           <div className="flex-1 overflow-hidden">
-                            <h4
-                              className="text-[15px] text-[#242424] font-[700]"
-                            >
+                            <h4 className="text-dark font-primary line-clamp-2 text-[15px] font-[700] break-words transition-colors sm:text-[15px]">
                               {company.name}
                             </h4>
 
                             <div>
                               <div
-                                className={`flex items-center gap-1 py-1 space-x-2`}
+                                className={`flex items-center gap-1 space-x-2 py-1`}
                               >
                                 {/* বিজ্ঞাপনের সংখ্যা - ক্লিকযোগ্য লিঙ্ক */}
                                 <Link
                                   to={`/agent/${company.id}/ads`}
-                                  className={`text-primary-300 font-bold`}
+                                  className={`text-primary-900 py-1 text-sm font-[700]`}
                                 >
                                   {company.ads?.length || 0} Ads{" "}
                                   {/* 'agent.ads' এর পরিবর্তে 'company.ads?.length' */}
@@ -171,7 +155,6 @@ export default function AgentList() {
                                   </a>
                                 )}
                               </div>
-
                             </div>
                             <div className="flex gap-3">
                               <div className="text-primary-dark rounded font-bold"></div>

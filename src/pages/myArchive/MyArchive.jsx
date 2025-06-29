@@ -15,7 +15,7 @@ export default function MyArchive() {
 
     const fetchMyAds = async () => {
         try {
-            const response = await axios.get('/data/myAds.json');
+            const response = await axios.get('/myAds.json');
             const data = response.data;
             const nonOpenAds = data.filter(ad => ad.isOpen !== true);
             setMyAds(nonOpenAds);

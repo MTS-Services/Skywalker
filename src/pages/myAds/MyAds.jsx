@@ -14,7 +14,7 @@ export default function MyAds() {
 
   const fetchMyAds = async () => {
     try {
-      const response = await axios.get("/data/myAds.json");
+      const response = await axios.get("/myAds.json");
       const data = response.data;
       // Filter the data to include only items where isOpen is true
       const openAds = data.filter((ad) => ad.isOpen === true);

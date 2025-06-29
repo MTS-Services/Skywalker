@@ -10,7 +10,7 @@ export default function MyCredits() {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const response = await fetch('/data/packages.json');
+                const response = await fetch('/packages.json');
                 const data = await response.json();
                 setPackages(data);
             } catch (error) {

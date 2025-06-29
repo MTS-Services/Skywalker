@@ -151,7 +151,7 @@ const BuyCreditsMobailPart = () => {
         </h2>
         <ul className="mb-6 list-inside list-disc text-sm text-gray-600 sm:text-base">
           <li>{t.byCredit.subtitlefast}</li>
-          <p className="flex  items-center sm:flex-row sm:items-center">
+          <p className="flex items-center sm:flex-row sm:items-center">
             <li>{t.byCredit.subtitlastone}</li>
             <span className="text-descripton sm:ml-1">
               {t.byCredit.subtitlastwo}
@@ -178,7 +178,7 @@ const BuyCreditsMobailPart = () => {
       <div className="mb-12 grid w-full max-w-5xl grid-cols-1 gap-4 px-4">
         <CreditCard
           title={t.byCredit.superCredit}
-          imageSrc="/assets/byCridit/img3.png"
+          imageSrc="/assets/byCridit/supper.jpg"
           onImageClick={openModal}
           t={t}
           bannerColor="#CE3635"
@@ -198,8 +198,7 @@ const BuyCreditsMobailPart = () => {
 
         <CreditCard
           title={t.byCredit.agentsSubscription}
-          imageSrc="/assets/byCridit/img.png"
-          onImageClick={openModal}
+          imageSrc="/assets/byCridit/Subscription.jpg"
           t={t}
           bannerColor="#044470"
           buttons={[
@@ -235,6 +234,19 @@ const BuyCreditsMobailPart = () => {
             },
           ]}
         />
+
+        {/* ✅ FREE AD BOX */}
+        <div className="card-shadow relative flex w-full flex-col items-center gap-3 rounded-lg border border-[#e5e7eb] bg-white p-4 text-center shadow-xl">
+          <div className="w-full text-left text-xs text-gray-700">
+            <p className="font-primary text-center font-[500]">
+              LIST UR AD FOR FREE
+            </p>
+            <p className="text-center">Without any special features</p>
+          </div>
+          <button className="mt-4 rounded-md border border-blue-200 bg-[#E8F0F7] px-4 py-2 font-[700] text-black shadow-sm transition hover:bg-blue-200">
+            <Link to="/ad-upload">FREE AD</Link>
+          </button>
+        </div>
       </div>
 
       <div className="flex items-center justify-center px-4 py-6 text-center text-sm text-gray-700">

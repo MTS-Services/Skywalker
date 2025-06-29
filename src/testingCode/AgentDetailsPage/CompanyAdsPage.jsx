@@ -4,10 +4,8 @@ import { useLanguage } from "../../context/LanguageContext";
 import { FiClock, FiPhone } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 
-
-import companiesData from "../../../public/companies.json"; 
+import companiesData from "../../../public/companies.json";
 import AdDetailsModal from "../AdDetailsModal";
-
 
 const generateSlug = (title) => {
   return title
@@ -18,22 +16,20 @@ const generateSlug = (title) => {
     .trim();
 };
 
-
 export default function CompanyAdsPage() {
   const { companyId } = useParams();
   const [company, setCompany] = useState(null);
   const [companyAds, setCompanyAds] = useState([]);
-  const [showAdModal, setShowAdModal] = useState(false); 
-  const [selectedAd, setSelectedAd] = useState(null); 
+  const [showAdModal, setShowAdModal] = useState(false);
+  const [selectedAd, setSelectedAd] = useState(null);
   const { isRTL, t, language } = useLanguage();
 
   useEffect(() => {
-    
     const foundCompany = companiesData.find((comp) => comp.id === companyId);
 
     if (foundCompany) {
       setCompany(foundCompany);
-      
+
       const adsWithSlugs = foundCompany.ads.map((ad) => ({
         ...ad,
         slug: ad.slug || generateSlug(ad.title),
@@ -91,19 +87,19 @@ export default function CompanyAdsPage() {
             )}
           </div>
 
-          <h4 className="text-[15px] font-[700] text-[#242424]">
+          <h4 className="text-2xl font-bold text-white sm:text-lg">
             {company.name}
           </h4>
-          <span className="text-[#2e6290]  mt-2 px-2 text-[14px] font-bold lg:px-70">
+          <p className="mx-auto mt-2 px-2 text-center text-[14px] font-bold text-white lg:px-70">
             {company.description}
-          </span>
+          </p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
             {company.social_media && company.social_media.whatsapp && (
               <a
                 href={`tel:${company.social_media.whatsapp}`}
                 className="text-on-success active:bg-active-success inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#38A854] px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none"
               >
-                <FiPhone className="text-xl" />
+                <FiPhone className={`text-xl ${isRTL ? 'rotate-265' : ''}`} />
                 <span className="text-lg font-normal">
                   {company.social_media.whatsapp}
                 </span>
@@ -116,7 +112,7 @@ export default function CompanyAdsPage() {
                 rel="noopener noreferrer"
                 className="hover:bg-primary-100 flex h-12 w-12 items-center justify-center rounded-lg border-1 border-[#38A854] bg-white p-1 text-2xl text-[#38A854] transition-colors"
               >
-                < FaWhatsapp className="f"></FaWhatsapp>
+                <FaWhatsapp className="f"></FaWhatsapp>
               </a>
             )}
             {company.social_media && company.social_media.instagram && (
@@ -151,11 +147,11 @@ export default function CompanyAdsPage() {
 
       {/* Company Ads List Section */}
       <section className="bg-gray-50 py-10 md:py-16">
+        <h3></h3>
         <div className="container mx-auto px-4">
           <div className="mx-auto w-full max-w-3xl">
-            <h3 className="mb-6 px-2 text-2xl font-bold text-gray-800">
-              Agent's Recent Ads {t.ads.companyAdsTitle} ({companyAds.length}{" "}
-              {t.ads.adsCount})
+            <h3 className="mb-6 px-2 text-base font-[700] text-gray-800">
+              {t.agent.companystTitle}({companyAds.length} {t.ads.adsCount})
             </h3>
             <div className="flex flex-col items-center justify-start gap-4">
               {companyAds.length > 0 ? (
@@ -165,7 +161,7 @@ export default function CompanyAdsPage() {
                     onClick={() => handleAdClick(ad)}
                     className="group w-full cursor-pointer"
                   >
-                    <div className="active:border-primary-500 relative w-full rounded-lg border border-transparent bg-white p-3 shadow-md transition-shadow duration-300 hover:shadow-xl sm:p-4">
+                    <div className="active:border-primary-500 relative w-full rounded-lg border border-gray-200 bg-white p-3 shadow duration-300 sm:p-4">
                       <div className="flex gap-3 sm:gap-4">
                         {/* Image */}
                         <div className="relative flex-shrink-0">
@@ -184,21 +180,25 @@ export default function CompanyAdsPage() {
                         </div>
 
                         <div className="flex-1 overflow-hidden">
-                          <h4 className="text-dark group-hover:text-primary-600 line-clamp-2 text-base font-bold break-words transition-colors sm:text-lg">
+                          <h4 className="text-dark font-primary line-clamp-2 text-[15px] font-[700] break-words transition-colors sm:text-[15px]">
                             {ad.title}
                           </h4>
-                          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                            <div className="text-primary-dark text-base font-bold">
+                          <div className="font-primary mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                            <div className="text-primary-900 py-1 text-sm font-[700]">
                               {ad.kd} {t.ads.currency}
                             </div>
-                            <div className="flex items-center gap-1 text-gray-500">
+                            <div className="
+                            
+                            
+                            
+                            font-primary flex items-center gap-1 text-[12px] font-[400] text-[#556885]">
                               <FiClock className="size-4" />
                               <span>
                                 {formatTimeAgo(ad.postCreateAt, language)}
                               </span>
                             </div>
                           </div>
-                          <p className="mt-2 line-clamp-2 text-sm text-gray-600">
+                          <p className="font-primary mt-2 line-clamp-2 text-sm text-[#556885]">
                             {ad.description}
                           </p>
                         </div>
@@ -207,7 +207,9 @@ export default function CompanyAdsPage() {
                   </div>
                 ))
               ) : (
-                <p className="text-gray-600">No ads found for this company.</p>
+                <p className="font-primary text-center text-gray-600">
+                  No ads found for this company.
+                </p>
               )}
             </div>
           </div>

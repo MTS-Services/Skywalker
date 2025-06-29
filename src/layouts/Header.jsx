@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, useContext, useMemo } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
-import { FiChevronDown, FiChevronUp, FiMenu, FiX, FiSettings } from "react-icons/fi";
+import { NavLink, Link } from "react-router-dom";
+import { FiChevronDown, FiChevronUp, FiSettings } from "react-icons/fi";
 import { FaBars, FaPlusCircle } from "react-icons/fa";
 import axios from "axios";
 import { useLanguage } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
-import { SideBar } from "./Sidebar";
+import SideBar from "./SideBar";
 
 const navLinkClass = ({ isActive }) =>
   isActive
@@ -21,7 +21,6 @@ function Header() {
   const dropdownRef = useRef(null);
   const langDropdownRef = useRef(null);
 
-
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   useEffect(() => {
@@ -29,7 +28,10 @@ function Header() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
-      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
+      if (
+        langDropdownRef.current &&
+        !langDropdownRef.current.contains(event.target)
+      ) {
         setLangOpen(false);
       }
     };
@@ -64,19 +66,30 @@ function Header() {
   }, [isAuthenticated, t]);
 
   return (
-    <nav className={`relative z-50 border-b border-gray-200 bg-white px-4 py-4 shadow-sm ${isRTL ? "rtl" : "ltr"}`}>
+    <nav
+      className={`relative z-50 border-b border-gray-200 bg-white px-4 py-4 shadow-sm ${isRTL ? "rtl" : "ltr"}`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <NavLink to="/" className={`flex items-center gap-2 justify-start`}>
+        <NavLink to="/" className={`flex items-center justify-start gap-2`}>
           <img src="/logo.png" alt="Logo" className="w-14" />
           <div>
-            <p className="font-bold text-lg capitalize">{t.site.name}</p>
-            <p className="text-[8px] w-fit mx-auto bg-primary-300 px-2 py-1 rounded-md text-white leading-normal">{t.site.tagline}</p>
+            <p className="text-lg font-bold capitalize">{t.site.name}</p>
+            <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
+              {t.site.tagline}
+            </p>
           </div>
         </NavLink>
 
-        <button onClick={toggleSidebar} className="lg:hidden text-2xl text-[#556885]"><FaBars /></button>
+        <button
+          onClick={toggleSidebar}
+          className="text-2xl text-[#556885] lg:hidden"
+        >
+          <FaBars />
+        </button>
 
-        <div className={`hidden items-center gap-6 font-medium text-black lg:flex ${isRTL ? "space-x-reverse" : ""}`}>
+        <div
+          className={`hidden items-center gap-6 font-medium text-black lg:flex ${isRTL ? "space-x-reverse" : ""}`}
+        >
           <Navigation
             toggleDropdown={toggleDropdown}
             isDropdownOpen={isDropdownOpen}
@@ -91,17 +104,23 @@ function Header() {
             navItems={navItems}
           />
 
-          {isAuthenticated && <Link to="/settings"><FiSettings /></Link>}
+          {isAuthenticated && (
+            <Link to="/settings">
+              <FiSettings />
+            </Link>
+          )}
         </div>
 
-        <NavLink to={isAuthenticated ? "/ad-upload" : "/login"} className="hidden lg:flex items-center gap-2 bg-primary-300/10 px-5 py-2 rounded-md border border-primary-300/40">
+        <NavLink
+          to={isAuthenticated ? "/ad-upload" : "/login"}
+          className="bg-primary-300/10 border-primary-300/40 hidden items-center gap-2 rounded-md border px-5 py-2 lg:flex"
+        >
           <FaPlusCircle className="text-primary-600 text-lg" />
           {t.header.addFreeAd}
         </NavLink>
       </div>
 
       <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-
     </nav>
   );
 }
@@ -109,25 +128,22 @@ function Header() {
 const Navigation = ({
   toggleDropdown,
   isDropdownOpen,
-  toggleLangDropdown,
-  langOpen,
   handleLanguageChange,
   isRTL,
   t,
-  language,
   isMobile = false,
   isAuthenticated,
   handleLogout,
-  navItems
+  navItems,
 }) => {
   const [propertyTypes, setPropertyTypes] = useState([]);
 
   const fetchPropertyType = async () => {
     try {
-      const response = await axios.get('/data/groupPropertyTypes.json');
+      const response = await axios.get("/groupPropertyTypes.json");
       setPropertyTypes(response.data);
     } catch (error) {
-      console.error('Error fetching property types:', error);
+      console.error("Error fetching property types:", error);
     }
   };
 
@@ -136,12 +152,16 @@ const Navigation = ({
   }, []);
 
   return (
-    <div className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""}`}>
+    <div
+      className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""}`}
+    >
       {navItems.map((item, index) => (
-        <div className="rounded-e-2xl active:bg-active" key={index}>
+        <div className="active:bg-active rounded-e-2xl" key={index}>
           {item.to ? (
             <NavLink to={item.to} className={navLinkClass}>
-              <span className={isRTL ? "text-right" : "text-left"}>{item.label}</span>
+              <span className={isRTL ? "text-right" : "text-left"}>
+                {item.label}
+              </span>
             </NavLink>
           ) : (
             <button onClick={handleLogout}>
@@ -153,26 +173,41 @@ const Navigation = ({
 
       {!isAuthenticated && (
         <div className="relative">
-          <button onClick={toggleDropdown} className={`flex cursor-pointer items-center transition-colors hover:text-primary-400 ${isDropdownOpen ? "text-primary-400" : ""} ${isRTL ? "flex-row-reverse" : ""}`}>
+          <button
+            onClick={toggleDropdown}
+            className={`hover:text-primary-400 flex cursor-pointer items-center transition-colors ${isDropdownOpen ? "text-primary-400" : ""} ${isRTL ? "flex-row-reverse" : ""}`}
+          >
             {t.header.kuwaitRealEstate}
-            {isDropdownOpen ? <FiChevronUp className={`${isRTL ? "mr-1" : "ml-1"}`} /> : <FiChevronDown className={`${isRTL ? "mr-1" : "ml-1"}`} />}
+            {isDropdownOpen ? (
+              <FiChevronUp className={`${isRTL ? "mr-1" : "ml-1"}`} />
+            ) : (
+              <FiChevronDown className={`${isRTL ? "mr-1" : "ml-1"}`} />
+            )}
           </button>
           {isDropdownOpen && propertyTypes.length > 0 && (
-            <div className={`absolute z-10 mt-2 min-w-64 w-fit divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow max-h-[40vh] overflow-y-auto ${isRTL ? "right-0" : "left-0"}`} >
+            <div
+              className={`absolute z-10 mt-2 max-h-[40vh] w-fit min-w-64 divide-y divide-gray-100 overflow-y-auto rounded-md border border-gray-100 bg-white shadow ${isRTL ? "right-0" : "left-0"}`}
+            >
               {propertyTypes.map((item, index) => (
                 <div key={index} className="p-3">
-                  {Array.isArray(item.properties) && item.properties.length > 0 && (
-                    <>
-                      <p className="font-[700] text-gray-800 text-base mb-2">{item.title}</p>
-                      {item.properties.map((subItem, subIndex) => (
-                        <div key={subIndex}>
-                          <NavLink to={`/search?transactionType=${item.id}&propertyType=${subItem.id}`} className={`block rounded px-2 py-1 my-0.5 text-sm font-[700] text-primary-900`}>
-                            {subItem.name}
-                          </NavLink>
-                        </div>
-                      ))}
-                    </>
-                  )}
+                  {Array.isArray(item.properties) &&
+                    item.properties.length > 0 && (
+                      <>
+                        <p className="mb-2 text-base font-[700] text-gray-800">
+                          {item.title}
+                        </p>
+                        {item.properties.map((subItem, subIndex) => (
+                          <div key={subIndex}>
+                            <NavLink
+                              to={`/search?transactionType=${item.id}&propertyType=${subItem.id}`}
+                              className={`text-primary-900 my-0.5 block rounded px-2 py-1 text-sm font-[700]`}
+                            >
+                              {subItem.name}
+                            </NavLink>
+                          </div>
+                        ))}
+                      </>
+                    )}
                 </div>
               ))}
             </div>
@@ -180,15 +215,20 @@ const Navigation = ({
         </div>
       )}
 
-      <button onClick={() => handleLanguageChange(isRTL ? 'en' : 'ar')}>
-        <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>{isRTL ? "En" : "ع"}</span>
+      <button onClick={() => handleLanguageChange(isRTL ? "en" : "ar")}>
+        <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
+          {isRTL ? "En" : "ع"}
+        </span>
       </button>
     </div>
   );
 };
 
 const DropdownItem = ({ to, text, isRTL }) => (
-  <NavLink to={to} className={`block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-primary-600 ${isRTL ? "text-right" : "text-left"}`}>
+  <NavLink
+    to={to}
+    className={`hover:text-primary-600 block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 ${isRTL ? "text-right" : "text-left"}`}
+  >
     {text}
   </NavLink>
 );

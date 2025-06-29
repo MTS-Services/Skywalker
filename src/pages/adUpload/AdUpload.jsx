@@ -157,9 +157,9 @@ const AdUploadForm = () => {
       setIsLoading(true);
       try {
         const [purposesRes, propTypesRes, areasRes] = await Promise.all([
-          axios.get("/data/transactionTypes.json"),
-          axios.get("/data/propertyTypes.json"),
-          axios.get("/data/regions.json"),
+          axios.get("/transactionTypes.json"),
+          axios.get("/propertyTypes.json"),
+          axios.get("/regions.json"),
         ]);
         setOptions({
           purposes: purposesRes.data || [],
@@ -208,7 +208,7 @@ const AdUploadForm = () => {
   }
 
   return (
-    <div className="mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+    <div className="mx-auto mt-16 mb-40 max-w-4xl p-4 sm:p-6 md:p-8 lg:mb-60">
       <form className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
         <div className="md:col-span-1">
           <label className="font-open-sans mb-1 block text-sm font-medium text-gray-700">
@@ -314,7 +314,7 @@ const AdUploadForm = () => {
             </div>
           )}
         </div>
-
+        {/* button */}
         <div className="mt-4 md:col-span-2">
           <ButtonSubmit
             text={

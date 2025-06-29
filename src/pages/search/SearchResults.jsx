@@ -57,7 +57,7 @@ const SearchResults = () => {
     const fetchAds = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("/data/ads.json");
+        const response = await axios.get("/ads.json");
         const data = await response.data;
         setAllAds(data);
       } catch (error) {
