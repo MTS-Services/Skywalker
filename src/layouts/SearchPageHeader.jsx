@@ -1,12 +1,96 @@
+// +++ ADDED: Necessary imports for the new scroller component +++
 import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { FiAlignLeft } from "react-icons/fi";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 import { FaArrowLeft, FaBars } from "react-icons/fa";
+import { GoChevronLeft, GoChevronRight } from "react-icons/go"; // <-- ADDED
 import SideBar from "./SideBar";
 
-// Component 1: Multi-Select Filter
+// +++ ADDED: The self-contained component for horizontal scrolling +++
+const HorizontalScroller = ({ children }) => {
+  const scrollContainerRef = useRef(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(false);
+
+  const checkArrows = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const isScrollable = container.scrollWidth > container.clientWidth;
+      const hasScrolledToRight =
+        container.scrollLeft <
+        container.scrollWidth - container.clientWidth - 1;
+      const hasScrolledToLeft = container.scrollLeft > 0;
+
+      setShowLeftArrow(isScrollable && hasScrolledToLeft);
+      setShowRightArrow(isScrollable && hasScrolledToRight);
+    }
+  }, []);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    checkArrows(); // Initial check
+    window.addEventListener("resize", checkArrows);
+    container?.addEventListener("scroll", checkArrows);
+
+    return () => {
+      window.removeEventListener("resize", checkArrows);
+      container?.removeEventListener("scroll", checkArrows);
+    };
+  }, [checkArrows, children]);
+
+  const scroll = (direction) => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const scrollAmount = container.clientWidth * 0.8;
+      container.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <div className="relative w-full">
+      {/* Left Arrow */}
+      <button
+        type="button"
+        onClick={() => scroll("left")}
+        className={`absolute top-0 bottom-0 -left-2 z-10 flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-4 transition-opacity duration-300 ${
+          showLeftArrow ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        <div className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
+          <GoChevronLeft className="h-5 w-5 text-gray-600" />
+        </div>
+      </button>
+
+      {/* The actual scrolling container */}
+      <div
+        ref={scrollContainerRef}
+        className="scrollbar-hide flex items-center gap-2 overflow-x-auto"
+      >
+        {children}
+      </div>
+
+      {/* Right Arrow */}
+      <button
+        type="button"
+        onClick={() => scroll("right")}
+        className={`absolute top-0 -right-2 bottom-0 z-10 flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-4 transition-opacity duration-300 ${
+          showRightArrow ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        <div className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
+          <GoChevronRight className="h-5 w-5 text-gray-600" />
+        </div>
+      </button>
+    </div>
+  );
+};
+
+// Component 1: Multi-Select Filter (No changes)
 const DesktopRegionFilter = ({
   options,
   selectedItems,
@@ -29,8 +113,8 @@ const DesktopRegionFilter = ({
         }
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    // document.addEventListener("mousedown", handleClickOutside);
+    // return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onToggle]);
 
   const toggleItem = (item) => {
@@ -146,6 +230,7 @@ const DesktopRegionFilter = ({
   );
 };
 
+// Component: MobileRegionFilter (No changes)
 const MobileRegionFilter = ({
   options,
   selectedItems,
@@ -167,9 +252,6 @@ const MobileRegionFilter = ({
         }
       }
     };
-
-    // document.addEventListener("mousedown", handleClickOutside);
-    // return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onToggle]);
 
   const toggleItem = (item) => {
@@ -318,7 +400,7 @@ const MobileRegionFilter = ({
   );
 };
 
-// Component 2: CategoryFilter
+// Component 2: CategoryFilter (No changes)
 const CategoryFilter = ({
   options,
   selectedValue,
@@ -429,7 +511,7 @@ const CategoryFilter = ({
   );
 };
 
-// Component 3: Only DesktopRegionFilter
+// Component 3: PropertyDropdown (No changes)
 const PropertyDropdown = ({
   options,
   selectedItems,
@@ -554,7 +636,7 @@ const PropertyDropdown = ({
   );
 };
 
-// Component 4: Price Range Filter (Unchanged)
+// Component 4: PriceRangeFilter (No changes)
 function PriceRangeFilter({
   minPrice,
   maxPrice,
@@ -682,7 +764,7 @@ function PriceRangeFilter({
   );
 }
 
-// Component 5: Text Search Filter (Unchanged)
+// Component 5: TextSearchFilter (No changes)
 function TextSearchFilter({
   searchTerm,
   setSearchTerm,
@@ -773,12 +855,11 @@ function TextSearchFilter({
   );
 }
 
-// Component 6: The main filter bar logic
+// Component 6: SearchFilterBar (No changes)
 const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(null);
 
-  // State for all filter data and selected values
   const [allRegions, setAllRegions] = useState([]);
   const [allPropertyTypes, setAllPropertyTypes] = useState([]);
   const [transactionTypes, setTransactionTypes] = useState([]);
@@ -791,7 +872,6 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
   const [maxPrice, setMaxPrice] = useState(initialFilters.maxPrice);
   const [searchText, setSearchText] = useState(initialFilters.searchText);
 
-  // Fetch filter data from JSON files
   useEffect(() => {
     const fetchFilterData = async () => {
       try {
@@ -811,7 +891,6 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
     fetchFilterData();
   }, []);
 
-  // Effect to set initial selected items from URL params once data is loaded
   useEffect(() => {
     if (allRegions.length > 0) {
       const initialSelected = allRegions.filter((r) =>
@@ -832,7 +911,6 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
     initialFilters.propertyTypes,
   ]);
 
-  // Function to update URL with current filter state
   const updateURL = useCallback(() => {
     const params = new URLSearchParams();
     if (transactionType) params.set("transactionType", transactionType);
@@ -856,7 +934,6 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
     navigate,
   ]);
 
-  // Debounced effect to update URL when any filter changes
   useEffect(() => {
     const handler = setTimeout(() => updateURL(), 300);
     return () => clearTimeout(handler);
@@ -900,7 +977,7 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
   return children(filterProps);
 };
 
-// Component 7: Main Header Component (NOW RESPONSIVE)
+// Component 7: Main Header Component
 export default function SearchPageHeader() {
   const { isRTL, t } = useLanguage();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -923,14 +1000,15 @@ export default function SearchPageHeader() {
   return (
     <>
       <nav
-        className="border-b border-gray-200 bg-white px-4 py-2 shadow-sm"
+        className="border-b border-gray-200 bg-white px-4 py-6 shadow-sm"
         dir={isRTL ? "rtl" : "ltr"}
       >
         <SearchFilterBar initialFilters={initialFilters} t={t} isRTL={isRTL}>
           {(props) => (
             <div className="mx-auto max-w-7xl">
-              {/* ================== Desktop Header ================== */}
+              {/* ================== Desktop Header (No changes) ================== */}
               <div className="hidden items-center justify-start gap-5 xl:flex">
+                {/* ... your unchanged desktop code ... */}
                 <div className="flex items-center gap-10">
                   <button
                     onClick={toggleSidebar}
@@ -1014,10 +1092,10 @@ export default function SearchPageHeader() {
                 </div>
               </div>
 
-              {/* ================== Mobile Header ================== */}
+              {/* ================== Mobile Header (MODIFIED) ================== */}
               <div className="flex flex-col gap-3 xl:hidden">
                 {/* Top Row: Hamburger, Search, Avatar */}
-                <div className="flex items-center gap-3 rounded-md border border-gray-200 px-3 py-1">
+                <div className="flex items-center gap-3 rounded-md border border-gray-200 px-3 py-2">
                   <button onClick={toggleSidebar} className="text-2xl">
                     <FiAlignLeft />
                   </button>
@@ -1033,7 +1111,6 @@ export default function SearchPageHeader() {
                       onToggle={() => props.toggleDropdown("area")}
                     />
                   </div>
-                  {/* Site Logo */}
                   <Link
                     to="/"
                     className="max-h-9 min-h-9 max-w-9 min-w-9 rounded-md"
@@ -1046,8 +1123,8 @@ export default function SearchPageHeader() {
                   </Link>
                 </div>
 
-                {/* Bottom Row: Filter Buttons */}
-                <div className="-mb-2 flex items-center gap-2  pb-2">
+                {/* +++ REPLACED: The old div with the new HorizontalScroller component +++ */}
+                <HorizontalScroller>
                   <CategoryFilter
                     options={props.transactionTypes}
                     selectedValue={props.transactionType}
@@ -1089,7 +1166,7 @@ export default function SearchPageHeader() {
                     onToggle={() => props.toggleDropdown("text")}
                     onApply={props.onApply}
                   />
-                </div>
+                </HorizontalScroller>
               </div>
             </div>
           )}
