@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
 @import "tailwindcss";
 
 [dir="rtl"] {
@@ -28,19 +28,29 @@
 }
 
 /* Fix space-x-reverse for RTL */
-[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+[dir="rtl"] .space-x-reverse> :not([hidden])~ :not([hidden]) {
   --tw-space-x-reverse: 1;
+}
+
+:root {
+  --site-font-family: theme(--font-open-sans);
+}
+
+/* When the HTML element has 'dir="rtl"', override the variable to Tajawal */
+html[dir="rtl"] {
+  --site-font-family: theme(--font-tajawal);
 }
 
 /* Smooth transitions */
 * {
   transition: all 0.2s ease-in-out;
+  font-family: var(--site-font-family) !important;
 }
 
 @theme {
   /* Font Families */
-  --font-primary: "Open Sans", sans-serif;
-  --font-secondary: "Open Sans", sans-serif;
+  --font-tajawal: "Tajawal", sans-serif;
+  --font-open-sans: "Open Sans", sans-serif;
 
   /* Core Colors */
   --color-primary-50: #a7e1f9;
@@ -101,50 +111,45 @@
 }
 
 @layer base {
-  body {
-    @apply font-primary text-base;
-  }
-
+  /* body {
+    @apply font-open-sans text-base;
+  } */
+  /* 
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-primary);
-  }
+    font-family: var(--font-open-sans);
+  } */
 
   h1 {
     @apply text-2xl font-bold;
-    font-family: var(--font-primary);
     font-weight: 700;
     line-height: 34px;
   }
 
   h2 {
     @apply text-md font-bold;
-    font-family: var(--font-primary);
     font-weight: 700;
     line-height: 24px;
   }
 
   h3 {
     @apply text-sm font-semibold;
-    font-family: var(--font-primary);
     font-weight: 700;
     line-height: 24px;
   }
 
   h4 {
     @apply text-xs font-normal;
-    font-family: var(--font-primary);
     font-weight: 400;
     line-height: 23px;
   }
 
   p {
     @apply text-sm font-normal;
-    font-family: var(--font-secondary);
     font-weight: 400;
     line-height: 24px;
     color: var(--text-color-pargraph);
@@ -152,14 +157,12 @@
 
   li {
     font-size: var(--text-sm);
-    font-family: var(--font-secondary);
     font-weight: var(--font-normal);
     color: var(--text-color-pargraph);
   }
 
   ul {
     font-size: var(--text-sm);
-    font-family: var(--font-secondary);
     font-weight: var(--font-normal);
     color: var(--text-color-pargraph);
   }

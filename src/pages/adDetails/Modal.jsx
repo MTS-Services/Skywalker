@@ -122,15 +122,15 @@ export default function DetailsModal({
               <h1 className="mt-4 text-center text-lg md:text-lg lg:text-2xl">
                 {ad.title}
               </h1>
-              <div className="font-primary mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
+              <div className=" mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
                 {ad.kd} {t.ads.currency}
               </div>
               <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-                <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
+                <div className="bg-primary-300/30  flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
                   <FiClock />
                   <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
                 </div>
-                <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
+                <div className="bg-primary-300/30  flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
                   <FiEye />
                   <span>{ad.views}</span>
                 </div>
@@ -155,7 +155,7 @@ export default function DetailsModal({
                 className="bg-success active:bg-active-success inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-green-600 px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
               >
                 <FiPhone className="text-xl" />
-                <span className="font-primary text-base">{ad.whatsapp}</span>
+                <span className=" text-base">{ad.whatsapp}</span>
               </a>
               <a
                 href={whatsappLink}
