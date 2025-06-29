@@ -8,7 +8,7 @@ import { FiSearch, FiX, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
 import { useLanguage } from "../../context/LanguageContext";
 
-// --- Helper Component: MultiSelectDropdown (Final RTL and Color Fix) ---
+// --- Helper Component: MultiSelectDropdown (No Changes Here) ---
 const MultiSelectDropdown = ({
   options,
   selectedValues,
@@ -42,15 +42,11 @@ const MultiSelectDropdown = ({
 
   return (
     <div className="relative font-sans" ref={dropdownRef}>
-      {/* CHANGED: This container now correctly reverses for RTL */}
       <div
         className="flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 bg-white p-2 rtl:flex-row-reverse"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* CHANGED: Applied global color */}
         <FiSearch className="flex-shrink-0 text-[var(--color-primary-500)]" />
-
-        {/* This div now handles the growing text/pills area */}
         <div className="flex-grow rtl:text-right">
           {selectedValues.length === 0 ? (
             <span className="text-gray-500">{placeholder}</span>
@@ -77,8 +73,6 @@ const MultiSelectDropdown = ({
             </div>
           )}
         </div>
-
-        {/* CHANGED: Applied global color */}
         <div className="flex-shrink-0">
           {isOpen ? (
             <FiChevronUp className="text-primary-500" />
@@ -87,7 +81,6 @@ const MultiSelectDropdown = ({
           )}
         </div>
       </div>
-
       {isOpen && (
         <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-lg">
           <div className="p-2">
@@ -133,7 +126,7 @@ const MultiSelectDropdown = ({
   );
 };
 
-// --- Main Component: AdUploadForm (No changes needed here from last time) ---
+// --- Main Component: AdUploadForm ---
 const AdUploadForm = () => {
   const { t, isRTL } = useLanguage();
 
@@ -203,13 +196,43 @@ const AdUploadForm = () => {
     }));
   };
 
+  // +++ ADDED: New function to handle form submission +++
+  const handleSubmit = async (e) => {
+    // 1. Prevent the default form submission (page reload)
+    e.preventDefault();
+
+    // In a real application, you would send the data to your server here.
+    // For example: await axios.post('/api/ads', formData);
+    console.log("Form submitted:", formData);
+
+    // 2. Display a success message using Toaster
+    // Make sure you have a translation for 'adUploadForm.submitSuccess'
+    toast.success(
+      t.adUploadForm.submitSuccess || "Advertisement uploaded successfully!",
+    );
+  };
+
+  // +++ UPDATED: Replaced loading text with a loading image +++
   if (isLoading) {
-    return <div className="p-10 text-center">{t.adUploadForm.loading}</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        {/* Make sure the image /loading.png exists in your public folder */}
+        <img
+          src="/loading.png"
+          alt={t.adUploadForm.loading || "Loading..."}
+          className="h-20 w-20"
+        />
+      </div>
+    );
   }
 
   return (
     <div className="mx-auto mt-16 mb-40 max-w-4xl p-4 sm:p-6 md:p-8 lg:mb-60">
-      <form className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
+      {/* +++ UPDATED: Added the onSubmit handler to the form +++ */}
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2"
+      >
         <div className="md:col-span-1">
           <label className="font-open-sans mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.purposeLabel}
@@ -314,8 +337,9 @@ const AdUploadForm = () => {
             </div>
           )}
         </div>
-        {/* button */}
+
         <div className="mt-4 md:col-span-2">
+          {/* This button will now trigger the form's onSubmit */}
           <ButtonSubmit
             text={
               <span className="flex items-center justify-center">
