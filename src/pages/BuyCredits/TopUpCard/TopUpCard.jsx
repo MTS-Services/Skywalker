@@ -179,7 +179,7 @@ const TopUpCard = () => {
               link: paymentLink,
             },
             {
-              text: t.byCredit.superbuttontextFast,
+              text: t.byCredit.superbuttontextlast,
               bgColor: "bg-[#E8F0F7]",
               hoverBgColor: "bg-[#4B5563]",
               link: paymentLink,
@@ -231,12 +231,14 @@ const TopUpCard = () => {
         <div className="m-auto flex w-full flex-col items-center rounded-xl border border-gray-200 bg-white p-4 text-center shadow-lg transition-transform duration-300 hover:scale-105 sm:p-6">
           <div className="w-full text-left text-xs text-gray-700">
             <p className="font-primary text-center font-[500]">
-              LIST UR AD FOR FREE
+              {t.byCredit.freeAddtitle}
             </p>
-            <p>Without any special features</p>
+            <p className="font-primary text-center font-[300]">
+              {t.byCredit.freeAddSubtitle}
+            </p>
           </div>
           <button className="mt-4 rounded-md border border-blue-200 bg-[#E8F0F7] px-4 py-2 font-[700] text-black shadow-sm transition">
-            <Link to="/ad-upload"> FREE AD</Link>
+            <Link to="/ad-upload">{t.byCredit.freeAddbutton}</Link>
           </button>
         </div>
       </div>

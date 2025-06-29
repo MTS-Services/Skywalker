@@ -12,9 +12,9 @@ function App() {
         <AuthProvider>
           {/* The Toaster component must be rendered in the app tree */}
           <Toaster
-            position="top-right" // 👈 toast position here
-            reverseOrder={false}
-          />
+        position="top-right" // 👈 toast position here
+        reverseOrder={false}
+      />
           <RouterProvider router={AppRoutes} />
         </AuthProvider>
       </LanguageProvider>

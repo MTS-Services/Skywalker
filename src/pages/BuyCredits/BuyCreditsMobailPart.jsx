@@ -239,12 +239,14 @@ const BuyCreditsMobailPart = () => {
         <div className="card-shadow relative flex w-full flex-col items-center gap-3 rounded-lg border border-[#e5e7eb] bg-white p-4 text-center shadow-xl">
           <div className="w-full text-left text-xs text-gray-700">
             <p className="font-primary text-center font-[500]">
-              LIST UR AD FOR FREE
+              {t.byCredit.freeAddtitle}
             </p>
-            <p className="text-center">Without any special features</p>
+            <p className="font-primary text-center font-[300]">
+              {t.byCredit.freeAddSubtitle}
+            </p>
           </div>
-          <button className="mt-4 rounded-md border border-blue-200 bg-[#E8F0F7] px-4 py-2 font-[700] text-black shadow-sm transition hover:bg-blue-200">
-            <Link to="/ad-upload">FREE AD</Link>
+          <button className="mt-4 rounded-md border border-blue-200 bg-[#E8F0F7] px-4 py-2 font-[700] text-black shadow-sm transition">
+            <Link to="/ad-upload">{t.byCredit.freeAddbutton}</Link>
           </button>
         </div>
       </div>
