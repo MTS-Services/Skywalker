@@ -80,7 +80,7 @@ export default function CompanyAdsPage() {
               <img
                 src={company.logo_url}
                 alt={company.name}
-                className="h-full w-full object-contain"
+                className="h-full w-full rounded-xl bg-cover"
               />
             ) : (
               <span className="text-4xl text-gray-400">🏢</span>
