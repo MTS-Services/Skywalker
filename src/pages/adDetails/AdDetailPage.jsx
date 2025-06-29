@@ -73,7 +73,7 @@ const AdDetailPage = () => {
     const fetchAd = async () => {
       setLoading(true);
       try {
-        const response = await fetch("/data/ads.json");
+        const response = await fetch("/ads.json");
         const data = await response.json();
         const foundAd = data.find((ad) => ad.slug === slug);
         if (foundAd) {
