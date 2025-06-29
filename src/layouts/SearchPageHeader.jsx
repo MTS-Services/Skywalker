@@ -476,45 +476,47 @@ const CategoryFilter = ({
                 className="absolute inset-0 z-[11] bg-black opacity-10"
                 onClick={onToggle}
               ></div>
-              <div
-                className={`relative top-[120px] z-[12] mr-auto w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
-              >
-                {hasSearch && (
-                  <div className="border-b border-gray-300 p-2">
-                    <input
-                      type="text"
-                      placeholder={searchPlaceholder || "Search..."}
-                      className={`focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border border-gray-300 p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </div>
-                )}
-                <ul className="p-1">
-                  {filteredOptions.length > 0 ? (
-                    filteredOptions.map((option) => (
-                      <li
-                        key={option.id}
-                        className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""} ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
-                        onClick={() => handleSelect(option.id)}
-                      >
-                        <input
-                          type="radio"
-                          readOnly
-                          checked={selectedValue === option.id}
-                          className="text-primary-400 h-4 w-4 cursor-pointer"
-                        />
-                        <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
-                          {option.name}
-                        </span>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="p-2 text-center text-gray-500">
-                      {searchPlaceholder || "No results"}
-                    </li>
+              <div className="max-w-3xl mx-auto">
+                <div
+                  className={`relative top-[120px] z-[12] mr-auto w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+                >
+                  {hasSearch && (
+                    <div className="border-b border-gray-300 p-2">
+                      <input
+                        type="text"
+                        placeholder={searchPlaceholder || "Search..."}
+                        className={`focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border border-gray-300 p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                    </div>
                   )}
-                </ul>
+                  <ul className="p-1">
+                    {filteredOptions.length > 0 ? (
+                      filteredOptions.map((option) => (
+                        <li
+                          key={option.id}
+                          className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""} ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
+                          onClick={() => handleSelect(option.id)}
+                        >
+                          <input
+                            type="radio"
+                            readOnly
+                            checked={selectedValue === option.id}
+                            className="text-primary-400 h-4 w-4 cursor-pointer"
+                          />
+                          <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
+                            {option.name}
+                          </span>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="p-2 text-center text-gray-500">
+                        {searchPlaceholder || "No results"}
+                      </li>
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
