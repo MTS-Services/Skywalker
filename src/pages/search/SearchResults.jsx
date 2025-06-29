@@ -88,7 +88,7 @@ const SearchResults = () => {
   }, [allAds, filters]);
 
   return (
-    <div className="min-h-[50vh]" dir={isRTL ? "rtl" : "ltr"}>
+    <div className="min-h-[60vh]" dir={isRTL ? "rtl" : "ltr"}>
       <div className=" px-4 py-6">
         <div className="container mx-auto max-w-3xl">
           <h1 className="mb-6 mt-8 text-2xl font-bold">
@@ -111,7 +111,7 @@ const SearchResults = () => {
                   />
                 ))
               ) : (
-                <div className="col-span-full rounded-lg bg-white p-10 text-center text-primary-800 shadow shadow-primary-200/50">
+                <div className="col-span-full rounded-lg bg-white p-10 text-center text-primary-900 font-[700] shadow-card-shadow">
                   {t.search.noResultsFound}
                 </div>
               )}
