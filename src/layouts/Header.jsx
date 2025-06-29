@@ -14,25 +14,21 @@ const navLinkClass = ({ isActive }) =>
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
   const { isRTL, t, toggleLanguage, language } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const langDropdownRef = useRef(null);
+
+  const propertyDropdownRef = useRef(null);
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
       if (
-        langDropdownRef.current &&
-        !langDropdownRef.current.contains(event.target)
+        propertyDropdownRef.current &&
+        !propertyDropdownRef.current.contains(event.target)
       ) {
-        setLangOpen(false);
+        setIsDropdownOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -40,11 +36,9 @@ function Header() {
   }, []);
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
-  const toggleLangDropdown = () => setLangOpen((prev) => !prev);
 
   const handleLanguageChange = (lang) => {
     toggleLanguage(lang);
-    setLangOpen(false);
   };
 
   const handleLogout = () => logout();
@@ -67,7 +61,8 @@ function Header() {
 
   return (
     <nav
-      className={`relative z-50 border-b border-gray-200 bg-white px-4 py-4 shadow-sm ${isRTL ? "rtl" : "ltr"}`}
+      className={`relative z-50 border-b border-gray-200 bg-white px-4 py-4 shadow-sm ${isRTL ? "rtl" : "ltr"
+        }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <NavLink to="/" className={`flex items-center justify-start gap-2`}>
@@ -88,13 +83,12 @@ function Header() {
         </button>
 
         <div
-          className={`hidden items-center gap-6 font-medium text-black lg:flex ${isRTL ? "space-x-reverse" : ""}`}
+          className={`hidden items-center gap-6 font-medium text-black lg:flex ${isRTL ? "space-x-reverse" : ""
+            }`}
         >
           <Navigation
             toggleDropdown={toggleDropdown}
             isDropdownOpen={isDropdownOpen}
-            toggleLangDropdown={toggleLangDropdown}
-            langOpen={langOpen}
             handleLanguageChange={handleLanguageChange}
             isRTL={isRTL}
             t={t}
@@ -102,6 +96,8 @@ function Header() {
             isAuthenticated={isAuthenticated}
             handleLogout={handleLogout}
             navItems={navItems}
+            propertyDropdownRef={propertyDropdownRef}
+            setIsDropdownOpen={setIsDropdownOpen}
           />
 
           {isAuthenticated && (
@@ -135,6 +131,8 @@ const Navigation = ({
   isAuthenticated,
   handleLogout,
   navItems,
+  propertyDropdownRef,
+  setIsDropdownOpen,
 }) => {
   const [propertyTypes, setPropertyTypes] = useState([]);
 
@@ -153,7 +151,8 @@ const Navigation = ({
 
   return (
     <div
-      className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""}`}
+      className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""
+        }`}
     >
       {navItems.map((item, index) => (
         <div className="active:bg-active rounded-e-2xl" key={index}>
@@ -164,7 +163,7 @@ const Navigation = ({
               </span>
             </NavLink>
           ) : (
-            <button onClick={handleLogout}>
+            <button onClick={item.action}>
               <span>{item.label}</span>
             </button>
           )}
@@ -172,10 +171,11 @@ const Navigation = ({
       ))}
 
       {!isAuthenticated && (
-        <div className="relative">
+        <div className="relative" ref={propertyDropdownRef}>
           <button
             onClick={toggleDropdown}
-            className={`hover:text-primary-400 flex cursor-pointer items-center transition-colors ${isDropdownOpen ? "text-primary-400" : ""} ${isRTL ? "flex-row-reverse" : ""}`}
+            className={`hover:text-primary-400 flex cursor-pointer items-center transition-colors ${isDropdownOpen ? "text-primary-400" : ""
+              } ${isRTL ? "flex-row-reverse" : ""}`}
           >
             {t.header.kuwaitRealEstate}
             {isDropdownOpen ? (
@@ -186,7 +186,8 @@ const Navigation = ({
           </button>
           {isDropdownOpen && propertyTypes.length > 0 && (
             <div
-              className={`absolute z-10 mt-2 max-h-[40vh] w-fit min-w-64 divide-y divide-gray-100 overflow-y-auto rounded-md border border-gray-100 bg-white shadow ${isRTL ? "right-0" : "left-0"}`}
+              className={`absolute z-10 mt-2 max-h-[40vh] w-fit min-w-64 divide-y divide-gray-100 overflow-y-auto rounded-md border border-gray-100 bg-white shadow ${isRTL ? "right-0" : "left-0"
+                }`}
             >
               {propertyTypes.map((item, index) => (
                 <div key={index} className="p-3">
@@ -201,6 +202,7 @@ const Navigation = ({
                             <NavLink
                               to={`/search?transactionType=${item.id}&propertyType=${subItem.id}`}
                               className={`text-primary-900 my-0.5 block rounded px-2 py-1 text-sm font-[700]`}
+                              onClick={() => setIsDropdownOpen(false)}
                             >
                               {subItem.name}
                             </NavLink>
@@ -215,22 +217,14 @@ const Navigation = ({
         </div>
       )}
 
-      <button onClick={() => handleLanguageChange(isRTL ? "en" : "ar")}>
-        <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
-          {isRTL ? "En" : "ع"}
-        </span>
-      </button>
+      <div>
+        <button onClick={() => handleLanguageChange(isRTL ? "en" : "ar")}>
+          <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
+            {isRTL ? "En" : "ع"}
+          </span>
+        </button>
+      </div>
     </div>
   );
 };
-
-const DropdownItem = ({ to, text, isRTL }) => (
-  <NavLink
-    to={to}
-    className={`hover:text-primary-600 block rounded px-2 py-1 text-sm text-gray-700 transition-colors hover:bg-gray-100 ${isRTL ? "text-right" : "text-left"}`}
-  >
-    {text}
-  </NavLink>
-);
-
 export default Header;

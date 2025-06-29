@@ -29,8 +29,8 @@ const DesktopRegionFilter = ({
         }
       }
     };
-    // document.addEventListener("mousedown", handleClickOutside);
-    // return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onToggle]);
 
   const toggleItem = (item) => {
