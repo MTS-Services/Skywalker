@@ -85,7 +85,7 @@ const HorizontalScroller = ({ children }) => {
 
       <div
         ref={scrollContainerRef}
-        className="scrollbar-hide flex items-center gap-2 overflow-x-auto"
+        className="flex items-center gap-2 overflow-hidden"
       >
         {children}
       </div>
