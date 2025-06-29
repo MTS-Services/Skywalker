@@ -73,8 +73,7 @@ function FilterComponent({ t, isRTL }) {
         const regions = await regionsRes.json();
         const propertyTypes = await propertyTypesRes.json();
         const transactions = await transactionTypesRes.json();
-        
-        
+
         setRegionsData(regions);
         setPropertyTypeData(propertyTypes);
         setTransactionTypes(transactions);

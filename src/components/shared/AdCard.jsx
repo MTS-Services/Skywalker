@@ -32,7 +32,7 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
   };
   return (
     <div onClick={handleClick} className="group w-full cursor-pointer">
-      <div className="active:border-primary-500 relative w-full rounded-lg border border-transparent bg-rose-50 p-3 text-black shadow shadow-gray-200 transition-shadow duration-300 hover:shadow-md sm:p-4">
+      <div className="active:border-primary-500 relative w-full rounded-lg border border-gray-200 bg-white p-3 text-black shadow shadow-gray-200 transition-shadow duration-300 hover:shadow-md sm:p-4">
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Image */}
           <div className="relative flex-shrink-0">

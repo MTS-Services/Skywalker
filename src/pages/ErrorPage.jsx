@@ -6,7 +6,7 @@ const ErrorPage = () => {
     <section className="flex min-h-screen items-center justify-center bg-[#F5F5F9] py-6">
       <div className="px-4 text-center sm:px-8 md:px-12 lg:px-16">
         {/* Error Code */}
-        <h1 className="mb-2 text-6xl text-gray-800 sm:text-7xl md:text-8xl">
+        <h1 className="mb-2 text-6xl text-black sm:text-7xl md:text-8xl">
           404
         </h1>
 

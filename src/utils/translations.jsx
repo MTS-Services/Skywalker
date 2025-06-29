@@ -1,8 +1,8 @@
 export const translations = {
   en: {
     site: {
-      name: "MR-AQAR",
-      tagline: "Property Finder",
+      name: "Mr. Real Estate",
+      tagline: "The Real Estate Guide",
       contactUs: "Contact us",
       via: "via",
       call: "Call",
@@ -335,8 +335,8 @@ export const translations = {
 
   ar: {
     site: {
-      name: "السيد-عقار",
-      tagline: "الباحث عن العقارات",
+      name: "مستر عقار",
+      tagline: "الدليل العقاري",
       contactUs: "تواصل معنا",
       via: "عبر",
       call: "اتصل",
