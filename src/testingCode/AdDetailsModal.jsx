@@ -91,7 +91,7 @@ export default function AdDetailsModal({
         onClick={onClose}
       >
         <div
-          className={`relative flex h-full w-full max-w-5xl transform flex-col bg-white text-gray-800 shadow-lg transition-transform duration-300 ease-out ${
+          className={`relative flex h-full w-full max-w-7xl transform flex-col bg-white text-gray-800 shadow-lg transition-transform duration-300 ease-out ${
             isRTL
               ? isModalActive
                 ? "translate-x-0"
@@ -118,25 +118,25 @@ export default function AdDetailsModal({
           </header>
 
           <main className="flex-1 overflow-y-auto">
-            <div className="bg-primary-700 text-primary-50 flex flex-col items-center px-4 py-6 sm:px-6">
-              <h1 className="text-on-primary text-center text-xl font-bold sm:text-2xl">
+            <div className="bg-primary-600 flex flex-col items-center px-4 py-10 text-[#fff] sm:px-6">
+              <h1 className="text-on-primary font-primary text-center text-lg font-bold sm:text-lg">
                 {ad.title}
               </h1>
-              <div className="mt-2 text-2xl font-bold sm:text-3xl">
+              <div className="text-lgl font-primary mt-2 font-[700] sm:text-lg">
                 {ad.kd} {t.ads.currency}
               </div>
               <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-                <div className="bg-primary-600 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
+                <div className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
                   <FiClock />
                   <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
                 </div>
-                <div className="bg-primary-600 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
+                <div className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
                   <FiEye />
                   <span>{ad.views}</span>
                 </div>
                 <button
                   onClick={() => handleShareClick(ad)}
-                  className="bg-primary-600 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs transition-colors sm:text-sm"
+                  className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs transition-colors sm:text-sm"
                 >
                   <FiShare2 />
                 </button>
@@ -144,7 +144,7 @@ export default function AdDetailsModal({
             </div>
 
             <div className="mx-auto max-w-4xl">
-              <p className="text-dark p-4 text-center text-base leading-relaxed sm:p-6 md:text-lg">
+              <p className="text-dark text-[#242424 ] p-4 text-center text-base leading-relaxed sm:p-6 md:text-base">
                 {ad.description}
               </p>
             </div>
@@ -152,16 +152,16 @@ export default function AdDetailsModal({
             <div className="flex flex-col items-center justify-center gap-3 px-4 sm:flex-row">
               <a
                 href={`tel:${ad.whatsapp}`}
-                className="bg-success text-on-success active:bg-active-success bg-primary-300 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
+                className="bg-success text-on-success active:bg-active-success inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-[#38A854] px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
               >
-                <FiPhone className="text-xl" />
+                <FiPhone className={`text-xl ${isRTL ? "rotate-265" : ""}`} />
                 <span className="text-lg font-normal">{ad.whatsapp}</span>
               </a>
               <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-primary-300 text-primary-600 bg-main hover:bg-primary-100 flex h-12 w-full items-center justify-center rounded-lg border p-1 text-2xl transition-colors sm:w-12"
+                className="hover:bg-primary-100 flex h-12 w-12 items-center justify-center rounded-lg border-1 border-[#38A854] bg-white p-1 text-2xl text-[#38A854] transition-colors"
               >
                 <FaWhatsapp />
               </a>
@@ -169,7 +169,7 @@ export default function AdDetailsModal({
 
             <div className="py-6 sm:py-8">
               <div className="container mx-auto px-4">
-                <div className="flex max-h-[450px]  max-w-[500px] m-auto justify-center">
+                <div className="m-auto flex max-h-[450px] max-w-[500px] justify-center">
                   {displayImage && (
                     <img
                       alt={ad.title}

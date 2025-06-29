@@ -32,7 +32,7 @@
         "description": "An exquisite 5-bedroom villa with private pool, landscaped garden, and high-end finishes. Ideal for a large family seeking comfort and luxury.",
         "whatsapp": "61234568",
         "views": 250,
-        "images": ["/assets/images/cart2.png", "/assets/ads/villa2.jpg"],
+        "images": ["/assets/images/cart2.png", "/assets/images/cart2.png"],
         "slug": "luxury-villa-in-salwa",
         "transactionType": "sale",
         "propertyType": "house",
@@ -60,7 +60,7 @@
   {
     "id": "east_real_estate",
     "name": "East Real Estate Company",
-    "logo_url": "/assets/images/cart1.png",
+    "logo_url": ["/assets/images/cart1.png"],
     "social_media": {
       "whatsapp": "96561234569",
       "instagram": ""
@@ -119,7 +119,7 @@
         "description": "Stylish 4-bedroom house with contemporary design and access to community amenities. Family-friendly neighborhood in Jabriya.",
         "whatsapp": "61234572",
         "views": 180,
-        "images": ["/assets/images/cart9.jpgg"],
+        "images": ["/assets/images/cart9.jpg"],
         "slug": "modern-house-in-jabriya",
         "transactionType": "rent",
         "propertyType": "house",
@@ -132,7 +132,7 @@
   {
     "id": "real_estate_distance",
     "name": "Real Estate Distance Company",
-    "logo_url": "assets/images/cart8.jpg",
+    "logo_url": "/assets/images/cart8.jpg",
 
     "social_media": {
       "whatsapp": "96561234571"
@@ -147,7 +147,7 @@
         "description": "Large plot of land available for immediate development. Great investment opportunity in a developing area of Hawally.",
         "whatsapp": "61234571",
         "views": 45,
-        "images": ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
+        "images": ["/assets/images/cart8.jpg"],
         "slug": "land-for-sale-in-hawally",
         "transactionType": "sale",
         "propertyType": "land",
@@ -162,7 +162,7 @@
         "description": "Entire residential building for sale in a prime Salmiya location. Includes 10 apartments and ground floor parking. Excellent for investors.",
         "whatsapp": "61234573",
         "views": 100,
-        "images": ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
+        "images": ["/assets/images/cart8.jpg", "/assets/images/cart8.jpg"],
         "slug": "building-for-sale-in-salmiya",
         "transactionType": "sale",
         "propertyType": "building",
@@ -177,7 +177,7 @@
         "description": "Beachfront chalet with direct access to the sea, ideal for weekend getaways. Willing to exchange for a city apartment.",
         "whatsapp": "61234580",
         "views": 88,
-        "images": ["assets/images/cart8.jpg", "assets/images/cart8.jpg"],
+        "images": ["/assets/images/cart8.jpg", "/assets/images/cart8.jpg"],
 
         "slug": "chalet-in-khiran-resort",
         "transactionType": "exchange",

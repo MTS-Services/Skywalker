@@ -13,7 +13,7 @@ import { FaArrowLeft } from "react-icons/fa";
 export default function Hero({ t, isRTL }) {
   return (
     <section className="relative py-6 sm:py-12 md:py-12 lg:py-20">
-      <div className="absolute right-0 bottom-0 left-0 w-full">
+      <div className="absolute right-0 bottom-0 left-0 w-full -z-1">
         <img
           alt={t.site.name}
           width="1920"
@@ -30,14 +30,16 @@ export default function Hero({ t, isRTL }) {
         />
       </div>
 
-      <div className="relative z-50 container mx-auto flex h-full w-full items-center justify-center p-4 ">
+      <div className="container mx-auto flex h-full w-full items-center justify-center p-4 ">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
-          <h1 className="text-lx mb-3 text-black md:text-xl lg:text-2xl">
-            {t.home.bannerTitle}
-          </h1>
-          <p className="text-primary-800 mb-8 text-base md:text-lg">
-            {t.home.bannerSubTitle}
-          </p>
+          <div className="hidden lg:block">
+            <h1 className="text-lx mb-3 text-black md:text-xl lg:text-2xl">
+              {t.home.bannerTitle}
+            </h1>
+            <p className="text-primary-800 mb-8 text-base md:text-lg">
+              {t.home.bannerSubTitle}
+            </p>
+          </div>
           <div className="shadow-primary-900/30 w-full max-w-md rounded-2xl !bg-white p-4 shadow-lg sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
