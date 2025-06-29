@@ -437,10 +437,12 @@ const CategoryFilter = ({
   );
 
   return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+    <div className="relative w-full px-1 sm:w-auto" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 text-white" : ""}`}
+        className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 
+          py-2 text-sm text-black transition-colors focus-within:outline-gray-300
+           hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 *: text-white" : ""}`}
         onClick={onToggle}
       >
         <span>{label}</span>

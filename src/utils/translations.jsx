@@ -160,7 +160,7 @@ export const translations = {
       subtitlasttwo: "or",
       byWhatsapp: "WhatsApp",
       superCredit: "Super Credit",
-      superbuttontextFast: "1 Ad - 12 KD",
+      superbuttontextFast: "1 Ad - 5 KD",
       superbuttontextlast: "5 Ads - 55 KD",
 
       agentsSubscription: "Agents Subscription",
@@ -175,11 +175,16 @@ export const translations = {
         "All payment methods in Boshamlan are secured and trusted 100% by all local banks",
       cliekclink: " Clieck for details",
       closebutton: "Closing",
+
+      freeAddtitle: "LIST UR AD FOR FREE",
+      freeAddSubtitle: "Without any special features",
+      freeAddbutton: "FREE AD",
     },
 
     agent: {
       titlefast: "Real Estate Agents List in Kuwait ",
       titlelast: "Agents",
+      companystTitle: "أحدث إعلانات المكتب",
     },
 
     // About Page
@@ -477,7 +482,7 @@ export const translations = {
       subtitlasttwo: "أو",
       byWhatsapp: "واتساب",
       superCredit: "رصيد مميز",
-      superbuttontextFast: "1 إعلان - 12 د.ك",
+      superbuttontextFast: "1 إعلان - 5  د.ك",
       superbuttontextlast: "5 إعلانات - 55 د.ك",
       agentsSubscription: "اشتراك الوكلاء",
       agentsbuttontextFast: "شهرين - 30 إعلان - 100 د.ك",
@@ -489,9 +494,14 @@ export const translations = {
         "جميع طرق الدفع في Boshamlan مؤمنة وموثوقة 100% من جميع البنوك المحلية",
       cliekclink: "اضغط للحصول على التفاصيل",
       closebutton: "إغلاق",
+      freeAddtitle: "قم بإدراج إعلانك مجانًا",
+      freeAddSubtitle: "بدون أي ميزات خاصة",
+      freeAddbutton: "إعلان مجاني",
     },
     agent: {
       titlefast: "قائمة وكلاء العقارات في الكويت",
+      titlelast: "مكتب",
+      companystTitle: "أحدث إعلانات المكتب",
     },
     about: {
       heading: "دليل العقارات الشامل في الكويت",

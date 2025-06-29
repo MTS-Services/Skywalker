@@ -4,7 +4,7 @@ import AgentList from "../../testingCode/AgentList";
 const Agent = () => {
   return (
     <div>
-      <div className="">
+      <div className="bg-[#FFFFFF]">
         <AgentHeaderPart />
       </div>
       <div>
