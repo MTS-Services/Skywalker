@@ -74,8 +74,9 @@ const HorizontalScroller = ({ children }) => {
       <button
         type="button"
         onClick={() => scroll("left")}
-        className={`absolute top-0 bottom-0 -left-2 z-10 flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-4 transition-opacity duration-300 ${showLeftArrow ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
+        className={`absolute top-0 bottom-0 -left-2 z-10 flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-4 transition-opacity duration-300 ${
+          showLeftArrow ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
           <GoChevronLeft className="h-5 w-5 text-gray-600" />
@@ -92,8 +93,9 @@ const HorizontalScroller = ({ children }) => {
       <button
         type="button"
         onClick={() => scroll("right")}
-        className={`absolute top-0 -right-2 bottom-0 z-10 flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-4 transition-opacity duration-300 ${showRightArrow ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
+        className={`absolute top-0 -right-2 bottom-0 z-10 flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-4 transition-opacity duration-300 ${
+          showRightArrow ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
           <GoChevronRight className="h-5 w-5 text-gray-600" />
@@ -172,23 +174,23 @@ const DesktopRegionFilter = ({
         >
           {selectedItems.length > 0
             ? selectedItems.map((item) => (
-              <span
-                key={item.id}
-                className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
-              >
-                {item.name}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleItem(item);
-                  }}
-                  className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
+                <span
+                  key={item.id}
+                  className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
                 >
-                  <LuX />
-                </button>
-              </span>
-            ))
+                  {item.name}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleItem(item);
+                    }}
+                    className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
+                  >
+                    <LuX />
+                  </button>
+                </span>
+              ))
             : placeholder}
         </div>
         <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>
@@ -268,7 +270,7 @@ const MobileRegionFilter = ({
     setSelectedItems((prev) =>
       prev.some((selected) => selected.id === item.id)
         ? prev.filter((selected) => selected.id !== item.id)
-        : [...prev, { ...item }]
+        : [...prev, { ...item }],
     );
   };
 
@@ -278,7 +280,7 @@ const MobileRegionFilter = ({
   };
 
   const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchTerm.toLowerCase())
+    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -340,21 +342,24 @@ const MobileRegionFilter = ({
 
             <div className="shrink-0 p-4">
               <div
-                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 focus-within:outline-none ${isRTL ? "pr-14" : "pl-14"
-                  }`}
+                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 focus-within:outline-none ${
+                  isRTL ? "pr-14" : "pl-14"
+                }`}
               >
                 <span
                   onClick={onToggle}
-                  className={`text-primary-600 absolute inset-y-0 flex cursor-pointer items-center text-2xl ${isRTL ? "right-3" : "left-3"
-                    }`}
+                  className={`text-primary-600 absolute inset-y-0 flex cursor-pointer items-center text-2xl ${
+                    isRTL ? "right-3" : "left-3"
+                  }`}
                 >
                   <FaArrowLeft />
                 </span>
                 <input
                   type="text"
                   placeholder={searchPlaceholder}
-                  className={`w-full border-none bg-transparent focus-within:outline-none ${isRTL ? "text-right" : "text-left"
-                    }`}
+                  className={`w-full border-none bg-transparent focus-within:outline-none ${
+                    isRTL ? "text-right" : "text-left"
+                  }`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onClick={(e) => e.stopPropagation()}
@@ -368,28 +373,29 @@ const MobileRegionFilter = ({
                 filteredOptions.map((option) => (
                   <li
                     key={option.id}
-                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""
-                      } ${selectedItems.some((item) => item.id === option.id)
+                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
+                      isRTL ? "flex-row-reverse" : ""
+                    } ${
+                      selectedItems.some((item) => item.id === option.id)
                         ? "bg-primary-300/20"
                         : ""
-                      }`}
+                    }`}
                     onClick={() => handleItemSelectAndClose(option)}
                   >
                     <div
-                      className={`flex items-center ${isRTL ? "text-right" : "text-left"
-                        }`}
+                      className={`flex items-center ${
+                        isRTL ? "text-right" : "text-left"
+                      }`}
                     >
                       <input
                         type="checkbox"
                         readOnly
                         checked={selectedItems.some(
-                          (item) => item.id === option.id
+                          (item) => item.id === option.id,
                         )}
                         className="form-checkbox text-primary-400 pointer-events-none h-4 w-4 rounded"
                       />
-                      <span
-                        className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}
-                      >
+                      <span className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}>
                         {option.name}
                       </span>
                     </div>
@@ -475,45 +481,47 @@ const CategoryFilter = ({
                 className="absolute inset-0 z-[11] bg-black opacity-10"
                 onClick={onToggle}
               ></div>
-              <div
-                className={`relative top-[120px] z-[12] mr-auto w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
-              >
-                {hasSearch && (
-                  <div className="border-b border-gray-300 p-2">
-                    <input
-                      type="text"
-                      placeholder={searchPlaceholder || "Search..."}
-                      className={`focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border border-gray-300 p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </div>
-                )}
-                <ul className="p-1">
-                  {filteredOptions.length > 0 ? (
-                    filteredOptions.map((option) => (
-                      <li
-                        key={option.id}
-                        className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""} ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
-                        onClick={() => handleSelect(option.id)}
-                      >
-                        <input
-                          type="radio"
-                          readOnly
-                          checked={selectedValue === option.id}
-                          className="text-primary-400 h-4 w-4 cursor-pointer"
-                        />
-                        <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
-                          {option.name}
-                        </span>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="p-2 text-center text-gray-500">
-                      {searchPlaceholder || "No results"}
-                    </li>
+              <div className="max-w-3xl mx-auto">
+                <div
+                  className={`relative top-[120px] z-[12] mr-auto w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+                >
+                  {hasSearch && (
+                    <div className="border-b border-gray-300 p-2">
+                      <input
+                        type="text"
+                        placeholder={searchPlaceholder || "Search..."}
+                        className={`focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border border-gray-300 p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                    </div>
                   )}
-                </ul>
+                  <ul className="p-1">
+                    {filteredOptions.length > 0 ? (
+                      filteredOptions.map((option) => (
+                        <li
+                          key={option.id}
+                          className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""} ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
+                          onClick={() => handleSelect(option.id)}
+                        >
+                          <input
+                            type="radio"
+                            readOnly
+                            checked={selectedValue === option.id}
+                            className="text-primary-400 h-4 w-4 cursor-pointer"
+                          />
+                          <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
+                            {option.name}
+                          </span>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="p-2 text-center text-gray-500">
+                        {searchPlaceholder || "No results"}
+                      </li>
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -874,9 +882,15 @@ function TextSearchFilter({
       )}
     </div>
   );
-};
+}
 
-const SearchFilterBar = ({ initialFilters, t, isRTL, children, isDesktopView }) => {
+const SearchFilterBar = ({
+  initialFilters,
+  t,
+  isRTL,
+  children,
+  isDesktopView,
+}) => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(null);
 
@@ -1024,7 +1038,12 @@ export default function SearchPageHeader() {
         className="border-b border-gray-200 bg-white px-4 py-6 shadow-sm"
         dir={isRTL ? "rtl" : "ltr"}
       >
-        <SearchFilterBar initialFilters={initialFilters} t={t} isRTL={isRTL} isDesktopView={isDesktopView}>
+        <SearchFilterBar
+          initialFilters={initialFilters}
+          t={t}
+          isRTL={isRTL}
+          isDesktopView={isDesktopView}
+        >
           {(props) => (
             <div className="mx-auto max-w-7xl">
               <div className="hidden items-center justify-start gap-5 xl:flex">
@@ -1138,7 +1157,6 @@ export default function SearchPageHeader() {
                       alt="Logo"
                       className="h-full w-full object-cover"
                     />
-
                   </Link>
                 </div>
 
