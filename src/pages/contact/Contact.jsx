@@ -24,8 +24,8 @@ export default function Contact() {
   const { isRTL, t } = useLanguage();
 
   const contactDetails = [
-    { label: t.contact.mobile, value: "+96560444900" },
-    { label: t.contact.whatsapp, value: "+96560444900" },
+    { label: t.contact.mobile, value: "+96590078005" },
+    { label: t.contact.whatsapp, value: "+96590078005" },
     { label: t.contact.email, value: "kwmraqar@gmail.com" },
     { label: t.contact.instagram, value: "https://www.instagram.com/mraqar" },
     { label: t.contact.twitter, value: "https://x.com/mr_aqar_" },
