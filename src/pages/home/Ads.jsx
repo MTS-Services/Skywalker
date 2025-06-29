@@ -98,9 +98,8 @@ export default function Ads() {
       <section className="bg-primary-200/10 py-10 md:py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto w-full max-w-3xl">
-            <div className="flex items-center justify-center py-20">
-              <div className="border-primary-500 h-12 w-12 animate-spin rounded-full border-b-2"></div>
-            </div>
+            <div className="flex items-center justify-center py-20"></div>
+            <img src="/loading.png" alt="Loading" />
           </div>
         </div>
       </section>
@@ -109,7 +108,7 @@ export default function Ads() {
 
   return (
     <>
-      <section className="bg-white py-10 md:py-16">
+      <section className="bg-[#F5F7F9] py-10 md:py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto w-full max-w-3xl">
             <h2 className="mb-6 text-lg">{t.ads.recentAdsTitle}</h2>
