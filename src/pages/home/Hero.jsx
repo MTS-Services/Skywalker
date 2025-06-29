@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 // import BannerImage from "../../assets/images/home-hero-banner.svg"
 import { MultiSelectDropdown } from "../../components/shared/FilterDropdown";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
+import { useLanguage } from "../../context/LanguageContext";
+import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
+import { FaArrowLeft } from "react-icons/fa";
 
 /**
  * Hero Component: Displays the main hero section with a background and search filters.
@@ -10,7 +13,7 @@ import ButtonSubmit from "../../common/button/ButtonSubmit";
 export default function Hero({ t, isRTL }) {
   return (
     <section className="relative py-6 sm:py-12 md:py-12 lg:py-20">
-      <div className="absolute right-0 bottom-0 left-0 w-full">
+      <div className="absolute right-0 bottom-0 left-0 w-full -z-1">
         <img
           alt={t.site.name}
           width="1920"
@@ -27,7 +30,7 @@ export default function Hero({ t, isRTL }) {
         />
       </div>
 
-      <div className="container mx-auto flex h-full w-full items-center justify-center p-4">
+      <div className="container mx-auto flex h-full w-full items-center justify-center p-4 ">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
           <div className="hidden lg:block">
             <h1 className="text-lx mb-3 text-black md:text-xl lg:text-2xl">
@@ -37,8 +40,7 @@ export default function Hero({ t, isRTL }) {
               {t.home.bannerSubTitle}
             </p>
           </div>
-
-          <div className="shadow-primary-900/30 w-full max-w-md rounded-2xl bg-white/20 p-4 shadow-lg backdrop-blur-xs sm:p-6">
+          <div className="shadow-primary-900/30 w-full max-w-md rounded-2xl !bg-white p-4 shadow-lg sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>
@@ -50,6 +52,7 @@ export default function Hero({ t, isRTL }) {
 /**
  * FilterComponent: Renders the search controls and handles search submission.
  */
+
 function FilterComponent({ t, isRTL }) {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("rent");
@@ -58,6 +61,8 @@ function FilterComponent({ t, isRTL }) {
   const [regionsData, setRegionsData] = useState([]);
   const [propertyTypeData, setPropertyTypeData] = useState([]);
   const [transactionTypes, setTransactionTypes] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(null);
+
 
   // Add dropdown state management
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -93,6 +98,10 @@ function FilterComponent({ t, isRTL }) {
     setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
   };
 
+  const toggleModalDropdown = (dropdownName) => {
+    setShowDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     const params = new URLSearchParams();
@@ -120,18 +129,34 @@ function FilterComponent({ t, isRTL }) {
     navigate(`/search?${params.toString()}`);
   };
 
+
   return (
     <form onSubmit={handleSearch} className="space-y-4">
-      <MultiSelectDropdown
-        options={regionsData}
-        selectedItems={selectedRegions}
-        setSelectedItems={setSelectedRegions}
-        placeholder={t.home.typeAreaPlaceholder}
-        searchPlaceholder={t.home.searchPlaceholder}
-        isRTL={isRTL}
-        isOpen={openDropdown === "regions"}
-        onToggle={() => toggleDropdown("regions")}
-      />
+      <span className="hidden xl:block">
+        <MultiSelectDropdown
+          options={regionsData}
+          selectedItems={selectedRegions}
+          setSelectedItems={setSelectedRegions}
+          placeholder={t.home.typeAreaPlaceholder}
+          searchPlaceholder={t.home.searchPlaceholder}
+          isRTL={isRTL}
+          isOpen={openDropdown === "regions"}
+          onToggle={() => toggleDropdown("regions")}
+        />
+      </span>
+      <span className="xl:hidden">
+        <MobileRegionFilter
+          options={regionsData}
+          selectedItems={selectedRegions}
+          setSelectedItems={setSelectedRegions}
+          placeholder={t.home.typeAreaPlaceholder}
+          searchPlaceholder={t.home.searchPlaceholder}
+          label={t.home.searchPlaceholder}
+          isOpen={showDropdown === "search"}
+          onToggle={() => toggleModalDropdown("search")}
+        />
+      </span>
+
       <MultiSelectDropdown
         options={propertyTypeData}
         selectedItems={selectedPropertyTypes}
@@ -154,13 +179,6 @@ function FilterComponent({ t, isRTL }) {
           </button>
         ))}
       </div>
-      {/* <button
-        type="submit"
-        className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 w-full rounded-full py-3 text-white shadow-lg transition-colors duration-300 focus:ring-2 focus:outline-none"
-      >
-        {t.home.searchButton}
-      </button> */}
-
       <ButtonSubmit
         text={
           <span className="flex items-center gap-2">{t.home.searchButton}</span>
@@ -170,3 +188,166 @@ function FilterComponent({ t, isRTL }) {
     </form>
   );
 }
+
+
+const MobileRegionFilter = ({
+  options,
+  selectedItems,
+  setSelectedItems,
+  placeholder,
+  searchPlaceholder,
+  isOpen,
+  onToggle,
+}) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const { isRTL, t } = useLanguage();
+
+  const toggleItem = (item) => {
+    setSelectedItems((prev) =>
+      prev.some((selected) => selected.id === item.id)
+        ? prev.filter((selected) => selected.id !== item.id)
+        : [...prev, { ...item }]
+    );
+  };
+
+  const handleItemSelectAndClose = (item) => {
+    toggleItem(item);
+    onToggle();
+  };
+
+  const filteredOptions = options.filter((option) =>
+    option.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+
+  return (
+    <>
+      <div onClick={onToggle} className="cursor-pointer mb-5">
+        <div className={`px-5 focus-within:ring-gray-200 border-gray-200 flex w-full cursor-pointer items-center rounded-3xl border bg-white p-3 focus-within:ring-1 ${isOpen ? "ring-gray-300 ring-1" : ""}`}>
+          {selectedItems.length > 0 ? (
+            selectedItems.map((item) => (
+              <span
+                key={item.id}
+                className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
+              >
+                {item.name}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleItem(item);
+                  }}
+                  className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
+                >
+                  <LuX />
+                </button>
+              </span>
+            ))
+          ) : (
+            <span className="text-gray-500 flex items-center justify-center gap-2"><LuSearch /> {placeholder} </span>
+          )}
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="fixed inset-0 z-[999] bg-white">
+          <div className="flex h-full max-h-full w-full flex-col gap-2">
+            {selectedItems.length > 0 && (
+              <div className="shrink-0 px-4 pt-4">
+                <div className="flex flex-wrap gap-2 rounded-md border border-gray-200 p-2">
+                  {selectedItems.map((item) => (
+                    <span
+                      key={item.id}
+                      className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
+                    >
+                      {item.name}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleItem(item);
+                        }}
+                        className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
+                      >
+                        <LuX />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="shrink-0 p-4">
+              <div
+                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 focus-within:outline-none ${isRTL ? "pr-14" : "pl-14"
+                  }`}
+              >
+                <span
+                  onClick={onToggle}
+                  className={`text-primary-600 absolute inset-y-0 flex cursor-pointer items-center text-2xl ${isRTL ? "right-3" : "left-3"
+                    }`}
+                >
+                  <FaArrowLeft />
+                </span>
+                <input
+                  type="text"
+                  placeholder={searchPlaceholder}
+                  className={`w-full border-none bg-transparent focus-within:outline-none ${isRTL ? "text-right" : "text-left"
+                    }`}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                  autoFocus
+                />
+              </div>
+            </div>
+
+            <ul className="flex-grow overflow-y-auto px-4 pb-4">
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option) => (
+                  <li
+                    key={option.id}
+                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""
+                      } ${selectedItems.some((item) => item.id === option.id)
+                        ? "bg-primary-300/20"
+                        : ""
+                      }`}
+                    onClick={() => handleItemSelectAndClose(option)}
+                  >
+                    <div
+                      className={`flex items-center ${isRTL ? "text-right" : "text-left"
+                        }`}
+                    >
+                      <input
+                        type="checkbox"
+                        readOnly
+                        checked={selectedItems.some(
+                          (item) => item.id === option.id
+                        )}
+                        className="form-checkbox text-primary-400 pointer-events-none h-4 w-4 rounded"
+                      />
+                      <span
+                        className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}
+                      >
+                        {option.name}
+                      </span>
+                    </div>
+                    {option.count && (
+                      <span className="text-sm text-black">
+                        ({option.count})
+                      </span>
+                    )}
+                  </li>
+                ))
+              ) : (
+                <li className="p-2 text-center text-black">
+                  {t.search.noResultsFound}
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};

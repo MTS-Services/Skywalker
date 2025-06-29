@@ -112,6 +112,7 @@ export const MultiSelectDropdown = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);
+                    onToggle();
                   }}
                 >
                   <div
