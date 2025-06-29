@@ -1,18 +1,18 @@
 import { FaYoutube, FaTwitter, FaInstagram } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 // Individual footer column
-const FooterColumn = ({ title, links, isRTL }) => (
-  <div>
-    <h2 className="mb-2 text-base">{title}</h2>
-    <ul className="space-y-1">
-      {links.map(({ to, label }) => (
-        <FooterLink key={to} to={to} label={label} isRTL={isRTL} />
-      ))}
-    </ul>
-  </div>
-);
+// const FooterColumn = ({ title, links, isRTL }) => (
+//   <div>
+//     <h2 className="mb-2 text-base">{title}</h2>
+//     <ul className="space-y-1">
+//       {links.length > 0 && links.map((link) => <FooterLink key={link.id} to={link.id} label={link.name} isRTL={isRTL} />)}
+//     </ul>
+//   </div>
+// );
 
 // Link with bilingual support
 const FooterLink = ({ to, label, isRTL }) => {
@@ -45,60 +45,60 @@ const StoreBadge = ({ src, alt, href }) => (
   </a>
 );
 
-const rentLinks = [
-  {
-    to: "/rent/apartments",
-    label: { en: "Apartments for rent", ar: "شقق للايجار" },
-  },
-  { to: "/rent/houses", label: { en: "Houses for rent", ar: "بيوت للايجار" } },
-  {
-    to: "/rent/commercials",
-    label: { en: "Commercials for rent", ar: "تجاري للايجار" },
-  },
-  {
-    to: "/rent/buildings",
-    label: { en: "Buildings for rent", ar: "عمارات للايجار" },
-  },
-  {
-    to: "/rent/chalets",
-    label: { en: "Chalets for rent", ar: "شاليهات للايجار" },
-  },
-  { to: "/rent/farms", label: { en: "Farms for rent", ar: "مزارع للايجار" } },
-  { to: "/rent/lands", label: { en: "Lands for rent", ar: "اراضي للايجار" } },
-];
+// const rentLinks = [
+//   {
+//     to: "/rent/apartments",
+//     label: { en: "Apartments for rent", ar: "شقق للايجار" },
+//   },
+//   { to: "/rent/houses", label: { en: "Houses for rent", ar: "بيوت للايجار" } },
+//   {
+//     to: "/rent/commercials",
+//     label: { en: "Commercials for rent", ar: "تجاري للايجار" },
+//   },
+//   {
+//     to: "/rent/buildings",
+//     label: { en: "Buildings for rent", ar: "عمارات للايجار" },
+//   },
+//   {
+//     to: "/rent/chalets",
+//     label: { en: "Chalets for rent", ar: "شاليهات للايجار" },
+//   },
+//   { to: "/rent/farms", label: { en: "Farms for rent", ar: "مزارع للايجار" } },
+//   { to: "/rent/lands", label: { en: "Lands for rent", ar: "اراضي للايجار" } },
+// ];
 
-const saleLinks = [
-  { to: "/sale/houses", label: { en: "Houses for sale", ar: "بيوت للبيع" } },
-  { to: "/sale/lands", label: { en: "Lands for sale", ar: "اراضي للبيع" } },
-  {
-    to: "/sale/buildings",
-    label: { en: "Buildings for sale", ar: "عمارات للبيع" },
-  },
-  {
-    to: "/sale/apartments",
-    label: { en: "Apartments for sale", ar: "شقق للبيع" },
-  },
-  {
-    to: "/sale/chalets",
-    label: { en: "Chalets for sale", ar: "شاليهات للبيع" },
-  },
-  {
-    to: "/sale/commercials",
-    label: { en: "Commercials for sale", ar: "تجاري للبيع" },
-  },
-  { to: "/sale/farms", label: { en: "Farms for sale", ar: "مزارع للبيع" } },
-];
+// const saleLinks = [
+//   { to: "/sale/houses", label: { en: "Houses for sale", ar: "بيوت للبيع" } },
+//   { to: "/sale/lands", label: { en: "Lands for sale", ar: "اراضي للبيع" } },
+//   {
+//     to: "/sale/buildings",
+//     label: { en: "Buildings for sale", ar: "عمارات للبيع" },
+//   },
+//   {
+//     to: "/sale/apartments",
+//     label: { en: "Apartments for sale", ar: "شقق للبيع" },
+//   },
+//   {
+//     to: "/sale/chalets",
+//     label: { en: "Chalets for sale", ar: "شاليهات للبيع" },
+//   },
+//   {
+//     to: "/sale/commercials",
+//     label: { en: "Commercials for sale", ar: "تجاري للبيع" },
+//   },
+//   { to: "/sale/farms", label: { en: "Farms for sale", ar: "مزارع للبيع" } },
+// ];
 
-const exchangeLinks = [
-  {
-    to: "/exchange/lands",
-    label: { en: "Lands for exchange", ar: "اراضي للبدل" },
-  },
-  {
-    to: "/exchange/houses",
-    label: { en: "Houses for exchange", ar: "بيوت للبدل" },
-  },
-];
+// const exchangeLinks = [
+//   {
+//     to: "/exchange/lands",
+//     label: { en: "Lands for exchange", ar: "اراضي للبدل" },
+//   },
+//   {
+//     to: "/exchange/houses",
+//     label: { en: "Houses for exchange", ar: "بيوت للبدل" },
+//   },
+// ];
 
 const pagesLinks = [
   { to: "/agents", label: { en: "Agents", ar: "المكاتب" } },
@@ -113,16 +113,40 @@ const pagesLinks = [
 
 // Footer Component
 const Footer = () => {
-  const { isRTL } = useLanguage();
+  const { t, isRTL } = useLanguage();
+  const [properties, setProperties] = useState([]);
+
+  const fetchPropertyType = async () => {
+    try {
+      const response = await axios.get("/groupPropertyTypes.json");
+      setProperties(response.data);
+    } catch (error) {
+      console.error("Error fetching property types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPropertyType();
+  }, []);
+
 
   return (
     <footer className="bg-[var(--color-primary-600)] px-6 py-10 text-sm text-white">
       <div
-        className={`mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 ${
-          isRTL ? "rtl" : "ltr"
-        }`}
+        className={`mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 ${isRTL ? "rtl" : "ltr"
+          }`}
       >
-        <FooterColumn
+
+        {properties.length > 0 && properties.map((property) => (
+          <div key={property.id}>
+            <h2 className="mb-2 text-base">{property.title}</h2>
+            <ul className="space-y-1">
+              {property.properties.length > 0 && property.properties.map((link) => <NavLink key={link.id} to={`/search?transactionType=${property.id}&propertyType=${link.id}`} className="block">{link.name}</NavLink>)}
+            </ul>
+          </div>
+        ))}
+
+        {/* <FooterColumn
           title={isRTL ? "عقارات للايجار" : "Properties for rent"}
           links={rentLinks}
           isRTL={isRTL}
@@ -136,7 +160,7 @@ const Footer = () => {
           title={isRTL ? "عقارات للبدل" : "Properties for exchange"}
           links={exchangeLinks}
           isRTL={isRTL}
-        />
+        /> */}
         <div>
           <h2 className="mb-2 text-base">{isRTL ? "صفحات " : "Pages"}</h2>
           <ul className="space-y-1">
