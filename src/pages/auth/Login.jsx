@@ -58,10 +58,10 @@ const Login = () => {
         </div>
 
         <div className="flex w-full flex-col justify-center p-6 md:w-1/2 md:p-8">
-          <h1 className="ffont-primary mb-2 text-center text-black">
+          <h1 className=" mb-2 text-center text-black">
             {t.login.title}
           </h1>
-          <p className="font-primary mb-6 text-center text-sm text-gray-600">
+          <p className=" mb-6 text-center text-sm text-gray-600">
             {t.login.shortTitle}
           </p>
 

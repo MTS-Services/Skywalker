@@ -130,16 +130,16 @@ const AdDetailPage = () => {
             <h1 className="mt-4 text-center text-lg md:text-lg lg:text-2xl">
               {ad.title}
             </h1>
-            <div className="font-primary mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
+            <div className="mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
               {ad.kd} {t.ads.currency}
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-            <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
+          <div className="mt-4 flex flex-wrap justify-center sm:gap-3">
+            <div className="bg-primary-300/30 flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
               <FiClock />
               <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
             </div>
-            <div className="bg-primary-300/30 font-primary flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
+            <div className="bg-primary-300/30 flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
               <FiEye />
               <span>{ad.views}</span>
             </div>
