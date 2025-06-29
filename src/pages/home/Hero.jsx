@@ -154,7 +154,7 @@ function FilterComponent({ t, isRTL }) {
       </div>
       {/* <button
         type="submit"
-        className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 font-primary w-full rounded-full py-3 text-white shadow-lg transition-colors duration-300 focus:ring-2 focus:outline-none"
+        className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 focus:ring-opacity-50 w-full rounded-full py-3 text-white shadow-lg transition-colors duration-300 focus:ring-2 focus:outline-none"
       >
         {t.home.searchButton}
       </button> */}
