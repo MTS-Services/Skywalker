@@ -52,20 +52,21 @@ const SearchResults = () => {
       searchText: params.get("searchText") || "",
     };
   }, [location.search]);
+  
+  const fetchAds = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("/ads.json");
+      const data = await response.data;
+      setAllAds(data);
+    } catch (error) {
+      console.error("Error fetching ads:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchAds = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get("/ads.json");
-        const data = await response.data;
-        setAllAds(data);
-      } catch (error) {
-        console.error("Error fetching ads:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchAds();
   }, []);
 
