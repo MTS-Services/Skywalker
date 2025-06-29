@@ -65,15 +65,16 @@ function FilterComponent({ t, isRTL }) {
       try {
         const [regionsRes, propertyTypesRes, transactionTypesRes] =
           await Promise.all([
-            fetch("/data/regions.json"),
-            fetch("/data/propertyTypes.json"),
-            fetch("/data/transactionTypes.json"),
+            fetch("/regions.json"),
+            fetch("/propertyTypes.json"),
+            fetch("/transactionTypes.json"),
           ]);
 
         const regions = await regionsRes.json();
         const propertyTypes = await propertyTypesRes.json();
         const transactions = await transactionTypesRes.json();
-
+        
+        
         setRegionsData(regions);
         setPropertyTypeData(propertyTypes);
         setTransactionTypes(transactions);

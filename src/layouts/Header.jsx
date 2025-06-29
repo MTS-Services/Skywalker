@@ -140,7 +140,7 @@ const Navigation = ({
 
   const fetchPropertyType = async () => {
     try {
-      const response = await axios.get("/data/groupPropertyTypes.json");
+      const response = await axios.get("/groupPropertyTypes.json");
       setPropertyTypes(response.data);
     } catch (error) {
       console.error("Error fetching property types:", error);

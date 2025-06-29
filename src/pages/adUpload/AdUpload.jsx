@@ -157,9 +157,9 @@ const AdUploadForm = () => {
       setIsLoading(true);
       try {
         const [purposesRes, propTypesRes, areasRes] = await Promise.all([
-          axios.get("/data/transactionTypes.json"),
-          axios.get("/data/propertyTypes.json"),
-          axios.get("/data/regions.json"),
+          axios.get("/transactionTypes.json"),
+          axios.get("/propertyTypes.json"),
+          axios.get("/regions.json"),
         ]);
         setOptions({
           purposes: purposesRes.data || [],

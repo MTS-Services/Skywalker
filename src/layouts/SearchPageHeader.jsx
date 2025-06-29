@@ -795,9 +795,9 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
       try {
         const [regionsRes, propertyTypesRes, transactionTypesRes] =
           await Promise.all([
-            fetch("/data/regions.json"),
-            fetch("/data/propertyTypes.json"),
-            fetch("/data/transactionTypes.json"),
+            fetch("/regions.json"),
+            fetch("/propertyTypes.json"),
+            fetch("/transactionTypes.json"),
           ]);
         setAllRegions(await regionsRes.json());
         setAllPropertyTypes(await propertyTypesRes.json());
