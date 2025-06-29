@@ -1,5 +1,3 @@
-// src/components/AdUploadForm.js
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -8,7 +6,7 @@ import { FiSearch, FiX, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
 import { useLanguage } from "../../context/LanguageContext";
 
-// --- Helper Component: MultiSelectDropdown (No Changes Here) ---
+// Component: MultiSelectDropdown
 const MultiSelectDropdown = ({
   options,
   selectedValues,
@@ -196,27 +194,18 @@ const AdUploadForm = () => {
     }));
   };
 
-  // +++ ADDED: New function to handle form submission +++
   const handleSubmit = async (e) => {
-    // 1. Prevent the default form submission (page reload)
     e.preventDefault();
-
-    // In a real application, you would send the data to your server here.
-    // For example: await axios.post('/api/ads', formData);
     console.log("Form submitted:", formData);
-
-    // 2. Display a success message using Toaster
-    // Make sure you have a translation for 'adUploadForm.submitSuccess'
     toast.success(
       t.adUploadForm.submitSuccess || "Advertisement uploaded successfully!",
     );
   };
 
-  // +++ UPDATED: Replaced loading text with a loading image +++
+  //  UPDATED: loading
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        {/* Make sure the image /loading.png exists in your public folder */}
         <img
           src="/loading.png"
           alt={t.adUploadForm.loading || "Loading..."}
@@ -228,7 +217,6 @@ const AdUploadForm = () => {
 
   return (
     <div className="mx-auto mt-16 mb-40 max-w-4xl p-4 sm:p-6 md:p-8 lg:mb-60">
-      {/* +++ UPDATED: Added the onSubmit handler to the form +++ */}
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2"
