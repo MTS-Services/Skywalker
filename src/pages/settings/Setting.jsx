@@ -1,20 +1,25 @@
 import ButtonSubmit from "../../common/button/ButtonSubmit";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Setting() {
+  const { t, isRTL } = useLanguage();
+
   return (
-    <div className="container mx-auto flex min-h-screen items-start justify-center pt-10">
+    <div
+      className="container mx-auto flex min-h-screen items-start justify-center pt-10"
+      dir={isRTL ? "rtl" : "ltr"}
+    >
       <div className="w-full max-w-3xl p-10">
-        <h1 className="text-xl text-black">Delete My Account</h1>
-        <p className="mt-2 mb-2 text-gray-700">
-          Are you sure you want to delete your account permanently? All Data,
-          Ads, and Credit related to this account will be deleted!
-        </p>
+        <h1 className="text-xl text-black">{t.settings.title}</h1>
+
+        <p className="mt-2 mb-2 text-gray-700">{t.settings.confirmationText}</p>
 
         <ButtonSubmit
           text={
             <span>
               <span className="flex items-center gap-2">
-                I am sure! Delete Account
+                {/* +++ Replace hardcoded text with t.settings.deleteButton +++ */}
+                {t.settings.deleteButton}
               </span>
             </span>
           }

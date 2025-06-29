@@ -336,6 +336,12 @@ export const translations = {
       dataLoadError: "Could not load necessary data. Please try again later.",
       fileLimitError: "You can only upload up to 12 images or videos.",
     },
+    settings: {
+      title: "Delete My Account",
+      confirmationText:
+        "Are you sure you want to delete your account permanently? All Data, Ads, and Credit related to this account will be deleted!",
+      deleteButton: "I am sure! Delete Account",
+    },
   },
 
   ar: {
@@ -628,6 +634,12 @@ export const translations = {
       searchPlaceholder: "بحث...",
       dataLoadError: "تعذر تحميل البيانات الضرورية. يرجى المحاولة لاحقًا.",
       fileLimitError: "يمكنك تحميل ما يصل إلى 12 صورة أو فيديو فقط.",
+    },
+    settings: {
+      title: "حذف حسابي",
+      confirmationText:
+        "هل أنت متأكد أنك تريد حذف حسابك بشكل دائم؟ سيتم حذف جميع البيانات والإعلانات والرصيد المتعلق بهذا الحساب!",
+      deleteButton: "أنا متأكد! احذف الحساب",
     },
   },
 };
