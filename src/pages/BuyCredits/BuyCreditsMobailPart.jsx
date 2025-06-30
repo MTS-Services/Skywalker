@@ -195,10 +195,10 @@ const BuyCreditsMobailPart = () => {
             },
           ]}
         />
-
         <CreditCard
           title={t.byCredit.agentsSubscription}
           imageSrc="/assets/byCridit/Subscription.jpg"
+          onImageClick={openModal} // ✅ এই লাইনটা আগে ছিল না
           t={t}
           bannerColor="#044470"
           buttons={[
