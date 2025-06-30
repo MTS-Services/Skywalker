@@ -134,7 +134,7 @@ const AdDetailPage = () => {
               {ad.kd} {t.ads.currency}
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap justify-center sm:gap-3">
+          <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
             <div className="bg-primary-300/30 flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
               <FiClock />
               <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
