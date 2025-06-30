@@ -43,7 +43,7 @@ const pagesLinks = [
     to: "/terms",
     label: { en: "Terms and Conditions", ar: "الشروط والأحكام" },
   },
-  // { to: "/sitemap", label: { en: "Sitemap", ar: "خريطة الموقع" } },
+  { to: "/sitemap", label: { en: "Sitemap", ar: "خريطة الموقع" } },
 ];
 
 // Footer Component
@@ -64,22 +64,31 @@ const Footer = () => {
     fetchPropertyType();
   }, []);
 
-
   return (
     <footer className="bg-[var(--color-primary-600)] px-6 py-10 text-sm text-white">
       <div
-        className={`mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 ${isRTL ? "rtl" : "ltr"
-          }`}
+        className={`mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 ${
+          isRTL ? "rtl" : "ltr"
+        }`}
       >
-
-        {properties.length > 0 && properties.map((property) => (
-          <div key={property.id}>
-            <h2 className="mb-2 text-base">{property.title}</h2>
-            <ul className="space-y-1">
-              {property.properties.length > 0 && property.properties.map((link) => <NavLink key={link.id} to={`/search?transactionType=${property.id}&propertyType=${link.id}`} className="block transition-colors hover:text-white/80">{link.name}</NavLink>)}
-            </ul>
-          </div>
-        ))}
+        {properties.length > 0 &&
+          properties.map((property) => (
+            <div key={property.id}>
+              <h2 className="mb-2 text-base">{property.title}</h2>
+              <ul className="space-y-1">
+                {property.properties.length > 0 &&
+                  property.properties.map((link) => (
+                    <NavLink
+                      key={link.id}
+                      to={`/search?transactionType=${property.id}&propertyType=${link.id}`}
+                      className="block transition-colors hover:text-white/80"
+                    >
+                      {link.name}
+                    </NavLink>
+                  ))}
+              </ul>
+            </div>
+          ))}
         <div>
           <h2 className="mb-2 text-base">{isRTL ? "صفحات " : "Pages"}</h2>
           <ul className="space-y-1">
