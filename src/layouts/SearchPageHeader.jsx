@@ -1,14 +1,31 @@
-// +++ ADDED: Necessary imports for the new scroller component +++
 import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { FiAlignLeft } from "react-icons/fi";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 import { FaArrowLeft, FaBars } from "react-icons/fa";
-import { GoChevronLeft, GoChevronRight } from "react-icons/go"; // <-- ADDED
+import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import SideBar from "./SideBar";
 
-// +++ ADDED: The self-contained component for horizontal scrolling +++
+// +++ ADDED: A hook to detect screen size for responsive logic +++
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    // Set the initial state
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    // Update state on window resize
+    const listener = () => setMatches(media.matches);
+    window.addEventListener("resize", listener);
+    return () => window.removeEventListener("resize", listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
 const HorizontalScroller = ({ children }) => {
   const scrollContainerRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -30,13 +47,14 @@ const HorizontalScroller = ({ children }) => {
 
   useEffect(() => {
     const container = scrollContainerRef.current;
-    checkArrows(); // Initial check
+    if (!container) return;
+    checkArrows();
     window.addEventListener("resize", checkArrows);
-    container?.addEventListener("scroll", checkArrows);
+    container.addEventListener("scroll", checkArrows);
 
     return () => {
       window.removeEventListener("resize", checkArrows);
-      container?.removeEventListener("scroll", checkArrows);
+      container.removeEventListener("scroll", checkArrows);
     };
   }, [checkArrows, children]);
 
@@ -53,7 +71,6 @@ const HorizontalScroller = ({ children }) => {
 
   return (
     <div className="relative w-full">
-      {/* Left Arrow */}
       <button
         type="button"
         onClick={() => scroll("left")}
@@ -66,15 +83,13 @@ const HorizontalScroller = ({ children }) => {
         </div>
       </button>
 
-      {/* The actual scrolling container */}
       <div
         ref={scrollContainerRef}
-        className="scrollbar-hide flex items-center gap-2 overflow-x-auto"
+        className="flex items-center gap-2 overflow-hidden"
       >
         {children}
       </div>
 
-      {/* Right Arrow */}
       <button
         type="button"
         onClick={() => scroll("right")}
@@ -90,7 +105,7 @@ const HorizontalScroller = ({ children }) => {
   );
 };
 
-// Component 1: Multi-Select Filter (No changes)
+// ================== FIXED DesktopRegionFilter COMPONENT ==================
 const DesktopRegionFilter = ({
   options,
   selectedItems,
@@ -101,6 +116,7 @@ const DesktopRegionFilter = ({
   t,
   isOpen,
   onToggle,
+  isDesktopView, // <-- Receive the viewport status
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
@@ -108,14 +124,21 @@ const DesktopRegionFilter = ({
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (isOpen) {
-          onToggle();
-        }
+        onToggle();
       }
     };
-    // document.addEventListener("mousedown", handleClickOutside);
-    // return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onToggle]);
+
+    // This is the crucial fix: Only listen for outside clicks when the dropdown
+    // is open AND we are on a desktop screen. This prevents it from interfering
+    // with the mobile modal.
+    if (isOpen && isDesktopView) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onToggle, isDesktopView]); // <-- Add isDesktopView to dependencies
 
   const toggleItem = (item) => {
     setSelectedItems((prev) =>
@@ -132,7 +155,7 @@ const DesktopRegionFilter = ({
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <div
-        className={`flex items-center rounded-md border border-gray-200 bg-white px-4 py-2 text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "ring-1 ring-gray-200" : ""}`}
+        className={`flex cursor-pointer items-center rounded-md border border-gray-200 bg-white px-4 py-2 text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "ring-1 ring-gray-200" : ""}`}
         onClick={onToggle}
         role="button"
         tabIndex="0"
@@ -196,6 +219,7 @@ const DesktopRegionFilter = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);
+                    onToggle();
                   }}
                 >
                   <div
@@ -230,7 +254,6 @@ const DesktopRegionFilter = ({
   );
 };
 
-// Component: MobileRegionFilter (No changes)
 const MobileRegionFilter = ({
   options,
   selectedItems,
@@ -241,18 +264,7 @@ const MobileRegionFilter = ({
   onToggle,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const dropdownRef = useRef(null);
   const { isRTL, t } = useLanguage();
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (isOpen) {
-          onToggle();
-        }
-      }
-    };
-  }, [isOpen, onToggle]);
 
   const toggleItem = (item) => {
     setSelectedItems((prev) =>
@@ -262,14 +274,19 @@ const MobileRegionFilter = ({
     );
   };
 
+  const handleItemSelectAndClose = (item) => {
+    toggleItem(item);
+    onToggle();
+  };
+
   const filteredOptions = options.filter((option) =>
     option.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
     <>
-      <div>
-        <div className="flex flex-wrap gap-2" onClick={onToggle}>
+      <div onClick={onToggle} className="cursor-pointer">
+        <div className="flex min-h-[24px] flex-wrap items-center gap-2">
           {selectedItems.length > 0 ? (
             selectedItems.map((item) => (
               <span
@@ -290,122 +307,122 @@ const MobileRegionFilter = ({
               </span>
             ))
           ) : (
-            <input
-              type="text"
-              placeholder={t.search.searchPlaceholder}
-              className="border-none focus-within:outline-none"
-            />
+            <span className="text-gray-500">{placeholder}</span>
           )}
         </div>
-        {isOpen && (
-          <>
-            <div className="fixed inset-0 z-50 bg-white">
-              <div className="flex h-full max-h-full w-full flex-col gap-2 overflow-y-auto">
-                {selectedItems.length > 0 ? (
-                  <div className="px-4 pt-4">
-                    <div className="flex flex-wrap gap-2 rounded-md border border-gray-200 p-2">
-                      {selectedItems.map((item) => (
-                        <span
-                          key={item.id}
-                          className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
-                        >
-                          {item.name}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleItem(item);
-                              onToggle();
-                            }}
-                            className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
-                          >
-                            <LuX />
-                          </button>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
+      </div>
 
-                <div className="p-4">
-                  <div
-                    className={`border-primary-600 focus:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus:ring-1 focus:outline-none ${isRTL ? "pr-14" : "pl-14"}`}
-                  >
+      {isOpen && (
+        <div className="fixed inset-0 z-50 bg-white">
+          <div className="flex h-full max-h-full w-full flex-col gap-2">
+            {selectedItems.length > 0 && (
+              <div className="shrink-0 px-4 pt-4">
+                <div className="flex flex-wrap gap-2 rounded-md border border-gray-200 p-2">
+                  {selectedItems.map((item) => (
                     <span
-                      onClick={onToggle}
-                      className={`text-primary-600 absolute inset-y-0 flex items-center text-2xl ${isRTL ? "right-3" : "left-3"}`}
+                      key={item.id}
+                      className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
                     >
-                      <FaArrowLeft />
-                    </span>
-                    <input
-                      type="text"
-                      placeholder={searchPlaceholder}
-                      className={` ${isRTL ? "text-right" : "text-left"} w-full border-none focus-within:outline-none`}
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                  </div>
-                </div>
-                <ul className="px-4 pb-4">
-                  {filteredOptions.length > 0 ? (
-                    filteredOptions.map((option) => (
-                      <li
-                        key={option.id}
-                        className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""} ${selectedItems.some((item) => item.id === option.id) ? "bg-primary-300/20" : ""}`}
+                      {item.name}
+                      <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          toggleItem(option);
-                          onToggle();
+                          toggleItem(item);
                         }}
+                        className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
                       >
-                        <div
-                          className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
-                        >
-                          <input
-                            type="checkbox"
-                            readOnly
-                            checked={selectedItems.some(
-                              (item) => item.id === option.id,
-                            )}
-                            className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
-                          />
-                          <span
-                            className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}
-                          >
-                            {option.name}
-                          </span>
-                        </div>
-                        {option.count && (
-                          <span className="text-sm text-black">
-                            ({option.count})
-                          </span>
-                        )}
-                      </li>
-                    ))
-                  ) : (
-                    <li className="p-2 text-center text-black">
-                      No results found
-                    </li>
-                  )}
-                </ul>
+                        <LuX />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="shrink-0 p-4">
+              <div
+                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 focus-within:outline-none ${
+                  isRTL ? "pr-14" : "pl-14"
+                }`}
+              >
+                <span
+                  onClick={onToggle}
+                  className={`text-primary-600 absolute inset-y-0 flex cursor-pointer items-center text-2xl ${
+                    isRTL ? "right-3" : "left-3"
+                  }`}
+                >
+                  <FaArrowLeft />
+                </span>
+                <input
+                  type="text"
+                  placeholder={searchPlaceholder}
+                  className={`w-full border-none bg-transparent focus-within:outline-none ${
+                    isRTL ? "text-right" : "text-left"
+                  }`}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                  autoFocus
+                />
               </div>
             </div>
-          </>
-        )}
-      </div>
+
+            <ul className="flex-grow overflow-y-auto px-4 pb-4">
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option) => (
+                  <li
+                    key={option.id}
+                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
+                      isRTL ? "flex-row-reverse" : ""
+                    } ${
+                      selectedItems.some((item) => item.id === option.id)
+                        ? "bg-primary-300/20"
+                        : ""
+                    }`}
+                    onClick={() => handleItemSelectAndClose(option)}
+                  >
+                    <div
+                      className={`flex items-center ${
+                        isRTL ? "text-right" : "text-left"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        readOnly
+                        checked={selectedItems.some(
+                          (item) => item.id === option.id,
+                        )}
+                        className="form-checkbox text-primary-400 pointer-events-none h-4 w-4 rounded"
+                      />
+                      <span className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}>
+                        {option.name}
+                      </span>
+                    </div>
+                    {option.count && (
+                      <span className="text-sm text-black">
+                        ({option.count})
+                      </span>
+                    )}
+                  </li>
+                ))
+              ) : (
+                <li className="p-2 text-center text-black">
+                  {t.search.noResultsFound}
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   );
 };
 
-// Component 2: CategoryFilter (No changes)
 const CategoryFilter = ({
   options,
   selectedValue,
   setSelectedValue,
-  placeholder,
   label,
   isRTL,
   isOpen,
@@ -424,6 +441,10 @@ const CategoryFilter = ({
         }
       }
     };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onToggle]);
 
   const handleSelect = (value) => {
@@ -437,12 +458,10 @@ const CategoryFilter = ({
   );
 
   return (
-    <div className="relative w-full px-1 sm:w-auto" ref={dropdownRef}>
+    <div className="relative w-full sm:w-auto">
       <button
         type="button"
-        className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 
-          py-2 text-sm text-black transition-colors focus-within:outline-gray-300
-           hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 *: text-white" : ""}`}
+        className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 text-white" : ""}`}
         onClick={onToggle}
       >
         <span>{label}</span>
@@ -511,7 +530,6 @@ const CategoryFilter = ({
   );
 };
 
-// Component 3: PropertyDropdown (No changes)
 const PropertyDropdown = ({
   options,
   selectedItems,
@@ -533,6 +551,10 @@ const PropertyDropdown = ({
         }
       }
     };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onToggle]);
 
   const toggleItem = (item) => {
@@ -548,7 +570,7 @@ const PropertyDropdown = ({
   );
 
   return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+    <div className="relative w-full sm:w-auto">
       <div
         className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 text-white" : ""}`}
         onClick={onToggle}
@@ -636,7 +658,6 @@ const PropertyDropdown = ({
   );
 };
 
-// Component 4: PriceRangeFilter (No changes)
 function PriceRangeFilter({
   minPrice,
   maxPrice,
@@ -655,6 +676,10 @@ function PriceRangeFilter({
         if (isOpen) onToggle();
       }
     };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onToggle]);
 
   const handleMinChange = (e) =>
@@ -672,7 +697,7 @@ function PriceRangeFilter({
   const MIN_POSSIBLE_PRICE = 0;
 
   return (
-    <div className="xs:w-auto relative w-full" ref={dropdownRef}>
+    <div className="xs:w-auto relative w-full">
       <button
         type="button"
         onClick={onToggle}
@@ -764,7 +789,6 @@ function PriceRangeFilter({
   );
 }
 
-// Component 5: TextSearchFilter (No changes)
 function TextSearchFilter({
   searchTerm,
   setSearchTerm,
@@ -781,6 +805,10 @@ function TextSearchFilter({
         if (isOpen) onToggle();
       }
     };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onToggle]);
 
   const handleReset = () => {
@@ -790,7 +818,7 @@ function TextSearchFilter({
   const handleSearch = () => onApply();
 
   return (
-    <div className="xs:w-auto relative w-full" ref={dropdownRef}>
+    <div className="xs:w-auto relative w-full">
       <button
         type="button"
         onClick={onToggle}
@@ -805,10 +833,10 @@ function TextSearchFilter({
       </button>
       {isOpen && (
         <>
-          <div className={`fixed inset-0 z-10`}>
+          <div className={`fixed inset-0`}>
             <div className="relative h-full w-full px-4">
               <div
-                className="absolute inset-0 z-[11] bg-black opacity-10"
+                className="absolute inset-0 bg-black opacity-10"
                 onClick={onToggle}
               ></div>
               <div
@@ -855,8 +883,13 @@ function TextSearchFilter({
   );
 }
 
-// Component 6: SearchFilterBar (No changes)
-const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
+const SearchFilterBar = ({
+  initialFilters,
+  t,
+  isRTL,
+  children,
+  isDesktopView,
+}) => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(null);
 
@@ -972,16 +1005,17 @@ const SearchFilterBar = ({ initialFilters, t, isRTL, children }) => {
     showDropdown,
     toggleDropdown,
     onApply: () => setShowDropdown(null),
+    isDesktopView, // <-- Pass down the viewport status
   };
 
   return children(filterProps);
 };
 
-// Component 7: Main Header Component
 export default function SearchPageHeader() {
   const { isRTL, t } = useLanguage();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const isDesktopView = useMediaQuery("(min-width: 1280px)"); // Tailwind 'xl' breakpoint
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -995,7 +1029,7 @@ export default function SearchPageHeader() {
       maxPrice: params.get("maxPrice") || "",
       searchText: params.get("searchText") || "",
     };
-  }, [location.search, t]);
+  }, [location.search]);
 
   return (
     <>
@@ -1003,12 +1037,15 @@ export default function SearchPageHeader() {
         className="border-b border-gray-200 bg-white px-4 py-6 shadow-sm"
         dir={isRTL ? "rtl" : "ltr"}
       >
-        <SearchFilterBar initialFilters={initialFilters} t={t} isRTL={isRTL}>
+        <SearchFilterBar
+          initialFilters={initialFilters}
+          t={t}
+          isRTL={isRTL}
+          isDesktopView={isDesktopView}
+        >
           {(props) => (
             <div className="mx-auto max-w-7xl">
-              {/* ================== Desktop Header (No changes) ================== */}
               <div className="hidden items-center justify-start gap-5 xl:flex">
-                {/* ... your unchanged desktop code ... */}
                 <div className="flex items-center gap-10">
                   <button
                     onClick={toggleSidebar}
@@ -1039,10 +1076,11 @@ export default function SearchPageHeader() {
                     placeholder={t.search.areaPlaceholder}
                     searchPlaceholder={t.search.searchPlaceholder}
                     label={t.search.area}
-                    isRTL={isRTL}
-                    t={t}
+                    isRTL={props.isRTL}
+                    t={props.t}
                     isOpen={props.showDropdown === "area"}
                     onToggle={() => props.toggleDropdown("area")}
+                    isDesktopView={props.isDesktopView} // <-- Pass prop
                   />
                   <div className="flex flex-wrap items-center justify-start gap-2">
                     <CategoryFilter
@@ -1051,8 +1089,8 @@ export default function SearchPageHeader() {
                       setSelectedValue={props.setTransactionType}
                       placeholder={t.search.transactionTypePlaceholder}
                       label={t.search.transactionType}
-                      isRTL={isRTL}
-                      t={t}
+                      isRTL={props.isRTL}
+                      t={props.t}
                       isOpen={props.showDropdown === "transactionType"}
                       onToggle={() => props.toggleDropdown("transactionType")}
                     />
@@ -1063,8 +1101,8 @@ export default function SearchPageHeader() {
                       placeholder={t.search.propertyTypePlaceholder}
                       searchPlaceholder={t.search.searchPlaceholder}
                       label={t.search.propertyType}
-                      isRTL={isRTL}
-                      t={t}
+                      isRTL={props.isRTL}
+                      t={props.t}
                       isOpen={props.showDropdown === "propertyTypes"}
                       onToggle={() => props.toggleDropdown("propertyTypes")}
                     />
@@ -1073,8 +1111,8 @@ export default function SearchPageHeader() {
                       maxPrice={props.maxPrice}
                       setMinPrice={props.setMinPrice}
                       setMaxPrice={props.setMaxPrice}
-                      t={t}
-                      isRTL={isRTL}
+                      t={props.t}
+                      isRTL={props.isRTL}
                       isOpen={props.showDropdown === "price"}
                       onToggle={() => props.toggleDropdown("price")}
                       onApply={props.onApply}
@@ -1082,8 +1120,8 @@ export default function SearchPageHeader() {
                     <TextSearchFilter
                       searchTerm={props.searchText}
                       setSearchTerm={props.setSearchText}
-                      t={t}
-                      isRTL={isRTL}
+                      t={props.t}
+                      isRTL={props.isRTL}
                       isOpen={props.showDropdown === "text"}
                       onToggle={() => props.toggleDropdown("text")}
                       onApply={props.onApply}
@@ -1092,9 +1130,7 @@ export default function SearchPageHeader() {
                 </div>
               </div>
 
-              {/* ================== Mobile Header (MODIFIED) ================== */}
               <div className="flex flex-col gap-3 xl:hidden">
-                {/* Top Row: Hamburger, Search, Avatar */}
                 <div className="flex items-center gap-3 rounded-md border border-gray-200 px-3 py-2">
                   <button onClick={toggleSidebar} className="text-2xl">
                     <FiAlignLeft />
@@ -1123,7 +1159,6 @@ export default function SearchPageHeader() {
                   </Link>
                 </div>
 
-                {/* +++ REPLACED: The old div with the new HorizontalScroller component +++ */}
                 <HorizontalScroller>
                   <CategoryFilter
                     options={props.transactionTypes}
@@ -1131,7 +1166,7 @@ export default function SearchPageHeader() {
                     setSelectedValue={props.setTransactionType}
                     placeholder={t.search.transactionTypePlaceholder}
                     label={t.search.transactionType}
-                    isRTL={isRTL}
+                    isRTL={props.isRTL}
                     isOpen={props.showDropdown === "transactionType"}
                     onToggle={() => props.toggleDropdown("transactionType")}
                   />
@@ -1142,7 +1177,7 @@ export default function SearchPageHeader() {
                     placeholder={t.search.propertyTypePlaceholder}
                     searchPlaceholder={t.search.searchPlaceholder}
                     label={t.search.propertyType}
-                    isRTL={isRTL}
+                    isRTL={props.isRTL}
                     isOpen={props.showDropdown === "propertyTypes"}
                     onToggle={() => props.toggleDropdown("propertyTypes")}
                   />
@@ -1151,8 +1186,8 @@ export default function SearchPageHeader() {
                     maxPrice={props.maxPrice}
                     setMinPrice={props.setMinPrice}
                     setMaxPrice={props.setMaxPrice}
-                    t={t}
-                    isRTL={isRTL}
+                    t={props.t}
+                    isRTL={props.isRTL}
                     isOpen={props.showDropdown === "price"}
                     onToggle={() => props.toggleDropdown("price")}
                     onApply={props.onApply}
@@ -1160,8 +1195,8 @@ export default function SearchPageHeader() {
                   <TextSearchFilter
                     searchTerm={props.searchText}
                     setSearchTerm={props.setSearchText}
-                    t={t}
-                    isRTL={isRTL}
+                    t={props.t}
+                    isRTL={props.isRTL}
                     isOpen={props.showDropdown === "text"}
                     onToggle={() => props.toggleDropdown("text")}
                     onApply={props.onApply}

@@ -217,7 +217,7 @@ const BuyCreditsMobailPart = () => {
 
         <CreditCard
           title={t.byCredit.regularCredit}
-          imageSrc="/assets/byCridit/img2.png"
+          imageSrc="/assets/byCridit/Regular.jpg"
           onImageClick={openModal}
           t={t}
           bannerColor="#76A835"
