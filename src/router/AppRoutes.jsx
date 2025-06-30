@@ -19,6 +19,7 @@ import BuyCredits from "../pages/BuyCredits/BuyCredits";
 import Setting from "../pages/settings/Setting";
 import Agent from "../pages/agent/Agent";
 import PublicRoute from "../authente/AuthProvideer/PublicRoute";
+import Sitemap from "../pages/sitemap/Sitemap";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "sitemap",
+        element: <Sitemap></Sitemap>
       },
       {
         path: "contact",

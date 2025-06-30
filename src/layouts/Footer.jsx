@@ -43,7 +43,7 @@ const pagesLinks = [
     to: "/terms",
     label: { en: "Terms and Conditions", ar: "الشروط والأحكام" },
   },
-  // { to: "/sitemap", label: { en: "Sitemap", ar: "خريطة الموقع" } },
+  { to: "/sitemap", label: { en: "Sitemap", ar: "خريطة الموقع" } },
 ];
 
 // Footer Component

@@ -55,16 +55,21 @@ function Header() {
       { label: t.header.buyCredit, to: "/buy-credits" },
       { label: t.header.logout, action: handleLogout },
     ];
+
+
+
     const end = [{ label: t.header.agents, to: "/agents" }];
     return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
   }, [isAuthenticated, t]);
 
   return (
     <nav
-      className={`relative z-50 border-b border-gray-200 bg-white px-4 py-4 shadow-sm ${isRTL ? "rtl" : "ltr"
-        }`}
+      className={`relative z-50 border-b border-gray-200 bg-white px-4 py-4 shadow-sm ${
+        isRTL ? "rtl" : "ltr"
+      }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
+        {/* Logo and Site Name */}
         <NavLink to="/" className={`flex items-center justify-start gap-2`}>
           <img src="/logo.png" alt="Logo" className="w-14" />
           <div>
@@ -75,6 +80,16 @@ function Header() {
           </div>
         </NavLink>
 
+        {/* Add Free Ad button for Mobile/Tablet - ADDED HERE */}
+        <NavLink
+          to={isAuthenticated ? "/ad-upload" : "/login"}
+          className="text-primary-600 flex items-center gap-2 rounded-md px-3 py-2 font-medium lg:hidden"
+        >
+          <FaPlusCircle className="text-lg" />
+          {t.header.addFreeAd}
+        </NavLink>
+
+        {/* Mobile Hamburger Menu Button */}
         <button
           onClick={toggleSidebar}
           className="text-2xl text-[#556885] lg:hidden"
@@ -82,9 +97,11 @@ function Header() {
           <FaBars />
         </button>
 
+        {/* Desktop Navigation Links */}
         <div
-          className={`hidden items-center gap-6 font-medium text-black lg:flex ${isRTL ? "space-x-reverse" : ""
-            }`}
+          className={`hidden items-center gap-6 font-medium text-black lg:flex ${
+            isRTL ? "space-x-reverse" : ""
+          }`}
         >
           <Navigation
             toggleDropdown={toggleDropdown}
@@ -107,6 +124,7 @@ function Header() {
           )}
         </div>
 
+        {/* Desktop 'Add Free Ad' Button (original) */}
         <NavLink
           to={isAuthenticated ? "/ad-upload" : "/login"}
           className="bg-primary-300/10 border-primary-300/40 hidden items-center gap-2 rounded-md border px-5 py-2 lg:flex"
@@ -151,8 +169,9 @@ const Navigation = ({
 
   return (
     <div
-      className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${isRTL && !isMobile ? "space-x-reverse" : ""
-        }`}
+      className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${
+        isRTL && !isMobile ? "space-x-reverse" : ""
+      }`}
     >
       {navItems.map((item, index) => (
         <div className="active:bg-active rounded-e-2xl" key={index}>
@@ -174,8 +193,9 @@ const Navigation = ({
         <div className="relative" ref={propertyDropdownRef}>
           <button
             onClick={toggleDropdown}
-            className={`hover:text-primary-400 flex cursor-pointer items-center transition-colors ${isDropdownOpen ? "text-primary-400" : ""
-              } ${isRTL ? "flex-row-reverse" : ""}`}
+            className={`hover:text-primary-400 flex cursor-pointer items-center transition-colors ${
+              isDropdownOpen ? "text-primary-400" : ""
+            } ${isRTL ? "flex-row-reverse" : ""}`}
           >
             {t.header.kuwaitRealEstate}
             {isDropdownOpen ? (
@@ -184,11 +204,14 @@ const Navigation = ({
               <FiChevronDown className={`${isRTL ? "mr-1" : "ml-1"}`} />
             )}
           </button>
+
           {isDropdownOpen && propertyTypes.length > 0 && (
             <div
-              className={`absolute z-10 mt-2 max-h-[40vh] w-fit min-w-64 divide-y divide-gray-100 overflow-y-auto rounded-md border border-gray-100 bg-white shadow ${isRTL ? "right-0" : "left-0"
-                }`}
+              className={`absolute z-10 mt-2 max-h-[40vh] w-fit min-w-64 divide-y divide-gray-100 overflow-y-auto rounded-md border border-gray-100 bg-white shadow ${
+                isRTL ? "right-0" : "left-0"
+              }`}
             >
+              
               {propertyTypes.map((item, index) => (
                 <div key={index} className="p-3">
                   {Array.isArray(item.properties) &&
@@ -227,4 +250,5 @@ const Navigation = ({
     </div>
   );
 };
+
 export default Header;

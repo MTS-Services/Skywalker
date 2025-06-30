@@ -259,3 +259,9 @@ html[dir="rtl"] {
 .custom-scrollbar::-webkit-scrollbar-thumb:disabled {
   background-color: var(--color-primary-800);
 }
+
+ /* // code by shakil munshi */
+ html {
+  scroll-behavior: smooth;
+}
+
