@@ -85,7 +85,7 @@ const HorizontalScroller = ({ children }) => {
 
       <div
         ref={scrollContainerRef}
-        className="scrollbar-hide flex items-center gap-2 overflow-x-auto"
+        className="flex items-center gap-2 overflow-hidden"
       >
         {children}
       </div>
@@ -423,7 +423,6 @@ const CategoryFilter = ({
   options,
   selectedValue,
   setSelectedValue,
-  placeholder,
   label,
   isRTL,
   isOpen,
@@ -459,7 +458,7 @@ const CategoryFilter = ({
   );
 
   return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+    <div className="relative w-full sm:w-auto">
       <button
         type="button"
         className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 text-white" : ""}`}
@@ -481,7 +480,7 @@ const CategoryFilter = ({
                 className="absolute inset-0 z-[11] bg-black opacity-10"
                 onClick={onToggle}
               ></div>
-              <div className="max-w-3xl mx-auto">
+              <div className="mx-auto max-w-3xl">
                 <div
                   className={`relative top-[120px] z-[12] mr-auto w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
                 >
@@ -571,7 +570,7 @@ const PropertyDropdown = ({
   );
 
   return (
-    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
+    <div className="relative w-full sm:w-auto">
       <div
         className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 text-white" : ""}`}
         onClick={onToggle}
@@ -698,7 +697,7 @@ function PriceRangeFilter({
   const MIN_POSSIBLE_PRICE = 0;
 
   return (
-    <div className="xs:w-auto relative w-full" ref={dropdownRef}>
+    <div className="xs:w-auto relative w-full">
       <button
         type="button"
         onClick={onToggle}
@@ -819,7 +818,7 @@ function TextSearchFilter({
   const handleSearch = () => onApply();
 
   return (
-    <div className="xs:w-auto relative w-full" ref={dropdownRef}>
+    <div className="xs:w-auto relative w-full">
       <button
         type="button"
         onClick={onToggle}
@@ -834,10 +833,10 @@ function TextSearchFilter({
       </button>
       {isOpen && (
         <>
-          <div className={`fixed inset-0 z-10`}>
+          <div className={`fixed inset-0`}>
             <div className="relative h-full w-full px-4">
               <div
-                className="absolute inset-0 z-[11] bg-black opacity-10"
+                className="absolute inset-0 bg-black opacity-10"
                 onClick={onToggle}
               ></div>
               <div
