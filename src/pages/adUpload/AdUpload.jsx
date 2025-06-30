@@ -6,6 +6,116 @@ import { FiSearch, FiX, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
 import { useLanguage } from "../../context/LanguageContext";
 
+const SingleSelectDropdown = ({
+  options,
+  selectedValue,
+  onChange,
+  placeholder = "Select an option",
+  searchPlaceholder,
+  noResultsText,
+  isRTL,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSelectOption = (value) => {
+    onChange(value);
+    setIsOpen(false);
+  };
+
+  const clearSelection = (e) => {
+    e.stopPropagation();
+    onChange(null);
+  };
+
+  const filteredOptions = options.filter((option) =>
+    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  const selectedOption = options.find((o) => o.id === selectedValue);
+
+  return (
+    <div className="relative font-sans" ref={dropdownRef}>
+      <div
+        className="flex h-[42px] cursor-pointer items-center gap-2 rounded-md border border-gray-300 bg-white p-2 rtl:flex-row-reverse"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <FiSearch className="flex-shrink-0 text-[var(--color-primary-500)]" />
+        <div className="flex-grow rtl:text-right">
+          {!selectedOption ? (
+            <span className="text-gray-500">{placeholder}</span>
+          ) : (
+            <span className="text-sm font-medium text-gray-800">
+              {selectedOption.name}
+            </span>
+          )}
+        </div>
+        <div className="flex-shrink-0">
+          {selectedOption && (
+            <FiX
+              className="cursor-pointer text-gray-500 hover:text-gray-800"
+              onClick={clearSelection}
+            />
+          )}
+        </div>
+        <div className="flex-shrink-0">
+          {isOpen ? (
+            <FiChevronUp className="text-primary-500" />
+          ) : (
+            <FiChevronDown className="text-primary-500" />
+          )}
+        </div>
+      </div>
+      {isOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-lg">
+          <div className="p-2">
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              className="focus:border-primary-500 focus:ring-primary-500 w-full rounded-md border border-gray-300 p-2"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <ul className="max-h-60 overflow-y-auto p-2">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => (
+                <li
+                  key={option.id}
+                  className={`flex cursor-pointer items-center rounded-md p-2 hover:bg-cyan-50 ${selectedValue === option.id ? "bg-cyan-100" : ""}`}
+                  onClick={() => handleSelectOption(option.id)}
+                >
+                  <span className="text-gray-700 ltr:ml-3 rtl:mr-3">
+                    {option.name}
+                  </span>
+                  {option.count && (
+                    <span className="text-sm text-gray-500 ltr:ml-auto rtl:mr-auto">
+                      {option.count}
+                    </span>
+                  )}
+                </li>
+              ))
+            ) : (
+              <li className="p-2 text-gray-500">{noResultsText}</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // Component: MultiSelectDropdown
 const MultiSelectDropdown = ({
   options,
@@ -32,6 +142,7 @@ const MultiSelectDropdown = ({
 
   const toggleOption = (value) => {
     onChange(value);
+    setIsOpen(false);
   };
 
   const filteredOptions = options.filter((option) =>
@@ -61,8 +172,8 @@ const MultiSelectDropdown = ({
                     <FiX
                       className="cursor-pointer hover:text-cyan-600"
                       onClick={(e) => {
-                        e.stopPropagation();
                         toggleOption(value);
+                        e.stopPropagation();
                       }}
                     />
                   </span>
@@ -124,6 +235,7 @@ const MultiSelectDropdown = ({
   );
 };
 
+// Component: AdUploadForm
 // --- Main Component: AdUploadForm ---
 const AdUploadForm = () => {
   const { t, isRTL } = useLanguage();
@@ -134,11 +246,13 @@ const AdUploadForm = () => {
     propertyTypes: [],
     areas: [],
   });
+
+  // 1. UPDATED: Changed 'purposes' to hold a single value (null) instead of an array
   const [formData, setFormData] = useState({
-    purposes: [],
-    propertyTypes: [],
+    purposes: null, // Changed from []
+    propertyTypes: null,
     description: "",
-    regions: [],
+    regions: null,
     price: "",
     images: [],
   });
@@ -172,6 +286,7 @@ const AdUploadForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // This handler is now no longer used by 'purposes' but can be kept for other potential multi-selects
   const handleMultiSelectChange = (fieldName, selectedId) => {
     setFormData((prev) => {
       const currentSelection = prev[fieldName];
@@ -180,6 +295,11 @@ const AdUploadForm = () => {
         : [...currentSelection, selectedId];
       return { ...prev, [fieldName]: newSelection };
     });
+  };
+
+  // Handler for all single-select dropdowns
+  const handleSingleSelectChange = (fieldName, selectedId) => {
+    setFormData((prev) => ({ ...prev, [fieldName]: selectedId }));
   };
 
   const handleFileChange = (e) => {
@@ -202,7 +322,6 @@ const AdUploadForm = () => {
     );
   };
 
-  //  UPDATED: loading
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -221,14 +340,15 @@ const AdUploadForm = () => {
         onSubmit={handleSubmit}
         className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2"
       >
+        {/* 2. UPDATED: Switched 'Purpose' field to use SingleSelectDropdown */}
         <div className="md:col-span-1">
           <label className="font-open-sans mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.purposeLabel}
           </label>
-          <MultiSelectDropdown
+          <SingleSelectDropdown
             options={options.purposes}
-            selectedValues={formData.purposes}
-            onChange={(id) => handleMultiSelectChange("purposes", id)}
+            selectedValue={formData.purposes}
+            onChange={(id) => handleSingleSelectChange("purposes", id)}
             placeholder={t.adUploadForm.purposePlaceholder}
             searchPlaceholder={t.adUploadForm.searchPlaceholder}
             noResultsText={t.adUploadForm.noResults}
@@ -240,10 +360,10 @@ const AdUploadForm = () => {
           <label className="mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.propertyTypeLabel}
           </label>
-          <MultiSelectDropdown
+          <SingleSelectDropdown
             options={options.propertyTypes}
-            selectedValues={formData.propertyTypes}
-            onChange={(id) => handleMultiSelectChange("propertyTypes", id)}
+            selectedValue={formData.propertyTypes}
+            onChange={(id) => handleSingleSelectChange("propertyTypes", id)}
             placeholder={t.adUploadForm.propertyTypePlaceholder}
             searchPlaceholder={t.adUploadForm.searchPlaceholder}
             noResultsText={t.adUploadForm.noResults}
@@ -269,10 +389,10 @@ const AdUploadForm = () => {
           <label className="mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.areaLabel}
           </label>
-          <MultiSelectDropdown
+          <SingleSelectDropdown
             options={options.areas}
-            selectedValues={formData.regions}
-            onChange={(id) => handleMultiSelectChange("regions", id)}
+            selectedValue={formData.regions}
+            onChange={(id) => handleSingleSelectChange("regions", id)}
             placeholder={t.adUploadForm.areaPlaceholder}
             searchPlaceholder={t.adUploadForm.searchPlaceholder}
             noResultsText={t.adUploadForm.noResults}
@@ -327,7 +447,6 @@ const AdUploadForm = () => {
         </div>
 
         <div className="mt-4 md:col-span-2">
-          {/* This button will now trigger the form's onSubmit */}
           <ButtonSubmit
             text={
               <span className="flex items-center justify-center">

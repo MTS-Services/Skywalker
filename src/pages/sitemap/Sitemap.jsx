@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../context/LanguageContext";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -15,7 +16,7 @@ const Sitemap = () => {
   const [displayedAds, setDisplayedAds] = useState([]);
 
   // Fetch all ads on component mount
-
+  const { t, isRTL } = useLanguage();
 
 
   const generateSlug = (text) =>
@@ -118,7 +119,9 @@ const Sitemap = () => {
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-12">
-      <h2 className="mb-6 text-2xl font-bold text-gray-800">Sitemap</h2>
+      <h2 className="mb-6 text-2xl font-bold text-gray-800">
+        {t.siteMapalldata.sitemap}
+      </h2>
 
       <ul className="space-y-4 text-base text-gray-700">
         <li>
@@ -126,14 +129,14 @@ const Sitemap = () => {
             to="/search"
             className="ext-[14px] font-[700] text-[#2e6290] hover:underline"
           >
-            Home (Search)
+            {t.siteMapalldata.home}
           </Link>
         </li>
 
         <li>
           <details className="group">
             <summary className="text-[14px] font-[700] text-[#2e6290] hover:underline">
-              Properties for Sale in Kuwait (
+              {t.siteMapalldata.PropertiesforSale} (
               {propertyTypes.filter((p) => p.transactionType === "sale").length}
               )
             </summary>
@@ -167,7 +170,7 @@ const Sitemap = () => {
         <li>
           <details className="group open">
             <summary className="ext-[14px] font-[700] text-[#2e6290] hover:underline">
-              Properties for Rent in Kuwait ({allAds.length})
+              {t.siteMapalldata.PropertiesforRent} ({allAds.length})
             </summary>
             <div className="space-y-2 pt-2 pl-4">
               {displayedAds.map((ad) => (
@@ -231,7 +234,7 @@ const Sitemap = () => {
         <li>
           <details className="group">
             <summary className="text-[14px] font-[700] text-[#2e6290] hover:underline">
-              Real Estate Companies ({companies.length})
+              {t.siteMapalldata.propertiesorExchange} ({companies.length})
             </summary>
             <ul className="mt-2 ml-4 space-y-1">
               {companies.map((company) => (
@@ -256,7 +259,7 @@ const Sitemap = () => {
             to="/about"
             className="text-[14px] font-[700] text-[#2e6290] hover:underline"
           >
-            About Us
+            {t.siteMapalldata.aboutUs}
           </Link>
         </li>
         <li>
@@ -264,7 +267,7 @@ const Sitemap = () => {
             to="/contact"
             className="text-[14px] font-[700] text-[#2e6290] hover:underline"
           >
-            Contact Us
+            {t.siteMapalldata.contactUs}
           </Link>
         </li>
         <li>
@@ -272,7 +275,7 @@ const Sitemap = () => {
             to="/terms"
             className="text-[14px] font-[700] text-[#2e6290] hover:underline"
           >
-            Terms and Conditions
+            {t.siteMapalldata.termsandConditions}
           </Link>
         </li>
       </ul>

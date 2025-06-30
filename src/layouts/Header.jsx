@@ -232,7 +232,6 @@ const Navigation = ({
           )}
         </div>
       )}
-
       <div>
         <button onClick={() => handleLanguageChange(isRTL ? "en" : "ar")}>
           <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
@@ -243,5 +242,5 @@ const Navigation = ({
     </div>
   );
 };
-
 export default Header;
+// export default Header

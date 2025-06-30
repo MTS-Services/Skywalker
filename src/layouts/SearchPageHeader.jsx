@@ -617,6 +617,7 @@ const PropertyDropdown = ({
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleItem(option);
+                          onToggle();
                         }}
                       >
                         <div
