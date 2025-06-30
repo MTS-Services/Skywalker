@@ -55,6 +55,9 @@ function Header() {
       { label: t.header.buyCredit, to: "/buy-credits" },
       { label: t.header.logout, action: handleLogout },
     ];
+
+
+
     const end = [{ label: t.header.agents, to: "/agents" }];
     return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
   }, [isAuthenticated, t]);
@@ -66,6 +69,7 @@ function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
+        {/* Logo and Site Name */}
         <NavLink to="/" className={`flex items-center justify-start gap-2`}>
           <img src="/logo.png" alt="Logo" className="w-14" />
           <div>
@@ -76,6 +80,9 @@ function Header() {
           </div>
         </NavLink>
 
+    
+
+        {/* Mobile Hamburger Menu Button */}
         <button
           onClick={toggleSidebar}
           className="text-2xl text-[#556885] lg:hidden"
@@ -83,6 +90,7 @@ function Header() {
           <FaBars />
         </button>
 
+        {/* Desktop Navigation Links */}
         <div
           className={`hidden items-center gap-6 font-medium text-black lg:flex ${
             isRTL ? "space-x-reverse" : ""
@@ -109,6 +117,7 @@ function Header() {
           )}
         </div>
 
+        {/* Desktop 'Add Free Ad' Button (original) */}
         <NavLink
           to={isAuthenticated ? "/ad-upload" : "/login"}
           className="bg-primary-300/10 border-primary-300/40 hidden items-center gap-2 rounded-md border px-5 py-2 lg:flex"
@@ -188,12 +197,14 @@ const Navigation = ({
               <FiChevronDown className={`${isRTL ? "mr-1" : "ml-1"}`} />
             )}
           </button>
+
           {isDropdownOpen && propertyTypes.length > 0 && (
             <div
               className={`absolute z-10 mt-2 max-h-[40vh] w-fit min-w-64 divide-y divide-gray-100 overflow-y-auto rounded-md border border-gray-100 bg-white shadow ${
                 isRTL ? "right-0" : "left-0"
               }`}
             >
+              
               {propertyTypes.map((item, index) => (
                 <div key={index} className="p-3">
                   {Array.isArray(item.properties) &&

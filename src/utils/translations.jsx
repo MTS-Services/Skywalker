@@ -184,7 +184,19 @@ export const translations = {
     agent: {
       titlefast: "Real Estate Agents List in Kuwait ",
       titlelast: "Agents",
-      companystTitle: "أحدث إعلانات المكتب",
+      companystTitle: "Agent's Recent Ads",
+    },
+
+    siteMapalldata: {
+      sitemap: "Sitemap",
+      home: "Home (Search)",
+      PropertiesforSale: "Properties for Sale in Kuwait (2363)",
+      PropertiesforRent: "Properties for Rent in Kuwait (2255)",
+      propertiesorExchange: "Properties for Exchange in Kuwait (121)",
+      agents: "Agents",
+      aboutUs: "About Us",
+      termsandConditions: "Terms and Conditions",
+      contactUs: "Terms and Conditions",
     },
 
     // About Page
@@ -604,11 +616,25 @@ export const translations = {
       freeAddSubtitle: "بدون أي ميزات خاصة",
       freeAddbutton: "إعلان مجاني",
     },
+    siteMapalldata: {
+      sitemap: "خريطة الموقع",
+      home: "الرئيسية (بحث)",
+      PropertiesforSale: "عقارات للبيع في الكويت",
+      PropertiesforRent: "عقارات للايجار في الكويت",
+      propertiesorExchange: "عقارات للبدل في الكويت",
+      agents: "المكاتب",
+
+      aboutUs: "نبذة عنا",
+      termsandConditions: "الشروط والأحكام",
+      contactUs: "إتصل بنا",
+    },
+
     agent: {
       titlefast: "قائمة وكلاء العقارات في الكويت",
       titlelast: "مكتب",
       companystTitle: "أحدث إعلانات المكتب",
     },
+
     about: {
       heading: "دليل العقارات الشامل في الكويت",
       intro:

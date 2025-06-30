@@ -12,8 +12,8 @@ import { FaArrowLeft } from "react-icons/fa";
  */
 export default function Hero({ t, isRTL }) {
   return (
-    <section className="relative py-6 sm:py-12 md:py-12 lg:py-20">
-      <div className="absolute right-0 bottom-0 left-0 w-full -z-1">
+    <section className="relative lg:h-[100vh]  h-screen w-full overflow-hidden">
+      <div className="absolute right-0 bottom-0 left-0 -z-1 w-full">
         <img
           alt={t.site.name}
           width="1920"
@@ -30,17 +30,17 @@ export default function Hero({ t, isRTL }) {
         />
       </div>
 
-      <div className="container mx-auto flex h-full w-full items-center justify-center p-4 ">
+      <div className="container mx-auto mt-10 flex h-full w-full items-start justify-center p-4 lg:mt-20">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
           <div className="hidden lg:block">
-            <h1 className="text-lx mb-3 text-black md:text-xl lg:text-2xl">
+            <h1 className="text-lx mb-3 text-black md:text-xl lg:text-[20px]">
               {t.home.bannerTitle}
             </h1>
-            <p className="text-primary-800 mb-8 text-base md:text-lg">
+            <p className="mb-8 text-[14px] font-normal text-[#556885] md:text-[14x]">
               {t.home.bannerSubTitle}
             </p>
           </div>
-          <div className="shadow-primary-900/30 w-full max-w-md rounded-2xl !bg-white p-4 shadow-lg sm:p-6">
+          <div className="shadow-primary-900/30 w-full max-w-md lg:-mt-5 rounded-2xl px-4 sm:p-6">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>
@@ -62,7 +62,6 @@ function FilterComponent({ t, isRTL }) {
   const [propertyTypeData, setPropertyTypeData] = useState([]);
   const [transactionTypes, setTransactionTypes] = useState([]);
   const [showDropdown, setShowDropdown] = useState(null);
-
 
   // Add dropdown state management
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -129,7 +128,6 @@ function FilterComponent({ t, isRTL }) {
     navigate(`/search?${params.toString()}`);
   };
 
-
   return (
     <form onSubmit={handleSearch} className="space-y-4">
       <span className="hidden xl:block">
@@ -189,7 +187,6 @@ function FilterComponent({ t, isRTL }) {
   );
 }
 
-
 const MobileRegionFilter = ({
   options,
   selectedItems,
@@ -206,7 +203,7 @@ const MobileRegionFilter = ({
     setSelectedItems((prev) =>
       prev.some((selected) => selected.id === item.id)
         ? prev.filter((selected) => selected.id !== item.id)
-        : [...prev, { ...item }]
+        : [...prev, { ...item }],
     );
   };
 
@@ -216,14 +213,15 @@ const MobileRegionFilter = ({
   };
 
   const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchTerm.toLowerCase())
+    option.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
-
 
   return (
     <>
-      <div onClick={onToggle} className="cursor-pointer mb-5">
-        <div className={`px-5 focus-within:ring-gray-200 border-gray-200 flex w-full cursor-pointer items-center rounded-3xl border bg-white p-3 focus-within:ring-1 ${isOpen ? "ring-gray-300 ring-1" : ""}`}>
+      <div onClick={onToggle} className="mb-5 cursor-pointer">
+        <div
+          className={`flex w-full cursor-pointer items-center rounded-3xl border border-gray-200 bg-white p-3 px-5 focus-within:ring-1 focus-within:ring-gray-200 ${isOpen ? "ring-1 ring-gray-300" : ""}`}
+        >
           {selectedItems.length > 0 ? (
             selectedItems.map((item) => (
               <span
@@ -244,7 +242,9 @@ const MobileRegionFilter = ({
               </span>
             ))
           ) : (
-            <span className="text-gray-500 flex items-center justify-center gap-2"><LuSearch /> {placeholder} </span>
+            <span className="flex items-center justify-center gap-2 text-gray-500">
+              <LuSearch /> {placeholder}{" "}
+            </span>
           )}
         </div>
       </div>
@@ -279,21 +279,24 @@ const MobileRegionFilter = ({
 
             <div className="shrink-0 p-4">
               <div
-                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 focus-within:outline-none ${isRTL ? "pr-14" : "pl-14"
-                  }`}
+                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 focus-within:outline-none ${
+                  isRTL ? "pr-14" : "pl-14"
+                }`}
               >
                 <span
                   onClick={onToggle}
-                  className={`text-primary-600 absolute inset-y-0 flex cursor-pointer items-center text-2xl ${isRTL ? "right-3" : "left-3"
-                    }`}
+                  className={`text-primary-600 absolute inset-y-0 flex cursor-pointer items-center text-2xl ${
+                    isRTL ? "right-3" : "left-3"
+                  }`}
                 >
                   <FaArrowLeft />
                 </span>
                 <input
                   type="text"
                   placeholder={searchPlaceholder}
-                  className={`w-full border-none bg-transparent focus-within:outline-none ${isRTL ? "text-right" : "text-left"
-                    }`}
+                  className={`w-full border-none bg-transparent focus-within:outline-none ${
+                    isRTL ? "text-right" : "text-left"
+                  }`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onClick={(e) => e.stopPropagation()}
@@ -307,28 +310,29 @@ const MobileRegionFilter = ({
                 filteredOptions.map((option) => (
                   <li
                     key={option.id}
-                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""
-                      } ${selectedItems.some((item) => item.id === option.id)
+                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
+                      isRTL ? "flex-row-reverse" : ""
+                    } ${
+                      selectedItems.some((item) => item.id === option.id)
                         ? "bg-primary-300/20"
                         : ""
-                      }`}
+                    }`}
                     onClick={() => handleItemSelectAndClose(option)}
                   >
                     <div
-                      className={`flex items-center ${isRTL ? "text-right" : "text-left"
-                        }`}
+                      className={`flex items-center ${
+                        isRTL ? "text-right" : "text-left"
+                      }`}
                     >
                       <input
                         type="checkbox"
                         readOnly
                         checked={selectedItems.some(
-                          (item) => item.id === option.id
+                          (item) => item.id === option.id,
                         )}
                         className="form-checkbox text-primary-400 pointer-events-none h-4 w-4 rounded"
                       />
-                      <span
-                        className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}
-                      >
+                      <span className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}>
                         {option.name}
                       </span>
                     </div>
