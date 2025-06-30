@@ -6,8 +6,6 @@ import { FiSearch, FiX, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
 import { useLanguage } from "../../context/LanguageContext";
 
-// NEW COMPONENT: SingleSelectDropdown
-// This component handles single selection and closes the dropdown automatically.
 const SingleSelectDropdown = ({
   options,
   selectedValue,
@@ -33,12 +31,12 @@ const SingleSelectDropdown = ({
 
   const handleSelectOption = (value) => {
     onChange(value);
-    setIsOpen(false); // Close dropdown on selection
+    setIsOpen(false);
   };
 
   const clearSelection = (e) => {
-    e.stopPropagation(); // Prevent dropdown from opening
-    onChange(null); // Clear the selection
+    e.stopPropagation();
+    onChange(null);
   };
 
   const filteredOptions = options.filter((option) =>
@@ -118,7 +116,7 @@ const SingleSelectDropdown = ({
   );
 };
 
-// Component: MultiSelectDropdown (Your original component, unchanged)
+// Component: MultiSelectDropdown
 const MultiSelectDropdown = ({
   options,
   selectedValues,
@@ -144,6 +142,7 @@ const MultiSelectDropdown = ({
 
   const toggleOption = (value) => {
     onChange(value);
+    setIsOpen(false);
   };
 
   const filteredOptions = options.filter((option) =>
@@ -173,8 +172,8 @@ const MultiSelectDropdown = ({
                     <FiX
                       className="cursor-pointer hover:text-cyan-600"
                       onClick={(e) => {
-                        e.stopPropagation();
                         toggleOption(value);
+                        e.stopPropagation();
                       }}
                     />
                   </span>
@@ -236,6 +235,7 @@ const MultiSelectDropdown = ({
   );
 };
 
+// Component: AdUploadForm
 // --- Main Component: AdUploadForm ---
 const AdUploadForm = () => {
   const { t, isRTL } = useLanguage();
@@ -247,12 +247,12 @@ const AdUploadForm = () => {
     areas: [],
   });
 
-  // UPDATED: Changed propertyTypes and regions to hold a single value (null or id)
+  // 1. UPDATED: Changed 'purposes' to hold a single value (null) instead of an array
   const [formData, setFormData] = useState({
-    purposes: [],
-    propertyTypes: null, // Changed from []
+    purposes: null, // Changed from []
+    propertyTypes: null,
     description: "",
-    regions: null, // Changed from []
+    regions: null,
     price: "",
     images: [],
   });
@@ -286,7 +286,7 @@ const AdUploadForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // This handler remains for the multi-select 'Purpose' dropdown
+  // This handler is now no longer used by 'purposes' but can be kept for other potential multi-selects
   const handleMultiSelectChange = (fieldName, selectedId) => {
     setFormData((prev) => {
       const currentSelection = prev[fieldName];
@@ -297,7 +297,7 @@ const AdUploadForm = () => {
     });
   };
 
-  // NEW: Handler for single-select dropdowns
+  // Handler for all single-select dropdowns
   const handleSingleSelectChange = (fieldName, selectedId) => {
     setFormData((prev) => ({ ...prev, [fieldName]: selectedId }));
   };
@@ -340,14 +340,15 @@ const AdUploadForm = () => {
         onSubmit={handleSubmit}
         className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2"
       >
+        {/* 2. UPDATED: Switched 'Purpose' field to use SingleSelectDropdown */}
         <div className="md:col-span-1">
           <label className="font-open-sans mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.purposeLabel}
           </label>
-          <MultiSelectDropdown
+          <SingleSelectDropdown
             options={options.purposes}
-            selectedValues={formData.purposes}
-            onChange={(id) => handleMultiSelectChange("purposes", id)}
+            selectedValue={formData.purposes}
+            onChange={(id) => handleSingleSelectChange("purposes", id)}
             placeholder={t.adUploadForm.purposePlaceholder}
             searchPlaceholder={t.adUploadForm.searchPlaceholder}
             noResultsText={t.adUploadForm.noResults}
@@ -355,7 +356,6 @@ const AdUploadForm = () => {
           />
         </div>
 
-        {/* UPDATED: Using the new SingleSelectDropdown */}
         <div className="md:col-span-1">
           <label className="mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.propertyTypeLabel}
@@ -385,7 +385,6 @@ const AdUploadForm = () => {
           />
         </div>
 
-        {/* UPDATED: Using the new SingleSelectDropdown */}
         <div className="md:col-span-1">
           <label className="mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.areaLabel}
