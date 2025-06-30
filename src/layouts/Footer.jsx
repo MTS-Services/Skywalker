@@ -65,9 +65,9 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-[var(--color-primary-600)] px-6 py-10 text-sm text-white">
+    <footer className="bg-primary-600 px-6 py-10 text-sm text-white">
       <div
-        className={`mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 ${
+        className={`mx-auto grid max-w-7xl grid-cols-2 gap-10 md:grid-cols-4 ${
           isRTL ? "rtl" : "ltr"
         }`}
       >
