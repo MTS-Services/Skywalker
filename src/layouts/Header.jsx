@@ -80,14 +80,7 @@ function Header() {
           </div>
         </NavLink>
 
-        {/* Add Free Ad button for Mobile/Tablet - ADDED HERE */}
-        <NavLink
-          to={isAuthenticated ? "/ad-upload" : "/login"}
-          className="text-primary-600 flex items-center gap-2 rounded-md px-3 py-2 font-medium lg:hidden"
-        >
-          <FaPlusCircle className="text-lg" />
-          {t.header.addFreeAd}
-        </NavLink>
+    
 
         {/* Mobile Hamburger Menu Button */}
         <button

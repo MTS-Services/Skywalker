@@ -1,66 +1,236 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+const ITEMS_PER_PAGE = 10;
 
 const Sitemap = () => {
+  const [propertyTypes, setPropertyTypes] = useState([]);
+  const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-    const [companies, setCompanies] = useState([]);
-    useEffect(() => {
-      const fetchCompanies = async () => {
-        try {
-          // public/companies.json থেকে ডেটা ফেচ করুন
-          // আপনার পুরনো কোডে `/agent.json` ছিল, সেটি `/companies.json` হবে
-          const response = await fetch("/companies.json");
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-          setCompanies(data); // 'setAgents' এর পরিবর্তে 'setCompanies'
-        } catch (error) {
-          console.error("Error fetching companies:", error);
-          setError(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchCompanies();
-    }, []);
-    
-  return (
-    <section class="mx-auto h-screen max-w-4xl px-6 py-12">
-      <h2 class="mb-6 text-2xl font-bold text-gray-800">Sitemap</h2>
+  const [allAds, setAllAds] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [displayedAds, setDisplayedAds] = useState([]);
 
-      <ul class="space-y-4 text-base text-gray-700">
+  // Fetch all ads on component mount
+
+
+
+  const generateSlug = (text) =>
+    text
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "");
+
+  // Fetch all ads on component mount
+  useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        const response = await fetch("/ads.json");
+        const data = await response.json();
+        const processedAds = data.map((ad) => ({
+          ...ad,
+          slug: ad.slug || generateSlug(ad.title),
+          views: ad.views || 0,
+        }));
+        setAllAds(processedAds);
+
+        // Load first page
+        const firstPageAds = processedAds.slice(0, ITEMS_PER_PAGE);
+        setDisplayedAds(firstPageAds);
+        setHasMore(processedAds.length > ITEMS_PER_PAGE);
+      } catch (error) {
+        console.error("Error fetching ads:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAds();
+  }, []);
+
+  useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        const response = await fetch("/ads.json");
+        const data = await response.json();
+        const processedAds = data.map((ad) => ({
+          ...ad,
+          slug: ad.slug || generateSlug(ad.title),
+          views: ad.views || 0,
+        }));
+
+        setAllAds(processedAds);
+
+        const firstPageAds = processedAds.slice(0, ITEMS_PER_PAGE);
+        setDisplayedAds(firstPageAds);
+        setHasMore(processedAds.length > ITEMS_PER_PAGE);
+      } catch (error) {
+        console.error("Error fetching ads:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAds();
+  }, []);
+
+  const handleLoadMore = () => {
+    const nextPage = currentPage + 1;
+    const startIndex = (nextPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const nextAds = allAds.slice(startIndex, endIndex);
+
+    setDisplayedAds((prevAds) => [...prevAds, ...nextAds]);
+    setCurrentPage(nextPage);
+    setHasMore(endIndex < allAds.length);
+  };
+
+  useEffect(() => {
+    const fetchPropertyType = async () => {
+      try {
+        const response = await axios.get("/groupPropertyTypes.json");
+        setPropertyTypes(response.data);
+      } catch (error) {
+        console.error("Error fetching property types:", error);
+      }
+    };
+    fetchPropertyType();
+  }, []);
+
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        const response = await fetch("/companies.json");
+        if (!response.ok) throw new Error(`HTTP error! ${response.status}`);
+        const data = await response.json();
+        setCompanies(data);
+      } catch (error) {
+        console.error("Error fetching companies:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCompanies();
+  }, []);
+
+  return (
+    <section className="mx-auto max-w-4xl px-6 py-12">
+      <h2 className="mb-6 text-2xl font-bold text-gray-800">Sitemap</h2>
+
+      <ul className="space-y-4 text-base text-gray-700">
         <li>
-          <a href="/search" class="font-[700] text-black/70 hover:underline">
-             Home (Search)
-          </a>
+          <Link
+            to="/search"
+            className="ext-[14px] font-[700] text-[#2e6290] hover:underline"
+          >
+            Home (Search)
+          </Link>
         </li>
+
         <li>
-          <details class="group">
-            <summary class="cursor-pointer font-[700] text-black/70 hover:underline">
-               Properties for Sale in Kuwait (2363)
+          <details className="group">
+            <summary className="text-[14px] font-[700] text-[#2e6290] hover:underline">
+              Properties for Sale in Kuwait (
+              {propertyTypes.filter((p) => p.transactionType === "sale").length}
+              )
             </summary>
+            <div className="space-y-4 pt-2 pl-4">
+              {propertyTypes.map(
+                (item, index) =>
+                  Array.isArray(item.properties) &&
+                  item.properties.length > 0 && (
+                    <div key={index}>
+                      <p className="mb-1 text-base font-semibold text-gray-800">
+                        {item.title}
+                      </p>
+                      <div className="space-y-1">
+                        {item.properties.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={`/search?transactionType=${item.id}&propertyType=${subItem.id}`}
+                            className="text-primary-900 text-14px block text-sm font-[700] hover:underline"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ),
+              )}
+            </div>
           </details>
         </li>
+
         <li>
-          <details class="group">
-            <summary class="cursor-pointer font-[700] text-black/70 hover:underline">
-               Properties for Rent in Kuwait (2255)
+          <details className="group open">
+            <summary className="ext-[14px] font-[700] text-[#2e6290] hover:underline">
+              Properties for Rent in Kuwait ({allAds.length})
             </summary>
-          </details>
-        </li>
-        <li>
-          <details class="group">
-            <summary class="cursor-pointer font-[700] text-black/70 hover:underline">
-               Properties for Exchange in Kuwait (121)
-            </summary>
+            <div className="space-y-2 pt-2 pl-4">
+              {displayedAds.map((ad) => (
+                <div key={ad.id}>
+                  <Link
+                    to={`/${ad.id}/ads`}
+                    className="ext-[14px] font-[700] text-[#2e6290] hover:underline"
+                  >
+                    <span>{ad.social_media?.whatsapp || "No WhatsApp"}</span> |{" "}
+                    <span>{ad.name}</span>
+                  </Link>
+                </div>
+              ))}
+
+              {hasMore && (
+                <button
+                  onClick={handleLoadMore}
+                  className="bg-primary hover:bg-primary-dark mt-4 rounded px-4 py-2 text-sm font-semibold text-white"
+                >
+                  Load More
+                </button>
+              )}
+            </div>
           </details>
         </li>
 
         <li>
           <details className="group">
-            <summary className="cursor-pointer font-[700] text-black/70 hover:underline">
+            <summary className="text-[14px] font-[700] text-[#2e6290] hover:underline">
+              Properties for Exchange in Kuwait (
+              {propertyTypes.filter((p) => p.transactionType === "sale").length}
+              )
+            </summary>
+            <div className="space-y-4 pt-2 pl-4">
+              {propertyTypes.map(
+                (item, index) =>
+                  Array.isArray(item.properties) &&
+                  item.properties.length > 0 && (
+                    <div key={index}>
+                      <p className="mb-1 text-base font-semibold text-gray-800">
+                        {item.title}
+                      </p>
+                      <div className="space-y-1">
+                        {item.properties.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={`/search?transactionType=${item.id}&propertyType=${subItem.id}`}
+                            className="text-primary-900 text-14px block text-sm font-[700] hover:underline"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ),
+              )}
+            </div>
+          </details>
+        </li>
+
+        <li>
+          <details className="group">
+            <summary className="text-[14px] font-[700] text-[#2e6290] hover:underline">
               Real Estate Companies ({companies.length})
             </summary>
             <ul className="mt-2 ml-4 space-y-1">
@@ -68,12 +238,12 @@ const Sitemap = () => {
                 <li key={company.id}>
                   <Link
                     to={`/agent/${company.id}/ads`}
-                    className="text-sm font-[700] text-black/70 hover:underline"
+                    className="text-[14px] font-[700] text-[#2e6290] hover:underline"
                   >
                     <span>
                       {company.social_media?.whatsapp || "No WhatsApp"}
                     </span>{" "}
-                    |<span> {company.name}</span>
+                    | <span>{company.name}</span>
                   </Link>
                 </li>
               ))}
@@ -82,23 +252,32 @@ const Sitemap = () => {
         </li>
 
         <li>
-          <a href="/about" class="font-[700] text-black/70 hover:underline">
+          <Link
+            to="/about"
+            className="text-[14px] font-[700] text-[#2e6290] hover:underline"
+          >
             About Us
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/contact" class="font-[700] text-black/70 hover:underline">
+          <Link
+            to="/contact"
+            className="text-[14px] font-[700] text-[#2e6290] hover:underline"
+          >
             Contact Us
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/terms" class="font-[700] text-black/70 hover:underline">
+          <Link
+            to="/terms"
+            className="text-[14px] font-[700] text-[#2e6290] hover:underline"
+          >
             Terms and Conditions
-          </a>
+          </Link>
         </li>
       </ul>
     </section>
   );
-}
+};
 
-export default Sitemap
+export default Sitemap;

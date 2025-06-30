@@ -184,7 +184,7 @@ export const translations = {
     agent: {
       titlefast: "Real Estate Agents List in Kuwait ",
       titlelast: "Agents",
-      companystTitle: "أحدث إعلانات المكتب",
+      companystTitle: "Agent's Recent Ads",
     },
 
     // About Page

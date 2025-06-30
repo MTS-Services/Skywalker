@@ -1130,13 +1130,7 @@ export default function SearchPageHeader() {
 
 
 
-                    <Link
-                      to="/login"
-                      className="bg-primary-300/10 border-primary-300/40 hidden items-center gap-2 rounded-md border px-5 py-2 lg:flex"
-                    >
-                      <FaPlusCircle className="text-primary-600 text-lg" />
-                      {t.header.addFreeAd}
-                    </Link>
+                   
                   </div>
                 </div>
               </div>
@@ -1214,6 +1208,7 @@ export default function SearchPageHeader() {
                   />
                 </HorizontalScroller>
               </div>
+              
             </div>
           )}
         </SearchFilterBar>
