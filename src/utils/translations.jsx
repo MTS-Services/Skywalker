@@ -260,8 +260,9 @@ export const translations = {
     // Contact page
     contact: {
       heading: "Contact Us",
+      // The original, detailed description is now back
       description:
-        "Thank you for your trust in Mr. Aqar. We are happy to answer your questions and inquiries through the following communication channels:",
+        "Mr. Real Estate is not a real estate company or a real estate brokerage company, and we do not get any commission from any party in return for the sale, purchase, lease, exchange or any kind of real estate transaction. Our mission is only to facilitate the work of the real estate marketing sector through the website and app, and we do not interfere in the details of mediation, sale, rent and exchange operations. Our services are limited to helping the seller meet the buyer and the landlord with the tenant directly or indirectly through a real estate broker, and we do not interfere in any way in the details of these Processes. If you have any problems, inquiries or suggestions, please contact us through the following means:",
       mobile: "Mobile",
       whatsapp: "WhatsApp",
       email: "Email",
@@ -271,43 +272,148 @@ export const translations = {
 
     //Terms and Condition
     termsAndConditions: {
-      title: "Terms and Conditions for Mr Aqar Platform",
-      definitions: "Definitions and Terminology",
-      boshamlan:
-        "Mr Aqar refers to the website ​https://www.mr-aqar.com and/or Mr Aqar Real Estate Services, including all its applications, programs, social media accounts, and its subsidiaries. Mr Aqar is a platform provided to users for the purpose of advertising real estate. It serves as a communication tool that allows registered users to list properties for rent, sale, or exchange, and allows visitors to browse the listings and contact advertisers directly.",
-      user: "User, You: Refers to any individual or entity using Mr Aqar's services, whether as a visitor or a registered member.",
-      advertiser:
-        "Advertiser: Refers to any registered user who posts property listings on Mr Aqar.",
-      acceptanceOfTerms:
-        "By using Mr Aqar, whether as a visitor browsing the platform or by registering as a member, you acknowledge and agree to be bound by these terms and conditions. If you do not agree with these terms, you must stop using Mr Aqar immediately. Mr Aqar reserves the right to modify or update these terms at any time without prior notice. Your continued use of the platform after any changes have been made constitutes your acceptance of the modified terms.",
-      platformNatureAndDisclaimer:
-        "Mr Aqar provides an online platform for users to post advertisements related to real estate. Mr Aqar is not a real estate agency or real estate company. The platform operates solely as a communication tool between users, and it does not participate in, supervise, or manage any real estate transactions. Mr Aqar does not guarantee the accuracy of the real estate information or assume any responsibility for the legal status of transactions conducted between users.",
-      userConduct:
-        "By using Mr Aqar, you agree to the following obligations: You will not use the platform for any purpose that violates Kuwaiti law, public customs, or general morals.",
-      registrationAndAdvertisements:
-        "When registering as a user or advertiser on Mr Aqar: You represent and warrant that all the information you write in your advertisements is accurate and truthful. You are responsible for ensuring that you are legally authorized to post advertisements on behalf of property owners and agree to provide any authorizations, licenses, or documents when requested by Mr Aqar.",
-      privacyPolicy:
-        "Mr Aqar is committed to protecting the privacy of its users. The collection and use of personal information are governed by the following principles: Data Collection: Personal information such as your name, phone number, and email address may be collected when you register or interact with the platform.",
-      intellectualProperty:
-        "Ownership: You acknowledge and agree that all materials, content, and features available on Mr Aqar, except for user-generated content, are the property of Mr Aqar and are protected by applicable Kuwaiti and international intellectual property laws.",
-      disputeResolution:
-        "Governing Law: These terms and conditions, as well as any disputes arising from them, are governed by the laws of the State of Kuwait.",
-      serviceModifications:
-        "Mr Aqar reserves the right to modify, suspend, or discontinue any part of the platform or its services at any time without prior notice.",
-      paidServicesRefundPolicy:
-        "Mr Aqar may offer paid services to users. By purchasing any paid services, you agree to the following: Non-Refundability: All fees paid for services on Mr Aqar are non-refundable.",
-      accountSecurity:
-        "Users are responsible for maintaining the confidentiality of their account credentials, including usernames and passwords. Mr Aqar will not be liable for unauthorized access to or use of an account.",
-      limitationOfLiability:
-        "Mr Aqar’s role is limited to providing advertising space, and it does not represent any party in real estate transactions. Mr Aqar will not be liable for any disputes, issues, or damages arising from interactions or transactions between users.",
-      disclaimer:
-        "Use at Your Own Risk: You acknowledge that your use of Mr Aqar is at your own risk. Mr Aqar will not be liable for any direct, indirect, incidental, or consequential damages resulting from your use of the platform.",
-      thirdPartyLinks:
-        "Mr Aqar may contain links to third-party websites or services (such as payment gateways). These are provided solely for your convenience. Mr Aqar does not endorse or assume any responsibility for the content or services provided by third parties.",
-      forceMajeure:
-        "Mr Aqar will not be held liable for any delay or failure in performance due to causes beyond its reasonable control, including but not limited to natural disasters, wars, civil unrest, labor strikes, interruption or weakness of the Internet network, or any other technical failures.",
-      contactInfo:
-        "For any inquiries, suggestions, complaints, or to report violations, please contact us at the following email address: Email: kwmraqar@gmail.com",
+      title: "Terms and Conditions for Mr. Real Estate Platform",
+      sections: {
+        definitions: {
+          title: "Definitions and Terminology",
+          paragraphs: [
+            "Mr. Real Estate refers to the website <a href='https://www.mr-aqar.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 hover:underline'>www.mr-aqar.com</a> and/or Mr. Real Estate General Trading Company W.L.L., including all its applications, programs, social media accounts, and its subsidiaries. Mr. Real Estate is a platform provided to users for the purpose of advertising real estate. It serves as a communication tool that allows registered users to list properties for rent, sale, or exchange, and allows visitors to browse the listings and contact advertisers directly.",
+          ],
+        },
+        acceptanceOfTerms: {
+          title: "Acceptance of Terms",
+          paragraphs: [
+            "By using Mr. Real Estate, whether as a visitor Browse the platform or by registering as a member, you acknowledge and agree to be bound by these terms and conditions. If you do not agree with these terms, you must stop using Mr. Real Estate immediately. Mr. Real Estate reserves the right to modify or update these terms at any time without prior notice. Your continued use of the platform after any changes have been made constitutes your acceptance of the modified terms.",
+          ],
+        },
+        natureOfPlatform: {
+          title: "Nature of the Platform and Disclaimer",
+          paragraphs: [
+            "Mr. Real Estate provides an online platform for users to post advertisements related to real estate. Mr. Real Estate is not a real estate agency or real estate company. The platform operates solely as a communication tool between users, and it does not participate in, supervise, or manage any real estate transactions. Mr. Real Estate does not guarantee the accuracy of the real estate information or assume any responsibility for the legal status of transactions conducted between users.",
+            "Users acknowledge that Mr. Real Estate is not a party to any real estate transactions (including sales, rentals, or exchanges) and does not represent any party in these transactions. Mr. Real Estate does not own or control any of the properties listed on the platform or the related transactions.",
+          ],
+        },
+        userConduct: {
+          title: "User Conduct and Obligations",
+          paragraphs: [
+            "By using Mr. Real Estate, you agree to the following obligations:",
+            "You will not use the platform for any purpose that violates Kuwaiti law, public customs, or general morals.",
+            "You confirm that you are at least 18 years old or legally authorized to use the platform.",
+            "You will not impersonate any person or entity or provide false information.",
+            "You agree not to contact any individual or entity that has requested not to be contacted and to only use the contact details provided in the listing.",
+            "You will not make any payments to an advertiser on the Mr. Real Estate platform (whether in cash, payment link, bank transfer, or any other payment method) regarding deposits, rent, or any other amounts without ensuring that there is an official contract in place, the advertisement is legitimate, and the payment details have been verified. Mr. Real Estate will not be responsible if any payment is made and the agreement is not completed or the money is not refunded.",
+          ],
+        },
+        registration: {
+          title: "Registration and Advertisements",
+          paragraphs: [
+            "When registering as a user or advertiser on Mr. Real Estate:",
+            "You represent and warrant that all the information you write in your advertisements is accurate and truthful.",
+            "You are responsible for ensuring that you are legally authorized to post advertisements on behalf of property owners and agree to provide any authorizations, licenses, or documents when requested by Mr. Real Estate. You agree to provide Mr. Real Estate with any required information or proof upon request, which may include, but is not limited to, a civil ID, a power of attorney, a commercial license, property ownership documents, lease contracts, or advertising license.",
+            "You must comply with all applicable real estate laws and regulations, including those set forth by the Ministry of Commerce and Industry.",
+            "You accept full legal responsibility for any errors or omissions in your advertisements.",
+            "You are responsible for managing your advertiser account, including adding, deleting, or modifying the content of your advertisements.",
+            "You agree not to repeat advertisements in text, content, or meaning, as judged solely by the management of Mr. Real Estate.",
+            "You agree not to include more than one property in a single advertisement.",
+            "Advertisers are prohibited from requesting any payments from users, whether in cash, bank transfer, or any other method, without having a formal, signed contract in place between both parties. The user must ensure all required details are provided, and a contract is signed before any payments are made to protect both parties' rights.",
+            "You agree not to publish any content that is defamatory, false, misleading, or infringes on the rights of others.",
+            "You agree not to publish any personal or non-personal data of another person or entity without obtaining the necessary legal authorization.",
+            "You agree to receive communications, including phone calls and WhatsApp messages, from Mr. Real Estate or visitors to your listings. This includes notifications related to your account, advertisements, and payment transactions. You may opt-out of promotional communications at any time by contacting us.",
+          ],
+        },
+        privacyPolicy: {
+          title: "Privacy Policy and Data Protection",
+          paragraphs: [
+            "Mr. Real Estate is committed to protecting the privacy of its users. The collection and use of personal information are governed by the following principles:",
+            "Data Collection: Personal information such as your name, phone number, and email address may be collected when you register or interact with the platform.",
+            "Data Protection: Mr. Real Estate follows secure data collection, storage, and processing practices. Your data will be securely stored and protected from unauthorized access.",
+            "Cookies: Mr. Real Estate uses cookies to improve the user experience and monitor website usage. By using the platform, you consent to the use of cookies. Users can disable cookies in their browser settings, but doing so may limit some platform functionality.",
+            "User Responsibility: You are responsible for keeping your account information up to date and ensuring the confidentiality of your account credentials.",
+            "Data Retention: Mr. Real Estate will retain personal data for as long as necessary to provide services or as required by law. Users may request the deletion of their personal data by contacting Mr. Real Estate or using the account settings page.",
+            "Personal Information: Mr. Real Estate respects the privacy of its users. Personal information collected during registration, such as name, contact details, and payment information, will be used solely for the purpose of providing services. Users consent to the collection, processing, and storage of their data in accordance with these terms.",
+            "Sharing Data with Third Parties: Mr. Real Estate does not sell or share personal information with third parties unless it is legally required or with the user’s explicit consent. Mr. Real Estate may share data with third-party service providers to enhance platform functionality (e.g., payment gateways).",
+          ],
+        },
+        intellectualProperty: {
+          title: "Intellectual Property Rights",
+          paragraphs: [
+            "Ownership: You acknowledge and agree that all materials, content, and features available on Mr. Real Estate, except for user-generated content, are the property of Mr. Real Estate and are protected by applicable Kuwaiti and international intellectual property laws. This includes, but is not limited to, text, images, graphics, videos, logos, and software.",
+            "Restrictions: You are not permitted to copy, republish, distribute, or modify any content from Mr. Real Estate without prior written consent. Unauthorized use may lead to legal action under Kuwaiti and international laws protecting intellectual property.",
+            "User Content: By posting content on Mr. Real Estate, you grant Mr. Real Estate a non-exclusive, royalty-free license to use, reproduce, modify, and distribute your content on the platform. This license does not transfer ownership but allows Mr. Real Estate to display your advertisements and content. You also grant visitors a non-exclusive license to view the content you post.",
+          ],
+        },
+        disputeResolution: {
+          title: "Dispute Resolution",
+          paragraphs: [
+            "Governing Law: These terms and conditions, as well as any disputes arising from them, are governed by the laws of the State of Kuwait.",
+            "Jurisdiction: The courts of Kuwait have exclusive jurisdiction to settle any legal disputes relating to the use of Mr. Real Estate or these terms and conditions.",
+            "Language: In the event of any dispute regarding any clause of the terms and conditions or official communications between the platform and the user or advertiser, the Arabic language will be the governing language, and it shall take precedence over any other translations.",
+          ],
+        },
+        serviceModifications: {
+          title: "Service Modifications",
+          paragraphs: [
+            "Service Modifications: Mr. Real Estate reserves the right to modify, suspend, or discontinue any part of the platform or its services at any time without prior notice.",
+          ],
+        },
+        paidServices: {
+          title: "Paid Services and Refund Policy",
+          paragraphs: [
+            "Mr. Real Estate may offer paid services to users. By purchasing any paid services, you agree to the following:",
+            "Non-Refundability: All fees paid for services on Mr. Real Estate are non-refundable.",
+            "Modification of Paid Services: Mr. Real Estate reserves the right to modify, increase, decrease, or cancel paid services without prior notice. Users are not entitled to any compensation or refund for any changes in the service features or availability.",
+            "Block or Deletion of Account: In case of any breach of these terms and conditions by the user, Mr. Real Estate reserves the right to suspend or terminate the user's account and any paid services without a refund.",
+          ],
+        },
+        accountSecurity: {
+          title: "User Responsibilities for Account Security",
+          paragraphs: [
+            "Account Security: Users are responsible for maintaining the confidentiality of their account credentials, including usernames and passwords. Mr. Real Estate will not be liable for unauthorized access to or use of an account. Users must notify Mr. Real Estate immediately of any unauthorized use of their account. Sharing devices or accounts requires users to log out after use to prevent unauthorized access. Any loss, damages, or disputes arising from unauthorized access will be the user's responsibility.",
+          ],
+        },
+        limitationOfLiability: {
+          title: "Limitation of Liability",
+          paragraphs: [
+            "Platform Role: Mr. Real Estate’s role is limited to providing advertising space, and it does not represent any party in real estate transactions. Mr. Real Estate will not be liable for any disputes, issues, or damages arising from interactions or transactions between users.",
+            "Content Responsibility: Users are fully responsible for the content they publish. Mr. Real Estate does not guarantee the accuracy or reliability of any real estate advertisement and assumes no responsibility for errors, omissions, or inaccurate information posted by users.",
+            "Transactions: All transactions, including sales, rentals, and exchanges, are conducted exclusively between users. Mr. Real Estate is not responsible for the outcome of these transactions and does not provide any guarantees regarding the properties advertised.",
+            "System Limitations: The platform may experience interruptions or technical errors. Mr. Real Estate does not guarantee that the platform will be error-free or available at all times. Users acknowledge that they use the platform at their own risk.",
+          ],
+        },
+        disclaimer: {
+          title: "Disclaimer",
+          paragraphs: [
+            "Use at Your Own Risk: You acknowledge that your use of Mr. Real Estate is at your own risk...",
+            "No Representation of Parties: Mr. Real Estate does not represent any party in real estate transactions listed on the platform...",
+            "Advertisement Platform: Mr. Real Estate acts solely as a platform for posting advertisements...",
+            "No Liability for Transactions: Mr. Real Estate assumes no responsibility for transactions...",
+            "No Warranties: Mr. Real Estate provides its services 'as is'...",
+            "Third-Party Services and Links: Mr. Real Estate may contain links to third-party websites...",
+            "Third-Party Content: Mr. Real Estate is not responsible for any content provided by third parties...",
+          ],
+        },
+        userContentResponsibility: {
+          title: "User Content Responsibility",
+          paragraphs: [
+            "Accuracy of Content: Users are solely responsible for the accuracy...",
+            "Approval of Posted Content: The approval by Mr. Real Estate...",
+            "Translation: Mr. Real Estate may provide translation services...",
+          ],
+        },
+        forceMajeure: {
+          title: "Force Majeure",
+          paragraphs: [
+            "Mr. Real Estate will not be held liable for any delay or failure in performance due to causes beyond its reasonable control...",
+          ],
+        },
+        contactInfo: {
+          title: "Contact Information",
+          paragraphs: [
+            "For any inquiries, suggestions, complaints, or to report violations, please contact us at the following email address:",
+            "Email: <a href='mailto:kwmraqar@gmail.com' class='text-blue-600 hover:underline'>kwmraqar@gmail.com</a>",
+          ],
+        },
+      },
     },
 
     // Ads Upload
@@ -570,45 +676,156 @@ export const translations = {
     contact: {
       heading: "اتصل بنا",
       description:
-        "شكرًا لك على ثقتك في Mr Aqar. نحن سعداء بالإجابة على استفساراتك من خلال القنوات التالية:",
-      mobile: "الهاتف",
+        "بوشملان ليست شركة عقارية أو شركة وساطة عقارية، ولا نحصل على أي عمولة من أي طرف مقابل البيع، الشراء، الإيجار، البدل أو أي نوع من المعاملات العقارية. مهمتنا هي فقط تسهيل عمل قطاع التسويق العقاري عبر الموقع الإلكتروني والتطبيق، ولا نتدخل في تفاصيل عمليات الوساطة والبيع والإيجار والبدل. خدماتنا تقتصر على مساعدة البائع في لقاء المشتري والمالك مع المستأجر بشكل مباشر أو غير مباشر من خلال وسيط عقاري، ولا نتدخل بأي شكل من الأشكال في تفاصيل هذه العمليات. إذا كان لديك أي مشاكل أو استفسارات أو اقتراحات، يرجى التواصل معنا عبر الوسائل التالية:",
+      mobile: "الجوال",
       whatsapp: "واتساب",
       email: "البريد الإلكتروني",
-      instagram: "إنستغرام",
-      twitter: "تويتر",
+      instagram: "انستغرام",
+      twitter: "إكس (تويتر)",
     },
     termsAndConditions: {
-      title: "الشروط والأحكام لمنصة Mr Aqar",
-      definitions: "التعريفات والمصطلحات",
-      boshamlan:
-        "Mr Aqar تشير إلى الموقع الإلكتروني ​https://www.mr-aqar.com أو خدمات Mr Aqar العقارية، بما في ذلك جميع تطبيقاته وبرامجه وحسابات وسائل التواصل الاجتماعي التابعة له وفروعه.",
-      user: "المستخدم، أنت: يشير إلى أي فرد أو كيان يستخدم خدمات Mr Aqar، سواء كزائر أو عضو مسجل.",
-      advertiser:
-        "المعلن: يشير إلى أي مستخدم مسجل يقوم بنشر إعلانات العقارات على منصة Mr Aqar.",
-      acceptanceOfTerms:
-        "من خلال استخدام Mr Aqar، سواء كزائر يتصفح المنصة أو بتسجيلك كعضو، فإنك تقر وتوافق على الالتزام بهذه الشروط والأحكام.",
-      platformNatureAndDisclaimer:
-        "تقدم منصة Mr Aqar منصة عبر الإنترنت للمستخدمين لنشر الإعلانات العقارية. Mr Aqar ليست وكالة عقارية أو شركة عقارات.",
-      userConduct:
-        "باستخدامك لـ Mr Aqar، فإنك توافق على الالتزام بالشروط المقررة.",
-      registrationAndAdvertisements:
-        "عند التسجيل كمستخدم أو معلن على Mr Aqar، فإنك تقر وتضمن أن جميع المعلومات التي تكتبها في إعلاناتك دقيقة وصحيحة.",
-      privacyPolicy: "يلتزم Mr Aqar بحماية خصوصية مستخدميه.",
-      intellectualProperty:
-        "الملكية: جميع المواد والمحتويات المتاحة على Mr Aqar، باستثناء المحتوى الذي ينشئه المستخدم، هي ملك لـ Mr Aqar.",
-      disputeResolution:
-        "القانون المعمول به: تحكم هذه الشروط والأحكام من قبل قوانين دولة الكويت.",
-      serviceModifications:
-        "يحتفظ Mr Aqar بالحق في تعديل أو تعليق أو إيقاف أي جزء من المنصة أو خدماتها في أي وقت دون إشعار مسبق.",
-      paidServicesRefundPolicy:
-        "يتم دفع رسوم الخدمات على Mr Aqar ولا يمكن استردادها.",
-      accountSecurity: "المسؤولية عن أمان الحساب تقع على المستخدم.",
-      limitationOfLiability: "دور Mr Aqar محدود بتوفير مساحة للإعلانات فقط.",
-      disclaimer: "يتم استخدام Mr Aqar على مسؤوليتك الخاصة.",
-      thirdPartyLinks:
-        "قد يحتوي Mr Aqar على روابط لمواقع أو خدمات من أطراف ثالثة.",
-      forceMajeure:
-        "لن يكون Mr Aqar مسؤولًا عن أي تأخير أو فشل في الأداء بسبب ظروف خارجة عن إرادته.",
+      title: "الشروط والأحكام لمنصة Mr. Real Estate",
+      sections: {
+        definitions: {
+          title: "التعريفات والمصطلحات",
+          paragraphs: [
+            "تشير Mr. Real Estate إلى الموقع الإلكتروني <a href='https://www.mr-aqar.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 hover:underline'>www.mr-aqar.com</a> أو شركة Mr. Real Estate للتجارة العامة، بما في ذلك جميع تطبيقاتها وبرامجها وحساباتها على وسائل التواصل الاجتماعي وفروعها. Mr. Real Estate هي منصة تُقدَّم للمستخدمين لغرض الإعلان عن العقارات، وتعمل كأداة تواصل تتيح للمستخدمين المسجلين نشر العقارات المعروضة للإيجار أو البيع أو التبادل، كما تتيح للزوار تصفح الإعلانات والتواصل مع المعلنين مباشرة.",
+          ],
+        },
+        acceptanceOfTerms: {
+          title: "قبول الشروط",
+          paragraphs: [
+            "باستخدامك Mr. Real Estate سواء كنت زائرًا تتصفح المنصة أو قمت بالتسجيل كعضو، فإنك تقر وتوافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق على هذه الشروط، يجب عليك التوقف فورًا عن استخدام Mr. Real Estate. تحتفظ Mr. Real Estate بالحق في تعديل أو تحديث هذه الشروط في أي وقت دون إشعار مسبق. استمرارك في استخدام المنصة بعد أي تغييرات يعتبر موافقة منك على الشروط المعدلة.",
+          ],
+        },
+        natureOfPlatform: {
+          title: "طبيعة المنصة وإخلاء المسؤولية",
+          paragraphs: [
+            "تُقدِّم Mr. Real Estate منصة إلكترونية للمستخدمين لنشر إعلاناتهم العقارية. Mr. Real Estate ليست وكالة عقارية أو شركة عقارات. المنصة تعمل كأداة تواصل فقط بين المستخدمين ولا تشارك أو تشرف أو تدير أي من المعاملات العقارية. لا تضمن Mr. Real Estate دقة المعلومات العقارية ولا تتحمل أي مسؤولية عن الوضع القانوني للصفقات التي تتم بين المستخدمين.",
+            "يقر المستخدمون بأن Mr. Real Estate ليست طرفًا في أي من المعاملات العقارية (بما في ذلك البيع أو الإيجار أو التبادل) ولا تمثل أي طرف في هذه المعاملات. ولا تمتلك Mr. Real Estate أيًا من العقارات المدرجة على المنصة ولا تسيطر على العمليات ذات الصلة.",
+          ],
+        },
+        userConduct: {
+          title: "سلوك المستخدم والالتزامات",
+          paragraphs: [
+            "باستخدامك Mr. Real Estate، فإنك توافق على الالتزامات التالية:",
+            "لن تستخدم المنصة لأي غرض ينتهك القوانين الكويتية أو الأعراف العامة أو الآداب.",
+            "تؤكد أنك تبلغ من العمر 18 عامًا على الأقل أو أنك مخول قانونيًا باستخدام المنصة.",
+            "لن تنتحل شخصية أي فرد أو كيان أو تقدم معلومات مزيفة.",
+            "توافق على عدم التواصل مع أي شخص أو جهة طلبت عدم التواصل معها، وستستخدم فقط بيانات الاتصال المذكورة في الإعلان.",
+            "لن تقوم بأي دفع مالي لأي معلن على منصة Mr. Real Estate سواء نقدًا أو عبر تحويل بنكي أو أي وسيلة دفع أخرى دون التأكد من وجود عقد رسمي، وصحة الإعلان، والتحقق من تفاصيل الدفع. لا تتحمل Mr. Real Estate أي مسؤولية في حال تم الدفع ولم يتم إتمام الاتفاق أو لم يتم استرداد المبلغ.",
+          ],
+        },
+        registration: {
+          title: "التسجيل والإعلانات",
+          paragraphs: [
+            "عند تسجيلك كمستخدم أو كمعلن في Mr. Real Estate:",
+            "تقر وتتعهد بأن جميع المعلومات التي تكتبها في إعلاناتك دقيقة وصحيحة.",
+            "أنت مسؤول عن التأكد من أنك مفوض قانونيًا لنشر الإعلانات نيابة عن ملاك العقارات، وتوافق على تقديم أي تصاريح أو تراخيص أو مستندات تطلبها Mr. Real Estate، مثل البطاقة المدنية، أو توكيل رسمي، أو رخصة تجارية، أو مستندات ملكية، أو عقود إيجار، أو ترخيص إعلان.",
+            "يجب عليك الالتزام بجميع القوانين واللوائح العقارية المعمول بها، بما في ذلك تلك الصادرة عن وزارة التجارة والصناعة.",
+            "تتحمل المسؤولية القانونية الكاملة عن أي أخطاء أو سهو في إعلاناتك.",
+            "أنت مسؤول عن إدارة حساب المعلن الخاص بك، بما في ذلك إضافة أو حذف أو تعديل محتوى إعلاناتك.",
+            "توافق على عدم تكرار الإعلانات في النص أو المحتوى أو المعنى، حسب تقدير إدارة Mr. Real Estate.",
+            "توافق على عدم إدراج أكثر من عقار واحد في الإعلان الواحد.",
+            "لا يجوز للمعلنين طلب أي مدفوعات من المستخدمين إلا بوجود عقد رسمي موقع بين الطرفين. يجب على المستخدم التأكد من صحة جميع التفاصيل وتوقيع العقد قبل أي مدفوعات لضمان حقوق الطرفين.",
+            "توافق على عدم نشر أي محتوى تشهيري أو كاذب أو مضلل أو ينتهك حقوق الآخرين.",
+            "توافق على عدم نشر أي بيانات شخصية أو غير شخصية لأي شخص أو جهة دون الحصول على إذن قانوني مسبق.",
+            "توافق على تلقي اتصالات مثل المكالمات الهاتفية أو رسائل واتساب من Mr. Real Estate أو من زوار إعلاناتك، بما في ذلك الإشعارات المتعلقة بحسابك أو الإعلانات أو المعاملات. ويمكنك إلغاء الاشتراك في الرسائل الترويجية في أي وقت عبر التواصل معنا.",
+          ],
+        },
+        privacyPolicy: {
+          title: "سياسة الخصوصية وحماية البيانات",
+          paragraphs: [
+            "تلتزم Mr. Real Estate بحماية خصوصية المستخدمين. ويخضع جمع واستخدام البيانات الشخصية للمبادئ التالية:",
+            "جمع البيانات: قد يتم جمع معلومات شخصية مثل الاسم ورقم الهاتف والبريد الإلكتروني عند التسجيل أو التفاعل مع المنصة.",
+            "حماية البيانات: تتبع Mr. Real Estate ممارسات آمنة لجمع وتخزين ومعالجة البيانات، وتُخزّن بياناتك بطريقة محمية ضد الوصول غير المصرح به.",
+            "الكوكيز: تستخدم Mr. Real Estate ملفات تعريف الارتباط لتحسين تجربة المستخدم. باستخدامك للمنصة، فإنك توافق على استخدام الكوكيز. يمكنك تعطيلها من إعدادات المتصفح، ولكن ذلك قد يحد من بعض وظائف المنصة.",
+            "مسؤولية المستخدم: أنت مسؤول عن تحديث معلومات حسابك والحفاظ على سرية بيانات الدخول.",
+            "الاحتفاظ بالبيانات: ستحتفظ Mr. Real Estate بالبيانات الشخصية طالما كان ذلك ضروريًا لتقديم الخدمات أو كما هو مطلوب قانونًا. يمكن للمستخدمين طلب حذف بياناتهم عن طريق التواصل مع المنصة أو من خلال إعدادات الحساب.",
+            "المعلومات الشخصية: تحترم Mr. Real Estate خصوصية مستخدميها، وتُستخدم البيانات المُجمعة فقط لتقديم الخدمات، ويوافق المستخدم على جمعها ومعالجتها وتخزينها حسب الشروط.",
+            "مشاركة البيانات مع أطراف ثالثة: لا تبيع Mr. Real Estate البيانات الشخصية ولا تشاركها مع أطراف ثالثة إلا إذا طُلب منها قانونيًا أو بموافقة المستخدم الصريحة. قد يتم مشاركة بعض البيانات مع مزودي الخدمات (مثل بوابات الدفع) لتحسين وظائف المنصة.",
+          ],
+        },
+        intellectualProperty: {
+          title: "حقوق الملكية الفكرية",
+          paragraphs: [
+            "الملكية: تقر بأن جميع المواد والمحتويات والوظائف المتاحة في Mr. Real Estate (باستثناء المحتوى الذي ينشئه المستخدمون) هي ملك لـ Mr. Real Estate وتحميها قوانين الملكية الفكرية الكويتية والدولية، بما في ذلك النصوص والصور والفيديوهات والشعارات والبرمجيات.",
+            "القيود: لا يجوز نسخ أو إعادة نشر أو توزيع أو تعديل أي محتوى من Mr. Real Estate دون إذن كتابي مسبق. الاستخدام غير المصرح به قد يؤدي إلى اتخاذ إجراءات قانونية.",
+            "محتوى المستخدم: بنشرك أي محتوى على Mr. Real Estate، فإنك تمنحها ترخيصًا غير حصري وخاليًا من الرسوم لاستخدامه وتعديله وتوزيعه داخل المنصة. هذا الترخيص لا ينقل الملكية ولكنه يسمح بعرض الإعلانات والمحتوى. كما تمنح الزوار ترخيصًا غير حصري للاطلاع على المحتوى الخاص بك.",
+          ],
+        },
+        disputeResolution: {
+          title: "حل النزاعات",
+          paragraphs: [
+            "القانون الحاكم: تخضع هذه الشروط وأي نزاعات ناتجة عنها لقوانين دولة الكويت.",
+            "الاختصاص القضائي: تختص محاكم الكويت وحدها بالفصل في أي نزاع قانوني متعلق باستخدام Mr. Real Estate أو بهذه الشروط.",
+            "اللغة: في حال حدوث أي خلاف بشأن البنود أو الاتصالات الرسمية بين المستخدم والمنصة، فإن اللغة العربية ستكون المرجع وتُفضَّل على أي ترجمات أخرى.",
+          ],
+        },
+        serviceModifications: {
+          title: "تعديلات الخدمة",
+          paragraphs: [
+            "تحتفظ Mr. Real Estate بالحق في تعديل أو تعليق أو إنهاء أي جزء من خدماتها أو منصتها في أي وقت دون إشعار مسبق.",
+          ],
+        },
+        paidServices: {
+          title: "الخدمات المدفوعة وسياسة الاسترجاع",
+          paragraphs: [
+            "قد توفر Mr. Real Estate خدمات مدفوعة للمستخدمين. باستخدامك هذه الخدمات، فإنك توافق على ما يلي:",
+            "عدم الاسترجاع: جميع رسوم الخدمات المدفوعة غير قابلة للاسترداد.",
+            "تعديل الخدمات: تحتفظ Mr. Real Estate بالحق في تعديل أو تقليل أو إلغاء أي خدمات مدفوعة دون إشعار مسبق. ولا يحق للمستخدم المطالبة بأي تعويض أو استرداد.",
+            "إيقاف الحساب: في حال خرق الشروط من قبل المستخدم، يحق لـ Mr. Real Estate إيقاف أو حذف الحساب والخدمات المدفوعة دون تعويض.",
+          ],
+        },
+        accountSecurity: {
+          title: "مسؤولية المستخدم عن أمان الحساب",
+          paragraphs: [
+            "أنت مسؤول عن الحفاظ على سرية بيانات الدخول (اسم المستخدم وكلمة المرور). لا تتحمل Mr. Real Estate المسؤولية عن أي دخول غير مصرح به. ويجب إخطار المنصة فورًا في حال تم اختراق الحساب. يجب على المستخدم تسجيل الخروج من الأجهزة بعد الاستخدام لتجنب الدخول غير المصرح به. وأي ضرر أو فقد أو نزاع بسبب ذلك سيكون مسؤولية المستخدم.",
+          ],
+        },
+        limitationOfLiability: {
+          title: "تحديد المسؤولية",
+          paragraphs: [
+            "دور المنصة: يقتصر دور Mr. Real Estate على توفير مساحة للإعلانات، ولا تمثل أي طرف في المعاملات العقارية. ولا تتحمل المسؤولية عن النزاعات أو الخسائر الناتجة عن التفاعل بين المستخدمين.",
+            "مسؤولية المحتوى: المستخدم هو المسؤول عن صحة ودقة الإعلانات. ولا تضمن Mr. Real Estate دقة المعلومات ولا تتحمل المسؤولية عن الأخطاء أو الإهمال.",
+            "المعاملات: تتم جميع المعاملات (البيع أو الإيجار أو التبادل) حصريًا بين المستخدمين، وMr. Real Estate غير مسؤولة عن نتائجها ولا تقدم أي ضمانات.",
+            "قيود النظام: قد تواجه المنصة أعطالاً أو مشكلات تقنية. ولا تضمن Mr. Real Estate عمل المنصة بدون أخطاء في جميع الأوقات. ويقر المستخدم أنه يستخدم المنصة على مسؤوليته الخاصة.",
+          ],
+        },
+        disclaimer: {
+          title: "إخلاء المسؤولية",
+          paragraphs: [
+            "الاستخدام على مسؤوليتك: تقر بأنك تستخدم Mr. Real Estate على مسؤوليتك. ولا تتحمل المنصة أي ضرر مباشر أو غير مباشر أو عرضي أو تبعي نتيجة استخدام المنصة.",
+            "عدم تمثيل الأطراف: لا تمثل Mr. Real Estate أي طرف في المعاملات العقارية. وجميع الاتفاقيات تتم بين المستخدمين فقط.",
+            "منصة إعلانات: Mr. Real Estate هي فقط منصة لنشر الإعلانات ولا تتدخل في المعاملات. ولا تتحمل مسؤولية النزاعات الناتجة عنها.",
+            "لا مسؤولية عن المعاملات: أي تعاملات تتم من خلال المنصة تقع مسؤوليتها على المستخدم، والمنصة غير مسؤولة عن أي خسائر.",
+            "بدون ضمانات: تقدم Mr. Real Estate خدماتها كما هي، دون أي ضمانات صريحة أو ضمنية.",
+            "روابط خارجية: قد تحتوي المنصة على روابط لمواقع خارجية، ولا تتحمل Mr. Real Estate مسؤولية المحتوى الخارجي.",
+            "محتوى الطرف الثالث: لا تتحمل Mr. Real Estate مسؤولية أي محتوى مقدم من طرف ثالث.",
+          ],
+        },
+        userContentResponsibility: {
+          title: "مسؤولية المحتوى",
+          paragraphs: [
+            "دقة المحتوى: المستخدم مسؤول وحده عن دقة ومشروعية محتواه على المنصة.",
+            "موافقة الإدارة: موافقة Mr. Real Estate على نشر المحتوى لا تعني تحملها لأي مسؤولية.",
+            "الترجمة: قد توفر Mr. Real Estate خدمات ترجمة، ولكنها لا تضمن دقة النصوص المترجمة.",
+          ],
+        },
+        forceMajeure: {
+          title: "القوة القاهرة",
+          paragraphs: [
+            "لن تتحمل Mr. Real Estate أي مسؤولية عن تأخير أو فشل في تقديم الخدمة بسبب ظروف خارجة عن إرادتها مثل الكوارث الطبيعية أو الحروب أو الاضطرابات أو ضعف شبكة الإنترنت. وستبذل جهدًا لاستعادة الخدمات بأسرع وقت ممكن.",
+          ],
+        },
+        contactInfo: {
+          title: "معلومات الاتصال",
+          paragraphs: [
+            "للاستفسارات أو الاقتراحات أو الشكاوى أو الإبلاغ عن المخالفات، يرجى التواصل معنا عبر البريد الإلكتروني التالي:",
+            "البريد الإلكتروني: <a href='mailto:kwmraqar@gmail.com' class='text-blue-600 hover:underline'>kwmraqar@gmail.com</a>",
+          ],
+        },
+      },
     },
     adUploadForm: {
       loading: "جاري تحميل النموذج...",

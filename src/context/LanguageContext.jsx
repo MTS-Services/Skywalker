@@ -12,11 +12,11 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("ar");
   const [isRTL, setIsRTL] = useState(false);
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") || "en";
+    const savedLanguage = localStorage.getItem("language") || "ar";
     setLanguage(savedLanguage);
     setIsRTL(savedLanguage === "ar");
     document.documentElement.dir = savedLanguage === "ar" ? "rtl" : "ltr";
@@ -27,8 +27,8 @@ export const LanguageProvider = ({ children }) => {
     // If no specific language is provided, toggle between 'en' and 'ar'
     // if newLanguage is not object then newLanguage = language === "en" ? "ar" : "en";
     if (typeof newLanguage === "object") {
-      newLanguage = (language === "en" ? "ar" : "en");
-    };
+      newLanguage = language === "en" ? "ar" : "en";
+    }
     const finalLanguage = newLanguage;
     setLanguage(finalLanguage);
     setIsRTL(finalLanguage === "ar");
