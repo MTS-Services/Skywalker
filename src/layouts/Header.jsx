@@ -67,7 +67,7 @@ function Header() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <NavLink to="/" className={`flex items-center justify-start gap-2`}>
-          <img src="/logo.png" alt="Logo" className="w-14" />
+          <img src="/logo.png" alt="Logo" className="w-18" />
           <div>
             <p className="text-lg font-bold capitalize">{t.site.name}</p>
             <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
@@ -84,7 +84,7 @@ function Header() {
         </button>
 
         <div
-          className={`hidden items-center gap-6 font-medium text-black lg:flex ${
+          className={`hidden items-center gap-6 font-bold text-black lg:flex ${
             isRTL ? "space-x-reverse" : ""
           }`}
         >
@@ -111,13 +111,12 @@ function Header() {
 
         <NavLink
           to={isAuthenticated ? "/ad-upload" : "/login"}
-          className="bg-primary-300/10 border-primary-300/40 hidden items-center gap-2 rounded-md border px-5 py-2 lg:flex"
+          className="bg-primary-300/10 border-primary-300/40 hidden items-center gap-2 rounded-md border px-8 py-3 lg:flex"
         >
           <FaPlusCircle className="text-primary-600 text-lg" />
           {t.header.addFreeAd}
         </NavLink>
       </div>
-
       <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
     </nav>
   );
@@ -161,13 +160,17 @@ const Navigation = ({
         <div className="active:bg-active rounded-e-2xl" key={index}>
           {item.to ? (
             <NavLink to={item.to} className={navLinkClass}>
-              <span className={isRTL ? "text-right" : "text-left"}>
+              <h2
+                className={
+                  isRTL ? "text-right !font-bold" : "text-left !font-bold"
+                }
+              >
                 {item.label}
-              </span>
+              </h2>
             </NavLink>
           ) : (
             <button onClick={item.action}>
-              <span>{item.label}</span>
+              <h2>{item.label}</h2>
             </button>
           )}
         </div>
@@ -177,11 +180,11 @@ const Navigation = ({
         <div className="relative" ref={propertyDropdownRef}>
           <button
             onClick={toggleDropdown}
-            className={`hover:text-primary-400 flex cursor-pointer items-center transition-colors ${
-              isDropdownOpen ? "text-primary-400" : ""
+            className={`hover:text-primary-500 flex cursor-pointer items-center transition-colors ${
+              isDropdownOpen ? "text-primary-500" : ""
             } ${isRTL ? "flex-row-reverse" : ""}`}
           >
-            {t.header.kuwaitRealEstate}
+            <h2>{t.header.kuwaitRealEstate}</h2>
             {isDropdownOpen ? (
               <FiChevronUp className={`${isRTL ? "mr-1" : "ml-1"}`} />
             ) : (
@@ -223,9 +226,9 @@ const Navigation = ({
       )}
       <div>
         <button onClick={() => handleLanguageChange(isRTL ? "en" : "ar")}>
-          <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
+          <h2 className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
             {isRTL ? "En" : "ع"}
-          </span>
+          </h2>
         </button>
       </div>
     </div>

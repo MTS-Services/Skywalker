@@ -336,13 +336,19 @@ const AdUploadForm = () => {
 
   return (
     <div className="mx-auto mt-16 mb-40 max-w-4xl p-4 sm:p-6 md:p-8 lg:mb-60">
+      <div>
+        <h1 className="mb-4 text-2xl font-semibold">
+          {t.adUploadForm.formTitle}
+        </h1>
+        <p className="mb-8 text-gray-600">{t.adUploadForm.formSubtitle}</p>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2"
       >
         {/* 2. UPDATED: Switched 'Purpose' field to use SingleSelectDropdown */}
         <div className="md:col-span-1">
-          <label className="font-open-sans mb-1 block text-sm font-medium text-gray-700">
+          <label className="mb-1 block text-sm font-medium text-gray-700">
             {t.adUploadForm.purposeLabel}
           </label>
           <SingleSelectDropdown
@@ -379,7 +385,7 @@ const AdUploadForm = () => {
             name="description"
             value={formData.description}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
+            className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
             placeholder={t.adUploadForm.descriptionPlaceholder}
             rows={4}
           />
@@ -409,7 +415,7 @@ const AdUploadForm = () => {
             name="price"
             value={formData.price}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
+            className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
             placeholder={t.adUploadForm.pricePlaceholder}
           />
         </div>
