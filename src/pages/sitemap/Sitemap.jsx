@@ -118,7 +118,7 @@ const Sitemap = () => {
   }, []);
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-12">
+    <section className="mx-auto max-w-4xl px-6 h-screen py-12">
       <h2 className="mb-6 text-2xl font-bold text-gray-800">
         {t.siteMapalldata.sitemap}
       </h2>
