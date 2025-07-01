@@ -196,7 +196,7 @@ export const translations = {
       agents: "Agents",
       aboutUs: "About Us",
       termsandConditions: "Terms and Conditions",
-      contactUs: "Terms and Conditions",
+      contactUs: "Contact us",
     },
 
     // About Page

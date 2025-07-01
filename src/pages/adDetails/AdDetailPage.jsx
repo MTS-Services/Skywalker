@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import { FiClock, FiEye, FiX, FiShare2, FiPhone } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import dayjs from "dayjs";
 
 /**
  * AdDetailPage Component
@@ -67,7 +68,14 @@ const AdDetailPage = () => {
       }
     }
   };
-
+  const getDaysAgo = (postDate) => {
+    const now = new Date();
+    const post = new Date(postDate);
+    const diffTime = now - post;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+  
   // Effect to fetch ad details
   useEffect(() => {
     const fetchAd = async () => {
@@ -135,10 +143,11 @@ const AdDetailPage = () => {
             </div>
           </div>
           <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-            <div className="bg-primary-300/30 flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
+            <div className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
               <FiClock />
-              <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
+              <span>{getDaysAgo(ad.postCreateAt)} Days</span>
             </div>
+
             <div className="bg-primary-300/30 flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
               <FiEye />
               <span>{ad.views}</span>

@@ -6,7 +6,7 @@
     "postCreateAt": "2025-06-20T10:30:00Z",
     "description": "Modern 3-bedroom apartment with 2 bathrooms, large living area, and fully equipped kitchen. Located near shopping centers and schools. Features include central AC, built-in wardrobes, and covered parking.",
     "whatsapp": "61234567",
-    "views": 120,
+    "views": 1220,
     "images": [
       "https://placehold.co/800x600/A5D8FF/333?text=Apt+Living+Room",
       "https://placehold.co/800x600/A5D8FF/333?text=Apt+Kitchen",
@@ -22,10 +22,10 @@
     "id": 2,
     "title": "Luxury Villa for Sale in Salwa",
     "kd": "450000",
-    "postCreateAt": "2025-06-18T14:15:00Z",
+    "postCreateAt": "days",
     "description": "Exquisite 5-bedroom villa with private pool, landscaped garden, and high-end finishes. Perfect for large families seeking comfort and luxury. Features marble floors, designer kitchen, and maid's room.",
     "whatsapp": "61234568",
-    "views": 250,
+    "views": 2250,
     "images": [
       "https://placehold.co/800x600/FFC8A5/333?text=Villa+Exterior",
       "https://placehold.co/800x600/FFC8A5/333?text=Pool+Area",
@@ -44,7 +44,7 @@
     "postCreateAt": "2025-06-15T09:45:00Z",
     "description": "Prime commercial shop in bustling Salmiya area, perfect for retail or small businesses. High foot traffic location with excellent visibility. Includes storage area and customer parking.",
     "whatsapp": "61234569",
-    "views": 80,
+    "views": 8230,
     "images": [
       "https://placehold.co/800x600/C8A5FF/333?text=Shop+Front",
       "https://placehold.co/800x600/C8A5FF/333?text=Interior+Space"
@@ -58,7 +58,7 @@
   {
     "id": 4,
     "title": "Cozy Studio for Exchange in Jabriya",
-    "kd": "250",
+    "kd": "2550",
     "postCreateAt": "2025-06-12T16:20:00Z",
     "description": "Cozy studio apartment perfect for singles or young professionals. Includes compact kitchen and private bathroom. Looking to exchange for a 1-bedroom apartment in similar area.",
     "whatsapp": "61234570",
@@ -92,7 +92,7 @@
     "postCreateAt": "2025-06-08T13:30:00Z",
     "description": "Stylish 4-bedroom house with contemporary design and access to community amenities. Family-friendly neighborhood with parks and schools nearby. Features include garden, garage, and modern appliances.",
     "whatsapp": "61234572",
-    "views": 180,
+    "views": 24180,
     "images": [
       "https://placehold.co/800x600/FFA5A5/333?text=Modern+House",
       "https://placehold.co/800x600/FFA5A5/333?text=Garden+View"
@@ -110,7 +110,7 @@
     "postCreateAt": "2025-06-05T08:15:00Z",
     "description": "Entire residential building for sale in prime Salmiya location. Includes 10 apartments and ground floor parking. Excellent investment opportunity with high rental yield potential.",
     "whatsapp": "61234573",
-    "views": 100,
+    "views": 10240,
     "images": [
       "https://placehold.co/800x600/A5E9FF/333?text=Building+Exterior",
       "https://placehold.co/800x600/A5E9FF/333?text=Apartment+Sample"
@@ -128,7 +128,7 @@
     "postCreateAt": "2025-05-18T07:45:00Z",
     "description": "Large agricultural farm with farmhouse, perfect for farming or quiet retreat. Fully equipped with irrigation system, storage facilities, and worker accommodation.",
     "whatsapp": "61234579",
-    "views": 55,
+    "views": 52455,
     "images": [
       "https://placehold.co/800x600/D4FFA5/333?text=Farm+House",
       "https://placehold.co/800x600/D4FFA5/333?text=Agricultural+Land"
@@ -146,7 +146,7 @@
     "postCreateAt": "2025-05-15T12:00:00Z",
     "description": "Beautiful beachfront chalet with direct sea access, ideal for weekend getaways. Features include private beach area, BBQ facilities, and stunning sea views. Willing to exchange for city apartment.",
     "whatsapp": "61234580",
-    "views": 88,
+    "views": 6788,
     "images": [
       "https://placehold.co/800x600/A5C8FF/333?text=Chalet+Exterior",
       "https://placehold.co/800x600/A5C8FF/333?text=Beach+View"
@@ -164,7 +164,7 @@
     "postCreateAt": "2025-05-12T10:30:00Z",
     "description": "Premium office space in Kuwait City's business district. Features include reception area, conference room, and modern amenities. Perfect for corporate headquarters or professional services.",
     "whatsapp": "61234581",
-    "views": 67,
+    "views": 63676,
     "images": [
       "https://placehold.co/800x600/FFE5A5/333?text=Office+Reception",
       "https://placehold.co/800x600/FFE5A5/333?text=Conference+Room"
@@ -182,7 +182,7 @@
     "postCreateAt": "2025-05-10T14:20:00Z",
     "description": "Large industrial warehouse with loading docks and office space. Ideal for logistics, storage, or manufacturing operations. Features include high ceilings, truck access, and security systems.",
     "whatsapp": "61234582",
-    "views": 34,
+    "views": 3436,
     "images": [
       "https://placehold.co/800x600/E5A5FF/333?text=Warehouse+Interior",
       "https://placehold.co/800x600/E5A5FF/333?text=Loading+Dock"
@@ -200,7 +200,7 @@
     "postCreateAt": "2025-05-08T09:15:00Z",
     "description": "Fully furnished 2-bedroom apartment in prime Salmiya location. Ready to move in with all appliances, furniture, and utilities included. Close to Marina Mall and restaurants.",
     "whatsapp": "61234583",
-    "views": 156,
+    "views": 15636,
     "images": [
       "https://placehold.co/800x600/A5FFE5/333?text=Furnished+Living",
       "https://placehold.co/800x600/A5FFE5/333?text=Bedroom+Setup"
@@ -218,7 +218,7 @@
     "postCreateAt": "2025-05-05T16:45:00Z",
     "description": "Spacious family villa with private swimming pool and garden. Features 4 bedrooms, maid's room, driver's room, and covered parking for 3 cars. Quiet residential area.",
     "whatsapp": "61234584",
-    "views": 203,
+    "views": 236503,
     "images": [
       "https://placehold.co/800x600/FFA5E5/333?text=Villa+Pool",
       "https://placehold.co/800x600/FFA5E5/333?text=Garden+Area"
@@ -236,7 +236,7 @@
     "postCreateAt": "2025-05-03T11:30:00Z",
     "description": "Prime commercial land plot suitable for retail, office, or mixed-use development. Excellent location with high visibility and easy access to main roads.",
     "whatsapp": "61234585",
-    "views": 78,
+    "views": 7368,
     "images": ["https://placehold.co/800x600/C8FFE5/333?text=Commercial+Land"],
     "slug": "commercial-land-ahmadi",
     "transactionType": "sale",
@@ -251,7 +251,7 @@
     "postCreateAt": "2025-05-01T13:00:00Z",
     "description": "Luxury penthouse with panoramic city views. Features include private terrace, jacuzzi, and premium finishes throughout. Building amenities include gym and swimming pool.",
     "whatsapp": "61234586",
-    "views": 189,
+    "views": 18936,
     "images": [
       "https://placehold.co/800x600/E5C8FF/333?text=Penthouse+View",
       "https://placehold.co/800x600/E5C8FF/333?text=Terrace+Area"
@@ -269,7 +269,7 @@
     "postCreateAt": "2025-04-28T08:20:00Z",
     "description": "Traditional Kuwaiti house with courtyard and authentic architecture. Features include majlis, family area, and traditional kitchen. Looking to exchange for modern apartment.",
     "whatsapp": "61234587",
-    "views": 92,
+    "views": 9362,
     "images": [
       "https://placehold.co/800x600/FFD4A5/333?text=Traditional+House"
     ],
@@ -286,7 +286,7 @@
     "postCreateAt": "2025-04-25T15:10:00Z",
     "description": "State-of-the-art office building with 15 floors and modern amenities. Features include high-speed elevators, central AC, and underground parking. Prime business location.",
     "whatsapp": "61234588",
-    "views": 145,
+    "views": 14655,
     "images": [
       "https://placehold.co/800x600/A5D4FF/333?text=Office+Building",
       "https://placehold.co/800x600/A5D4FF/333?text=Lobby+Area"
@@ -304,7 +304,7 @@
     "postCreateAt": "2025-04-22T12:30:00Z",
     "description": "Exclusive seaside chalet with private beach access and water sports facilities. Perfect for family vacations or entertaining guests. Features include outdoor kitchen and fire pit.",
     "whatsapp": "61234589",
-    "views": 167,
+    "views": 15267,
     "images": [
       "https://placehold.co/800x600/C8E5FF/333?text=Seaside+Chalet",
       "https://placehold.co/800x600/C8E5FF/333?text=Private+Beach"
@@ -322,7 +322,7 @@
     "postCreateAt": "2025-04-20T07:45:00Z",
     "description": "Fully operational organic farm with greenhouse facilities and modern irrigation systems. Includes farmhouse, equipment storage, and processing area. Perfect for agricultural business.",
     "whatsapp": "61234590",
-    "views": 73,
+    "views": 2573,
     "images": [
       "https://placehold.co/800x600/E5FFA5/333?text=Organic+Farm",
       "https://placehold.co/800x600/E5FFA5/333?text=Greenhouse"
@@ -340,7 +340,7 @@
     "postCreateAt": "2025-04-18T14:00:00Z",
     "description": "Premium apartment complex with 20 units, swimming pool, gym, and landscaped gardens. Excellent investment opportunity with high occupancy rates and rental yields.",
     "whatsapp": "61234591",
-    "views": 234,
+    "views": 22534,
     "images": [
       "https://placehold.co/800x600/FFC8E5/333?text=Apartment+Complex",
       "https://placehold.co/800x600/FFC8E5/333?text=Pool+Facilities"
@@ -358,7 +358,7 @@
     "postCreateAt": "2025-04-15T10:15:00Z",
     "description": "Compact studio apartment perfect for students or young professionals. Located near Kuwait University with easy access to public transportation and amenities.",
     "whatsapp": "61234592",
-    "views": 128,
+    "views": 12258,
     "images": ["https://placehold.co/800x600/E5A5C8/333?text=Studio+Near+Uni"],
     "slug": "studio-apartment-near-university",
     "transactionType": "rent",
@@ -373,7 +373,7 @@
     "postCreateAt": "2025-04-12T16:30:00Z",
     "description": "Executive villa featuring dedicated home office space, perfect for remote work. Includes 5 bedrooms, formal dining, and entertainment area with home theater system.",
     "whatsapp": "61234593",
-    "views": 198,
+    "views": 12598,
     "images": [
       "https://placehold.co/800x600/A5C8E5/333?text=Executive+Villa",
       "https://placehold.co/800x600/A5C8E5/333?text=Home+Office"
@@ -391,7 +391,7 @@
     "postCreateAt": "2025-04-10T09:45:00Z",
     "description": "Prime retail space in busy shopping center with high foot traffic. Suitable for fashion, electronics, or food service businesses. Includes storage area and customer facilities.",
     "whatsapp": "61234594",
-    "views": 87,
+    "views": 2587,
     "images": ["https://placehold.co/800x600/FFE5C8/333?text=Retail+Shop"],
     "slug": "retail-shop-shopping-center",
     "transactionType": "rent",
@@ -406,7 +406,7 @@
     "postCreateAt": "2025-04-08T13:20:00Z",
     "description": "Large industrial land plot suitable for manufacturing or logistics facilities. Strategic location with easy access to highways and port facilities. Utilities available.",
     "whatsapp": "61234595",
-    "views": 56,
+    "views": 25256,
     "images": ["https://placehold.co/800x600/C8A5E5/333?text=Industrial+Land"],
     "slug": "industrial-land-development",
     "transactionType": "sale",
@@ -421,7 +421,7 @@
     "postCreateAt": "2025-04-05T11:00:00Z",
     "description": "Spacious duplex apartment with private garden and terrace. Features include 3 bedrooms, 2.5 bathrooms, and modern kitchen with island. Family-friendly community.",
     "whatsapp": "61234596",
-    "views": 174,
+    "views": 12574,
     "images": [
       "https://placehold.co/800x600/E5FFC8/333?text=Duplex+Apartment",
       "https://placehold.co/800x600/E5FFC8/333?text=Private+Garden"
@@ -439,7 +439,7 @@
     "postCreateAt": "2025-04-03T08:30:00Z",
     "description": "Professional medical clinic space with multiple consultation rooms, reception area, and medical equipment storage. Ideal location for healthcare professionals.",
     "whatsapp": "61234597",
-    "views": 93,
+    "views": 2593,
     "images": ["https://placehold.co/800x600/A5FFD4/333?text=Medical+Clinic"],
     "slug": "medical-clinic-space-rent",
     "transactionType": "rent",
@@ -454,7 +454,7 @@
     "postCreateAt": "2025-04-01T15:45:00Z",
     "description": "Stunning beachfront villa with panoramic sea views and private beach access. Features include infinity pool, outdoor entertainment area, and luxury finishes throughout.",
     "whatsapp": "61234598",
-    "views": 312,
+    "views": 25312,
     "images": [
       "https://placehold.co/800x600/C8D4FF/333?text=Beachfront+Villa",
       "https://placehold.co/800x600/C8D4FF/333?text=Sea+View"
@@ -472,7 +472,7 @@
     "postCreateAt": "2025-03-30T12:15:00Z",
     "description": "Modern coworking space with flexible desk arrangements, meeting rooms, and high-speed internet. Perfect for startups, freelancers, and small businesses.",
     "whatsapp": "61234599",
-    "views": 67,
+    "views": 6752,
     "images": ["https://placehold.co/800x600/FFD4E5/333?text=Coworking+Space"],
     "slug": "coworking-space-rent",
     "transactionType": "rent",
@@ -487,7 +487,7 @@
     "postCreateAt": "2025-03-28T10:00:00Z",
     "description": "Beautiful family house with swimming pool and landscaped garden. Features include 4 bedrooms, family room, formal dining, and covered outdoor entertaining area.",
     "whatsapp": "61234600",
-    "views": 156,
+    "views": 12556,
     "images": [
       "https://placehold.co/800x600/E5C8D4/333?text=Family+House",
       "https://placehold.co/800x600/E5C8D4/333?text=Swimming+Pool"
@@ -522,7 +522,7 @@
     "postCreateAt": "2025-03-22T16:45:00Z",
     "description": "Exclusive penthouse with private rooftop terrace and 360-degree city views. Features include premium appliances, marble finishes, and smart home technology.",
     "whatsapp": "61234602",
-    "views": 267,
+    "views": 26725,
     "images": [
       "https://placehold.co/800x600/FFE5D4/333?text=Luxury+Penthouse",
       "https://placehold.co/800x600/FFE5D4/333?text=Rooftop+Terrace"
@@ -540,7 +540,7 @@
     "postCreateAt": "2025-03-20T09:30:00Z",
     "description": "Prime restaurant space with full commercial kitchen, dining area for 80 guests, and outdoor seating. Located in high-traffic area with excellent visibility.",
     "whatsapp": "61234603",
-    "views": 134,
+    "views": 12534,
     "images": ["https://placehold.co/800x600/D4E5FF/333?text=Restaurant+Space"],
     "slug": "restaurant-space-rent",
     "transactionType": "rent",
@@ -555,7 +555,7 @@
     "postCreateAt": "2025-03-18T11:15:00Z",
     "description": "Peaceful suburban villa with large garden and fruit trees. Perfect for families seeking quiet environment while staying connected to city amenities. Features include garage and storage.",
     "whatsapp": "61234604",
-    "views": 143,
+    "views": 14253,
     "images": [
       "https://placehold.co/800x600/C8FFD4/333?text=Suburban+Villa",
       "https://placehold.co/800x600/C8FFD4/333?text=Large+Garden"
@@ -573,7 +573,7 @@
     "postCreateAt": "2025-03-15T13:45:00Z",
     "description": "Modern warehouse facility with attached office space and loading docks. Features include high ceilings, climate control, and advanced security systems. Ideal for distribution business.",
     "whatsapp": "61234605",
-    "views": 78,
+    "views": 78254,
     "images": ["https://placehold.co/800x600/E5A5D4/333?text=Modern+Warehouse"],
     "slug": "modern-warehouse-office",
     "transactionType": "sale",
@@ -588,7 +588,7 @@
     "postCreateAt": "2025-03-12T08:00:00Z",
     "description": "Fully furnished studio apartment in prestigious marina area with sea views. Includes all utilities, high-speed internet, and access to building amenities including pool and gym.",
     "whatsapp": "61234606",
-    "views": 198,
+    "views": 19825,
     "images": ["https://placehold.co/800x600/FFA5D4/333?text=Marina+Studio"],
     "slug": "furnished-studio-marina-area",
     "transactionType": "rent",
@@ -603,7 +603,7 @@
     "postCreateAt": "2025-03-10T15:20:00Z",
     "description": "Prime commercial plot suitable for retail, office, or mixed-use development. Excellent location with high visibility and easy access. All utilities available and ready for construction.",
     "whatsapp": "61234607",
-    "views": 89,
+    "views":22589,
     "images": ["https://placehold.co/800x600/A5C8D4/333?text=Commercial+Plot"],
     "slug": "commercial-plot-development",
     "transactionType": "sale",
@@ -618,7 +618,7 @@
     "postCreateAt": "2025-03-08T12:30:00Z",
     "description": "Resort-style luxury chalet with private pool, beach access, and full service amenities. Perfect for weekend getaways or vacation rental investment. Includes housekeeping service.",
     "whatsapp": "61234608",
-    "views": 223,
+    "views": 22523,
     "images": [
       "https://placehold.co/800x600/E5FFD4/333?text=Luxury+Chalet",
       "https://placehold.co/800x600/E5FFD4/333?text=Resort+Pool"
@@ -636,7 +636,7 @@
     "postCreateAt": "2025-03-05T10:45:00Z",
     "description": "Authentic traditional house with central courtyard and classic Kuwaiti architecture. Recently renovated while maintaining original character. Features include majlis and family areas.",
     "whatsapp": "61234609",
-    "views": 112,
+    "views": 112552,
     "images": [
       "https://placehold.co/800x600/D4C8FF/333?text=Traditional+House"
     ],
@@ -653,7 +653,7 @@
     "postCreateAt": "2025-03-03T14:15:00Z",
     "description": "State-of-the-art office space with smart building technology, high-speed fiber internet, and modern conference facilities. Perfect for tech companies and professional services.",
     "whatsapp": "61234610",
-    "views": 156,
+    "views": 25156,
     "images": ["https://placehold.co/800x600/C8E5D4/333?text=High+Tech+Office"],
     "slug": "high-tech-office-space",
     "transactionType": "rent",
@@ -668,7 +668,7 @@
     "postCreateAt": "2025-03-01T07:30:00Z",
     "description": "Sustainable farm complex with solar power, water recycling systems, and organic certification. Includes greenhouse, processing facility, and farm-to-table restaurant space.",
     "whatsapp": "61234611",
-    "views": 87,
+    "views": 2587,
     "images": ["https://placehold.co/800x600/A5FFE5/333?text=Eco+Farm"],
     "slug": "eco-friendly-farm-complex",
     "transactionType": "rent",
@@ -683,7 +683,7 @@
     "postCreateAt": "2025-02-26T11:00:00Z",
     "description": "Efficient 1-bedroom apartment with modern design and space-saving features. Perfect for young professionals or couples. Includes balcony and covered parking space.",
     "whatsapp": "61234612",
-    "views": 167,
+    "views": 16257,
     "images": ["https://placehold.co/800x600/FFD4C8/333?text=1BR+Apartment"],
     "slug": "compact-1br-apartment",
     "transactionType": "rent",
@@ -698,7 +698,7 @@
     "postCreateAt": "2025-02-24T16:30:00Z",
     "description": "Ultra-luxury villa featuring home cinema, wine cellar, and spa facilities. Includes 6 bedrooms, staff quarters, and 4-car garage. Premium location with 24/7 security.",
     "whatsapp": "61234613",
-    "views": 289,
+    "views": 25289,
     "images": [
       "https://placehold.co/800x600/E5D4FF/333?text=Luxury+Villa",
       "https://placehold.co/800x600/E5D4FF/333?text=Home+Cinema"
@@ -716,7 +716,7 @@
     "postCreateAt": "2025-02-22T09:15:00Z",
     "description": "Prime retail unit in busy shopping mall with guaranteed foot traffic. Excellent investment opportunity with established tenant and long-term lease agreement.",
     "whatsapp": "61234614",
-    "views": 134,
+    "views": 5254,
     "images": ["https://placehold.co/800x600/C8A5D4/333?text=Mall+Unit"],
     "slug": "shopping-mall-unit-sale",
     "transactionType": "sale",
@@ -731,7 +731,7 @@
     "postCreateAt": "2025-02-20T13:45:00Z",
     "description": "Exclusive waterfront apartment complex with marina views and luxury amenities. Features include infinity pool, spa, and private beach access. Premium investment opportunity.",
     "whatsapp": "61234615",
-    "views": 245,
+    "views": 2245,
     "images": [
       "https://placehold.co/800x600/A5E5FF/333?text=Waterfront+Complex"
     ],
@@ -748,7 +748,7 @@
     "postCreateAt": "2025-02-18T10:30:00Z",
     "description": "Creative studio space with high ceilings, natural light, and gallery area. Perfect for artists, photographers, or creative professionals. Includes storage and workshop area.",
     "whatsapp": "61234616",
-    "views": 76,
+    "views": 2576,
     "images": ["https://placehold.co/800x600/FFE5A5/333?text=Artist+Studio"],
     "slug": "artist-studio-gallery-space",
     "transactionType": "rent",
@@ -763,7 +763,7 @@
     "postCreateAt": "2025-02-15T15:00:00Z",
     "description": "Spacious family compound with multiple buildings, swimming pool, and extensive gardens. Perfect for extended families or those who love entertaining. Includes guest house.",
     "whatsapp": "61234617",
-    "views": 178,
+    "views": 25178,
     "images": ["https://placehold.co/800x600/D4FFC8/333?text=Family+Compound"],
     "slug": "family-compound-pool",
     "transactionType": "rent",
@@ -778,7 +778,7 @@
     "postCreateAt": "2025-02-12T08:45:00Z",
     "description": "Well-equipped industrial workshop with heavy machinery access and loading facilities. Suitable for manufacturing, repair services, or fabrication work. Includes office space.",
     "whatsapp": "61234618",
-    "views": 89,
+    "views": 25289,
     "images": [
       "https://placehold.co/800x600/E5C8A5/333?text=Industrial+Workshop"
     ],
@@ -795,7 +795,7 @@
     "postCreateAt": "2025-02-10T12:20:00Z",
     "description": "Charming chalet in exclusive beachside community with shared amenities including pool, tennis court, and private beach. Perfect for weekend retreats and family vacations.",
     "whatsapp": "61234619",
-    "views": 156,
+    "views": 152626,
     "images": ["https://placehold.co/800x600/C8FFE5/333?text=Beachside+Chalet"],
     "slug": "beachside-chalet-community",
     "transactionType": "rent",
@@ -810,7 +810,7 @@
     "postCreateAt": "2025-02-08T14:10:00Z",
     "description": "Contemporary townhouse with 3 levels, private garden, and garage. Features include modern kitchen, master suite, and rooftop terrace. Located in family-friendly community.",
     "whatsapp": "61234620",
-    "views": 198,
+    "views": 12598,
     "images": ["https://placehold.co/800x600/FFA5C8/333?text=Modern+Townhouse"],
     "slug": "modern-townhouse-sale",
     "transactionType": "sale",
@@ -825,7 +825,7 @@
     "postCreateAt": "2025-02-05T11:30:00Z",
     "description": "Luxury serviced apartment with hotel-style amenities and concierge service. Perfect for business travelers or temporary accommodation. Includes housekeeping and utilities.",
     "whatsapp": "61234621",
-    "views": 167,
+    "views": 162657,
     "images": [
       "https://placehold.co/800x600/E5A5FF/333?text=Serviced+Apartment"
     ],
@@ -842,7 +842,7 @@
     "postCreateAt": "2025-02-03T09:45:00Z",
     "description": "Large retail showroom with floor-to-ceiling windows and premium location. Perfect for automotive, furniture, or luxury goods display. Includes customer parking and storage.",
     "whatsapp": "61234622",
-    "views": 123,
+    "views": 12523,
     "images": ["https://placehold.co/800x600/A5D4C8/333?text=Retail+Showroom"],
     "slug": "retail-showroom-rent",
     "transactionType": "rent",
@@ -857,7 +857,7 @@
     "postCreateAt": "2025-02-01T16:15:00Z",
     "description": "Historic heritage house with authentic architecture and restoration potential. Perfect for those interested in preserving Kuwaiti cultural heritage. Includes original features and courtyard.",
     "whatsapp": "61234623",
-    "views": 87,
+    "views": 8267,
     "images": ["https://placehold.co/800x600/FFD4A5/333?text=Heritage+House"],
     "slug": "heritage-house-restoration",
     "transactionType": "sale",
@@ -872,7 +872,7 @@
     "postCreateAt": "2025-01-30T13:00:00Z",
     "description": "Elegant 2-bedroom apartment with spacious balcony and city views. Features include marble floors, built-in wardrobes, and premium appliances. Building has gym and pool.",
     "whatsapp": "61234624",
-    "views": 189,
+    "views": 182569,
     "images": ["https://placehold.co/800x600/C8E5A5/333?text=Luxury+Apartment"],
     "slug": "luxury-apartment-balcony",
     "transactionType": "rent",
@@ -887,7 +887,7 @@
     "postCreateAt": "2025-01-28T07:30:00Z",
     "description": "Fertile agricultural land suitable for crop cultivation or livestock farming. Includes water access, storage facilities, and equipment shed. Long-term lease available.",
     "whatsapp": "61234625",
-    "views": 67,
+    "views": 25467,
     "images": [
       "https://placehold.co/800x600/E5FFE5/333?text=Agricultural+Land"
     ],
@@ -904,7 +904,7 @@
     "postCreateAt": "2025-01-25T15:45:00Z",
     "description": "Ultra-luxury penthouse with private elevator access and panoramic views. Features include wine cellar, home automation, and private rooftop with jacuzzi and entertainment area.",
     "whatsapp": "61234626",
-    "views": 234,
+    "views": 22234,
     "images": [
       "https://placehold.co/800x600/FFC8D4/333?text=Penthouse+Elevator"
     ],
@@ -921,7 +921,7 @@
     "postCreateAt": "2025-01-22T10:20:00Z",
     "description": "Fully equipped medical center with multiple consultation rooms, diagnostic facilities, and pharmacy. Established practice with loyal patient base. Excellent investment opportunity.",
     "whatsapp": "61234627",
-    "views": 145,
+    "views": 1545,
     "images": ["https://placehold.co/800x600/A5FFD4/333?text=Medical+Center"],
     "slug": "medical-center-sale",
     "transactionType": "sale",
@@ -936,7 +936,7 @@
     "postCreateAt": "2025-01-20T12:30:00Z",
     "description": "Efficient office suite perfect for small businesses or startups. Includes reception area, private office, and meeting room. Located in professional business center with shared amenities.",
     "whatsapp": "61234628",
-    "views": 98,
+    "views": 1448,
     "images": ["https://placehold.co/800x600/D4A5FF/333?text=Office+Suite"],
     "slug": "compact-office-suite",
     "transactionType": "rent",
@@ -951,7 +951,7 @@
     "postCreateAt": "2025-01-18T14:45:00Z",
     "description": "Exclusive waterfront villa with private boat dock and direct water access. Features include infinity pool, outdoor kitchen, and panoramic water views from every room.",
     "whatsapp": "61234629",
-    "views": 278,
+    "views": 14278,
     "images": ["https://placehold.co/800x600/C8D4E5/333?text=Waterfront+Villa"],
     "slug": "waterfront-villa-dock",
     "transactionType": "rent",
@@ -966,7 +966,7 @@
     "postCreateAt": "2025-01-15T08:15:00Z",
     "description": "Purpose-built student housing complex near university campus. Features include furnished units, study areas, and recreational facilities. Excellent investment with guaranteed occupancy.",
     "whatsapp": "61234630",
-    "views": 167,
+    "views": 11567,
     "images": ["https://placehold.co/800x600/E5C8FF/333?text=Student+Housing"],
     "slug": "student-housing-complex",
     "transactionType": "sale",
@@ -981,7 +981,7 @@
     "postCreateAt": "2025-01-12T16:00:00Z",
     "description": "Charming boutique hotel with 25 rooms, restaurant, and conference facilities. Established business with excellent reputation and loyal clientele. Prime location for tourism.",
     "whatsapp": "61234631",
-    "views": 189,
+    "views": 11489,
     "images": ["https://placehold.co/800x600/FFA5E5/333?text=Boutique+Hotel"],
     "slug": "boutique-hotel-sale",
     "transactionType": "sale",
@@ -996,7 +996,7 @@
     "postCreateAt": "2025-01-10T11:30:00Z",
     "description": "Spacious ground floor apartment with private garden and direct access. Perfect for families with children or pets. Features include 3 bedrooms and large living areas.",
     "whatsapp": "61234632",
-    "views": 156,
+    "views": 11456,
     "images": ["https://placehold.co/800x600/A5E5C8/333?text=Garden+Apartment"],
     "slug": "garden-apartment-ground-floor",
     "transactionType": "rent",
@@ -1026,7 +1026,7 @@
     "postCreateAt": "2025-01-05T13:20:00Z",
     "description": "Premium chalet with direct marina access and boat slip included. Features include waterfront dining area, private beach, and luxury amenities. Perfect for water sports enthusiasts.",
     "whatsapp": "61234634",
-    "views": 198,
+    "views": 41198,
     "images": ["https://placehold.co/800x600/E5FFD4/333?text=Marina+Chalet"],
     "slug": "luxury-chalet-marina-access",
     "transactionType": "rent",

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TfiAngleLeft } from "react-icons/tfi";
 import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import dayjs from "dayjs";
 
 /**
  * AdDetailsModal Component
@@ -33,6 +34,15 @@ export default function AdDetailsModal({
       setIsModalActive(false);
     }
   }, [show]);
+
+  const getDaysAgo = (postDate) => {
+    const now = new Date();
+    const post = new Date(postDate);
+    const diffTime = now - post;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+  
 
   // লাইটবক্সের প্রবেশ/প্রস্থান অ্যানিমেশন নিয়ন্ত্রণ করতে
   useEffect(() => {
@@ -128,8 +138,9 @@ export default function AdDetailsModal({
               <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
                 <div className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
                   <FiClock />
-                  <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
+                  <span>{getDaysAgo(ad.postCreateAt)} Days</span>
                 </div>
+
                 <div className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
                   <FiEye />
                   <span>{ad.views}</span>

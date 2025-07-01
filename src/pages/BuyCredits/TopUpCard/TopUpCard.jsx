@@ -134,7 +134,7 @@ const TopUpCard = () => {
 
   return (
     <div className="font-inter mx-auto flex min-h-screen max-w-6xl flex-col items-center p-4 text-gray-800">
-      <div className="my-8 w-full max-w-4xl px-4 text-left">
+      <div className="my-5 w-full max-w-6xl px-4 text-left">
         <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-3xl">
           {t.byCredit.title}
         </h2>

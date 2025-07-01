@@ -12,7 +12,7 @@ import { FaArrowLeft } from "react-icons/fa";
  */
 export default function Hero({ t, isRTL }) {
   return (
-    <section className="relative lg:h-[100vh]  h-screen w-full overflow-hidden">
+    <section className="relative md:h-[70vh] h-[84vh] w-full overflow-hidden lg:h-[100vh]">
       <div className="absolute right-0 bottom-0 left-0 -z-1 w-full">
         <img
           alt={t.site.name}
@@ -25,22 +25,22 @@ export default function Hero({ t, isRTL }) {
           alt={t.site.name}
           width="1920"
           height="426"
-          className="h-auto w-full max-w-screen-2xl object-cover lg:hidden"
+          className="max-w-screen-[200px] h-auto w-full object-cover lg:hidden"
           src="/home-hero-mobile-hd.svg"
         />
       </div>
 
-      <div className="container mx-auto mt-10 flex h-full w-full items-start justify-center p-4 lg:mt-20">
+      <div className="container mx-auto mt-6 flex h-full w-full items-start justify-center p-4 lg:mt-20">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
-          <div className="hidden lg:block">
-            <h1 className="text-lx mb-3 text-black md:text-xl lg:text-[20px]">
+          <div className="px-4 sm:px-8">
+            <h1 className="mb-3 text-lg text-black md:text-xl lg:text-[22px]">
               {t.home.bannerTitle}
             </h1>
             <p className="mb-8 text-[14px] font-normal text-[#556885] md:text-[14x]">
               {t.home.bannerSubTitle}
             </p>
           </div>
-          <div className="shadow-primary-900/30 w-full max-w-md lg:-mt-5 rounded-2xl px-4 sm:p-6">
+          <div className="shadow-primary-900/30 w-full max-w-md rounded-2xl px-4 sm:p-6 lg:-mt-3">
             <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>

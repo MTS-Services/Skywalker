@@ -144,12 +144,12 @@ const BuyCreditsMobailPart = () => {
     "https://www.kpay.com.kw/kpg/paymentpage.htm?PaymentID=107517673000223474#d";
 
   return (
-    <div className="font-inter mx-auto flex min-h-screen max-w-4xl flex-col items-center p-4 text-gray-800">
-      <div className="my-8 w-full max-w-4xl px-4 text-left">
-        <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-3xl">
+    <div className="font-inter mx-auto flex min-h-screen max-w-4xl flex-col items-center  p-2 text-gray-800">
+      <div className="my-5 w-full max-w-4xl px-4 text-left ">
+        <h2 className="mb-2 sm:text-[18px] font-[700] text-gray-800 text-[18px] lg:text-[22px]">
           {t.byCredit.title}
         </h2>
-        <ul className="mb-6 list-inside list-disc text-sm text-gray-600 sm:text-base">
+        <ul className=" list-inside list-disc text-sm text-gray-600 sm:text-base">
           <li>{t.byCredit.subtitlefast}</li>
           <p className="flex items-center sm:flex-row sm:items-center">
             <li>{t.byCredit.subtitlastone}</li>
@@ -251,9 +251,9 @@ const BuyCreditsMobailPart = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center px-4 py-6 text-center text-sm text-gray-700">
+      <div className="flex items-center justify-center px-4 pb-4 text-center text-sm text-gray-700">
         <svg
-          className="mr-2 h-6 w-6 flex-shrink-0 text-green-500"
+          className="mr-1 -mt-5 h-6 w-6 flex-shrink-0 text-green-500"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
