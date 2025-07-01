@@ -1,6 +1,5 @@
-// Path: src/pages/agent/Agent.jsx
 import React, { useState, useEffect } from "react";
-import { FaInstagram, FaWhatsapp } from "react-icons/fa"; // যদি FaFacebook ব্যবহার করেন, তাহলে যোগ করুন
+import { FaInstagram, FaWhatsapp } from "react-icons/fa"; 
 import { Link } from "react-router-dom";
 
 // আপনার Assets থেকে লোগো এবং আইকন ইম্পোর্ট করুন
@@ -117,45 +116,34 @@ export default function AgentList() {
                             </h4>
 
                             <div>
-                              <div
-                                className={`flex items-center gap-1 space-x-2 py-1`}
-                              >
-                                {/* বিজ্ঞাপনের সংখ্যা - ক্লিকযোগ্য লিঙ্ক */}
-                                <Link
-                                  to={`/agent/${company.id}/ads`}
-                                  className={`text-primary-900 py-1 text-sm font-[700]`}
-                                >
-                                  {company.ads?.length || 0} Ads{" "}
-                                  {/* 'agent.ads' এর পরিবর্তে 'company.ads?.length' */}
-                                </Link>
+                              <div className="flex flex-wrap items-center gap-1 space-x-2 py-1">
+                                {/* বিজ্ঞাপনের সংখ্যা */}
+                                <p className="text-primary-900 py-1 text-sm font-[700]">
+                                  <span>{company.ads?.length || 0} Ads</span>
+                                </p>
 
                                 <span className="text-primary-200">|</span>
 
-                                {/* WhatsApp আইকন ও লিঙ্ক */}
+                                {/* WhatsApp আইকন শুধু দেখানোর জন্য */}
                                 {company.social_media?.whatsapp && (
-                                  <a
-                                    href={`https://wa.me/${company.social_media.whatsapp}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-1"
-                                  >
-                                    <FaWhatsapp className="text-primary-300 text-sm md:text-base" />
-                                  </a>
+                                  <p className="flex items-center px-1">
+                                    <span className="text-primary-300 text-sm md:text-base">
+                                      <FaWhatsapp />
+                                    </span>
+                                  </p>
                                 )}
 
-                                {/* Instagram আইকন ও লিঙ্ক */}
+                                {/* Instagram আইকন শুধু দেখানোর জন্য */}
                                 {company.social_media?.instagram && (
-                                  <a
-                                    href={company.social_media.instagram}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className=""
-                                  >
-                                    <FaInstagram className="text-primary-300 text-sm md:text-base" />
-                                  </a>
+                                  <p className="flex items-center">
+                                    <span className="text-primary-300 text-sm md:text-base">
+                                      <FaInstagram />
+                                    </span>
+                                  </p>
                                 )}
                               </div>
                             </div>
+
                             <div className="flex gap-3">
                               <div className="text-primary-dark rounded font-bold"></div>
                             </div>
