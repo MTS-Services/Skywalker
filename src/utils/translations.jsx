@@ -138,6 +138,8 @@ export const translations = {
       remember: "Remember me",
       forgetPss: "forget Password",
       forgotPassword: "Forgot Password?",
+      newuserwithnoaccount: "New user with no account? ",
+      registerforfree: "Register for free",
     },
     // resetPasswordPage: {
     //   resetPassword: "Reset Password",
@@ -601,6 +603,8 @@ export const translations = {
       forgetPss: "نسيت كلمة المرور",
       shortTitle: "أكتب رقم موبايلك المسجل وكلمة السر للدخول في حسابك",
       forgotPassword: "نسيت كلمة السر؟",
+      newuserwithnoaccount: "مستخدم جديد ولا تمتلك حساب؟",
+      registerforfree: "سجل مجانًا",
     },
     resetPasswordPage: {
       resetPassword: "تغيير كلمة السر",

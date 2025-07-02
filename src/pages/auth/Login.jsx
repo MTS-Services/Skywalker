@@ -144,6 +144,17 @@ const Login = () => {
               className="!w-full rounded-xl"
             />
           </form>
+          {/* Link to Login */}
+          <p className="mt-6 text-center text-gray-600">
+            {t.login.newuserwithnoaccount}{" "}
+            <Link
+              to="/register"
+              className="text-[12px] font-[700] text-[#2e6290]"
+              style={{ fontFamily: "var(--font-secondary)" }}
+            >
+              {t.login.registerforfree}
+            </Link>
+          </p>
         </div>
       </div>
     </section>
