@@ -7,6 +7,10 @@ import { FaArrowLeft, FaBars, FaPlusCircle } from "react-icons/fa";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import SideBar from "./SideBar";
 
+
+
+
+
 // +++ ADDED: A hook to detect screen size for responsive logic +++
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
@@ -25,6 +29,8 @@ const useMediaQuery = (query) => {
 
   return matches;
 };
+
+
 
 const HorizontalScroller = ({ children }) => {
   const scrollContainerRef = useRef(null);
@@ -597,31 +603,47 @@ const PropertyDropdown = ({
                 className="absolute inset-0 z-[11] bg-black opacity-10"
                 onClick={onToggle}
               ></div>
+
+              {/* code by shakil monsi   */}
               <div className="relative top-[120px] z-[12] mx-auto max-w-lg rounded-md border border-gray-200 bg-white p-2 shadow-lg">
+                {/* 🔍 Search Box */}
                 <div className="p-2">
                   <input
                     type="text"
                     placeholder={searchPlaceholder}
-                    className={`w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:ring-gray-300 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+                    className={`w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:ring-gray-300 focus:outline-none ${
+                      isRTL ? "text-right" : "text-left"
+                    }`}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     onClick={(e) => e.stopPropagation()}
                   />
                 </div>
+
+                {/* 🔽 Filtered Options */}
                 <ul className="max-h-60 overflow-y-auto p-1">
                   {filteredOptions.length > 0 ? (
                     filteredOptions.map((option) => (
                       <li
                         key={option.id}
-                        className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""} ${selectedItems.some((item) => item.id === option.id) ? "bg-primary-300/20" : ""}`}
+                        className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
+                          selectedItems.some((item) => item.id === option.id)
+                            ? "bg-primary-300/20"
+                            : ""
+                        }`}
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleItem(option);
                           onToggle();
                         }}
                       >
+                        {/* ✅ RTL-Compatible Checkbox + Label */}
                         <div
-                          className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
+                          className={`flex w-full items-center gap-2 ${
+                            isRTL
+                              ? "flex-row-reverse text-right"
+                              : "flex-row text-left"
+                          }`}
                         >
                           <input
                             type="checkbox"
@@ -629,14 +651,12 @@ const PropertyDropdown = ({
                             checked={selectedItems.some(
                               (item) => item.id === option.id,
                             )}
-                            className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer rounded"
+                            className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer"
                           />
-                          <span
-                            className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}
-                          >
-                            {option.name}
-                          </span>
+                          <span className="text-black">{option.name}</span>
                         </div>
+
+                        {/* 🧮 Optional Count */}
                         {option.count && (
                           <span className="text-sm text-black">
                             ({option.count})
