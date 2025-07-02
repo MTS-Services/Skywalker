@@ -1,8 +1,8 @@
 import { FaYoutube, FaTwitter, FaInstagram } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
-import { useLanguage } from "../context/LanguageContext";
-import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 // Link with bilingual support
 const FooterLink = ({ to, label, isRTL }) => {
@@ -48,21 +48,37 @@ const pagesLinks = [
 
 // Footer Component
 const Footer = () => {
+  // Move all hooks to the top level
+  const location = useLocation();
+  const [width, setWidth] = useState(window.innerWidth);
   const { t, isRTL } = useLanguage();
   const [properties, setProperties] = useState([]);
 
-  const fetchPropertyType = async () => {
-    try {
-      const response = await axios.get("/groupPropertyTypes.json");
-      setProperties(response.data);
-    } catch (error) {
-      console.error("Error fetching property types:", error);
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
+    const fetchPropertyType = async () => {
+      try {
+        const response = await axios.get("/groupPropertyTypes.json");
+        setProperties(response.data);
+      } catch (error) {
+        console.error("Error fetching property types:", error);
+      }
+    };
     fetchPropertyType();
   }, []);
+
+  const isMobile = width <= 768; // Mobile breakpoint
+  const isHomePage = location.pathname === "/";
+
+  // This is the condition to HIDE the footer
+  if (isMobile && !isHomePage) {
+    return null; // Render nothing if it's mobile and not the home page
+  }
 
   return (
     <footer className="bg-primary-600 px-6 py-10 text-sm text-white">

@@ -450,6 +450,8 @@ export const translations = {
 
     // Ads Upload
     adUploadForm: {
+      formTitle: "Create New Ad",
+      formSubtitle: "Enter below details to create your ad",
       loading: "Loading form...",
       purposeLabel: "Purpose",
       purposePlaceholder: "Select Purposes",
@@ -886,6 +888,8 @@ export const translations = {
       },
     },
     adUploadForm: {
+      formTitle: "إنشاء إعلان جديد",
+      formSubtitle: "أدخل التفاصيل أدناه لإنشاء إعلانك",
       loading: "جاري تحميل النموذج...",
       purposeLabel: "الغرض",
       purposePlaceholder: "اختر الأغراض",
