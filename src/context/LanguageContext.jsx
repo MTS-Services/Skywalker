@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { translations } from "../utils/translations";
+import FloatingActionButton from "./../pages/fab/FloatingActionButton";
 
 const LanguageContext = createContext();
 
@@ -14,6 +15,8 @@ export const useLanguage = () => {
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState("ar");
   const [isRTL, setIsRTL] = useState(false);
+
+  const [FloatingActionButton, setFloatingActionButton] = useState(false);
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") || "ar";
@@ -44,6 +47,8 @@ export const LanguageProvider = ({ children }) => {
     isRTL,
     toggleLanguage,
     t,
+    FloatingActionButton,
+    setFloatingActionButton,
   };
 
   return (

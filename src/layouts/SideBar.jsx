@@ -17,10 +17,19 @@ import {
 } from "react-icons/fi";
 import { BsBuildings } from "react-icons/bs";
 import { FaPlusCircle } from "react-icons/fa";
+import FabController from "../pages/fab/FabController";
 
 const SideBar = ({ sidebarOpen, toggleSidebar }) => {
-  const { isRTL, t, toggleLanguage } = useLanguage();
+  const {
+    isRTL,
+    t,
+    toggleLanguage,
+    FloatingActionButton,
+    setFloatingActionButton,
+  } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
+
+  
 
   const handleLogout = () => {
     logout();
@@ -56,7 +65,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
         ></div>
       )}
       <div
-        className={`invisible fixed top-0 z-50 h-full min-w-80 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}
+        className={`invisible fixed top-0 z-50 h-full min-w-85 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}
       >
         <div className="bg-main h-full text-lg">
           <div className="border-b border-gray-200 px-4 py-2">
@@ -105,14 +114,11 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
             ))}
           </div>
           <div className="my-4 border-b border-gray-200"></div>
-          <NavLink
-            to="/ad-upload"
-            onClick={toggleSidebar}
-            className="text-primary-700 flex w-full cursor-pointer items-center gap-3 py-3 ps-6"
-          >
-            <FaPlusCircle />
-            <span className="font-bold">{t.header.addFreeAd}</span>
-          </NavLink>
+
+          <Link to="/ad-upload" onClick={toggleSidebar}>
+            <img src="/fab.png" alt="Close form" className="m-4 h-10 w-10" />
+          </Link>
+
           <div className="absolute start-0 end-0 bottom-4 flex items-center justify-center gap-4">
             {isAuthenticated && (
               <Link

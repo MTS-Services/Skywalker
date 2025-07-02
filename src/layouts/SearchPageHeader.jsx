@@ -487,9 +487,7 @@ const CategoryFilter = ({
                 onClick={onToggle}
               ></div>
               <div className="mx-auto max-w-3xl">
-                <div
-                  className={`relative top-[120px] z-[12] mr-auto w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
-                >
+                <div className="relative start-0 top-[120px] z-[12] w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg">
                   {hasSearch && (
                     <div className="border-b border-gray-300 p-2">
                       <input
@@ -506,16 +504,16 @@ const CategoryFilter = ({
                       filteredOptions.map((option) => (
                         <li
                           key={option.id}
-                          className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""} ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
+                          className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""} ${selectedValue === option.id ? "bg-primary-300/20" : ""} `}
                           onClick={() => handleSelect(option.id)}
                         >
                           <input
                             type="radio"
                             readOnly
                             checked={selectedValue === option.id}
-                            className="text-primary-400 h-4 w-4 cursor-pointer"
+                            className={`text-primary-400 h-4 w-4 cursor-pointer`}
                           />
-                          <span className={`${isRTL ? "mr-2" : "ml-2"}`}>
+                          <span className={`${isRTL ? "mr-2" : "ml-2"} `}>
                             {option.name}
                           </span>
                         </li>
