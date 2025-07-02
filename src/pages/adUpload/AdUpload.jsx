@@ -312,6 +312,16 @@ const AdUploadForm = () => {
       ...prev,
       images: [...prev.images, ...selectedFiles],
     }));
+    try {
+      // This is the standard way and should work.
+      e.target.value = "";
+    } catch (error) {
+      // If the above line fails, this block will run.
+      console.error(
+        "Could not clear file input. This may cause issues on mobile.",
+        error,
+      );
+    }
   };
 
   const handleSubmit = async (e) => {
