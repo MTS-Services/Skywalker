@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { FiAlignLeft } from "react-icons/fi";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
-import { FaArrowLeft, FaBars } from "react-icons/fa";
+import { FaArrowLeft, FaBars, FaPlusCircle } from "react-icons/fa";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import SideBar from "./SideBar";
 
@@ -1125,6 +1125,11 @@ export default function SearchPageHeader() {
                       onToggle={() => props.toggleDropdown("text")}
                       onApply={props.onApply}
                     />
+
+
+
+
+                   
                   </div>
                 </div>
               </div>
@@ -1202,6 +1207,7 @@ export default function SearchPageHeader() {
                   />
                 </HorizontalScroller>
               </div>
+              
             </div>
           )}
         </SearchFilterBar>

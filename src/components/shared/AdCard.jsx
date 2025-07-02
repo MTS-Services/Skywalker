@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FiClock } from "react-icons/fi";
+import dayjs from "dayjs";
 
 /**
  * Reusable AdCard Component
@@ -8,6 +9,10 @@ import { FiClock } from "react-icons/fi";
 const AdCard = ({ ad, t, language, isRTL, onClick }) => {
   const navigate = useNavigate();
 
+
+
+ 
+  
   const formatTimeAgo = (dateString, lang) => {
     const postDate = new Date(dateString);
     const now = new Date();
@@ -30,6 +35,14 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
       navigate(`/ads/${ad.slug}`);
     }
   };
+  const getDaysAgo = (postDate) => {
+    const now = new Date();
+    const post = new Date(postDate);
+    const diffTime = now - post;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   return (
     <div onClick={handleClick} className="group w-full cursor-pointer">
       <div className="active:border-primary-500 relative w-full rounded-lg border border-gray-200 bg-white p-3 text-black shadow shadow-gray-200 transition-shadow duration-300 hover:shadow-md sm:p-4">
@@ -104,9 +117,10 @@ const AdCard = ({ ad, t, language, isRTL, onClick }) => {
               <h3 className="text-primary-900">
                 {ad.kd} {t.ads.currency}
               </h3>
+
               <div className="flex items-center gap-1 text-gray-600">
-                <FiClock size={16} />
-                <h4>{formatTimeAgo(ad.postCreateAt, language)}</h4>
+                <FiClock />
+                <span>{getDaysAgo(ad.postCreateAt)} Days</span>
               </div>
             </div>
             <p className="mt-2 line-clamp-2 text-gray-600">{ad.description}</p>

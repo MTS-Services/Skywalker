@@ -1,4 +1,4 @@
-import { useLanguage } from "../../context/LanguageContext"
+ import { useLanguage } from "../../context/LanguageContext"
 import HeroSection from "./Hero"
 import Ads from "./Ads"
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { TfiAngleLeft } from "react-icons/tfi";
 import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import dayjs from "dayjs";
 
 /**
  * DetailsModal Component
@@ -34,7 +35,15 @@ export default function DetailsModal({
     }
   }, [show]);
 
-  // Effect to control lightbox enter/exit animation
+  // Effect to control lightbox enter/exit animation // code by shakil monshi 
+  const getDaysAgo = (postDate) => {
+    const now = new Date();
+    const post = new Date(postDate);
+    const diffTime = now - post;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+  
   useEffect(() => {
     if (showLightbox) {
       const timer = setTimeout(() => setIsLightboxActive(true), 5);
@@ -122,15 +131,16 @@ export default function DetailsModal({
               <h1 className="mt-4 text-center text-lg md:text-lg lg:text-2xl">
                 {ad.title}
               </h1>
-              <div className=" mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
+              <div className="mt-4 !text-lg font-[var(--font-bold)] sm:text-3xl">
                 {ad.kd} {t.ads.currency}
               </div>
               <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-                <div className="bg-primary-300/30  flex items-center gap-1.5 rounded-md px-2 py-2 !text-xs sm:text-sm">
+                <div className="bg-primary-300/30 hover:bg-primary-500 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
                   <FiClock />
-                  <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
+                  <span>{getDaysAgo(ad.postCreateAt)} Days</span>
                 </div>
-                <div className="bg-primary-300/30  flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
+
+                <div className="bg-primary-300/30 flex items-center gap-1.5 rounded-md px-2 py-2 text-xs sm:text-sm">
                   <FiEye />
                   <span>{ad.views}</span>
                 </div>
@@ -155,7 +165,7 @@ export default function DetailsModal({
                 className="bg-success active:bg-active-success inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-green-600 px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
               >
                 <FiPhone className="text-xl" />
-                <span className=" text-base">{ad.whatsapp}</span>
+                <span className="text-base">{ad.whatsapp}</span>
               </a>
               <a
                 href={whatsappLink}

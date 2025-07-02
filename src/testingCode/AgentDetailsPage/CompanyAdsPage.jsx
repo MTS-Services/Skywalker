@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import { FiClock, FiPhone } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import dayjs from "dayjs";
 
 import companiesData from "../../../public/companies.json";
 import AdDetailsModal from "../AdDetailsModal";
@@ -23,6 +24,16 @@ export default function CompanyAdsPage() {
   const [showAdModal, setShowAdModal] = useState(false);
   const [selectedAd, setSelectedAd] = useState(null);
   const { isRTL, t, language } = useLanguage();
+
+  const getDaysAgo = (postDate) => {
+    const now = new Date();
+    const post = new Date(postDate);
+    const diffTime = now - post;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+  
+
 
   useEffect(() => {
     const foundCompany = companiesData.find((comp) => comp.id === companyId);
@@ -99,7 +110,7 @@ export default function CompanyAdsPage() {
                 href={`tel:${company.social_media.whatsapp}`}
                 className="text-on-success active:bg-active-success inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#38A854] px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none"
               >
-                <FiPhone className={`text-xl ${isRTL ? 'rotate-265' : ''}`} />
+                <FiPhone className={`text-xl ${isRTL ? "rotate-265" : ""}`} />
                 <span className="text-lg font-normal">
                   {company.social_media.whatsapp}
                 </span>
@@ -187,16 +198,16 @@ export default function CompanyAdsPage() {
                             <div className="text-primary-900 py-1 text-sm font-[700]">
                               {ad.kd} {t.ads.currency}
                             </div>
-                            <div className="
-                            
-                            
-                            
-                            font-primary flex items-center gap-1 text-[12px] font-[400] text-[#556885]">
-                              <FiClock className="size-4" />
-                              <span>
-                                {formatTimeAgo(ad.postCreateAt, language)}
-                              </span>
-                            </div>
+                             
+                              
+                                <div className="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
+                                  <FiClock />
+                                  <span>
+                                    {getDaysAgo(ad.postCreateAt)} Days
+                                  </span>
+                                </div>
+                             
+                          
                           </div>
                           <p className="font-primary mt-2 line-clamp-2 text-sm text-[#556885]">
                             {ad.description}
