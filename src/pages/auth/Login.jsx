@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import lignimg from "../../assits/login/login (2).png";
 import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
@@ -48,7 +48,7 @@ const Login = () => {
       style={{ fontFamily: "var(--font-secondary)" }}
       dir={isRTL ? "rtl" : "ltr"}
     >
-      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:h-auto md:flex-row md:px-8">
+      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white md:h-auto md:flex-row md:px-8 lg:shadow-lg">
         <div className="hidden p-12 md:block md:w-1/2">
           <img
             src={lignimg}
@@ -58,10 +58,8 @@ const Login = () => {
         </div>
 
         <div className="flex w-full flex-col justify-center p-6 md:w-1/2 md:p-8">
-          <h1 className=" mb-2 text-center text-black">
-            {t.login.title}
-          </h1>
-          <p className=" mb-6 text-center text-sm text-gray-600">
+          <h1 className="mb-1 text-black lg:text-center">{t.login.title}</h1>
+          <p className="mb-2 text-[13px] text-[#556885] lg:py-1 lg:text-center">
             {t.login.shortTitle}
           </p>
 
@@ -105,7 +103,7 @@ const Login = () => {
             </div>
 
             {/* Remember me checkbox */}
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
@@ -118,8 +116,15 @@ const Login = () => {
               >
                 {t.login.remember}
               </label>
+            </div> */}
+            <div>
+              <Link
+                to="/reset-password"
+                className="text-[12px] font-[700] text-[#2e6290]"
+              >
+                {t?.login.forgotPassword}
+              </Link>
             </div>
-
             {/* The submit button */}
             {/* <button
               type="submit"

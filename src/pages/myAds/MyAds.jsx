@@ -73,7 +73,7 @@ export default function MyAds() {
             </NavLink>
           </h1>
           <div className="relative mt-5 min-h-48">
-            <div className="flex h-auto flex-col gap-5 !overflow-visible px-0.5">
+            <div className="flex h-auto flex-col gap-2 !overflow-visible px-0.5">
               {myAds.length > 0 ? (
                 myAds.map((ad, index) => (
                   <MyAdCard

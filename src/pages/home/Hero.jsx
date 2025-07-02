@@ -33,7 +33,7 @@ export default function Hero({ t, isRTL }) {
       <div className="container mx-auto mt-6 flex h-full w-full items-start justify-center p-4 lg:mt-20">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
           <div className="px-4 sm:px-8">
-            <h1 className="mb-3 text-lg text-black md:text-xl lg:text-[22px]">
+            <h1 className="mb-3 text-lg text-black md:text-xl font-[700] lg:text-[26px]">
               {t.home.bannerTitle}
             </h1>
             <p className="mb-8 text-[14px] font-normal text-[#556885] md:text-[14x]">

@@ -137,6 +137,23 @@ export const translations = {
       buttontext: "LOGIN",
       remember: "Remember me",
       forgetPss: "forget Password",
+      forgotPassword: "Forgot Password?",
+    },
+    // resetPasswordPage: {
+    //   resetPassword: "Reset Password",
+    //   wewilSendYou:
+    //     "We will send you an SMS with an OTP number to verify your mobile number",
+    //   sendmetheactivation: "Send me the activation number by SMS",
+    //   mobileNumber: "Mobile Number",
+    // },
+
+    resetPasswordPage: {
+      resetPassword: "Reset Password",
+      wewilSendYou:
+        "We will send you an SMS with an OTP number to verify your mobile number",
+      mobileNumber: "Mobile Number",
+      newPassword: "New Password",
+      sendmetheactivation: "Send me the activation number by SMS",
     },
 
     // Register Page
@@ -150,6 +167,7 @@ export const translations = {
       mobileNumber: "Mobile Number",
       passwords: "Password",
       buttontext: "Register",
+      byregistering: "By registering you agree to the terms and conditions",
     },
 
     byCredit: {
@@ -581,6 +599,15 @@ export const translations = {
       buttontext: "تسجيل الدخول",
       remember: "تذكرني",
       forgetPss: "نسيت كلمة المرور",
+      shortTitle: "أكتب رقم موبايلك المسجل وكلمة السر للدخول في حسابك",
+      forgotPassword: "نسيت كلمة السر؟",
+    },
+    resetPasswordPage: {
+      resetPassword: "تغيير كلمة السر",
+      wewilSendYou:
+        "سوف نرسل لك رسالة SMS وبداخلها رقم تفعيل OTP للتأكد من رقم موبايلك",
+      sendmetheactivation: "أرسل لي رقم التفعيل عبر الموبايل SMS",
+      mobileNumber: "رقم الهاتف",
     },
     register: {
       title: "التسجيل",
@@ -591,6 +618,7 @@ export const translations = {
       mobileNumber: "رقم الهاتف",
       passwords: "كلمة المرور",
       buttontext: "التسجيل",
+      byregistering: "تسجيلك يعني موافقتك على الشروط والأحكام",
     },
     byCredit: {
       title: "شراء رصيد",
