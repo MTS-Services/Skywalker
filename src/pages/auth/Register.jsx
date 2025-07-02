@@ -46,7 +46,7 @@ const Register = () => {
 
   return (
     <section className="flex items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-10 md:py-28 lg:h-screen">
-      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:h-auto md:flex-row md:px-8">
+      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white md:h-auto md:flex-row md:px-8 lg:shadow-lg">
         {/* Left Image (Hidden on small screens, visible on md and up) */}
         <div className="hidden p-12 md:block md:w-1/2">
           <img
@@ -58,11 +58,9 @@ const Register = () => {
 
         {/* Form */}
         <div className="flex w-full flex-col justify-center p-6 md:w-1/2 md:p-8">
-          <h1 className="mb-2 text-center text-black">
-            {t.register.title}
-          </h1>
+          <h1 className="mb-1 text-black lg:text-center">{t.register.title}</h1>
 
-          <p className="mb-6 text-center text-sm text-gray-600">
+          <p className="mb-2 text-[14px] text-[#556885] lg:text-center">
             {t.register.subtitle}
           </p>
 
@@ -103,9 +101,17 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+              
               </div>
             </div>
-
+            <div>
+              <Link
+                to="/terms"
+                className="text-[12px] font-[700] text-[#2e6290]"
+              >
+                {t.register.byregistering}
+              </Link>
+            </div>
             <ButtonSubmit
               text={
                 <span className="flex items-center gap-2">
@@ -121,7 +127,7 @@ const Register = () => {
             {t.register.alradyLogin}{" "}
             <Link
               to="/login"
-              className="text-primary-500 font-semibold hover:underline"
+              className="text-[12px] font-[700] text-[#2e6290]"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
               {t.register.loginlink}

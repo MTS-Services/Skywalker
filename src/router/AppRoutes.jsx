@@ -20,6 +20,7 @@ import Setting from "../pages/settings/Setting";
 import Agent from "../pages/agent/Agent";
 import PublicRoute from "../authente/AuthProvideer/PublicRoute";
 import Sitemap from "../pages/sitemap/Sitemap";
+import ResetPassword from "../pages/auth/ResetPassword";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const AppRoutes = createBrowserRouter([
       },
       {
         path: "sitemap",
-        element: <Sitemap></Sitemap>
+        element: <Sitemap></Sitemap>,
       },
       {
         path: "contact",
@@ -55,9 +56,14 @@ const AppRoutes = createBrowserRouter([
         path: "terms",
         element: <TermAndCondition />,
       },
+
       {
         path: "agents",
         element: <Agent />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
       },
 
       {
