@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react"; // useRef import করা হয়েছে
 import { useNavigate } from "react-router-dom";
-import { FiAlertTriangle, FiEye, FiPhone, FiShare2, FiX } from "react-icons/fi";
+import { FiAlertTriangle, FiClock, FiEye, FiPhone, FiShare2, FiX } from "react-icons/fi";
 import { RxClock, RxReload } from "react-icons/rx";
-import { useLanguage } from "../../context/LanguageContext";
 import DiagonalRibbon from "../DiagonalRibbon";
 import { BsPin, BsPinFill, BsTranslate } from "react-icons/bs";
 import { FaEdit, FaWhatsapp } from "react-icons/fa";
-import { toast, ToastContainer } from "react-toastify"; // Import Toastify
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 const MyAdCard = ({ ad, onClick, showRenew }) => {
   const { isRTL, t, language } = useLanguage();
   const navigate = useNavigate();
 
   const [showMakeSuperModal, setShowMakeSuperModal] = useState(false);
-  const [showRemoveSuperModal, setShowRemoveSuperModal] = useState(false);
+  const [showRemoveSuperModal, setShowRemoveRemoveSuperModal] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
   const [showTranslateModal, setShowTranslateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false); // Edit Modal state
@@ -56,6 +56,13 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
 
   const handleOpenEditModal = () => {
     setShowEditModal(!showEditModal);
+  };
+  const getDaysAgo = (postDate) => {
+    const now = new Date();
+    const post = new Date(postDate);
+    const diffTime = now - post;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
   };
 
   return (
@@ -111,9 +118,10 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
                 {ad.kd} {t.ads.currency}
               </div>
 
-              <div className="text-primary-900 flex items-center gap-1 rounded text-xs">
-                <RxClock />
-                <span>{formatTimeAgo(ad.postCreateAt, language)}</span>
+              <div className="  flex items-center gap-1.5 
+              rounded-full px-3 py-1 text-xs sm:text-sm">
+                <FiClock />
+                <span>{getDaysAgo(ad.postCreateAt)} Days</span>
               </div>
 
               <div className="text-primary-900 flex items-center gap-1 text-xs">
@@ -198,6 +206,22 @@ function EditModal({ ad, handleCloseEditModal, t }) {
   const [editedTitle, setEditedTitle] = useState(ad.title);
   const [editedDescription, setEditedDescription] = useState(ad.description);
   const [editedKd, setEditedKd] = useState(ad.kd);
+  const [selectedImage, setSelectedImage] = useState(null); // State for the new image file
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(
+    ad.images && ad.images.length > 0 ? ad.images[0] : "" // Initial preview URL from existing ad image
+  );
+  const fileInputRef = useRef(null); // Reference for the file input
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setImagePreviewUrl(URL.createObjectURL(file)); // Create a URL for image preview
+    } else {
+      setSelectedImage(null);
+      setImagePreviewUrl(ad.images && ad.images.length > 0 ? ad.images[0] : ""); // Revert to original if no file selected
+    }
+  };
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -207,86 +231,113 @@ function EditModal({ ad, handleCloseEditModal, t }) {
       title: editedTitle,
       description: editedDescription,
       kd: editedKd,
+      image: selectedImage, // Log the selected image file (for actual upload, you'd send this to a file storage service)
     });
     // Close the modal and show success message if API call is successful
-    toast.success(t.myAds.editSuccessMessage || "Ad updated successfully!"); // Success message added
+    toast.success(t.myAds.editSuccessMessage || "Ad updated successfully!");
     handleCloseEditModal();
   };
 
   return (
     <>
-      <div className="fixed inset-0 z-30 bg-black/70" aria-hidden="true"></div>
-      <div className="fixed inset-0 z-30 w-screen overflow-y-auto">
+      <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
+      <div className="fixed inset-0 w-screen overflow-y-auto z-30">
         <div className="flex min-h-full items-center justify-center p-4">
           <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-[700]">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-[700] text-lg">
                 {t.myAds.editAdTitle || "Edit Ad"}
               </h2>
-              <button
-                onClick={handleCloseEditModal}
-                className="text-gray-500 hover:text-gray-700"
-              >
+              <button onClick={handleCloseEditModal} className="text-gray-500 hover:text-gray-700">
                 <FiX size={24} />
               </button>
             </div>
             <form onSubmit={handleSave} className="space-y-4">
+              {/* Image Upload Section */}
               <div>
-                <label
-                  htmlFor="title"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  {t.myAds.imageLabel || "Ad Image"}
+                </label>
+                <div className="mt-1 flex flex-col items-center">
+                  {imagePreviewUrl && (
+                    <img
+                      src={imagePreviewUrl}
+                      alt="Ad Preview"
+                      className="w-32 h-32 object-cover rounded-md mb-2 border border-gray-300"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://placehold.co/128x128/CCCCCC/000000?text=Image+Error";
+                      }}
+                    />
+                  )}
+                  <input
+                    type="file"
+                    id="imageUpload"
+                    ref={fileInputRef}
+                    className="hidden" // Hide the default file input
+                    onChange={handleImageChange}
+                    accept="image/*" // Only accept image files
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current.click()} // Trigger click on hidden input
+                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200 text-sm"
+                  >
+                    {t.myAds.changeImageButton || "Change Image"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Title Input */}
+              <div>
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                   {t.myAds.titleLabel || "Title"}
                 </label>
                 <input
                   type="text"
                   id="title"
-                  className="focus:border-primary-500 focus:ring-primary-500 mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2"
                   value={editedTitle}
                   onChange={(e) => setEditedTitle(e.target.value)}
                 />
               </div>
+              {/* Description Input */}
               <div>
-                <label
-                  htmlFor="description"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                   {t.myAds.descriptionLabel || "Description"}
                 </label>
                 <textarea
                   id="description"
                   rows="4"
-                  className="focus:border-primary-500 focus:ring-primary-500 mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2"
                   value={editedDescription}
                   onChange={(e) => setEditedDescription(e.target.value)}
                 ></textarea>
               </div>
+              {/* Price (KD) Input */}
               <div>
-                <label
-                  htmlFor="kd"
-                  className="mb-1 block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="kd" className="block text-sm font-medium text-gray-700 mb-1">
                   {t.myAds.priceLabel || "Price (KD)"}
                 </label>
                 <input
                   type="number"
                   id="kd"
-                  className="focus:border-primary-500 focus:ring-primary-500 mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2"
                   value={editedKd}
                   onChange={(e) => setEditedKd(e.target.value)}
                 />
               </div>
-              <div className="mt-6 flex justify-end gap-3">
+              <div className="flex justify-end gap-3 mt-6">
                 <button
                   type="button"
                   onClick={handleCloseEditModal}
-                  className="focus:ring-primary-500 inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                  className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   {t.myAds.cancel || "Cancel"}
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary-500 hover:bg-primary-600 focus:ring-primary-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-primary-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   {t.myAds.save || "Save Changes"}
                 </button>
@@ -299,28 +350,29 @@ function EditModal({ ad, handleCloseEditModal, t }) {
   );
 }
 
+
 // Existing Modals (no changes here, just for context)
 function addSuperModal({ ad, handleMakeSuperModel, t }) {
   return (
     <>
-      <div className="fixed inset-0 z-30 bg-black/70" aria-hidden="true"></div>
-      <div className="fixed inset-0 z-30 w-screen overflow-y-auto">
+      <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
+      <div className="fixed inset-0 w-screen overflow-y-auto z-30">
         <div className="flex min-h-full items-center justify-center p-4">
           <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-            <h2 className="mb-2 font-[700]">{t.myAds.confirmation}</h2>
+            <h2 className="font-[700] mb-2">{t.myAds.confirmation}</h2>
             <div>
               <p className="text-sm text-gray-600">{t.myAds.makeSuper}</p>
               <div className="h-4"></div>
               <div className="flex flex-row justify-between gap-3">
                 <button
                   onClick={handleMakeSuperModel}
-                  className="text-primary-900 border-primary-200 hover:bg-primary-50/50 mx-7 inline-flex h-auto shrink-0 items-center justify-center rounded-md border px-4 py-2 text-sm whitespace-nowrap underline-offset-4 transition-colors select-none disabled:opacity-50 lg:px-8 lg:py-4"
+                  className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-4 lg:px-8 py-2 lg:py-4 text-sm"
                 >
                   {t.myAds.cancel}
                 </button>
                 <button
                   onClick={handleMakeSuperModel}
-                  className="bg-primary active:bg-active-primary bg-primary-500 hover:bg-primary-600 inline-flex h-auto shrink-0 items-center justify-center rounded-md px-4 py-2 text-sm font-[700] whitespace-nowrap text-white transition-colors select-none disabled:opacity-50 lg:px-8 lg:py-4"
+                  className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md font-[700] bg-primary text-white active:bg-active-primary px-4 lg:px-8 py-2 lg:py-4 text-sm bg-primary-500 hover:bg-primary-600"
                 >
                   {t.myAds.confirm}
                 </button>
@@ -336,24 +388,24 @@ function addSuperModal({ ad, handleMakeSuperModel, t }) {
 function removeSuperModal({ ad, handleRemoveSuperModel, t }) {
   return (
     <>
-      <div className="fixed inset-0 z-30 bg-black/70" aria-hidden="true"></div>
-      <div className="fixed inset-0 z-30 w-screen overflow-y-auto">
+      <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
+      <div className="fixed inset-0 w-screen overflow-y-auto z-30">
         <div className="flex min-h-full items-center justify-center p-4">
           <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-            <h2 className="mb-2 font-[700]">{t.myAds.confirmation}</h2>
+            <h2 className="font-[700] mb-2">{t.myAds.confirmation}</h2>
             <div>
               <div>{t.myAds.removeSuper}</div>
               <div className="h-4"></div>
               <div className="flex flex-row justify-between gap-3">
                 <button
                   onClick={handleRemoveSuperModel}
-                  className="text-primary-900 border-primary-200 hover:bg-primary-50/50 mx-7 inline-flex h-auto shrink-0 items-center justify-center rounded-md border px-4 py-2 text-sm whitespace-nowrap underline-offset-4 transition-colors select-none disabled:opacity-50 lg:px-8 lg:py-4"
+                  className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-4 lg:px-8 py-2 lg:py-4 text-sm"
                 >
                   {t.myAds.cancel}
                 </button>
                 <button
                   onClick={handleRemoveSuperModel}
-                  className="bg-primary active:bg-active-primary bg-primary-500 hover:bg-primary-600 inline-flex h-auto shrink-0 items-center justify-center rounded-md px-4 py-2 text-sm font-[700] whitespace-nowrap text-white transition-colors select-none disabled:opacity-50 lg:px-8 lg:py-4"
+                  className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md font-[700] bg-primary text-white active:bg-active-primary px-4 lg:px-8 py-2 lg:py-4 text-sm bg-primary-500 hover:bg-primary-600"
                 >
                   {t.myAds.confirm}
                 </button>
@@ -369,24 +421,24 @@ function removeSuperModal({ ad, handleRemoveSuperModel, t }) {
 function renewModal({ ad, handleOpenRenewModal, t }) {
   return (
     <>
-      <div className="fixed inset-0 z-30 bg-black/70" aria-hidden="true"></div>
-      <div className="fixed inset-0 z-30 w-screen overflow-y-auto">
+      <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
+      <div className="fixed inset-0 w-screen overflow-y-auto z-30">
         <div className="flex min-h-full items-center justify-center p-4">
           <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-            <h2 className="mb-2 font-[700]">{t.myAds.confirmation}</h2>
+            <h2 className="font-[700] mb-2">{t.myAds.confirmation}</h2>
             <div>
               <p className="text-sm text-gray-600">{t.myAds.renew}</p>
               <div className="h-4"></div>
               <div className="flex flex-row justify-between gap-3">
                 <button
                   onClick={handleOpenRenewModal}
-                  className="text-primary-900 border-primary-200 hover:bg-primary-50/50 mx-7 inline-flex h-auto shrink-0 items-center justify-center rounded-md border px-4 py-2 text-sm whitespace-nowrap underline-offset-4 transition-colors select-none disabled:opacity-50 lg:px-8 lg:py-4"
+                  className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-4 lg:px-8 py-2 lg:py-4 text-sm"
                 >
                   {t.myAds.cancel}
                 </button>
                 <button
                   onClick={handleOpenRenewModal}
-                  className="bg-primary active:bg-active-primary bg-primary-500 hover:bg-primary-600 inline-flex h-auto shrink-0 items-center justify-center rounded-md px-4 py-2 text-sm font-[700] whitespace-nowrap text-white transition-colors select-none disabled:opacity-50 lg:px-8 lg:py-4"
+                  className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md font-[700] text-sm bg-primary text-white active:bg-active-primary px-4 lg:px-8 py-2 lg:py-4 bg-primary-500 hover:bg-primary-600"
                 >
                   {t.myAds.confirm}
                 </button>
@@ -437,21 +489,16 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
       }
     }
   };
+
   return (
     <>
-      <div className="fixed inset-0 z-30 bg-black/70" aria-hidden="true"></div>
-      <div
-        className="fixed inset-0 z-30 w-screen overflow-y-auto"
-        dir={isRTL ? "ltr" : "rtl"}
-      >
+      <div className="fixed inset-0 bg-black/70 z-30" aria-hidden="true"></div>
+      <div className="fixed inset-0 w-screen overflow-y-auto z-30" dir={isRTL ? "ltr" : "rtl"}>
         <div className="flex min-h-full items-center justify-center p-4">
           <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
             <div>
               <div>
-                <div
-                  className="flex items-center justify-between"
-                  dir={isRTL ? "rtl" : "ltr"}
-                >
+                <div className="flex items-center justify-between" dir={isRTL ? "rtl" : "ltr"}>
                   <h2 className="text-sm font-[700] text-gray-600">
                     {t.myAds.translateTitle}
                   </h2>
@@ -463,37 +510,33 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
                 <div className="h-4"></div>
                 {/* Warning/Error Message Section */}
                 <div className="overflow-x-hidden">
-                  <div className="flex w-full items-center justify-center gap-2 rounded-t-lg bg-orange-400 p-2 text-xl text-white shadow-inner">
+                  <div className="flex items-center justify-center gap-2 text-xl p-2 w-full shadow-inner text-white bg-orange-400 rounded-t-lg">
                     <FiAlertTriangle />
                     <span>{t.myAds.translateMessage}</span>
                   </div>
                   {/* Ad Content Preview Section */}
-                  <div className="bg-primary-400 relative flex flex-col items-center rounded-b-lg px-6 text-white">
-                    <div className="mx-auto mt-4 max-w-2xl">
-                      <h1 className="text-center text-lg font-[700]">
+                  <div className="flex flex-col items-center bg-primary-400 rounded-b-lg text-white px-6 relative">
+                    <div className="max-w-2xl mx-auto mt-4">
+                      <h1 className="text-lg font-[700] text-center">
                         {ad.title}
                       </h1>
                     </div>
-                    <div className="mt-1.5 text-lg font-[700]">
+                    <div className="text-lg font-[700] mt-1.5">
                       {ad.kd} {t.myAds.currency}
                     </div>
-                    <div className="mt-6 flex gap-3">
-                      <div className="bg-primary-300 flex items-center justify-center gap-1 rounded px-1.5 py-1 text-xs">
+                    <div className="flex gap-3 mt-6">
+                      <div className="flex items-center justify-center gap-1 rounded bg-primary-300 py-1 px-1.5 text-xs">
                         <RxClock />
                         {formatTimeAgo(ad.postCreateAt, language)}
                       </div>
                       {/* Views count */}
-                      <div className="bg-primary-300 flex min-w-[62px] items-center justify-center gap-1 rounded px-1.5 py-1 text-xs">
+                      <div className="flex items-center justify-center gap-1 rounded bg-primary-300 py-1 px-1.5 text-xs min-w-[62px]">
                         <FiEye />
                         <div>{ad.views}</div>
                       </div>
                       {/* Download button */}
-                      <button
-                        onClick={() => handleShareClick(ad)}
-                        type="button"
-                        className="flex items-stretch"
-                      >
-                        <div className="bg-primary-300 flex items-center justify-center gap-1 rounded px-1.5 py-1 text-xs">
+                      <button onClick={() => handleShareClick(ad)} type="button" className="flex items-stretch">
+                        <div className="flex items-center justify-center gap-1 rounded bg-primary-300 py-1 px-1.5 text-xs">
                           <FiShare2 />
                         </div>
                       </button>
@@ -503,16 +546,16 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
                 </div>
               </div>
               {/* Ad Description */}
-              <div className="mx-auto max-w-2xl">
-                <div className="leading-lg p-6 text-center">
+              <div className="max-w-2xl mx-auto">
+                <div className="p-6 text-center leading-lg">
                   {ad.description}
                 </div>
               </div>
               {/* Call and WhatsApp Buttons */}
-              <div className="flex justify-center gap-3">
+              <div className="flex gap-3 justify-center">
                 <a
                   href={`tel:${ad.whatsapp}`}
-                  className="bg-success active:bg-active-success inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg bg-green-600 px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
+                  className="bg-success active:bg-active-success bg-green-600 inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-base font-bold whitespace-nowrap text-white transition-colors select-none sm:w-auto"
                 >
                   <FiPhone className={isRTL ? "" : "-rotate-90"} />
                   <div className="font-normal">{ad.whatsapp}</div>
@@ -522,7 +565,7 @@ function translateModal({ ad, handleOpenTranslateModal, t, language, isRTL }) {
                     href={`https://wa.me/${ad.whatsapp.replace(/\D/g, "")}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="bg-main flex h-12 w-full items-center justify-center rounded-lg border border-green-600 p-1 text-2xl text-green-600 transition-colors hover:bg-green-100 sm:w-12"
+                    className="border-green-600 text-green-600 bg-main hover:bg-green-100 flex h-12 w-full items-center justify-center rounded-lg border p-1 text-2xl transition-colors sm:w-12"
                   >
                     <FaWhatsapp />
                   </a>
