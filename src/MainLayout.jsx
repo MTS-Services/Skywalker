@@ -53,9 +53,11 @@ import SearchPageHeader from "./layouts/SearchPageHeader";
 // UPDATED: Import our new controller
 import { useEffect, useState } from "react";
 import FabController from "./pages/fab/FabController";
+import { useLanguage } from "./context/LanguageContext";
 
 function MainLayout() {
   const location = useLocation();
+  const { setFloatingActionButton, FloatingActionButton } = useLanguage();
 
   // UPDATED: This logic detects if the user is on a mobile-sized screen
   const [width, setWidth] = useState(window.innerWidth);
@@ -84,7 +86,7 @@ function MainLayout() {
       </footer>
 
       {/* If the screen is mobile-sized, it will render our FabController system */}
-      {isMobile && <FabController />}
+      {isMobile && !FloatingActionButton && <FabController />}
 
       <ToastContainer
         position="top-right"

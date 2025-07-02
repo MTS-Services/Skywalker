@@ -14,13 +14,23 @@ const navLinkClass = ({ isActive }) =>
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { isRTL, t, toggleLanguage, language } = useLanguage();
+  const {
+    isRTL,
+    t,
+    toggleLanguage,
+    language,
+    FloatingActionButton,
+    setFloatingActionButton,
+  } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const propertyDropdownRef = useRef(null);
 
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+    setFloatingActionButton(!FloatingActionButton);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {

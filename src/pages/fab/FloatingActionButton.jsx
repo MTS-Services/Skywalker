@@ -69,7 +69,7 @@ const FloatingActionButton = ({ isOpen, onClick }) => {
   };
 
   return (
-    <div className="fixed right-6 bottom-6 z-20">
+    <div className="fixed right-6 bottom-6 z-[2001]">
       <button
         onClick={handleFabClick}
         aria-label={isOpen ? "Close form" : "Open form"}

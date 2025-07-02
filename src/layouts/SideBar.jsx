@@ -20,8 +20,16 @@ import { FaPlusCircle } from "react-icons/fa";
 import FabController from "../pages/fab/FabController";
 
 const SideBar = ({ sidebarOpen, toggleSidebar }) => {
-  const { isRTL, t, toggleLanguage } = useLanguage();
+  const {
+    isRTL,
+    t,
+    toggleLanguage,
+    FloatingActionButton,
+    setFloatingActionButton,
+  } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
+
+  
 
   const handleLogout = () => {
     logout();
@@ -57,7 +65,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
         ></div>
       )}
       <div
-        className={`invisible fixed top-0 z-50 h-full min-w-90 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}
+        className={`invisible fixed top-0 z-50 h-full min-w-85 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}
       >
         <div className="bg-main h-full text-lg">
           <div className="border-b border-gray-200 px-4 py-2">
