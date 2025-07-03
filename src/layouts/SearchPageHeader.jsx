@@ -6,6 +6,7 @@ import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 import { FaArrowLeft, FaBars, FaPlusCircle } from "react-icons/fa";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import SideBar from "./SideBar";
+import FabController from "../pages/fab/FabController";
 
 // +++ ADDED: A hook to detect screen size for responsive logic +++
 const useMediaQuery = (query) => {
@@ -375,31 +376,28 @@ const MobileRegionFilter = ({
                   <li
                     key={option.id}
                     className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
-                      isRTL ? "flex-row-reverse" : ""
-                    } ${
                       selectedItems.some((item) => item.id === option.id)
                         ? "bg-primary-300/20"
                         : ""
                     }`}
-                    onClick={() => handleItemSelectAndClose(option)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleItem(option);
+                      onToggle();
+                    }}
                   >
-                    <div
-                      className={`flex items-center ${
-                        isRTL ? "text-right" : "text-left"
-                      }`}
-                    >
+                    <div className="flex items-center">
                       <input
-                        type="checkbox"
+                        type="radio"
                         readOnly
                         checked={selectedItems.some(
                           (item) => item.id === option.id,
                         )}
-                        className="form-checkbox text-primary-400 pointer-events-none h-4 w-4 rounded"
+                        className="form-radio h-4 w-4 cursor-pointer rounded"
                       />
-                      <span className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}>
-                        {option.name}
-                      </span>
+                      <span className="ltr:ml-2 rtl:mr-2">{option.name}</span>
                     </div>
+
                     {option.count && (
                       <span className="text-sm text-black">
                         ({option.count})
@@ -482,7 +480,7 @@ const CategoryFilter = ({
                 onClick={onToggle}
               ></div>
               <div className="mx-auto max-w-3xl">
-                <div className="relative start-0 top-[120px] z-[12] w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg">
+                <div className="relative start-0 top-[120px] z-[12] mt-2 w-fit min-w-40 rounded-md border border-gray-300 bg-white p-2 shadow-lg lg:-mt-2">
                   {hasSearch && (
                     <div className="border-b border-gray-300 p-2">
                       <input
@@ -590,7 +588,7 @@ const PropertyDropdown = ({
               ></div>
 
               {/* code by shakil monsi   */}
-              <div className="relative top-[120px] z-[12] mx-auto max-w-sm rounded-md border border-gray-200 bg-white p-2 shadow-lg">
+              <div className="relative top-[120px] z-[12] mx-auto mt-2 rounded-md border border-gray-200 bg-white p-2 shadow-lg lg:-mt-2 lg:max-w-lg">
                 {/* 🔍 Search Box */}
                 <div className="p-2">
                   <input
@@ -710,7 +708,7 @@ function PriceRangeFilter({
                 onClick={onToggle}
               ></div>
               <div
-                className={`relative top-[120px] z-[12] mx-auto max-w-xs rounded-md border border-gray-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+                className={`relative top-[120px] z-[12] mx-auto mt-2 max-w-xs rounded-md border border-gray-200 bg-white p-4 shadow-lg lg:-mt-2 ${isRTL ? "left-0" : "right-0"}`}
                 style={{ minWidth: "300px" }}
               >
                 <div className="mb-4 flex items-center justify-between text-sm font-medium text-black">
@@ -831,7 +829,7 @@ function TextSearchFilter({
                 onClick={onToggle}
               ></div>
               <div
-                className={`relative top-[120px] z-[12] mx-auto max-w-sm rounded-md border border-gray-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+                className={`relative top-[120px] z-[12] mx-auto mt-2 max-w-sm rounded-md border border-gray-200 bg-white p-4 shadow-lg lg:-mt-2 ${isRTL ? "left-0" : "right-0"}`}
                 style={{ minWidth: "300px" }}
               >
                 <p className="mb-2 text-sm text-black">
@@ -1003,10 +1001,12 @@ const SearchFilterBar = ({
 };
 
 export default function SearchPageHeader() {
-  const { isRTL, t } = useLanguage();
+  const { isRTL, t, FloatingActionButton } = useLanguage();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const isDesktopView = useMediaQuery("(min-width: 1280px)"); // Tailwind 'xl' breakpoint
+  const isDesktopView = useMediaQuery("(min-width: 1280px)");
+
+  const isMobile = window.innerWidth <= 768;
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -1198,7 +1198,8 @@ export default function SearchPageHeader() {
           )}
         </SearchFilterBar>
       </nav>
-      <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      {isMobile && !FloatingActionButton && !sidebarOpen && <FabController />}
+      {<SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />}
     </>
   );
 }

@@ -16,20 +16,12 @@ import {
   FiX,
 } from "react-icons/fi";
 import { BsBuildings } from "react-icons/bs";
-import { FaPlusCircle } from "react-icons/fa";
-import FabController from "../pages/fab/FabController";
+// import { FaPlusCircle } from "react-icons/fa";
+// import FabController from "../pages/fab/FabController";
 
 const SideBar = ({ sidebarOpen, toggleSidebar }) => {
-  const {
-    isRTL,
-    t,
-    toggleLanguage,
-    FloatingActionButton,
-    setFloatingActionButton,
-  } = useLanguage();
+  const { isRTL, t, toggleLanguage, FloatingActionButton } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
-
-  
 
   const handleLogout = () => {
     logout();
@@ -115,8 +107,13 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
           </div>
           <div className="my-4 border-b border-gray-200"></div>
 
-          <Link to="/ad-upload" onClick={toggleSidebar}>
-            <img src="/fab.png" alt="Close form" className="m-4 h-10 w-10" />
+          <Link
+            to="/ad-upload"
+            onClick={toggleSidebar}
+            className="flex items-center gap-2 px-4"
+          >
+            <img src="/fab.png" alt="Close form" className="h-10 w-10" />
+            <h1 className="text-primary-600 text-lg">Post your ad</h1>
           </Link>
 
           <div className="absolute start-0 end-0 bottom-4 flex items-center justify-center gap-4">
