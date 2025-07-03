@@ -1,92 +1,142 @@
-import { useState, useEffect } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
-import {
-  FiChevronDown,
-  FiChevronUp,
-  FiPlus,
-  FiMenu,
-  FiX,
-} from "react-icons/fi";
-// import { useTranslation } from "react-i18next"
+import { useState, useEffect, useRef, useContext, useMemo } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { FiChevronDown, FiChevronUp, FiSettings } from "react-icons/fi";
+import { FaBars, FaPlusCircle } from "react-icons/fa";
+import axios from "axios";
+import { useLanguage } from "../context/LanguageContext";
+import { AuthContext } from "../context/AuthContext";
+import SideBar from "./SideBar";
 
 const navLinkClass = ({ isActive }) =>
   isActive
-    ? "text-[#32E0BB] border-b-2 border-[#32E0BB] pb-1"
-    : "hover:text-[#32E0BB]";
+    ? "text-[#26b1e6] border-b-2 border-[#26b1e6] pb-1"
+    : "hover:text-[#26b1e6] transition-colors";
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("AR");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  // const isRTL = i18n.language === "ar"
+  const {
+    isRTL,
+    t,
+    toggleLanguage,
+    language,
+    FloatingActionButton,
+    setFloatingActionButton,
+  } = useLanguage();
+  const { isAuthenticated, logout } = useContext(AuthContext);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    setIsDropdownOpen(false);
-    setLangOpen(false);
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
+  const propertyDropdownRef = useRef(null);
 
-  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
-  const toggleLanguage = () => setLangOpen((prev) => !prev);
-  const handleLangSelect = (lang) => {
-    setCurrentLang(lang);
-    setLangOpen(false);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+    setFloatingActionButton(!FloatingActionButton);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        propertyDropdownRef.current &&
+        !propertyDropdownRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+
+  const handleLanguageChange = (lang) => {
+    toggleLanguage(lang);
+  };
+
+  const handleLogout = () => logout();
+
+  const navItems = useMemo(() => {
+    const base = [{ label: t.header.home, to: "/" }];
+    const auth = [
+      { label: t.header.login, to: "/login" },
+      { label: t.header.register, to: "/register" },
+    ];
+    const protectedItems = [
+      { label: t.header.myAds, to: "/my-ads" },
+      { label: t.header.myArchives, to: "/my-archives" },
+      { label: t.header.buyCredit, to: "/buy-credits" },
+      { label: t.header.logout, action: handleLogout },
+    ];
+
+
+
+    const end = [{ label: t.header.agents, to: "/agents" }];
+    return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
+  }, [isAuthenticated, t]);
+
   return (
-    <nav className="relative z-50 border-b border-[#32E0BB] bg-white px-4 py-4 shadow-sm">
+    <nav
+      className={`relative z-50 border-b border-gray-200 bg-white px-4 py-4 shadow-sm ${
+        isRTL ? "rtl" : "ltr"
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <Link to="/" className="flex items-center">
-          <img src="/logo.png" alt="Logo" className="h-auto w-36 sm:w-48" />
-        </Link>
+        {/* Logo and Site Name */}
+        <NavLink to="/" className={`flex items-center justify-start gap-2`}>
+          <img src="/logo.png" alt="Logo" className="w-18" />
+          <div>
+            <p className="text-lg font-bold capitalize">{t.site.name}</p>
+            <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
+              {t.site.tagline}
+            </p>
+          </div>
+        </NavLink>
+
+    
+
+        {/* Mobile Hamburger Menu Button */}
         <button
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-          className="text-2xl text-[#32E0BB] sm:hidden"
+          onClick={toggleSidebar}
+          className="text-2xl text-[#556885] lg:hidden"
         >
-          {mobileMenuOpen ? <FiX /> : <FiMenu />}
+          <FaBars />
         </button>
-        <div className="text-md hidden items-center gap-6 font-medium text-black sm:flex">
+
+        {/* Desktop Navigation Links */}
+        <div
+          className={`hidden items-center gap-6 font-bold text-black lg:flex ${
+            isRTL ? "space-x-reverse" : ""
+          }`}
+        >
           <Navigation
             toggleDropdown={toggleDropdown}
             isDropdownOpen={isDropdownOpen}
-            currentLang={currentLang}
-            toggleLanguage={toggleLanguage}
-            langOpen={langOpen}
-            handleLangSelect={handleLangSelect}
+            handleLanguageChange={handleLanguageChange}
+            isRTL={isRTL}
+            t={t}
+            language={language}
+            isAuthenticated={isAuthenticated}
+            handleLogout={handleLogout}
+            navItems={navItems}
+            propertyDropdownRef={propertyDropdownRef}
+            setIsDropdownOpen={setIsDropdownOpen}
           />
+
+          {isAuthenticated && (
+            <Link to="/settings">
+              <FiSettings />
+            </Link>
+          )}
         </div>
+
+        {/* Desktop 'Add Free Ad' Button (original) */}
         <NavLink
-          to="/add-ad"
-          className="hidden items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white sm:flex"
+          to={isAuthenticated ? "/ad-upload" : "/login"}
+          className="bg-primary-300/10 border-primary-300/40 hidden items-center gap-2 rounded-md border px-8 py-3 lg:flex"
         >
-          <FiPlus className="mr-1 text-lg" />
-          Add Free Ad
+          <FaPlusCircle className="text-primary-600 text-lg" />
+          {t.header.addFreeAd}
         </NavLink>
       </div>
-
-      {mobileMenuOpen && (
-        <div className="absolute top-full left-0 z-40 w-full bg-white shadow-md sm:hidden">
-          <div className="flex flex-col items-start gap-4 px-4 py-4">
-            <Navigation
-              toggleDropdown={toggleDropdown}
-              isDropdownOpen={isDropdownOpen}
-              currentLang={currentLang}
-              toggleLanguage={toggleLanguage}
-              langOpen={langOpen}
-              handleLangSelect={handleLangSelect}
-            />
-            <NavLink
-              to="/add-ad"
-              className="flex items-center rounded bg-blue-100 px-4 py-2 font-medium text-black hover:bg-[#32E0BB] hover:text-white"
-            >
-              <FiPlus className="mr-1 text-lg" />
-              Add Free Ad
-            </NavLink>
-          </div>
-        </div>
-      )}
+      <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
     </nav>
   );
 }
@@ -94,100 +144,116 @@ function Header() {
 const Navigation = ({
   toggleDropdown,
   isDropdownOpen,
-  currentLang,
-  toggleLanguage,
-  langOpen,
-  handleLangSelect,
-}) => (
-  <>
-    <NavItem to="/" label="Home (Search)" />
-    <NavItem to="/login" label="Login" />
-    <NavItem to="/register" label="Register" />
-    <NavItem to="/agents" label="Agents" />
-    <div className="relative">
-      <button
-        onClick={toggleDropdown}
-        className="flex items-center hover:text-[#32E0BB]"
-      >
-        Kuwait Real Estate
-        {isDropdownOpen ? (
-          <FiChevronUp className="ml-1" />
-        ) : (
-          <FiChevronDown className="ml-1" />
-        )}
-      </button>
-      {isDropdownOpen && (
-        <div className="absolute z-10 mt-2 w-64 rounded-md border border-[#32E0BB] bg-white p-4 shadow-lg">
-          <DropdownSection title="Properties for rent">
-            <DropdownItem to="/rent/apartments" text="Apartments for rent" />
-            <DropdownItem to="/rent/houses" text="Houses for rent" />
-          </DropdownSection>
-          <DropdownSection title="Properties for sale">
-            <DropdownItem to="/sale/apartments" text="Apartments for sale" />
-            <DropdownItem to="/sale/houses" text="Houses for sale" />
-          </DropdownSection>
+  handleLanguageChange,
+  isRTL,
+  t,
+  isMobile = false,
+  isAuthenticated,
+  handleLogout,
+  navItems,
+  propertyDropdownRef,
+  setIsDropdownOpen,
+}) => {
+  const [propertyTypes, setPropertyTypes] = useState([]);
+
+  const fetchPropertyType = async () => {
+    try {
+      const response = await axios.get("/groupPropertyTypes.json");
+      setPropertyTypes(response.data);
+    } catch (error) {
+      console.error("Error fetching property types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPropertyType();
+  }, []);
+
+  return (
+    <div
+      className={`flex ${isMobile ? "flex-col gap-4" : "items-center gap-6"} ${
+        isRTL && !isMobile ? "space-x-reverse" : ""
+      }`}
+    >
+      {navItems.map((item, index) => (
+        <div className="active:bg-active rounded-e-2xl" key={index}>
+          {item.to ? (
+            <NavLink to={item.to} className={navLinkClass}>
+              <h2
+                className={
+                  isRTL ? "text-right !font-bold" : "text-left !font-bold"
+                }
+              >
+                {item.label}
+              </h2>
+            </NavLink>
+          ) : (
+            <button onClick={item.action}>
+              <h2>{item.label}</h2>
+            </button>
+          )}
+        </div>
+      ))}
+
+      {!isAuthenticated && (
+        <div className="relative" ref={propertyDropdownRef}>
+          <button
+            onClick={toggleDropdown}
+            className={`hover:text-primary-500 flex cursor-pointer items-center transition-colors ${
+              isDropdownOpen ? "text-primary-500" : ""
+            } ${isRTL ? "flex-row-reverse" : ""}`}
+          >
+            <h2>{t.header.kuwaitRealEstate}</h2>
+            {isDropdownOpen ? (
+              <FiChevronUp className={`${isRTL ? "mr-1" : "ml-1"}`} />
+            ) : (
+              <FiChevronDown className={`${isRTL ? "mr-1" : "ml-1"}`} />
+            )}
+          </button>
+
+          {isDropdownOpen && propertyTypes.length > 0 && (
+            <div
+              className={`absolute z-10 mt-2 max-h-[40vh] w-fit min-w-64 divide-y divide-gray-100 overflow-y-auto rounded-md border border-gray-100 bg-white shadow ${
+                isRTL ? "right-0" : "left-0"
+              }`}
+            >
+              
+              {propertyTypes.map((item, index) => (
+                <div key={index} className="p-3">
+                  {Array.isArray(item.properties) &&
+                    item.properties.length > 0 && (
+                      <>
+                        <p className="mb-2 text-base font-[700] text-gray-800">
+                          {item.title}
+                        </p>
+                        {item.properties.map((subItem, subIndex) => (
+                          <div key={subIndex}>
+                            <NavLink
+                              to={`/search?transactionType=${item.id}&propertyType=${subItem.id}`}
+                              className={`text-primary-900 my-0.5 block rounded px-2 py-1 text-sm font-[700]`}
+                              onClick={() => setIsDropdownOpen(false)}
+                            >
+                              {subItem.name}
+                            </NavLink>
+                          </div>
+                        ))}
+                      </>
+                    )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
+      <div>
+        <button onClick={() => handleLanguageChange(isRTL ? "en" : "ar")}>
+          <h2 className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
+            {isRTL ? "En" : "ع"}
+          </h2>
+        </button>
+      </div>
     </div>
-    <div className="relative">
-      <button
-        onClick={toggleLanguage}
-        className="flex items-center space-x-1 text-sm font-semibold hover:text-[#32E0BB]"
-      >
-        <span className="text-xl">{currentLang === "EN" ? "EN" : "ع"}</span>
-        {langOpen ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
-      </button>
-      {langOpen && (
-        <div className="absolute right-0 z-50 mt-2 w-32 rounded-md border border-[#32E0BB] bg-white py-1 text-sm shadow-md">
-          <LanguageItem
-            to="/en"
-            label="English"
-            code="EN"
-            onSelect={handleLangSelect}
-          />
-          <LanguageItem
-            to="/ar"
-            label="العربية"
-            code="AR"
-            onSelect={handleLangSelect}
-          />
-        </div>
-      )}
-    </div>
-  </>
-);
-
-const NavItem = ({ to, label }) => (
-  <NavLink to={to} className={navLinkClass}>
-    {label}
-  </NavLink>
-);
-
-const DropdownItem = ({ to, text }) => (
-  <NavLink
-    to={to}
-    className="block rounded px-2 py-1 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#32E0BB]"
-  >
-    {text}
-  </NavLink>
-);
-
-const DropdownSection = ({ title, children }) => (
-  <div className="mb-4">
-    <div className="mb-2 font-semibold">{title}</div>
-    {children}
-  </div>
-);
-
-const LanguageItem = ({ to, label, code, onSelect }) => (
-  <NavLink
-    to={to}
-    onClick={() => onSelect(code)}
-    className="flex items-center px-4 py-2 hover:bg-gray-100 hover:text-[#32E0BB]"
-  >
-    <span className="text-md">{code === "EN" ? "EN" : "ع"}</span>
-    <span className="ml-2">{label}</span>
-  </NavLink>
-);
-
+  );
+};
 export default Header;
+// export default Header

@@ -1,114 +1,160 @@
-import React, { useState } from "react"; // Import useState
-import { FiPhone, FiEye, FiEyeOff, FiLock, FiKey } from "react-icons/fi"; // Import FiEyeOff for when the password is hidden
-const Login = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import lignimg from "../../assits/login/login (2).png";
+import { AuthContext } from "../../context/AuthContext";
+import toast from "react-hot-toast";
+import { useLanguage } from "../../context/LanguageContext";
+import ButtonSubmit from "../../common/button/ButtonSubmit";
 
-  // Function to toggle password visibility
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+const Login = () => {
+  // State variables for mobile number and password input fields
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { t, isRTL } = useLanguage();
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!mobileNumber || !password) {
+      toast.error("Please enter both mobile number and password.");
+      return;
+    }
+
+    try {
+      const result = await login(mobileNumber, password);
+
+      if (result.success) {
+        toast.success(result.message);
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An unexpected error occurred. Please try again.");
+    }
   };
 
+  // The JSX that defines the structure and appearance of the login form.
   return (
     <section
-      className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-12"
+      className="flex items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-10 md:py-28 lg:h-screen"
       style={{ fontFamily: "var(--font-secondary)" }}
+      dir={isRTL ? "rtl" : "ltr"}
     >
-      <div className="container flex max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:flex-row">
-        {/* Left Image Section */}
+      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white md:h-auto md:flex-row md:px-8 lg:shadow-lg">
         <div className="hidden p-12 md:block md:w-1/2">
           <img
-            src="./finalblue.png"
+            src={lignimg}
             alt="Login Visual"
             className="h-full w-full object-cover"
           />
         </div>
 
-        {/* Right Form Section */}
-        <div className="flex w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="mb-2 text-center text-3xl font-extrabold text-[#32E0BB]">
-            HELLO AGAIN
-          </h2>
-          <p className="mb-10 text-center text-gray-600">
-            New user?{" "}
-            <a
-              href="/register"
-              className="font-semibold text-[#32E0BB] hover:underline"
-              style={{ fontFamily: "var(--font-secondary)" }}
-            >
-              Sign up
-            </a>
+        <div className="flex w-full flex-col justify-center p-6 md:w-1/2 md:p-8">
+          <h1 className="mb-1 text-black lg:text-center">{t.login.title}</h1>
+          <p className="mb-2 text-[13px] text-[#556885] lg:py-1 lg:text-center">
+            {t.login.shortTitle}
           </p>
 
-          <form noValidate className="space-y-6">
-            {/* Phone Number */}
+          <form noValidate className="space-y-6" onSubmit={handleSubmit}>
+            {/* Input field for the mobile number with text-right class */}
             <div>
               <div className="relative">
-                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <FiPhone className="text-gray-400" />
-                </span>
                 <input
                   id="phone"
                   type="tel"
-                  placeholder="*phone number"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
+                  placeholder={t.login.mobileNumber}
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
+                  required
                 />
               </div>
             </div>
 
-            {/* Password */}
+            {/* Input field for the password with text-right class */}
             <div>
+              <label
+                htmlFor="password"
+                className="mb-2 block text-sm font-semibold text-gray-600"
+              ></label>
               <div className="relative">
-                {/* Eye icon for toggling visibility */}
-                <button
-                  type="button" // Important: set type to button to prevent form submission
-                  onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
-                >
-                  {passwordVisible ? (
-                    <FiEyeOff className="text-gray-400" /> // Show FiEyeOff when password is visible
-                  ) : (
-                    <FiEye className="text-gray-400" /> // Show FiEye when password is hidden
-                  )}
-                </button>
                 <input
                   id="password"
-                  type={passwordVisible ? "text" : "password"} // Dynamically change type based on state
-                  placeholder="*Password"
+                  type="password"
+                  placeholder={t.register.passwords}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-10 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
+                  className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
+                  required
                 />
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <FiLock className="text-gray-400" />
-                </span>
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"></span>
               </div>
             </div>
 
             {/* Remember me checkbox */}
-            <div className="flex items-center justify-end">
+            {/* <div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-[#19398A] focus:ring-[#19398A]"
+                className="text-primary-500 focus:ring-primary-500 h-4 w-4 rounded border-gray-300"
               />
               <label
                 htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
+                className="ml-2 block pr-1 text-sm text-gray-900"
               >
-                Remember me
+                {t.login.remember}
               </label>
+            </div> */}
+            <div>
+              <Link
+                to="/reset-password"
+                className="text-[12px] font-[700] text-[#2e6290]"
+              >
+                {t?.login.forgotPassword}
+              </Link>
             </div>
-
-            {/* Submit Button */}
-            <button
+            {/* The submit button */}
+            {/* <button
               type="submit"
-              className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#32E0BB] py-3 text-lg font-semibold text-white transition hover:bg-[#152e6c]"
+              className="bg-background bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-3 rounded-xl py-2 text-base font-semibold text-white transition"
             >
-              LOGIN
-            </button>
+              {t.login.buttontext}
+            </button> */}
+
+            <ButtonSubmit
+              text={
+                <span>
+                  <span className="flex items-center gap-2">
+                    {t.login.buttontext}
+                  </span>
+                </span>
+              }
+              className="!w-full rounded-xl"
+            />
           </form>
+          {/* Link to Login */}
+          <p className="mt-6 text-center text-gray-600">
+            {t.login.newuserwithnoaccount}{" "}
+            <Link
+              to="/register"
+              className="text-[12px] font-[700] text-[#2e6290]"
+              style={{ fontFamily: "var(--font-secondary)" }}
+            >
+              {t.login.registerforfree}
+            </Link>
+          </p>
         </div>
       </div>
     </section>

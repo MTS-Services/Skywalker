@@ -46,10 +46,11 @@
     "contact": {
       "title": "Contact Information",
       "address": "Kuwait City, Kuwait",
-      "phone": "+965 1234 5678",
-      "email": "info@boshamlan.com"
+      "phone": " 1234 5678",
+      "email": "info@Mr Aqar.com"
     }
   },
+
   "agents": {
     "title": "Real Estate Agents List in Kuwait",
     "count": "({{count}} Agents)",

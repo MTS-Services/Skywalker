@@ -1,130 +1,137 @@
-import { createContext, useEffect, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  updateProfile,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  getAuth,
-} from "firebase/auth";
-import { app } from "./../../firebase/firebase.config";
-
-export const AuthContext = createContext(null);
-
-const auth = getAuth(app); // ✅ সরাসরি এখানেই getAuth(app)
+// src/context/AuthProvider.js
+import React, { useState, useEffect } from "react";
+import { AuthContext } from "../AuthContext"; // AuthContext এর সঠিক পাথ
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [confirmationResult, setConfirmationResult] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const storedAuth = localStorage.getItem("isAuthenticated");
+    return storedAuth === "true";
+  });
 
-  // ✅ Send OTP
-  const sendOtpWithPhoneNumber = async (phoneNumber) => {
-    setLoading(true);
-
-    // ✅ check and create recaptcha
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            console.log("Recaptcha Solved");
-          },
-          "expired-callback": () => {
-            console.warn("Recaptcha expired");
-          },
-        },
-        auth,
-      );
-    }
-
-    const appVerifier = window.recaptchaVerifier;
-
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
     try {
-      const result = await signInWithPhoneNumber(
-        auth,
-        phoneNumber,
-        appVerifier,
-      );
-      setConfirmationResult(result);
-      return result;
-    } catch (err) {
-      console.error("Failed to send OTP:", err);
-      throw err;
-    } finally {
-      setLoading(false);
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (e) {
+      console.error("Failed to parse user data from localStorage:", e);
+      return null;
     }
-  };
+  });
 
-  // ✅ Verify OTP
-  const verifyOtp = async (otpCode) => {
-    setLoading(true);
+
+
+  // reset password  code by shakil monsi  
+
+  const resetPassword = (mobileNumber, newPassword) => {
+    const userIndex = registeredUsers.findIndex(
+      (u) => u.mobileNumber === mobileNumber,
+    );
+
+    if (userIndex === -1) {
+      return { success: false, message: "Mobile number not found." };
+    }
+
+    const updatedUsers = [...registeredUsers];
+    updatedUsers[userIndex] = {
+      ...updatedUsers[userIndex],
+      password: newPassword,
+    };
+
+    setRegisteredUsers(updatedUsers);
+    return { success: true, message: "Password has been reset successfully." };
+  };
+  
+
+  const [registeredUsers, setRegisteredUsers] = useState(() => {
+    const storedUsers = localStorage.getItem("registeredUsers");
     try {
-      if (!confirmationResult) throw new Error("No OTP sent yet");
-      await confirmationResult.confirm(otpCode);
-    } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
+      return storedUsers ? JSON.parse(storedUsers) : [];
+    } catch (e) {
+      console.error("Failed to parse registered users from localStorage:", e);
+      return [];
     }
-  };
-
-  // ✅ Email registration
-  const createUser = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const signIn = (email, password) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const logOut = () => {
-    setLoading(true);
-    return signOut(auth);
-  };
-
-  const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    });
-  };
+  });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+    localStorage.setItem("isAuthenticated", isAuthenticated);
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  useEffect(() => {
+    localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+  }, [registeredUsers]);
+
+  const login = (mobileNumber, password) => {
+    const foundUser = registeredUsers.find(
+      (u) => u.mobileNumber === mobileNumber && u.password === password,
+    );
+
+    if (foundUser) {
+      setIsAuthenticated(true);
+      setUser({
+        mobileNumber: foundUser.mobileNumber,
+        name: foundUser.name || "User",
+      });
+      return { success: true, message: "Login successful!" };
+    } else {
+      setIsAuthenticated(false);
+      setUser(null);
+      return { success: false, message: "Invalid mobile number or password." };
+    }
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("user");
+    // Optionally remove registeredUsers if needed on logout, though usually not.
+    // localStorage.removeItem("registeredUsers");
+  };
+
+  const registerUser = (mobileNumber, password) => {
+    const userExists = registeredUsers.some(
+      (u) => u.mobileNumber === mobileNumber,
+    );
+    if (userExists) {
+      return { success: false, message: "Mobile number already registered." };
+    }
+
+    const newUser = {
+      mobileNumber,
+      password,
+      name: `User_${mobileNumber.substring(mobileNumber.length - 4)}`,
+    };
+    setRegisteredUsers((prevUsers) => [...prevUsers, newUser]);
+
+    // **গুরুত্বপূর্ণ পরিবর্তন:** রেজিস্ট্রেশনের পর স্বয়ংক্রিয়ভাবে লগইন করা হচ্ছে
+    setIsAuthenticated(true);
+    setUser({
+      mobileNumber: newUser.mobileNumber,
+      name: newUser.name,
     });
 
-    return () => {
-      unsubscribe();
-      if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
-        delete window.recaptchaVerifier;
-      }
+    return {
+      success: true,
+      message: "Registration successful! You are now logged in.",
     };
-  }, []);
-
-  const authInfo = {
-    user,
-    loading,
-    createUser,
-    signIn,
-    logOut,
-    updateUserProfile,
-    sendOtpWithPhoneNumber,
-    verifyOtp,
   };
 
   return (
-    <AuthContext.Provider value={authInfo}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        user,
+        login,
+        logout,
+        registerUser,
+        resetPassword,
+      }}
+    >
       {children}
-      <div id="recaptcha-container"></div> {/* recaptcha container */}
     </AuthContext.Provider>
   );
 };

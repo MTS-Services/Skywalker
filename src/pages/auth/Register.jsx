@@ -1,157 +1,137 @@
-import React, { useState } from "react"; // Import useState
-import { FiPhone, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi"; // Import FiEye and FiEyeOff
+import React, { useState, useContext } from "react";
+import registerImg from "../../assits/login/register (2).png";
+import toast from "react-hot-toast";
+import { useLanguage } from "../../context/LanguageContext";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import ButtonSubmit from "../../common/button/ButtonSubmit";
 
 const Register = () => {
-  // States to manage password visibility for both fields
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
-  // Function to toggle main password visibility
+  const { t } = useLanguage();
+  const navigate = useNavigate();
+  const { registerUser } = useContext(AuthContext);
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  // Function to toggle confirm password visibility
-  const toggleConfirmPasswordVisibility = () => {
-    setConfirmPasswordVisible(!confirmPasswordVisible);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
+
+    try {
+      const result = await registerUser(mobileNumber, password);
+
+      if (result.success) {
+        toast.success(result.message);
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
-    <section
-      className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-12"
-      style={{ fontFamily: "var(--font-secondary)" }}
-    >
-      <div className="container flex h-full max-w-6xl flex-col overflow-hidden rounded-3xl bg-white shadow-lg md:flex-row">
-        {/* Left Image Section */}
+    <section className="flex items-center justify-center bg-gradient-to-tr from-white via-blue-50 to-blue-100 px-6 py-10 md:py-28 lg:h-screen">
+      <div className="container flex h-auto max-w-6xl flex-col overflow-hidden rounded-3xl bg-white md:h-auto md:flex-row md:px-8 lg:shadow-lg">
+        {/* Left Image (Hidden on small screens, visible on md and up) */}
         <div className="hidden p-12 md:block md:w-1/2">
           <img
-            src="./finalblue.png"
-            alt="Login Visual"
+            src={registerImg}
+            alt="Register Visual"
             className="h-full w-full object-cover"
           />
         </div>
 
-        {/* Right Form Section */}
-        <div className="flex h-full w-full flex-col justify-center p-10 md:w-1/2">
-          <h2 className="mb-10 text-center text-3xl font-extrabold text-[#32E0BB]">
-            New subscription
-          </h2>
+        {/* Form */}
+        <div className="flex w-full flex-col justify-center p-6 md:w-1/2 md:p-8">
+          <h1 className="mb-1 text-black lg:text-center">{t.register.title}</h1>
 
-          <form className="space-y-6" noValidate>
-            {/* Phone Number */}
+          <p className="mb-2 text-[14px] text-[#556885] lg:text-center">
+            {t.register.subtitle}
+          </p>
+
+          <form className="space-y-6" noValidate onSubmit={handleSubmit}>
+            {/* Mobile Number */}
             <div>
               <label
                 htmlFor="phone"
-                className="mb-2 block text-sm font-semibold text-gray-700"
-              >
-                Phone Number
-              </label>
-              <div className="relative">
-                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <FiPhone className="text-gray-400" />
-                </span>
-                <input
-                  id="phone"
-                  type="tel" // Use type="tel" for phone numbers
-                  placeholder="Phone Number"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                />
-              </div>
+                className="mb-2 block text-sm font-semibold text-gray-600"
+              ></label>
+              <input
+                id="phone"
+                type="tel"
+                placeholder={t.register.mobileNumber}
+                className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
+                style={{ fontFamily: "var(--font-secondary)" }}
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                required
+              />
             </div>
-
-     
 
             {/* Password */}
             <div>
               <label
                 htmlFor="password"
-                className="mb-2 block text-sm font-semibold text-gray-700"
-              >
-                Password
-              </label>
+                className="mb-2 block text-sm font-semibold text-gray-600"
+              ></label>
               <div className="relative">
-                <button
-                  type="button"
-                  onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
-                >
-                  {passwordVisible ? (
-                    <FiEyeOff className="text-gray-400" />
-                  ) : (
-                    <FiEye className="text-gray-400" />
-                  )}
-                </button>
                 <input
                   id="password"
                   type={passwordVisible ? "text" : "password"}
-                  placeholder="********"
+                  placeholder={t.register.passwords}
                   autoComplete="new-password"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
+                  className="focus:ring-primary-500 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-600 placeholder-gray-400 transition focus:ring-1 focus:outline-none"
                   style={{ fontFamily: "var(--font-secondary)" }}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
-                {/* Lock icon on the right for aesthetic, not interactive */}
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <FiLock className="text-gray-400" />
-                </span>
+              
               </div>
             </div>
-
-            {/* Confirm Password */}
             <div>
-              <label
-                htmlFor="confirm-password"
-                className="mb-2 block text-sm font-semibold text-gray-700"
+              <Link
+                to="/terms"
+                className="text-[12px] font-[700] text-[#2e6290]"
               >
-                Confirm password
-              </label>
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={toggleConfirmPasswordVisibility}
-                  className="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3 focus:outline-none"
-                >
-                  {confirmPasswordVisible ? (
-                    <FiEyeOff className="text-gray-400" />
-                  ) : (
-                    <FiEye className="text-gray-400" />
-                  )}
-                </button>
-                <input
-                  id="confirm-password"
-                  type={confirmPasswordVisible ? "text" : "password"}
-                  placeholder="********"
-                  autoComplete="new-password"
-                  className="w-full rounded-xl border border-gray-300 py-3 pr-5 pl-10 text-gray-800 placeholder-gray-400 transition focus:ring-2 focus:ring-[#19398A] focus:outline-none"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                />
-                {/* Lock icon on the right for aesthetic, not interactive */}
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <FiLock className="text-gray-400" />
-                </span>
-              </div>
+                {t.register.byregistering}
+              </Link>
             </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="bg-background flex w-full items-center justify-center gap-3 rounded-xl bg-[#32E0BB] py-3 text-lg font-semibold text-white transition hover:bg-[#152e6c]"
-              style={{ fontFamily: "var(--font-secondary)" }}
-            >
-              New subscription
-            </button>
+            <ButtonSubmit
+              text={
+                <span className="flex items-center gap-2">
+                  {t.register.buttontext}
+                </span>
+              }
+              className="!w-full rounded-xl"
+            />
           </form>
 
           {/* Link to Login */}
           <p className="mt-6 text-center text-gray-600">
-            Already have an account?{" "}
-            <a
-              href="/login"
-              className="font-semibold text-[#32E0BB] hover:underline"
+            {t.register.alradyLogin}{" "}
+            <Link
+              to="/login"
+              className="text-[12px] font-[700] text-[#2e6290]"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
-              Login
-            </a>
+              {t.register.loginlink}
+            </Link>
           </p>
         </div>
       </div>

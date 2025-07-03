@@ -1,0 +1,11 @@
+[
+  { "id": "hawally", "name": "Hawally Governorate", "count": 726 },
+  { "id": "salmiya", "name": "Salmiya", "count": 104 },
+  { "id": "salwa", "name": "Salwa", "count": 90 },
+  { "id": "jabriya", "name": "Jabriya", "count": 81 },
+  { "id": "ahmadi", "name": "Ahmadi", "count": 65 },
+  { "id": "farwaniya", "name": "Farwaniya", "count": 58 },
+  { "id": "mubarak_al_kabeer", "name": "Mubarak Al-Kabeer", "count": 42 },
+  { "id": "capital", "name": "Capital", "count": 38 },
+  { "id": "wafra", "name": "Wafra", "count": 25 }
+]
