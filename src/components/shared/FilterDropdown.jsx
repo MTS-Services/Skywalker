@@ -95,7 +95,8 @@ export const MultiSelectDropdown = ({
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className={`w-full rounded-lg border border-gray-300 p-2 focus:ring-1 focus:ring-gray-300 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+              className="w-full rounded-lg border border-gray-300 p-2 text-left focus:ring-1 focus:ring-gray-300 focus:outline-none"
+              dir="ltr"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onClick={(e) => e.stopPropagation()}
@@ -114,8 +115,6 @@ export const MultiSelectDropdown = ({
                     onToggle();
                   }}
                 >
-                  {/* Left Side: Text + Checkbox */}
-
                   <div className="flex items-center">
                     <input
                       type="radio"
@@ -125,16 +124,11 @@ export const MultiSelectDropdown = ({
                       )}
                       className="form-radio h-4 w-4 cursor-pointer rounded"
                     />
-
-                    <span
-                      className={`px-2 ${isRTL ? "mr-2" : "ml-2"} ${isRTL ? "text-right" : "text-left"}`}
-                      dir={isRTL ? "rtl" : "ltr"}
-                    >
+                    <span className={`ml-2 px-2 text-left`} dir="ltr">
                       {option.name}
                     </span>
                   </div>
 
-                  {/* Right Side: Count */}
                   {option.count && (
                     <span className="px-4 text-sm text-gray-700">
                       ({option.count})
