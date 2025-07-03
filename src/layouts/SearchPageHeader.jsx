@@ -205,7 +205,7 @@ const DesktopRegionFilter = ({
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className={`w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:ring-gray-300 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+              className={`w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:ring-gray-300 focus:outline-none ${isRTL ? "rtl:ml-2" : "ltr:mr-2"}`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onClick={(e) => e.stopPropagation()}
@@ -360,7 +360,7 @@ const MobileRegionFilter = ({
                   type="text"
                   placeholder={searchPlaceholder}
                   className={`w-full border-none bg-transparent focus-within:outline-none ${
-                    isRTL ? "text-right" : "text-left"
+                    isRTL ? "rtl:ml-2" : "ltr:mr-2"
                   }`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -486,7 +486,7 @@ const CategoryFilter = ({
                       <input
                         type="text"
                         placeholder={searchPlaceholder || "Search..."}
-                        className={`focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border border-gray-300 p-2 text-sm ${isRTL ? "text-right" : "text-left"}`}
+                        className={`focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border border-gray-300 p-2 text-sm ${isRTL ? "rtl:ml-2" : "ltr:mr-2"}`}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                       />
@@ -595,7 +595,7 @@ const PropertyDropdown = ({
                     type="text"
                     placeholder={searchPlaceholder}
                     className={`w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:ring-gray-300 focus:outline-none ${
-                      isRTL ? "text-right" : "text-left"
+                      isRTL ? "rtl:ml-2" : "ltr:mr-2"
                     }`}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -846,7 +846,7 @@ function TextSearchFilter({
                     placeholder={t.search.searchByText}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className={`w-full rounded-md border border-gray-200 p-2 text-sm focus-within:ring-1 focus-within:ring-gray-100 focus-within:outline-none ${isRTL ? "pr-10 text-right" : "pl-10 text-left"} text-sm`}
+                    className={`w-full rounded-md border border-gray-200 p-2 text-sm focus-within:ring-1 focus-within:ring-gray-100 focus-within:outline-none ${isRTL ? "pr-10 rtl:ml-2" : "pl-10 ltr:mr-2"} text-sm`}
                   />
                 </div>
                 <div className="mt-4 flex justify-end gap-2">
