@@ -7,10 +7,6 @@ import { FaArrowLeft, FaBars, FaPlusCircle } from "react-icons/fa";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import SideBar from "./SideBar";
 
-
-
-
-
 // +++ ADDED: A hook to detect screen size for responsive logic +++
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
@@ -29,8 +25,6 @@ const useMediaQuery = (query) => {
 
   return matches;
 };
-
-
 
 const HorizontalScroller = ({ children }) => {
   const scrollContainerRef = useRef(null);
@@ -221,28 +215,29 @@ const DesktopRegionFilter = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""} ${selectedItems.some((item) => item.id === option.id) ? "bg-primary-300/20" : ""}`}
+                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
+                    selectedItems.some((item) => item.id === option.id)
+                      ? "bg-primary-300/20"
+                      : ""
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);
                     onToggle();
                   }}
                 >
-                  <div
-                    className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
-                  >
+                  <div className="flex items-center">
                     <input
-                      type="checkbox"
+                      type="radio"
                       readOnly
                       checked={selectedItems.some(
                         (item) => item.id === option.id,
                       )}
-                      className="form-checkbox h-4 w-4 cursor-pointer rounded"
+                      className="form-radio h-4 w-4 cursor-pointer rounded"
                     />
-                    <span className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}>
-                      {option.name}
-                    </span>
+                    <span className="ltr:ml-2 rtl:mr-2">{option.name}</span>
                   </div>
+
                   {option.count && (
                     <span className="text-sm text-black">({option.count})</span>
                   )}
@@ -504,18 +499,10 @@ const CategoryFilter = ({
                       filteredOptions.map((option) => (
                         <li
                           key={option.id}
-                          className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${isRTL ? "flex-row-reverse" : ""} ${selectedValue === option.id ? "bg-primary-300/20" : ""} `}
+                          className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-gray-800 ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
                           onClick={() => handleSelect(option.id)}
                         >
-                          <input
-                            type="radio"
-                            readOnly
-                            checked={selectedValue === option.id}
-                            className={`text-primary-400 h-4 w-4 cursor-pointer`}
-                          />
-                          <span className={`${isRTL ? "mr-2" : "ml-2"} `}>
-                            {option.name}
-                          </span>
+                          <span className="w-full">{option.name}</span>
                         </li>
                       ))
                     ) : (
@@ -603,7 +590,7 @@ const PropertyDropdown = ({
               ></div>
 
               {/* code by shakil monsi   */}
-              <div className="relative top-[120px] z-[12] mx-auto max-w-lg rounded-md border border-gray-200 bg-white p-2 shadow-lg">
+              <div className="relative top-[120px] z-[12] mx-auto max-w-sm rounded-md border border-gray-200 bg-white p-2 shadow-lg">
                 {/* 🔍 Search Box */}
                 <div className="p-2">
                   <input
@@ -624,6 +611,7 @@ const PropertyDropdown = ({
                     filteredOptions.map((option) => (
                       <li
                         key={option.id}
+                        // This className with `flex` and `justify-between` is perfect for this layout.
                         className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
                           selectedItems.some((item) => item.id === option.id)
                             ? "bg-primary-300/20"
@@ -635,26 +623,10 @@ const PropertyDropdown = ({
                           onToggle();
                         }}
                       >
-                        {/* ✅ RTL-Compatible Checkbox + Label */}
-                        <div
-                          className={`flex w-full items-center gap-2 ${
-                            isRTL
-                              ? "flex-row-reverse text-right"
-                              : "flex-row text-left"
-                          }`}
-                        >
-                          <input
-                            type="checkbox"
-                            readOnly
-                            checked={selectedItems.some(
-                              (item) => item.id === option.id,
-                            )}
-                            className="form-checkbox text-primary-400 h-4 w-4 cursor-pointer"
-                          />
-                          <span className="text-black">{option.name}</span>
-                        </div>
+                        <span className="ltr:text-left rtl:text-right">
+                          {option.name}
+                        </span>
 
-                        {/* 🧮 Optional Count */}
                         {option.count && (
                           <span className="text-sm text-black">
                             ({option.count})
@@ -738,7 +710,7 @@ function PriceRangeFilter({
                 onClick={onToggle}
               ></div>
               <div
-                className={`relative top-[120px] z-[12] mx-auto max-w-sm rounded-md border border-gray-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
+                className={`relative top-[120px] z-[12] mx-auto max-w-xs rounded-md border border-gray-200 bg-white p-4 shadow-lg ${isRTL ? "left-0" : "right-0"}`}
                 style={{ minWidth: "300px" }}
               >
                 <div className="mb-4 flex items-center justify-between text-sm font-medium text-black">
@@ -1145,11 +1117,6 @@ export default function SearchPageHeader() {
                       onToggle={() => props.toggleDropdown("text")}
                       onApply={props.onApply}
                     />
-
-
-
-
-                   
                   </div>
                 </div>
               </div>
@@ -1227,7 +1194,6 @@ export default function SearchPageHeader() {
                   />
                 </HorizontalScroller>
               </div>
-              
             </div>
           )}
         </SearchFilterBar>
