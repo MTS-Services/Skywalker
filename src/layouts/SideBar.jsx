@@ -135,7 +135,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
             </button>
             <a
               target="_blank"
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/mraqar"
               rel="noopener noreferrer"
               className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
             >
@@ -143,7 +143,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
             </a>
             <a
               target="_blank"
-              href="https://x.com/"
+              href="https://x.com/mr_aqar_"
               rel="noopener noreferrer"
               className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
             >
