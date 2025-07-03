@@ -3,6 +3,9 @@ import { TfiAngleLeft } from "react-icons/tfi";
 import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import dayjs from "dayjs";
+import FabController from "../fab/FabController";
+import { useLanguage } from "../../context/LanguageContext";
+import AdDetailsModal from "../../testingCode/AdDetailsModal";
 
 /**
  * DetailsModal Component
@@ -23,6 +26,9 @@ export default function DetailsModal({
   const [isModalActive, setIsModalActive] = useState(false);
   const [isLightboxActive, setIsLightboxActive] = useState(false);
 
+  const { FloatingActionButton } = useLanguage();
+  const isMobile = window.innerWidth <= 768; // or use a better mobile detection if available
+
   // Effect to control modal enter/exit animation
   useEffect(() => {
     if (show) {
@@ -35,7 +41,7 @@ export default function DetailsModal({
     }
   }, [show]);
 
-  // Effect to control lightbox enter/exit animation // code by shakil monshi 
+  // Effect to control lightbox enter/exit animation // code by shakil monshi
   const getDaysAgo = (postDate) => {
     const now = new Date();
     const post = new Date(postDate);
@@ -43,7 +49,7 @@ export default function DetailsModal({
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   };
-  
+
   useEffect(() => {
     if (showLightbox) {
       const timer = setTimeout(() => setIsLightboxActive(true), 5);
@@ -241,6 +247,7 @@ export default function DetailsModal({
           </div>
         </div>
       )}
+      {isMobile && FloatingActionButton && <FabController />}
     </>
   );
 }
