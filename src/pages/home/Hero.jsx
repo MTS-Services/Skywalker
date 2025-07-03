@@ -305,51 +305,51 @@ const MobileRegionFilter = ({
               </div>
             </div>
             <ul className="p-1">
-              {filteredOptions.length > 0 ? (
-                filteredOptions.map((option) => (
-                  <li
-                    key={option.id}
-                    className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleItem(option);
-                      onToggle();
-                    }}
-                  >
-                    {/* Left Side: Text + Checkbox */}
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => (
+                <li
+                  key={option.id}
+                  className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleItem(option);
+                    onToggle();
+                  }}
+                >
+                  {/* Left Side: Text + Checkbox */}
 
-                    <div className="flex items-center">
-                      <input
-                        type="radio"
-                        readOnly
-                        checked={selectedItems.some(
-                          (item) => item.id === option.id,
-                        )}
-                        className="form-radio h-4 w-4 cursor-pointer rounded"
-                      />
+                  <div className="flex items-center">
+                    <input
+                      type="radio"
+                      readOnly
+                      checked={selectedItems.some(
+                        (item) => item.id === option.id,
+                      )}
+                      className="form-radio h-4 w-4 cursor-pointer rounded"
+                    />
 
-                      <span
-                        className={`px-2 ${isRTL ? "mr-2" : "ml-2"} ${isRTL ? "text-right" : "text-left"}`}
-                        dir={isRTL ? "rtl" : "ltr"}
-                      >
-                        {option.name}
-                      </span>
-                    </div>
+                    <span
+                      className={`px-2 ${isRTL ? "mr-2" : "ml-2"} ${isRTL ? "text-right" : "text-left"}`}
+                      dir={isRTL ? "rtl" : "ltr"}
+                    >
+                      {option.name}
+                    </span>
+                  </div>
 
-                    {/* Right Side: Count */}
-                    {option.count && (
-                      <span className="px-4 text-sm text-gray-700">
-                        ({option.count})
-                      </span>
-                    )}
-                  </li>
-                ))
-              ) : (
-                <li className="p-2 text-center text-gray-800">
-                  {t.search.noResultsFound}
+                  {/* Right Side: Count */}
+                  {option.count && (
+                    <span className="px-4 text-sm text-gray-700">
+                      ({option.count})
+                    </span>
+                  )}
                 </li>
-              )}
-            </ul>
+              ))
+            ) : (
+              <li className="p-2 text-center text-gray-800">
+                {t.search.noResultsFound}
+              </li>
+            )}
+          </ul>
           </div>
         </div>
       )}
