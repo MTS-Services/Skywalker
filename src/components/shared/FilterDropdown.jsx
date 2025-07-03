@@ -46,7 +46,7 @@ export const MultiSelectDropdown = ({
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <div
-        className={`focus-within:ring-gray-200 border-gray-200 flex w-full cursor-pointer items-center rounded-3xl border bg-white p-3 focus-within:ring-1 ${isOpen ? "ring-gray-300 ring-1" : ""}`}
+        className={`flex w-full cursor-pointer items-center rounded-3xl border border-gray-200 bg-white p-3 focus-within:ring-1 focus-within:ring-gray-200 ${isOpen ? "ring-1 ring-gray-300" : ""}`}
         onClick={onToggle}
         role="button"
         tabIndex="0"
@@ -65,82 +65,79 @@ export const MultiSelectDropdown = ({
         >
           {selectedItems.length > 0
             ? selectedItems.map((item) => (
-              <span
-                key={item.id}
-                className="bg-primary-300/20 flex items-center rounded-full px-2 py-1 text-xs font-medium"
-              >
-                {item.name}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleItem(item);
-                  }}
-                  className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
+                <span
+                  key={item.id}
+                  className="bg-primary-300/20 flex items-center rounded-full px-2 py-1 text-xs font-medium"
                 >
-                  <LuX />
-                </button>
-              </span>
-            ))
+                  {item.name}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleItem(item);
+                    }}
+                    className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
+                  >
+                    <LuX />
+                  </button>
+                </span>
+              ))
             : placeholder}
         </div>
-        <span
-          className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-        >
+        <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>
           <LuChevronDown />
         </span>
       </div>
 
       {isOpen && (
-        <div className="border-gray-200 absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
+        <div className="absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg">
           <div className="p-2">
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className={`border-gray-300 focus:ring-gray-300 w-full rounded-lg border p-2 focus:ring-1 focus:outline-none ${isRTL ? "text-right" : "text-left"}`}
+              className="w-full rounded-lg border border-gray-300 p-2 text-left focus:ring-1 focus:ring-gray-300 focus:outline-none"
+              dir="ltr"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onClick={(e) => e.stopPropagation()}
             />
           </div>
+
           <ul className="p-1">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                  className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);
                     onToggle();
                   }}
                 >
-                  <div
-                    className={`flex items-center ${isRTL ? "text-right" : "text-left"}`}
-                  >
+                  <div className="flex items-center">
                     <input
-                      type="checkbox"
+                      type="radio"
                       readOnly
                       checked={selectedItems.some(
                         (item) => item.id === option.id,
                       )}
-                      className="form-checkbox h-4 w-4 cursor-pointer rounded"
+                      className="form-radio h-4 w-4 cursor-pointer rounded"
                     />
-                    <span
-                      className={`${isRTL ? "mr-2" : "ml-2"}`}
-                    >
+                    <span className={`ml-2 px-2 text-left`} dir="ltr">
                       {option.name}
                     </span>
                   </div>
+
                   {option.count && (
-                    <span className=" text-sm">
+                    <span className="px-4 text-sm text-gray-700">
                       ({option.count})
                     </span>
                   )}
                 </li>
               ))
             ) : (
-              <li className="text-gray-800 p-2 text-center">
+              <li className="p-2 text-center text-gray-800">
                 {t.search.noResultsFound}
               </li>
             )}
