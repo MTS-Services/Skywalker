@@ -304,47 +304,48 @@ const MobileRegionFilter = ({
                 />
               </div>
             </div>
-
-            <ul className="flex-grow overflow-y-auto px-4 pb-4">
+            <ul className="p-1">
               {filteredOptions.length > 0 ? (
                 filteredOptions.map((option) => (
                   <li
                     key={option.id}
-                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
-                      isRTL ? "flex-row-reverse" : ""
-                    } ${
-                      selectedItems.some((item) => item.id === option.id)
-                        ? "bg-primary-300/20"
-                        : ""
-                    }`}
-                    onClick={() => handleItemSelectAndClose(option)}
+                    className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleItem(option);
+                      onToggle();
+                    }}
                   >
-                    <div
-                      className={`flex items-center ${
-                        isRTL ? "text-right" : "text-left"
-                      }`}
-                    >
+                    {/* Left Side: Text + Checkbox */}
+
+                    <div className="flex items-center">
                       <input
-                        type="checkbox"
+                        type="radio"
                         readOnly
                         checked={selectedItems.some(
                           (item) => item.id === option.id,
                         )}
-                        className="form-checkbox text-primary-400 pointer-events-none h-4 w-4 rounded"
+                        className="form-radio h-4 w-4 cursor-pointer rounded"
                       />
-                      <span className={`text-black ${isRTL ? "mr-2" : "ml-2"}`}>
+
+                      <span
+                        className={`px-2 ${isRTL ? "mr-2" : "ml-2"} ${isRTL ? "text-right" : "text-left"}`}
+                        dir={isRTL ? "rtl" : "ltr"}
+                      >
                         {option.name}
                       </span>
                     </div>
+
+                    {/* Right Side: Count */}
                     {option.count && (
-                      <span className="text-sm text-black">
+                      <span className="px-4 text-sm text-gray-700">
                         ({option.count})
                       </span>
                     )}
                   </li>
                 ))
               ) : (
-                <li className="p-2 text-center text-black">
+                <li className="p-2 text-center text-gray-800">
                   {t.search.noResultsFound}
                 </li>
               )}
