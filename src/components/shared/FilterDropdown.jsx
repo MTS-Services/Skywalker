@@ -193,7 +193,9 @@ export const OnlyMultiSelectDropdown = ({
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <div
-        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-left text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 ${isRTL ? "flex-row-reverse" : ""}`}
+        className={`w-full text-nowrap flex items-center justify-between gap-2 rounded-full border
+           border-gray-300 bg-white px-4 py-2 text-left text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 
+           focus:outline-none focus:ring-2 focus:ring-gray-200 ${isRTL ? "flex-row-reverse" : ""}`}
         onClick={onToggle}
         role="button"
         tabIndex="0"
@@ -231,7 +233,8 @@ export const OnlyMultiSelectDropdown = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${isRTL ? "flex-row-reverse" : ""}`}
+                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md 
+                    p-2 ${isRTL ? "flex-row-reverse" : ""}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);

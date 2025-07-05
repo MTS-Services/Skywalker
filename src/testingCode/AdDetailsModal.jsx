@@ -3,6 +3,7 @@ import { TfiAngleLeft } from "react-icons/tfi";
 import { FiClock, FiEye, FiX, FiPhone, FiShare2 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import dayjs from "dayjs";
+import { NavLink } from "react-router-dom";
 
 /**
  * AdDetailsModal Component
@@ -113,18 +114,22 @@ export default function AdDetailsModal({
           onClick={(e) => e.stopPropagation()}
           dir={isRTL ? "rtl" : "ltr"}
         >
-          <header className="relative flex h-20 flex-shrink-0 items-center border-b px-4 py-4 sm:px-6">
+          <header className="relative flex h-20 flex-shrink-0 items-center border-b px-4 py-12 sm:px-6 ">
             <button
               className={`text-primary-500 -m-2 cursor-pointer p-2 text-2xl ${isRTL ? "rotate-180" : ""}`}
               onClick={onClose}
             >
               <TfiAngleLeft />
             </button>
-            <div className="absolute top-1/2 left-1/2 h-10 -translate-x-1/2 -translate-y-1/2 transform">
-              <a aria-label="Home" href="/">
-                <img alt="Logo" src="/logo.png" className="h-full w-auto" />
-              </a>
-            </div>
+            <NavLink to="/" className={`flex items-center  mx-auto  justify-center  gap-2`}>
+              <img src="/logo.png" alt="Logo" className="w-18" />
+              <div className="py-28">
+                <p className="text-lg font-bold capitalize">{t.site.name}</p>
+                <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
+                  {t.site.tagline}
+                </p>
+              </div>
+            </NavLink>
           </header>
 
           <main className="flex-1 overflow-y-auto">

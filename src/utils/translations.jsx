@@ -120,6 +120,10 @@ export const translations = {
         "Are you sure you want to renew this Ad? This will deduct one credit from your balance",
       translateTitle: "Your translated Ad to Arabic is published",
       translateMessage: "تم حذف هذا الاعلان او إنتهاء مدته",
+      deleteconfirmation: "Confirmation",
+      deleteasking: "Are you sure to delete this Ad?",
+      deletecencel: "Cencel",
+      deletebutton: "Confirm",
       currency: "د.ك",
       open: "Open",
       archive: "Archive",
@@ -593,6 +597,11 @@ export const translations = {
       open: "فتح",
       archive: "أرشفة",
       deleted: "تم الحذف",
+
+      deleteconfirmation: "تأكيد",
+      deleteasking: "هل أنت متأكد؟ تريد حذف الإعلان؟",
+      deletecencel: "إلغاء",
+      deletebutton: "موافق",
     },
     login: {
       title: "مرحبًا مجددًا",

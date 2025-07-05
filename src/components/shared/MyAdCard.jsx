@@ -1,13 +1,17 @@
 import { useState, useRef } from "react"; // useRef import করা হয়েছে
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiAlertTriangle, FiClock, FiEye, FiPhone, FiShare2, FiX } from "react-icons/fi";
 import { RxClock, RxReload } from "react-icons/rx";
 import DiagonalRibbon from "../DiagonalRibbon";
 import { BsPin, BsPinFill, BsTranslate } from "react-icons/bs";
-import { FaEdit, FaWhatsapp } from "react-icons/fa";
+import {  FaWhatsapp } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLanguage } from "../../context/LanguageContext";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdOutlineEdit } from "react-icons/md";
+
+import { PiTwitterLogoBold } from "react-icons/pi";
 
 const MyAdCard = ({ ad, onClick, showRenew }) => {
   const { isRTL, t, language } = useLanguage();
@@ -118,8 +122,7 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
                 {ad.kd} {t.ads.currency}
               </div>
 
-              <div className="  flex items-center gap-1.5 
-              rounded-full px-3 py-1 text-xs sm:text-sm">
+              <div className="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
                 <FiClock />
                 <span>{getDaysAgo(ad.postCreateAt)} Days</span>
               </div>
@@ -144,47 +147,43 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
         <div className="h-4"></div>
         <div className="flex items-center justify-center gap-3">
           {/* Action Button 1 */}
+          <button
+            onClick={handleOpenEditModal} // This function will open the Edit Modal
+            className="text-on-primary relative z-[2] m-0 inline-flex h-auto shrink-0 items-center justify-center rounded-lg bg-transparent p-0 text-base font-bold whitespace-nowrap transition-colors select-none active:bg-transparent disabled:opacity-50"
+          >
+            <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-[#F5E0D8] active:border">
+              <MdOutlineEdit className="text-[#EE792B]" />
+            </div>
+          </button>
           {showRenew && (
             <button
               onClick={handleOpenRenewModal}
               className="text-on-primary relative z-[2] m-0 inline-flex h-auto shrink-0 items-center justify-center rounded-lg bg-transparent p-0 text-base font-bold whitespace-nowrap transition-colors select-none active:bg-transparent disabled:opacity-50"
             >
-              <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-green-200 active:border">
-                <RxReload className="text-green-700" />
+              <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-[#E9E3E7] active:border">
+                <RiDeleteBin6Line className="text-[#8895A5]" />
               </div>
             </button>
           )}
-          {/* Action Button 2 */}
-          <button
-            onClick={ad.isSuper ? handleRemoveSuperModel : handleMakeSuperModel}
+          <Link
+            to={ad.twitter}
             className="text-on-primary relative z-[2] m-0 inline-flex h-auto shrink-0 items-center justify-center rounded-lg bg-transparent p-0 text-base font-bold whitespace-nowrap transition-colors select-none active:bg-transparent disabled:opacity-50"
           >
-            <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-red-200 active:border">
-              {ad.isSuper ? (
-                <BsPinFill className="text-red-700" />
-              ) : (
-                <BsPin className="text-red-700" />
-              )}
+            <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-[#D8E6F0] active:border">
+              <PiTwitterLogoBold className="text-[#1A96D0]"></PiTwitterLogoBold>
+             
             </div>
-          </button>
+          </Link>
           {/* Action Button 3 */}
           <button
             onClick={handleOpenTranslateModal}
             className="text-on-primary relative z-[2] m-0 inline-flex h-auto shrink-0 items-center justify-center rounded-lg bg-transparent p-0 text-base font-bold whitespace-nowrap transition-colors select-none active:bg-transparent disabled:opacity-50"
           >
-            <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-indigo-200 active:border">
-              <BsTranslate className="text-indigo-700" />
+            <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-[#E8E2EB] active:border">
+              <BsTranslate className="text-[#8488C2]" />
             </div>
           </button>
           {/* Action Button 4: Edit */}
-          <button
-            onClick={handleOpenEditModal} // This function will open the Edit Modal
-            className="text-on-primary relative z-[2] m-0 inline-flex h-auto shrink-0 items-center justify-center rounded-lg bg-transparent p-0 text-base font-bold whitespace-nowrap transition-colors select-none active:bg-transparent disabled:opacity-50"
-          >
-            <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-blue-200 active:border">
-              <FaEdit className="text-blue-700" />
-            </div>
-          </button>
         </div>
       </div>
       {/* Modals */}
@@ -418,6 +417,7 @@ function removeSuperModal({ ad, handleRemoveSuperModel, t }) {
   );
 }
 
+
 function renewModal({ ad, handleOpenRenewModal, t }) {
   return (
     <>
@@ -425,22 +425,22 @@ function renewModal({ ad, handleOpenRenewModal, t }) {
       <div className="fixed inset-0 w-screen overflow-y-auto z-30">
         <div className="flex min-h-full items-center justify-center p-4">
           <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
-            <h2 className="font-[700] mb-2">{t.myAds.confirmation}</h2>
+            <h2 className="font-[700] mb-2">{t.myAds.deleteconfirmation}</h2>
             <div>
-              <p className="text-sm text-gray-600">{t.myAds.renew}</p>
+              <p className="text-sm text-gray-600">{t.myAds.deleteasking}</p>
               <div className="h-4"></div>
               <div className="flex flex-row justify-between gap-3">
                 <button
                   onClick={handleOpenRenewModal}
                   className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md text-primary-900 underline-offset-4 mx-7 border border-primary-200 hover:bg-primary-50/50 px-4 lg:px-8 py-2 lg:py-4 text-sm"
                 >
-                  {t.myAds.cancel}
+                  {t.myAds.deletecencel}
                 </button>
                 <button
                   onClick={handleOpenRenewModal}
                   className="shrink-0 inline-flex items-center justify-center select-none whitespace-nowrap transition-colors disabled:opacity-50 h-auto rounded-md font-[700] text-sm bg-primary text-white active:bg-active-primary px-4 lg:px-8 py-2 lg:py-4 bg-primary-500 hover:bg-primary-600"
                 >
-                  {t.myAds.confirm}
+                  {t.myAds.deletebutton}
                 </button>
               </div>
             </div>

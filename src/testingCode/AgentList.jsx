@@ -2,41 +2,36 @@ import React, { useState, useEffect } from "react";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa"; 
 import { Link } from "react-router-dom";
 
-// আপনার Assets থেকে লোগো এবং আইকন ইম্পোর্ট করুন
-// নিশ্চিত করুন এই পাথগুলো আপনার প্রজেক্ট স্ট্রাকচারের সাথে মেলে
+
 
 import defaultLogo from "../assits/login/login.png";
-// ডিফল্ট লোগো যদি কোম্পানির লোগো না থাকে
 import { useLanguage } from "../context/LanguageContext";
 
-// generateSlug ফাংশনটি AgentList এর জন্য প্রয়োজন নেই, কিন্তু আপনি চাইলে রাখতে পারেন
 const generateSlug = (title) => {
   return title
     .toLowerCase()
-    .replace(/ /g, "-") // Replace spaces with hyphens
-    .replace(/[^\w-]+/g, "") // Remove all non-word chars except hyphens
+    .replace(/ /g, "-") 
+    .replace(/[^\w-]+/g, "") 
     .replace(/--+/g, "-") // Replace multiple hyphens with single
     .trim(); // Trim leading/trailing hyphens/spaces
 };
 
 export default function AgentList() {
-  const { isRTL, t, language } = useLanguage(); // আপনার LanguageContext থেকে t, isRTL, language
-  const [companies, setCompanies] = useState([]); // 'agents' এর পরিবর্তে 'companies' ব্যবহার করছি
+  const { isRTL, t, language } = useLanguage(); 
+  const [companies, setCompanies] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        // public/companies.json থেকে ডেটা ফেচ করুন
-        // আপনার পুরনো কোডে `/agent.json` ছিল, সেটি `/companies.json` হবে
+      
         const response = await fetch("/companies.json");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setCompanies(data); // 'setAgents' এর পরিবর্তে 'setCompanies'
-      } catch (error) {
+        setCompanies(data); 
         console.error("Error fetching companies:", error);
         setError(error);
       } finally {
@@ -85,15 +80,14 @@ export default function AgentList() {
             >
               {companies.map(
                 (
-                  company, // 'agents.map' এর পরিবর্তে 'companies.map'
+                  company,
                 ) => (
                   <div
-                    key={company.id} // 'agent.id' এর পরিবর্তে 'company.id'
+                    key={company.id} 
                     className="w-full rounded-xl border border-gray-200 md:w-[770px]"
                     style={{ boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)" }}
                   >
-                    {/* agents-details লিঙ্কের পরিবর্তে companyId দিয়ে ads দেখানোর লিঙ্ক */}
-                    {/* Link to specific company's ads page */}
+             
                     <Link to={`/agent/${company.id}/ads`}>
                       <div className="shadow-card-shadow relative my-auto w-full cursor-pointer rounded-lg border border-transparent bg-white p-3 active:border-rose-500 xl:p-4">
                         <div className="my-auto flex gap-3">
@@ -101,8 +95,8 @@ export default function AgentList() {
                             <div className="relative flex-shrink-0">
                               <div className="aspect-square h-12 w-12 rounded-md md:h-14 md:w-14 xl:h-28 xl:w-28">
                                 <img
-                                  alt={company.name} // 'agent.title' এর পরিবর্তে 'company.name'
-                                  src={company.logo_url || defaultLogo} // 'agent.image' এর পরিবর্তে 'company.logo_url'
+                                  alt={company.name} 
+                                  src={company.logo_url || defaultLogo} 
                                   loading="lazy"
                                   decoding="async"
                                   className="border-primary-200 h-full w-full border object-cover p-1"
@@ -117,14 +111,12 @@ export default function AgentList() {
 
                             <div>
                               <div className="flex flex-wrap items-center gap-1 space-x-2 py-1">
-                                {/* বিজ্ঞাপনের সংখ্যা */}
                                 <p className="text-primary-900 py-1 text-sm font-[700]">
                                   <span>{company.ads?.length || 0} Ads</span>
                                 </p>
 
                                 <span className="text-primary-200">|</span>
 
-                                {/* WhatsApp আইকন শুধু দেখানোর জন্য */}
                                 {company.social_media?.whatsapp && (
                                   <p className="flex items-center px-1">
                                     <span className="text-primary-300 text-sm md:text-base">
@@ -133,7 +125,6 @@ export default function AgentList() {
                                   </p>
                                 )}
 
-                                {/* Instagram আইকন শুধু দেখানোর জন্য */}
                                 {company.social_media?.instagram && (
                                   <p className="flex items-center">
                                     <span className="text-primary-300 text-sm md:text-base">
