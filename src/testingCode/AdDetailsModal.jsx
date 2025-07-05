@@ -114,7 +114,7 @@ export default function AdDetailsModal({
           onClick={(e) => e.stopPropagation()}
           dir={isRTL ? "rtl" : "ltr"}
         >
-          <header className="relative flex h-20 flex-shrink-0 items-center border-b px-4 py-12 sm:px-6 ">
+          <header className="relative flex h-20 flex-shrink-0 items-center border-b px-4 py-4 sm:px-6 ">
             <button
               className={`text-primary-500 -m-2 cursor-pointer p-2 text-2xl ${isRTL ? "rotate-180" : ""}`}
               onClick={onClose}
