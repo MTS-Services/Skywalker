@@ -108,7 +108,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
           <div className="my-4 border-b border-gray-200"></div>
 
           <Link
-            to="/ad-upload"
+            to="/buy-credits"
             onClick={toggleSidebar}
             className="flex items-center gap-2 px-4"
           >
