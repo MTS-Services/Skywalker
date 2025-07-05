@@ -8,10 +8,10 @@ const AgentHeaderPart = () => {
         <div className="flex items-center px-1 py-2 text-[12px] font-normal text-[#556885]">
         
           <Link
-            to="/agents"
+            to="/"
             className="px-1 text-[12px] font-normal text-[#556885]"
           >
-            Agents
+            Home
           </Link>
           <>
             <MdKeyboardArrowRight />
