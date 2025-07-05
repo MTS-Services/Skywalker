@@ -1161,7 +1161,7 @@ export default function SearchPageHeader() {
                     isOpen={props.showDropdown === "transactionType"}
                     onToggle={() => props.toggleDropdown("transactionType")}
                   />
-                  <PropertyDropdown
+                  <PropertyDropdown 
                     options={props.allPropertyTypes}
                     selectedItems={props.selectedPropertyTypes}
                     setSelectedItems={props.setSelectedPropertyTypes}

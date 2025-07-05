@@ -61,7 +61,7 @@ export const MultiSelectDropdown = ({
           <LuSearch />
         </span>
         <div
-          className={`flex-grow px-2 ${isRTL ? "text-right" : "text-left"} flex min-h-[24px] flex-wrap gap-1`}
+          className={`flex-grow px-2 text-[#556885] ${isRTL ? "text-right" : "text-left"} flex min-h-[24px] flex-wrap gap-1`}
         >
           {selectedItems.length > 0
             ? selectedItems.map((item) => (

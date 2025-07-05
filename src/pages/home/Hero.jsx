@@ -130,7 +130,7 @@ function FilterComponent({ t, isRTL }) {
 
   return (
     <form onSubmit={handleSearch} className="space-y-4">
-      <span className="hidden xl:block">
+      <span className="hidden text-[#556885] xl:block">
         <MultiSelectDropdown
           options={regionsData}
           selectedItems={selectedRegions}
@@ -142,7 +142,7 @@ function FilterComponent({ t, isRTL }) {
           onToggle={() => toggleDropdown("regions")}
         />
       </span>
-      <span className="xl:hidden">
+      <span className="  xl:hidden">
         <MobileRegionFilter
           options={regionsData}
           selectedItems={selectedRegions}
@@ -155,7 +155,7 @@ function FilterComponent({ t, isRTL }) {
         />
       </span>
 
-      <MultiSelectDropdown
+      <MultiSelectDropdown  
         options={propertyTypeData}
         selectedItems={selectedPropertyTypes}
         setSelectedItems={setSelectedPropertyTypes}
