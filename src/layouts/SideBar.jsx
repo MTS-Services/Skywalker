@@ -16,20 +16,12 @@ import {
   FiX,
 } from "react-icons/fi";
 import { BsBuildings } from "react-icons/bs";
-import { FaPlusCircle } from "react-icons/fa";
-import FabController from "../pages/fab/FabController";
+// import { FaPlusCircle } from "react-icons/fa";
+// import FabController from "../pages/fab/FabController";
 
 const SideBar = ({ sidebarOpen, toggleSidebar }) => {
-  const {
-    isRTL,
-    t,
-    toggleLanguage,
-    FloatingActionButton,
-    setFloatingActionButton,
-  } = useLanguage();
+  const { isRTL, t, toggleLanguage, FloatingActionButton } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
-
-  
 
   const handleLogout = () => {
     logout();
@@ -115,8 +107,13 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
           </div>
           <div className="my-4 border-b border-gray-200"></div>
 
-          <Link to="/ad-upload" onClick={toggleSidebar}>
-            <img src="/fab.png" alt="Close form" className="m-4 h-10 w-10" />
+          <Link
+            to="/ad-upload"
+            onClick={toggleSidebar}
+            className="flex items-center gap-2 px-4"
+          >
+            <img src="/fab.png" alt="Close form" className="h-10 w-10" />
+            <h1 className="text-primary-600 text-lg">Post your ad</h1>
           </Link>
 
           <div className="absolute start-0 end-0 bottom-4 flex items-center justify-center gap-4">
@@ -138,7 +135,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
             </button>
             <a
               target="_blank"
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/mraqar"
               rel="noopener noreferrer"
               className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
             >
@@ -146,7 +143,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
             </a>
             <a
               target="_blank"
-              href="https://x.com/"
+              href="https://x.com/mr_aqar_"
               rel="noopener noreferrer"
               className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
             >

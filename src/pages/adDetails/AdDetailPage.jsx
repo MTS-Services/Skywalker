@@ -75,7 +75,7 @@ const AdDetailPage = () => {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   };
-  
+
   // Effect to fetch ad details
   useEffect(() => {
     const fetchAd = async () => {

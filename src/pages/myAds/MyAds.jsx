@@ -5,12 +5,15 @@ import { useLanguage } from "../../context/LanguageContext";
 import MyAdCard from "../../components/shared/MyAdCard";
 import axios from "axios";
 import DetailsModal from "../adDetails/Modal";
+import FabController from "../fab/FabController";
 
 export default function MyAds() {
   const [myAds, setMyAds] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedAd, setSelectedAd] = useState(null);
-  const { isRTL, t, language } = useLanguage();
+  const { isRTL, t, language, FloatingActionButton } = useLanguage();
+
+  const isMobile = window.innerWidth <= 768; // or use a better mobile detection if available
 
   const fetchMyAds = async () => {
     try {
@@ -103,6 +106,7 @@ export default function MyAds() {
           formatTimeAgo={formatTimeAgo}
         />
       )}
+      {isMobile && !FloatingActionButton && !selectedAd && <FabController />}
     </main>
   );
 }

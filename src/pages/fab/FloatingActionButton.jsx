@@ -44,7 +44,7 @@
 
 // export default FloatingActionButton;
 
-import { FaCirclePlus } from "react-icons/fa6";
+// import { FaCirclePlus } from "react-icons/fa6";
 
 const FloatingActionButton = ({ isOpen, onClick }) => {
   const handleFabClick = (event) => {
@@ -79,7 +79,7 @@ const FloatingActionButton = ({ isOpen, onClick }) => {
         <div
           className={`absolute transition-all duration-300 ease-in-out ${isOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"} `}
         >
-          <FaCirclePlus size={38} className="text-sky-500" />
+          <img src="/fab.png" alt="Close form" className="h-10 w-10" />{" "}
         </div>
 
         {/* Your Custom Menu Icon Container */}
