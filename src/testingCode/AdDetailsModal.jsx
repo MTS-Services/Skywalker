@@ -5,11 +5,8 @@ import { FaWhatsapp } from "react-icons/fa";
 import dayjs from "dayjs";
 import { NavLink } from "react-router-dom";
 
-/**
- * AdDetailsModal Component
- * * এটি একটি মডেল যা একটি বিজ্ঞাপনের বিস্তারিত তথ্য প্রদর্শন করে।
- * এতে একটি ইমেজ গ্যালারি, বিজ্ঞাপনের বিবরণ এবং যোগাযোগের অপশন রয়েছে।
- */
+
+ 
 export default function AdDetailsModal({
   ad,
   show,
@@ -24,7 +21,7 @@ export default function AdDetailsModal({
   const [isModalActive, setIsModalActive] = useState(false);
   const [isLightboxActive, setIsLightboxActive] = useState(false);
 
-  // মডেলের প্রবেশ/প্রস্থান অ্যানিমেশন নিয়ন্ত্রণ করতে
+
   useEffect(() => {
     if (show) {
       document.body.style.overflow = "hidden";
@@ -45,7 +42,6 @@ export default function AdDetailsModal({
   };
   
 
-  // লাইটবক্সের প্রবেশ/প্রস্থান অ্যানিমেশন নিয়ন্ত্রণ করতে
   useEffect(() => {
     if (showLightbox) {
       const timer = setTimeout(() => setIsLightboxActive(true), 5);
@@ -55,7 +51,6 @@ export default function AdDetailsModal({
     }
   }, [showLightbox]);
 
-  // যখন একটি বিজ্ঞাপন নির্বাচন করা হয় তখন প্রাথমিক ডিসপ্লে ছবি সেট করতে
   useEffect(() => {
     if (ad && ad.images && ad.images.length > 0) {
       setDisplayImage(ad.images[0]);
@@ -114,7 +109,7 @@ export default function AdDetailsModal({
           onClick={(e) => e.stopPropagation()}
           dir={isRTL ? "rtl" : "ltr"}
         >
-          <header className="relative flex h-20 flex-shrink-0 items-center border-b px-4 py-12 sm:px-6 ">
+          <header className="relative flex h-20 flex-shrink-0 items-center border-b px-4 py-4 sm:px-6 ">
             <button
               className={`text-primary-500 -m-2 cursor-pointer p-2 text-2xl ${isRTL ? "rotate-180" : ""}`}
               onClick={onClose}
