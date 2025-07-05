@@ -165,15 +165,16 @@ const MyAdCard = ({ ad, onClick, showRenew }) => {
               </div>
             </button>
           )}
-          <Link
-            to={ad.twitter}
+          <a
+            href={ad.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-on-primary relative z-[2] m-0 inline-flex h-auto shrink-0 items-center justify-center rounded-lg bg-transparent p-0 text-base font-bold whitespace-nowrap transition-colors select-none active:bg-transparent disabled:opacity-50"
           >
             <div className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-[#D8E6F0] active:border">
-              <PiTwitterLogoBold className="text-[#1A96D0]"></PiTwitterLogoBold>
-             
+              <PiTwitterLogoBold className="text-[#1A96D0]" />
             </div>
-          </Link>
+          </a>
           {/* Action Button 3 */}
           <button
             onClick={handleOpenTranslateModal}

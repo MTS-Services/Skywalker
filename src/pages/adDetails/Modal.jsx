@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import FabController from "../fab/FabController";
 import { useLanguage } from "../../context/LanguageContext";
 import AdDetailsModal from "../../testingCode/AdDetailsModal";
+import { NavLink } from "react-router-dom";
 
 /**
  * DetailsModal Component
@@ -125,11 +126,16 @@ export default function DetailsModal({
             >
               <TfiAngleLeft />
             </button>
-            <div className="absolute top-1/2 left-1/2 h-10 -translate-x-1/2 -translate-y-1/2 transform">
-              <a aria-label="Home" href="/">
-                <img alt="Logo" src="/logo.png" className="h-full w-auto" />
-              </a>
-            </div>
+
+            <NavLink to="/" className={`flex items-center justify-center mx-auto gap-2`}>
+              <img src="/logo.png" alt="Logo" className="w-18" />
+              <div>
+                <p className="text-lg font-bold capitalize">{t.site.name}</p>
+                <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
+                  {t.site.tagline}
+                </p>
+              </div>
+            </NavLink>
           </header>
 
           <main className="flex-1 overflow-y-auto">
