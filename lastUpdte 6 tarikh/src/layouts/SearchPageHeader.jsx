@@ -885,8 +885,9 @@ const SearchFilterBar = ({
 }) => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(null);
-  const { currentRegionData: allRegions } = useLanguage(); // LanguageContext থেকে রিজিওন ডেটা নিচ্ছি
 
+
+  const [allRegions, setAllRegions] = useState([]);
   const [allPropertyTypes, setAllPropertyTypes] = useState([]);
   const [transactionTypes, setTransactionTypes] = useState([]);
   const [transactionType, setTransactionType] = useState(
@@ -901,10 +902,13 @@ const SearchFilterBar = ({
   useEffect(() => {
     const fetchFilterData = async () => {
       try {
-        const [propertyTypesRes, transactionTypesRes] = await Promise.all([
-          fetch("/propertyTypes.json"),
-          fetch("/transactionTypes.json"),
-        ]);
+        const [regionsRes, propertyTypesRes, transactionTypesRes] =
+          await Promise.all([
+            fetch("/regions.json"),
+            fetch("/propertyTypes.json"),
+            fetch("/transactionTypes.json"),
+          ]);
+        setAllRegions(await regionsRes.json());
         setAllPropertyTypes(await propertyTypesRes.json());
         setTransactionTypes(await transactionTypesRes.json());
       } catch (error) {
@@ -995,7 +999,7 @@ const SearchFilterBar = ({
     showDropdown,
     toggleDropdown,
     onApply: () => setShowDropdown(null),
-    isDesktopView,
+    isDesktopView, // <-- Pass down the viewport status
   };
 
   return children(filterProps);
