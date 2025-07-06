@@ -9,10 +9,6 @@ import dayjs from "dayjs";
 const AdCard = ({ ad, t, language, isRTL, onClick }) => {
   const navigate = useNavigate();
 
-
-
- 
-  
   const formatTimeAgo = (dateString, lang) => {
     const postDate = new Date(dateString);
     const now = new Date();
