@@ -59,98 +59,102 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
       <div
         className={`invisible fixed top-0 z-50 h-full min-w-85 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}
       >
-        <div className="bg-main h-full text-lg">
-          <div className="border-b border-gray-200 px-4 py-2">
-            <div className="flex items-center justify-between">
-              <NavLink
-                to="/"
-                className={`flex items-center justify-start gap-2`}
-              >
-                <img src="/logo.png" alt="Logo" className="w-14" />
-                <div>
-                  <p className="text-lg font-bold capitalize">{t.site.name}</p>
-                  <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
-                    {t.site.tagline}
-                  </p>
-                </div>
-              </NavLink>
-              <button onClick={toggleSidebar} className="text-gray-500">
-                <FiX className="text-2xl" />
-              </button>
-            </div>
-          </div>
-          <div className="flex flex-col pt-2">
-            {navItems.map((item, index) => (
-              <div className="active:bg-active rounded-e-2xl" key={index}>
-                {item.to ? (
-                  <NavLink
-                    to={item.to}
-                    onClick={toggleSidebar}
-                    className={({ isActive }) =>
-                      `text-dark hover:bg-primary-300/20 hover:text-primary-900 my-0.5 flex w-full items-center gap-3 py-3 ps-6 font-semibold ${isActive ? "bg-primary-300/20 text-primary-900" : ""}`
-                    }
-                  >
-                    <span className="text-primary-900">{item.icon}</span>
-                    <span>{item.label}</span>
-                  </NavLink>
-                ) : (
-                  <button
-                    onClick={item.action}
-                    className="text-dark hover:bg-primary-300/20 hover:text-primary-700 flex w-full items-center gap-3 py-3 ps-6 font-semibold"
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </button>
-                )}
+        <h3>
+          <div className="bg-main text-md h-full">
+            <div className="border-b border-gray-200 px-4 py-4">
+              <div className="flex items-center justify-between">
+                <NavLink
+                  to="/"
+                  className={`flex items-center justify-start gap-2`}
+                >
+                  <img src="/logo.png" alt="Logo" className="w-14" />
+                  <div>
+                    <p className="text-lg font-bold capitalize">
+                      {t.site.name}
+                    </p>
+                    <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
+                      {t.site.tagline}
+                    </p>
+                  </div>
+                </NavLink>
+                <button onClick={toggleSidebar} className="text-gray-500">
+                  <FiX className="text-2xl" />
+                </button>
               </div>
-            ))}
-          </div>
-          <div className="my-4 border-b border-gray-200"></div>
+            </div>
+            <div className="flex flex-col pt-2">
+              {navItems.map((item, index) => (
+                <div className="active:bg-active rounded-e-2xl" key={index}>
+                  {item.to ? (
+                    <NavLink
+                      to={item.to}
+                      onClick={toggleSidebar}
+                      className={({ isActive }) =>
+                        `text-dark hover:bg-primary-300/20 hover:text-primary-900 my-0.5 flex w-full items-center gap-3 py-3 ps-6 font-semibold ${isActive ? "bg-primary-300/20 text-primary-900" : ""}`
+                      }
+                    >
+                      <span className="text-primary-900">{item.icon}</span>
+                      <span>{item.label}</span>
+                    </NavLink>
+                  ) : (
+                    <button
+                      onClick={item.action}
+                      className="text-dark hover:bg-primary-300/20 hover:text-primary-700 flex w-full items-center gap-3 py-3 ps-6 font-semibold"
+                    >
+                      {item.icon}
+                      <span>{item.label}</span>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="my-4 border-b border-gray-200"></div>
 
-          <Link
-            to="/buy-credits"
-            onClick={toggleSidebar}
-            className="flex items-center gap-2 px-4"
-          >
-            <img src="/fab.png" alt="Close form" className="h-10 w-10" />
-            <h1 className="text-primary-600 text-lg">Post your ad</h1>
-          </Link>
+            <Link
+              to="/buy-credits"
+              onClick={toggleSidebar}
+              className="flex items-center gap-2 px-4"
+            >
+              <img src="/fab.png" alt="Close form" className="h-10 w-10" />
+              <h1 className="text-primary-600 text-lg">{t.header.post}</h1>
+            </Link>
 
-          <div className="absolute start-0 end-0 bottom-4 flex items-center justify-center gap-4">
-            {isAuthenticated && (
-              <Link
-                to="/settings"
+            <div className="absolute start-0 end-0 bottom-4 flex items-center justify-center gap-4">
+              {isAuthenticated && (
+                <Link
+                  to="/settings"
+                  className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
+                >
+                  <FiSettings className="h-5 w-5 shrink-0" />
+                </Link>
+              )}
+              <button
+                onClick={() => toggleLanguage(isRTL ? "en" : "ar")}
                 className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
               >
-                <FiSettings className="h-5 w-5 shrink-0" />
-              </Link>
-            )}
-            <button
-              onClick={() => toggleLanguage(isRTL ? "en" : "ar")}
-              className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
-            >
-              <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
-                {isRTL ? "En" : "ع"}
-              </span>
-            </button>
-            <a
-              target="_blank"
-              href="https://www.instagram.com/mraqar"
-              rel="noopener noreferrer"
-              className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
-            >
-              <FiInstagram className="h-5 w-5 shrink-0" />
-            </a>
-            <a
-              target="_blank"
-              href="https://x.com/mr_aqar_"
-              rel="noopener noreferrer"
-              className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
-            >
-              <FiTwitter className="h-5 w-5 shrink-0" />
-            </a>
+                <span className={`text-xl ${isRTL ? "" : "relative bottom-1"}`}>
+                  {isRTL ? "En" : "ع"}
+                </span>
+              </button>
+              <a
+                target="_blank"
+                href="https://www.instagram.com/mraqar"
+                rel="noopener noreferrer"
+                className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
+              >
+                <FiInstagram className="h-5 w-5 shrink-0" />
+              </a>
+              <a
+                target="_blank"
+                href="https://x.com/mr_aqar_"
+                rel="noopener noreferrer"
+                className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
+              >
+                <FiTwitter className="h-5 w-5 shrink-0" />
+              </a>
+            </div>
           </div>
-        </div>
+        </h3>
       </div>
     </section>
   );

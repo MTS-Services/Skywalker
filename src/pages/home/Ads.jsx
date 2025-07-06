@@ -5,6 +5,7 @@ import AdCard from "../../components/shared/AdCard";
 import { useNavigate } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
+import FabController from "../fab/FabController";
 
 /**
  * Generates a URL-friendly slug from a string.
@@ -30,7 +31,8 @@ export default function Ads() {
   const navigate = useNavigate();
   // const [loadingMore, setLoadingMore] = useState(false)
   // const [loadMoreClicked, setLoadMoreClicked] = useState(false) // Track if load more was clicked
-  const { isRTL, t, language } = useLanguage();
+  const { isRTL, t, language, FloatingActionButton } = useLanguage();
+  const isMobile = window.innerWidth <= 768;
 
   const ITEMS_PER_PAGE = 10;
 
@@ -152,6 +154,7 @@ export default function Ads() {
           formatTimeAgo={formatTimeAgo}
         />
       )}
+      {isMobile && !FloatingActionButton && !showModal && <FabController />}
     </>
   );
 }
