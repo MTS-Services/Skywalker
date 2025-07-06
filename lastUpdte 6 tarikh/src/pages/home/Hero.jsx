@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// import BannerImage from "../../assets/images/home-hero-banner.svg"
 import { MultiSelectDropdown } from "../../components/shared/FilterDropdown";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
 import { useLanguage } from "../../context/LanguageContext";
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 import { FaArrowLeft } from "react-icons/fa";
 
-export default function Hero() {
-  const { t, isRTL, currentRegionData } = useLanguage();
-
+/**
+ * Hero Component: Displays the main hero section with a background and search filters.
+ */
+export default function Hero({ t, isRTL }) {
   return (
-    <section className="relative h-[84vh] w-full overflow-hidden md:h-[70vh] lg:h-[100vh]">
+    <section className="relative md:h-[70vh] h-[84vh] w-full overflow-hidden lg:h-[100vh]">
       <div className="absolute right-0 bottom-0 left-0 -z-1 w-full">
         <img
           alt={t.site.name}
@@ -31,7 +33,7 @@ export default function Hero() {
       <div className="container mx-auto mt-6 flex h-full w-full items-start justify-center p-4 lg:mt-20">
         <div className="flex w-full max-w-2xl flex-col items-center text-center">
           <div className="px-4 sm:px-8">
-            <h1 className="mb-3 text-lg font-[700] text-black md:text-xl lg:text-[26px]">
+            <h1 className="mb-3 text-lg text-black md:text-xl font-[700] lg:text-[26px]">
               {t.home.bannerTitle}
             </h1>
             <p className="mb-8 text-[14px] font-normal text-[#556885] md:text-[14x]">
@@ -39,11 +41,7 @@ export default function Hero() {
             </p>
           </div>
           <div className="shadow-primary-900/30 w-full max-w-md rounded-2xl px-4 sm:p-6 lg:-mt-3">
-            <FilterComponent
-              t={t}
-              isRTL={isRTL}
-              regionsData={currentRegionData}
-            />
+            <FilterComponent t={t} isRTL={isRTL} />
           </div>
         </div>
       </div>
@@ -51,27 +49,47 @@ export default function Hero() {
   );
 }
 
-function FilterComponent({ t, isRTL, regionsData }) {
+/**
+ * FilterComponent: Renders the search controls and handles search submission.
+ */
+
+function FilterComponent({ t, isRTL }) {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("rent");
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
+  const [regionsData, setRegionsData] = useState([]);
   const [propertyTypeData, setPropertyTypeData] = useState([]);
   const [transactionTypes, setTransactionTypes] = useState([]);
   const [showDropdown, setShowDropdown] = useState(null);
+
+  // Add dropdown state management
   const [openDropdown, setOpenDropdown] = useState(null);
+
+  // Use the language context to determine the language
+  const { language } = useLanguage(); // এই লাইনে ভাষা পাওয়া যাবে
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [propertyTypesRes, transactionTypesRes] = await Promise.all([
-          fetch("/propertyTypes.json"),
-          fetch("/transactionTypes.json"),
-        ]);
+        // Determine which transaction types file to load based on language
+        const transactionTypesFile = isRTL
+          ? "/transactionTypesArabic.json"
+          : "/transactionTypes.json";
 
+        const [regionsRes, propertyTypesRes, transactionTypesRes] =
+          await Promise.all([
+            fetch("/regions.json"),
+            fetch("/propertyTypes.json"),
+            fetch(transactionTypesFile),
+          ]);
+
+        const regions = await regionsRes.json();
         const propertyTypes = await propertyTypesRes.json();
         const transactions = await transactionTypesRes.json();
 
+        setRegionsData(regions);
         setPropertyTypeData(propertyTypes);
         setTransactionTypes(transactions);
         setSelectedOption(transactions[0]?.id || "rent");
@@ -81,7 +99,8 @@ function FilterComponent({ t, isRTL, regionsData }) {
     };
 
     fetchData();
-  }, []);
+  }, [isRTL]);
+
 
   const toggleDropdown = (dropdownName) => {
     setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
@@ -95,16 +114,19 @@ function FilterComponent({ t, isRTL, regionsData }) {
     e.preventDefault();
     const params = new URLSearchParams();
 
+    // Add transaction type
     if (selectedOption) {
       params.set("transactionType", selectedOption);
     }
 
+    // Add regions
     selectedRegions.forEach((region) => {
       if (region.id && region.id !== "all") {
         params.append("region", region.id);
       }
     });
 
+    // Add property types
     selectedPropertyTypes.forEach((type) => {
       if (type.id && type.id !== "all") {
         params.append("propertyType", type.id);
@@ -157,11 +179,7 @@ function FilterComponent({ t, isRTL, regionsData }) {
           <button
             key={option.id}
             type="button"
-            className={`flex-1 rounded-full px-4 py-2 text-sm font-bold transition-colors duration-300 ease-in-out ${
-              selectedOption === option.id
-                ? "bg-primary-500 text-white"
-                : "text-primary-900 hover:bg-primary-300/20 bg-transparent"
-            }`}
+            className={`flex-1 rounded-full px-4 py-2 text-sm font-bold transition-colors duration-300 ease-in-out ${selectedOption === option.id ? "bg-primary-500 text-white" : "text-primary-900 hover:bg-primary-300/20 bg-transparent"}`}
             onClick={() => setSelectedOption(option.id)}
           >
             {option.name}
@@ -179,8 +197,6 @@ function FilterComponent({ t, isRTL, regionsData }) {
   );
 }
 
-
-
 const MobileRegionFilter = ({
   options,
   selectedItems,
@@ -194,18 +210,16 @@ const MobileRegionFilter = ({
   const { isRTL, t } = useLanguage();
 
   const toggleItem = (item) => {
-    setSelectedItems(
-      (prev) =>
-        prev.some((selected) => selected.id === item.id)
-          ? prev.filter((selected) => selected.id !== item.id)
-          : [...prev, item], // সরাসরি item যোগ করছি, নতুন অবজেক্ট তৈরি করছি না
+    setSelectedItems((prev) =>
+      prev.some((selected) => selected.id === item.id)
+        ? prev.filter((selected) => selected.id !== item.id)
+        : [...prev, { ...item }],
     );
   };
 
-  const handleItemSelect = (item, e) => {
-    e.stopPropagation();
+  const handleItemSelectAndClose = (item) => {
     toggleItem(item);
-    onToggle(); // আইটেম সিলেক্ট করতেই মোডাল ক্লোজ হবে
+    onToggle();
   };
 
   const filteredOptions = options.filter((option) =>
@@ -216,17 +230,13 @@ const MobileRegionFilter = ({
     <>
       <div onClick={onToggle} className="mb-5 cursor-pointer">
         <div
-          className={`flex w-full cursor-pointer flex-wrap items-center gap-2 rounded-3xl border border-gray-200 bg-white p-3 px-5 focus-within:ring-1 focus-within:ring-gray-200 ${
-            isOpen ? "ring-1 ring-gray-300" : ""
-          }`}
+          className={`flex w-full cursor-pointer items-center rounded-3xl border border-gray-200 bg-white p-3 px-5 focus-within:ring-1 focus-within:ring-gray-200 ${isOpen ? "ring-1 ring-gray-300" : ""}`}
         >
           {selectedItems.length > 0 ? (
             selectedItems.map((item) => (
               <span
                 key={item.id}
-                // এখানে 'text-xs' ছিল, যদি ছবি অনুযায়ী ছোট টেক্সট চান, এটি ঠিক আছে।
-                // 'font-medium' ক্লাসটিও ঠিক আছে।
-                className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
+                className="bg-primary-300/20 flex items-center rounded-md text-6xl font-medium text-black"
               >
                 {item.name}
                 <button
@@ -243,7 +253,7 @@ const MobileRegionFilter = ({
             ))
           ) : (
             <span className="flex items-center justify-center gap-2 text-gray-500">
-              <LuSearch /> {placeholder}
+              <LuSearch /> {placeholder}{" "}
             </span>
           )}
         </div>
@@ -251,7 +261,8 @@ const MobileRegionFilter = ({
 
       {isOpen && (
         <div className="fixed inset-0 z-[999] bg-white">
-          <div className="flex h-full flex-col overflow-y-auto">
+          {/* Changed flex-colsnap-y to flex-col and added overflow-y-auto for scrolling */}
+          <div className="scroll-snap-type: y mandatory flex h-full max-h-full w-full snap-y flex-col overflow-y-auto">
             {selectedItems.length > 0 && (
               <div className="shrink-0 px-4 pt-4">
                 <div className="flex flex-wrap gap-2 rounded-md border border-gray-200 p-2">
@@ -267,7 +278,7 @@ const MobileRegionFilter = ({
                           e.stopPropagation();
                           toggleItem(item);
                         }}
-                        className={`${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
+                        className={`m-4 p-24 ${isRTL ? "mr-1" : "ml-1"} hover:text-red-500`}
                       >
                         <LuX />
                       </button>
@@ -279,7 +290,7 @@ const MobileRegionFilter = ({
 
             <div className="shrink-0 p-4">
               <div
-                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 ${
+                className={`border-primary-600 focus-within:ring-primary-300 relative flex w-full items-center rounded-md border p-2 focus-within:ring-1 focus-within:outline-none ${
                   isRTL ? "pr-14" : "pl-14"
                 }`}
               >
@@ -294,7 +305,7 @@ const MobileRegionFilter = ({
                 <input
                   type="text"
                   placeholder={searchPlaceholder}
-                  className="w-full rounded-lg border border-gray-300 p-2 text-left focus:outline-none"
+                  className="w-full rounded-lg border border-gray-300 p-2 text-left focus:ring-1 focus:ring-gray-300 focus:outline-none"
                   dir="ltr"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -303,13 +314,18 @@ const MobileRegionFilter = ({
               </div>
             </div>
 
+            {/* Added scroll-snap-align to list items for proper snapping */}
             <ul className="flex-1 overflow-y-auto p-1">
               {filteredOptions.length > 0 ? (
                 filteredOptions.map((option) => (
                   <li
                     key={option.id}
-                    className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
-                    onClick={(e) => handleItemSelect(option, e)} // এখানে নতুন ফাংশন ব্যবহার করা হয়েছে
+                    className="hover:bg-primary-300/20 scroll-snap-align-start my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleItem(option);
+                      onToggle();
+                    }}
                   >
                     <div className="flex items-center">
                       <input
@@ -320,15 +336,15 @@ const MobileRegionFilter = ({
                         )}
                         className="form-radio h-4 w-4 cursor-pointer rounded"
                       />
+
                       <span
-                        className={`px-2 ${isRTL ? "mr-2" : "ml-2"} ${
-                          isRTL ? "text-right" : "text-left"
-                        }`}
+                        className={`px-2 ${isRTL ? "mr-2" : "ml-2"} ${isRTL ? "text-right" : "text-left"}`}
                         dir={isRTL ? "rtl" : "ltr"}
                       >
                         {option.name}
                       </span>
                     </div>
+
                     {option.count && (
                       <span className="px-4 text-sm text-gray-700">
                         ({option.count})
