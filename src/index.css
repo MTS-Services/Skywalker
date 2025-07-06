@@ -281,3 +281,51 @@ html[dir="rtl"] {
 html {
   scroll-behavior: smooth;
 }
+
+@layer base {
+  /* ... your existing base styles ... */
+
+  /* Increase font size for RTL */
+  [dir="rtl"] h1 {
+    @apply text-2xl font-bold;
+    font-weight: 700;
+    line-height: 34px;
+  }
+
+  [dir="rtl"] h2 {
+    @apply text-md font-bold;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  [dir="rtl"] h3 {
+    @apply text-sm font-semibold;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  [dir="rtl"] h4 {
+    @apply text-xs font-normal;
+    font-weight: 400;
+    line-height: 23px;
+  }
+
+  [dir="rtl"] p {
+    @apply text-sm font-normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--text-color-pargraph);
+  }
+
+  [dir="rtl"] li {
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    color: var(--text-color-pargraph);
+  }
+
+  [dir="rtl"] ul {
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    color: var(--text-color-pargraph);
+  }
+}

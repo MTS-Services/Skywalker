@@ -127,7 +127,10 @@ export default function DetailsModal({
               <TfiAngleLeft />
             </button>
 
-            <NavLink to="/" className={`flex items-center justify-center mx-auto gap-2`}>
+            <NavLink
+              to="/"
+              className={`mx-auto flex items-center justify-center gap-2`}
+            >
               <img src="/logo.png" alt="Logo" className="w-18" />
               <div>
                 <p className="text-lg font-bold capitalize">{t.site.name}</p>
