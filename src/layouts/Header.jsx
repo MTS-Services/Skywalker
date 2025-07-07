@@ -156,18 +156,38 @@ const Navigation = ({
 }) => {
   const [propertyTypes, setPropertyTypes] = useState([]);
 
-  const fetchPropertyType = async () => {
-    try {
-      const response = await axios.get("/groupPropertyTypes.json");
-      setPropertyTypes(response.data);
-    } catch (error) {
-      console.error("Error fetching property types:", error);
-    }
-  };
 
+
+
+
+  const { language } = useLanguage();
+  // propertyTypeData লোড করার জন্য useEffect
   useEffect(() => {
-    fetchPropertyType();
-  }, []);
+    const fetchPropertyTypes = async () => {
+      
+      try {
+        // ভাষার উপর ভিত্তি করে সঠিক JSON ফাইলটি লোড করা হচ্ছে
+        const url =
+          language === "ar"
+            ? "/groupPropertyTypesArbic.json"
+            : "/groupPropertyTypes.json";
+        const response = await fetch(url);
+        const data = await response.json();
+        setPropertyTypes(data);
+        
+      } catch (error) {
+        console.error("Error fetching property types data:", error);
+      }
+    };
+
+
+    fetchPropertyTypes();
+  }, [language]); 
+  
+
+
+
+
 
   return (
     <div
