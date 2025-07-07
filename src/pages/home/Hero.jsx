@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MultiSelectDropdown } from "../../components/shared/FilterDropdown";
 import ButtonSubmit from "../../common/button/ButtonSubmit";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "../../context/LanguageContext"; // LanguageContext থেকে language ব্যবহারের জন্য
 import { LuChevronDown, LuSearch, LuX } from "react-icons/lu";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -53,35 +53,47 @@ export default function Hero() {
 
 function FilterComponent({ t, isRTL, regionsData }) {
   const navigate = useNavigate();
+  // useLanguage থেকে language এবং currentTransactionTypesData আনা হয়েছে
+  const { language, currentTransactionTypesData } = useLanguage();
+
   const [selectedOption, setSelectedOption] = useState("rent");
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
-  const [propertyTypeData, setPropertyTypeData] = useState([]);
-  const [transactionTypes, setTransactionTypes] = useState([]);
+  const [propertyTypeData, setPropertyTypeData] = useState([]); // propertyTypeData এর স্টেট
+  // transactionTypes স্টেটটি সরিয়ে দেওয়া হয়েছে, কারণ এটি এখন LanguageContext থেকে আসবে।
+  // const [transactionTypes, setTransactionTypes] = useState([]); // এই লাইনটি সরিয়ে দেওয়া হয়েছে
+
   const [showDropdown, setShowDropdown] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
 
+  // propertyTypeData লোড করার জন্য useEffect
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPropertyTypes = async () => {
       try {
-        const [propertyTypesRes, transactionTypesRes] = await Promise.all([
-          fetch("/propertyTypes.json"),
-          fetch("/transactionTypes.json"),
-        ]);
-
-        const propertyTypes = await propertyTypesRes.json();
-        const transactions = await transactionTypesRes.json();
-
-        setPropertyTypeData(propertyTypes);
-        setTransactionTypes(transactions);
-        setSelectedOption(transactions[0]?.id || "rent");
+        // ভাষার উপর ভিত্তি করে সঠিক JSON ফাইলটি লোড করা হচ্ছে
+        const url =
+          language === "ar"
+            ? "/propertyTypesArbic.json"
+            : "/propertyTypes.json";
+        const response = await fetch(url);
+        const data = await response.json();
+        setPropertyTypeData(data);
       } catch (error) {
-        console.error("Error fetching filter data:", error);
+        console.error("Error fetching property types data:", error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchPropertyTypes();
+  }, [language]); // language স্টেট পরিবর্তন হলে এটি আবার রান করবে
+
+  // currentTransactionTypesData লোড হওয়ার পর selectedOption সেট করার জন্য
+  useEffect(() => {
+    if (currentTransactionTypesData && currentTransactionTypesData.length > 0) {
+      setSelectedOption(currentTransactionTypesData[0]?.id || "rent");
+    }
+  }, [currentTransactionTypesData]); // currentTransactionTypesData পরিবর্তন হলে এটি রান করবে
+
+
 
   const toggleDropdown = (dropdownName) => {
     setOpenDropdown((prev) => (prev === dropdownName ? null : dropdownName));
@@ -142,7 +154,7 @@ function FilterComponent({ t, isRTL, regionsData }) {
       </span>
 
       <MultiSelectDropdown
-        options={propertyTypeData}
+        options={propertyTypeData} // এখানে propertyTypeData ব্যবহার করা হয়েছে
         selectedItems={selectedPropertyTypes}
         setSelectedItems={setSelectedPropertyTypes}
         placeholder={t.home.propertyTypePlaceholder}
@@ -153,7 +165,8 @@ function FilterComponent({ t, isRTL, regionsData }) {
       />
 
       <div className="flex justify-center gap-1 overflow-hidden rounded-full border border-gray-300 bg-white p-1">
-        {transactionTypes.map((option) => (
+        {/* transactionTypes এর পরিবর্তে currentTransactionTypesData ব্যবহার করা হয়েছে */}
+        {currentTransactionTypesData.map((option) => (
           <button
             key={option.id}
             type="button"
@@ -181,6 +194,15 @@ function FilterComponent({ t, isRTL, regionsData }) {
 
 
 
+
+
+
+
+
+
+
+
+
 const MobileRegionFilter = ({
   options,
   selectedItems,
@@ -194,18 +216,17 @@ const MobileRegionFilter = ({
   const { isRTL, t } = useLanguage();
 
   const toggleItem = (item) => {
-    setSelectedItems(
-      (prev) =>
-        prev.some((selected) => selected.id === item.id)
-          ? prev.filter((selected) => selected.id !== item.id)
-          : [...prev, item], 
+    setSelectedItems((prev) =>
+      prev.some((selected) => selected.id === item.id)
+        ? prev.filter((selected) => selected.id !== item.id)
+        : [...prev, item],
     );
   };
 
   const handleItemSelect = (item, e) => {
     e.stopPropagation();
     toggleItem(item);
-    onToggle(); 
+    onToggle();
   };
 
   const filteredOptions = options.filter((option) =>
@@ -327,7 +348,7 @@ const MobileRegionFilter = ({
                         {option.name}
                       </span>
                     </div>
-                    
+
                     {option.count !== undefined && option.count !== null && (
                       <span className="px-4 text-sm text-gray-700">
                         ({option.count})

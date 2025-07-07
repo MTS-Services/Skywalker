@@ -1,0 +1,11 @@
+[
+  { "id": "Properties", "name": "عقارات " },
+  { "id": "apartment", "name": "شقة " },
+  { "id": "house", "name": "بيت " },
+  { "id": "land", "name": "ارض " },
+  { "id": "building", "name": "عمارة" },
+  { "id": "chalet", "name": "شاليه" },
+  { "id": "farm", "name": "مزرعة" },
+  { "id": "commercial", "name": "تجاري" }
+
+]
