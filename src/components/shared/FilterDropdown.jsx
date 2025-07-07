@@ -108,7 +108,7 @@ export const MultiSelectDropdown = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
+                  className="hover:bg-primary-500/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 text-[15px] font-[700] text-[#556885]"
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(option);

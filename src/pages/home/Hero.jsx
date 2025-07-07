@@ -167,7 +167,7 @@ function FilterComponent({ t, isRTL, regionsData }) {
           <button
             key={option.id}
             type="button"
-            className={`text-[#556885] flex-1 rounded-full px-4 py-2 text-[14px] font-[700] transition-colors duration-300 ease-in-out ${
+            className={`text-[#556885] flex-1 rounded-full px-4 py-2 text-[15px] font-[700] transition-colors duration-300 ease-in-out ${
               selectedOption === option.id
                 ? "bg-primary-500 text-white"
                 : "text-primary-900 hover:bg-primary-300/20 bg-transparent"
@@ -181,7 +181,7 @@ function FilterComponent({ t, isRTL, regionsData }) {
 
       <ButtonSubmit
         text={
-          <span className="flex items-center gap-2">{t.home.searchButton}</span>
+          <span className="flex items-center font-[700] text-[15px] gap-2">{t.home.searchButton}</span>
         }
         className="!w-full rounded-4xl"
       />
@@ -315,7 +315,8 @@ const MobileRegionFilter = ({
                 filteredOptions.map((option) => (
                   <li
                     key={option.id}
-                    className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
+                    className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer
+                     items-center justify-between rounded-md p-2 text-[14px] font-[700] text-[#556885]"
                     onClick={(e) => handleItemSelect(option, e)}
                   >
                     <div className="flex items-center">

@@ -257,29 +257,61 @@ const AdUploadForm = () => {
     images: [],
   });
 
+
+
+
+  // propertyTypeData লোড করার জন্য useEffect
+  const { language } = useLanguage();
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         const [purposesRes, propTypesRes, areasRes] = await Promise.all([
-          axios.get("/transactionTypes.json"),
-          axios.get("/propertyTypes.json"),
-          axios.get("/regions.json"),
+          // transactionTypes (purposes)
+          axios.get(
+            language === "ar"
+              ? "/transactionTypesArbic.json"
+              : "/transactionTypes.json",
+          ),
+          // propertyTypes
+          axios.get(
+            language === "ar"
+              ? "/propertyTypesArbic.json"
+              : "/propertyTypes.json",
+          ),
+          // regions (areas)
+          axios.get(language === "ar" ? "/regionsarbic.json" : "/regions.json"),
         ]);
+
         setOptions({
           purposes: purposesRes.data || [],
           propertyTypes: propTypesRes.data || [],
           areas: areasRes.data || [],
         });
       } catch (error) {
-        console.error("Failed to fetch form data:", error);
-        toast.error(t.adUploadForm.dataLoadError);
+        console.error("Failed to fetch language-specific form data:", error);
+        toast.error(
+          t.adUploadForm.dataLoadError || "ডেটা লোড করতে ব্যর্থ হয়েছে।",
+        ); // অনুবাদ না থাকলে ডিফল্ট মেসেজ
       } finally {
         setIsLoading(false);
       }
     };
+
     fetchData();
-  }, [t]);
+  }, [language, t]); // language বা t (অনুবাদ অবজেক্ট) পরিবর্তন হলে এই হুকটি আবার চলবে
+
+  // আপনি এখানে options স্টেট ব্যবহার করতে পারবেন
+  // উদাহরণ:
+  // console.log("Current Purposes:", options.purposes);
+  // console.log("Current Property Types:", options.propertyTypes);
+  // console.log("Current Areas:", options.areas);
+
+  if (isLoading) {
+    return <div>Loading form data...</div>;
+  }
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
