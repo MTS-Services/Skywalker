@@ -132,11 +132,11 @@ export default function Ads() {
                 onClick={handleLoadMoreClick}
                 text={
                   <span className="flex items-center justify-center rounded-2xl">
-                    <FaCirclePlus className="mr-2 text-xl" />
+                    <FaCirclePlus className="mx-2 text-xl" />
                     {t.ads.loadMore}
                   </span>
                 }
-                className="!w-full rounded-4xl"
+                className="  rounded-4xl"
               />
             </div>
           </div>

@@ -53,12 +53,39 @@ const Footer = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const { t, isRTL } = useLanguage();
   const [properties, setProperties] = useState([]);
+  const { language } = useLanguage();
+  const [groupPropertyTypesArbicData, setgroupPropertyTypesArbicData] =
+    useState([]); 
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+
+
+  // propertyTypeData লোড করার জন্য useEffect
+  useEffect(() => {
+    const fetchPropertyTypes = async () => {
+      
+      try {
+        // ভাষার উপর ভিত্তি করে সঠিক JSON ফাইলটি লোড করা হচ্ছে
+        const url =
+          language === "ar"
+            ? "/groupPropertyTypesArbic.json"
+            : "/groupPropertyTypes.json";
+        const response = await fetch(url);
+        const data = await response.json();
+        setgroupPropertyTypesArbicData(data);
+      } catch (error) {
+        console.error("Error fetching property types data:", error);
+      }
+    };
+
+
+    fetchPropertyTypes();
+  }, [language]); // language স্টেট পরিবর্তন হলে এটি আবার রান করবে
 
   useEffect(() => {
     const fetchPropertyType = async () => {
@@ -87,8 +114,8 @@ const Footer = () => {
           isRTL ? "rtl" : "ltr"
         }`}
       >
-        {properties.length > 0 &&
-          properties.map((property) => (
+        {groupPropertyTypesArbicData.length > 0 &&
+          groupPropertyTypesArbicData.map((property) => (
             <div key={property.id}>
               <h2 className="mb-2 text-base">{property.title}</h2>
               <ul className="space-y-1">

@@ -53,15 +53,12 @@ export default function Hero() {
 
 function FilterComponent({ t, isRTL, regionsData }) {
   const navigate = useNavigate();
-  // useLanguage থেকে language এবং currentTransactionTypesData আনা হয়েছে
   const { language, currentTransactionTypesData } = useLanguage();
 
   const [selectedOption, setSelectedOption] = useState("rent");
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
-  const [propertyTypeData, setPropertyTypeData] = useState([]); // propertyTypeData এর স্টেট
-  // transactionTypes স্টেটটি সরিয়ে দেওয়া হয়েছে, কারণ এটি এখন LanguageContext থেকে আসবে।
-  // const [transactionTypes, setTransactionTypes] = useState([]); // এই লাইনটি সরিয়ে দেওয়া হয়েছে
+  const [propertyTypeData, setPropertyTypeData] = useState([]); 
 
   const [showDropdown, setShowDropdown] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -163,14 +160,14 @@ function FilterComponent({ t, isRTL, regionsData }) {
         isOpen={openDropdown === "propertyTypes"}
         onToggle={() => toggleDropdown("propertyTypes")}
       />
-
+ {/* slectet part col 3  */}
       <div className="flex justify-center gap-1 overflow-hidden rounded-full border border-gray-300 bg-white p-1">
         {/* transactionTypes এর পরিবর্তে currentTransactionTypesData ব্যবহার করা হয়েছে */}
         {currentTransactionTypesData.map((option) => (
           <button
             key={option.id}
             type="button"
-            className={`flex-1 rounded-full px-4 py-2 text-sm font-bold transition-colors duration-300 ease-in-out ${
+            className={`text-[#556885] flex-1 rounded-full px-4 py-2 text-[14px] font-[700] transition-colors duration-300 ease-in-out ${
               selectedOption === option.id
                 ? "bg-primary-500 text-white"
                 : "text-primary-900 hover:bg-primary-300/20 bg-transparent"
@@ -192,16 +189,7 @@ function FilterComponent({ t, isRTL, regionsData }) {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
+// text code setup 
 
 const MobileRegionFilter = ({
   options,
