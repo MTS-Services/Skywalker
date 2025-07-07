@@ -7,8 +7,13 @@ import arabicRegionsData from "../../public/regionsarbic.json";
 import englishtransactionTypesData from "../../public/transactionTypes.json";
 import arabictransactionTypesData from "../../public/transactionTypesArbic.json";
 
+// \\\\\property part 
 import englishpropertyTypesData from "../../public/propertyTypes.json";
 import arabicpropertyTypesArbicData from "../../public/propertyTypesArbic.json";
+
+//header adn footer part
+import englishgroupPropertyTypesArbicData from "../../public/groupPropertyTypes.json";
+import arabicgroupPropertyTypesArbicData from "../../public/groupPropertyTypesArbic.json";
 
 
 const LanguageContext = createContext();
@@ -28,6 +33,21 @@ export const LanguageProvider = ({ children }) => {
   const [crrentpropertyTypesData, setCurrentpropertyTypesData] = useState([]);
 
   const [currentTransactionTypesData, setCurrenttransactionTypesData] =useState([])
+const [
+  currentgroupPropertyTypesArbicData,
+  setuCurrentgroupPropertyTypesArbicData
+]=useState([]) ;
+
+
+// header footer data   
+useEffect(()=> {
+  if(language === "ar"){
+    setuCurrentgroupPropertyTypesArbicData(arabicgroupPropertyTypesArbicData);
+  }else{
+    setuCurrentgroupPropertyTypesArbicData(englishgroupPropertyTypesArbicData);
+  }
+},[language])
+
 
   const [showFloatingActionButton, setShowFloatingActionButton] =
     useState(false);
@@ -92,11 +112,12 @@ useEffect(() => {
     isRTL,
     toggleLanguage,
     t,
-    currentRegionData, 
-    showFloatingActionButton, 
-    setShowFloatingActionButton, 
+    currentRegionData,
+    showFloatingActionButton,
+    setShowFloatingActionButton,
     currentTransactionTypesData,
     crrentpropertyTypesData,
+    currentgroupPropertyTypesArbicData,
   };
 
   return (
