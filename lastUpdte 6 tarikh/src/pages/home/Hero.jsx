@@ -345,7 +345,7 @@ const MobileRegionFilter = ({
                       </span>
                     </div>
 
-                    {option.count && (
+                    {option.count !== undefined && option.count !== null && (
                       <span className="px-4 text-sm text-gray-700">
                         ({option.count})
                       </span>

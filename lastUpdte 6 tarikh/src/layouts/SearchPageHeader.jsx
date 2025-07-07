@@ -242,8 +242,10 @@ const DesktopRegionFilter = ({
                     <span className="ltr:ml-2 rtl:mr-2">{option.name}</span>
                   </div>
 
-                  {option.count && (
-                    <span className="text-sm text-black">({option.count})</span>
+                  {option.count !== undefined && option.count !== null && (
+                    <span className="px-4 text-sm text-gray-700">
+                      ({option.count})
+                    </span>
                   )}
                 </li>
               ))
@@ -401,8 +403,8 @@ const MobileRegionFilter = ({
                       <span className="ltr:ml-2 rtl:mr-2">{option.name}</span>
                     </div>
 
-                    {option.count && (
-                      <span className="text-sm text-black">
+                    {option.count !== undefined && option.count !== null && (
+                      <span className="px-4 text-sm text-gray-700">
                         ({option.count})
                       </span>
                     )}
@@ -417,7 +419,6 @@ const MobileRegionFilter = ({
           </div>
         </div>
       )}
-      
     </>
   );
 };
@@ -629,11 +630,12 @@ const PropertyDropdown = ({
                           {option.name}
                         </span>
 
-                        {option.count && (
-                          <span className="text-sm text-black">
-                            ({option.count})
-                          </span>
-                        )}
+                        {option.count !== undefined &&
+                          option.count !== null && (
+                            <span className="px-4 text-sm text-gray-700">
+                              ({option.count})
+                            </span>
+                          )}
                       </li>
                     ))
                   ) : (

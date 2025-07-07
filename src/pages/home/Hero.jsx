@@ -198,14 +198,14 @@ const MobileRegionFilter = ({
       (prev) =>
         prev.some((selected) => selected.id === item.id)
           ? prev.filter((selected) => selected.id !== item.id)
-          : [...prev, item], // সরাসরি item যোগ করছি, নতুন অবজেক্ট তৈরি করছি না
+          : [...prev, item], 
     );
   };
 
   const handleItemSelect = (item, e) => {
     e.stopPropagation();
     toggleItem(item);
-    onToggle(); // আইটেম সিলেক্ট করতেই মোডাল ক্লোজ হবে
+    onToggle(); 
   };
 
   const filteredOptions = options.filter((option) =>
@@ -224,8 +224,6 @@ const MobileRegionFilter = ({
             selectedItems.map((item) => (
               <span
                 key={item.id}
-                // এখানে 'text-xs' ছিল, যদি ছবি অনুযায়ী ছোট টেক্সট চান, এটি ঠিক আছে।
-                // 'font-medium' ক্লাসটিও ঠিক আছে।
                 className="bg-primary-300/20 flex items-center rounded-md px-2 py-1 text-xs font-medium text-black"
               >
                 {item.name}
@@ -309,7 +307,7 @@ const MobileRegionFilter = ({
                   <li
                     key={option.id}
                     className="hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2"
-                    onClick={(e) => handleItemSelect(option, e)} // এখানে নতুন ফাংশন ব্যবহার করা হয়েছে
+                    onClick={(e) => handleItemSelect(option, e)}
                   >
                     <div className="flex items-center">
                       <input
@@ -329,7 +327,8 @@ const MobileRegionFilter = ({
                         {option.name}
                       </span>
                     </div>
-                    {option.count && (
+                    
+                    {option.count !== undefined && option.count !== null && (
                       <span className="px-4 text-sm text-gray-700">
                         ({option.count})
                       </span>
