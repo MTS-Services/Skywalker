@@ -338,7 +338,7 @@ const MobileRegionFilter = ({
                       />
 
                       <span
-                        className={`px-2 ${isRTL ? "mr-2" : "ml-2"} ${isRTL ? "text-right" : "text-left"}`}
+                        className={`px-2  ${isRTL ? "mr-2" : "ml-2"} ${isRTL ? "text-right" : "text-left"}`}
                         dir={isRTL ? "rtl" : "ltr"}
                       >
                         {option.name}

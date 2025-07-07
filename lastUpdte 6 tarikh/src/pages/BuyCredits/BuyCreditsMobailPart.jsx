@@ -284,7 +284,7 @@ const BuyCreditsMobailPart = () => {
             <div className="flex items-center justify-center">
               <button
                 onClick={closeModal}
-                className="flex items-center justify-center rounded-2xl bg-[#F5F7F9] p-2 px-6 text-gray-700"
+                className="flex items-center justify-center rounded-2xl p bg-[#F5F7F9] p-2 px-6 text-gray-700"
               >
                 {t.byCredit.closebutton}
               </button>

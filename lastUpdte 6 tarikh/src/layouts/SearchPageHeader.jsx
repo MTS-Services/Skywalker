@@ -400,11 +400,13 @@ const MobileRegionFilter = ({
                         )}
                         className="form-radio h-4 w-4 cursor-pointer rounded"
                       />
-                      <span className="ltr:ml-2 rtl:mr-2">{option.name}</span>
+                      <span className="text-xl font-[700] text-[#556885] ltr:ml-2 rtl:mr-2">
+                        {option.name}
+                      </span>
                     </div>
 
                     {option.count !== undefined && option.count !== null && (
-                      <span className="px-4 text-sm text-gray-700">
+                      <span className="px-4 text-[#556885] text-xl font-[700]">
                         ({option.count})
                       </span>
                     )}

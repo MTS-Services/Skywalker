@@ -129,8 +129,8 @@ export default function Ads() {
               <ButtonSubmit
                 onClick={handleLoadMoreClick}
                 text={
-                  <span className="flex items-center justify-center rounded-2xl">
-                    <FaCirclePlus className="mr-2 text-xl" />
+                  <span className="flex items-center text-5 justify-center rounded-2xl">
+                    <FaCirclePlus className="mr-2 text-xl w-12" />
                     {t.ads.loadMore}
                   </span>
                 }

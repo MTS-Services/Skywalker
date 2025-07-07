@@ -200,9 +200,6 @@ function FilterComponent({ t, isRTL, regionsData }) {
 
 
 
-
-
-
 const MobileRegionFilter = ({
   options,
   selectedItems,
