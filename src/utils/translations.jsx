@@ -210,6 +210,8 @@ export const translations = {
       titlefast: "Real Estate Agents List in Kuwait ",
       titlelast: "Agents",
       companystTitle: "Agent's Recent Ads",
+      home: "Home",
+      join: "Join"
     },
 
     siteMapalldata: {
@@ -678,6 +680,8 @@ export const translations = {
       titlefast: "قائمة وكلاء العقارات في الكويت",
       titlelast: "مكتب",
       companystTitle: "أحدث إعلانات المكتب",
+      home: "الرئيسية",
+      join: "انضم",
     },
 
     about: {
