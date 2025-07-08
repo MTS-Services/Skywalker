@@ -13,7 +13,7 @@ const CreateAdModal = ({ isOpen, onClose }) => {
       {/* The dark overlay */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 z-[1999] bg-black transition-opacity duration-300 ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"} `}
+        className={`fixed inset-0 z-10 bg-black transition-opacity duration-300 ${isOpen ? "opacity-100" : "pointer-events-none opacity-0"} `}
       />
 
       {/* The main content that slides down */}

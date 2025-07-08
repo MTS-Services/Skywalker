@@ -91,8 +91,8 @@ const SearchResults = () => {
   return (
     <div className="min-h-[60vh]" dir={isRTL ? "rtl" : "ltr"}>
       <div className=" px-4 py-6">
-        <div className="container mx-auto max-w-3xl">
-          <h1 className="mb-6 mt-8 text-2xl font-bold">
+        <div className="container mx-auto max-w-xl">
+          <h1 className="mb-6 mt-4 text-[20px] font-bold">
             {t.search.searchResults} ({loading ? "..." : filteredAds.length} {t.search.ads})
           </h1>
           {loading ? (

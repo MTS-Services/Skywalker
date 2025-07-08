@@ -16,16 +16,12 @@ import {
   FiX,
 } from "react-icons/fi";
 import { BsBuildings } from "react-icons/bs";
-import FabController from "../pages/fab/FabController";
-import { Home } from "../pages/home/Home";
-import Hero from "../pages/home/Hero";
 
 
 const SideBar = ({ sidebarOpen, toggleSidebar }) => {
-  const { isRTL, t, toggleLanguage, FloatingActionButton } = useLanguage();
+  const { isRTL, t, toggleLanguage } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
 
-  const isMobile = window.innerWidth <= 768;
 
   const handleLogout = () => {
     logout();
@@ -160,10 +156,8 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
           </div>
         </h3>
       </div>
-      {isMobile && !FloatingActionButton   && <FabController />}
     </section>
   );
-  
 };
 
 export default SideBar;

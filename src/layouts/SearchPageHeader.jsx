@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
@@ -8,20 +9,14 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import SideBar from "./SideBar";
 import FabController from "../pages/fab/FabController";
 
-// +++ ADDED: A hook to detect screen size for responsive logic +++
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
 
-  
-
-
   useEffect(() => {
-    // Set the initial state
     const media = window.matchMedia(query);
     if (media.matches !== matches) {
       setMatches(media.matches);
     }
-    // Update state on window resize
     const listener = () => setMatches(media.matches);
     window.addEventListener("resize", listener);
     return () => window.removeEventListener("resize", listener);
@@ -35,24 +30,36 @@ const HorizontalScroller = ({ children }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
 
+  const { currentLanguage } = useLanguage();
+
+  const isRTL = document.documentElement.dir === "rtl";
+
   const checkArrows = useCallback(() => {
     const container = scrollContainerRef.current;
-    if (container) {
-      const isScrollable = container.scrollWidth > container.clientWidth;
-      const hasScrolledToRight =
-        container.scrollLeft <
-        container.scrollWidth - container.clientWidth - 1;
-      const hasScrolledToLeft = container.scrollLeft > 0;
+    if (!container) return;
 
-      setShowLeftArrow(isScrollable && hasScrolledToLeft);
-      setShowRightArrow(isScrollable && hasScrolledToRight);
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    const isScrollable = scrollWidth > clientWidth;
+
+    if (isRTL) {
+      setShowLeftArrow(isScrollable && scrollLeft !== 0);
+      setShowRightArrow(
+        isScrollable && Math.abs(scrollLeft) < scrollWidth - clientWidth - 1,
+      );
+    } else {
+      setShowLeftArrow(isScrollable && scrollLeft > 0);
+      setShowRightArrow(
+        isScrollable && scrollLeft < scrollWidth - clientWidth - 1,
+      );
     }
-  }, []);
+  }, [isRTL]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
+
     checkArrows();
+
     window.addEventListener("resize", checkArrows);
     container.addEventListener("scroll", checkArrows);
 
@@ -60,16 +67,30 @@ const HorizontalScroller = ({ children }) => {
       window.removeEventListener("resize", checkArrows);
       container.removeEventListener("scroll", checkArrows);
     };
-  }, [checkArrows, children]);
+  }, [checkArrows]);
 
   const scroll = (direction) => {
     const container = scrollContainerRef.current;
     if (container) {
       const scrollAmount = container.clientWidth * 0.8;
+
+      const amount =
+        direction === "left"
+          ? isRTL
+            ? scrollAmount
+            : -scrollAmount
+          : isRTL
+            ? -scrollAmount
+            : scrollAmount;
+
       container.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
+        left: amount,
         behavior: "smooth",
       });
+
+      setTimeout(() => {
+        checkArrows();
+      }, 350);
     }
   };
 
@@ -78,18 +99,26 @@ const HorizontalScroller = ({ children }) => {
       <button
         type="button"
         onClick={() => scroll("left")}
-        className={`absolute top-0 bottom-0 -left-2 z-10 flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-4 transition-opacity duration-300 ${
+        className={`absolute top-0 bottom-0 mr-[-8px] ${
+          isRTL ? "right-0" : "left-0"
+        } z-10 flex items-center bg-gradient-to-${
+          isRTL ? "l" : "r"
+        } from-white via-white/80 to-transparent transition-opacity duration-300 ${
           showLeftArrow ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
-          <GoChevronLeft className="h-5 w-5 text-gray-600" />
+          {isRTL ? (
+            <GoChevronRight className="h-5 w-5 text-gray-600" />
+          ) : (
+            <GoChevronLeft className="h-5 w-5 text-gray-600" />
+          )}
         </div>
       </button>
 
       <div
         ref={scrollContainerRef}
-        className="flex items-center gap-2 overflow-hidden"
+        className="scrollbar-hide flex items-center gap-2 overflow-x-auto"
       >
         {children}
       </div>
@@ -97,18 +126,25 @@ const HorizontalScroller = ({ children }) => {
       <button
         type="button"
         onClick={() => scroll("right")}
-        className={`absolute top-0 -right-2 bottom-0 z-10 flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-4 transition-opacity duration-300 ${
+        className={`absolute top-0 bottom-0 ml-[-15px] ${
+          isRTL ? "left-0 pl-4" : "right-0 pr-4"
+        } z-10 flex items-center bg-gradient-to-${
+          isRTL ? "r" : "l"
+        } from-white via-white/80 to-transparent transition-opacity duration-300 ${
           showRightArrow ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
-          <GoChevronRight className="h-5 w-5 text-gray-600" />
+          {isRTL ? (
+            <GoChevronLeft className="h-5 w-5 text-gray-600" />
+          ) : (
+            <GoChevronRight className="h-5 w-5 text-gray-600" />
+          )}
         </div>
       </button>
     </div>
   );
 };
-
 // ================== FIXED DesktopRegionFilter COMPONENT ==================
 const DesktopRegionFilter = ({
   options,
@@ -473,7 +509,7 @@ const CategoryFilter = ({
         className={`flex w-full items-center justify-between gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm text-black transition-colors focus-within:outline-gray-300 hover:bg-[#e8f0f7] ${isOpen ? "!bg-primary-400 text-white" : ""}`}
         onClick={onToggle}
       >
-        <span>{label}</span>
+        <span className="">{label}</span>
         <span
           className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`}
         >

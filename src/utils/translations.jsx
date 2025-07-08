@@ -186,7 +186,7 @@ export const translations = {
       byWhatsapp: "WhatsApp",
       superCredit: "Super Credit",
       superbuttontextFast: "1 Ad - 5 KD",
-      superbuttontextlast: "5 Ads - 55 KD",
+      superbuttontextlast: "5 Ads - 25 KD",
 
       agentsSubscription: "Agents Subscription",
       agentsbuttontextFast: "2 Months - 30 Ads - 100 KD",
@@ -648,7 +648,7 @@ export const translations = {
       byWhatsapp: "الواتس اب",
       superCredit: "رصيد مميز",
       superbuttontextFast: "1 إعلان - 5  د.ك",
-      superbuttontextlast: "5 إعلانات - 55 د.ك",
+      superbuttontextlast: "5 إعلانات - 25 د.ك",
       agentsSubscription: "اشتراك الوكلاء",
       agentsbuttontextFast: "شهرين - 30 إعلان - 100 د.ك",
       agentsbuttontextlast: "6 أشهر - 90 إعلان - 270 د.ك",
