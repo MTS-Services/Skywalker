@@ -93,15 +93,16 @@ const SingleSelectDropdown = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`flex cursor-pointer items-center rounded-md p-2 hover:bg-cyan-50 ${selectedValue === option.id ? "bg-cyan-100" : ""}`}
+                  className={`flex cursor-pointer items-center justify-between  rounded-md p-2 hover:bg-cyan-50 ${selectedValue === option.id ? "bg-cyan-100" : ""}`}
                   onClick={() => handleSelectOption(option.id)}
                 >
                   <span className="text-gray-700 ltr:ml-3 rtl:mr-3">
                     {option.name}
                   </span>
-                  {option.count && (
-                    <span className="text-sm text-gray-500 ltr:ml-auto rtl:mr-auto">
-                      {option.count}
+
+                  {option.count !== undefined && option.count !== null && (
+                    <span className="px-4 text-sm text-gray-700">
+                      ({option.count})
                     </span>
                   )}
                 </li>
