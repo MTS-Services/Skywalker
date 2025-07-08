@@ -247,6 +247,8 @@ const AdUploadForm = () => {
     areas: [],
   });
 
+  console.log("Nayem :", options);
+
   // 1. UPDATED: Changed 'purposes' to hold a single value (null) instead of an array
   const [formData, setFormData] = useState({
     purposes: null, // Changed from []
@@ -257,11 +259,9 @@ const AdUploadForm = () => {
     images: [],
   });
 
-
-
-
   // propertyTypeData লোড করার জন্য useEffect
   const { language } = useLanguage();
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -286,7 +286,8 @@ const AdUploadForm = () => {
 
         setOptions({
           purposes: purposesRes.data || [],
-          propertyTypes: propTypesRes.data || [],
+          // এখানে পরিবর্তন: propTypesRes.data থেকে প্রথম উপাদান বাদ দিতে slice(1) ব্যবহার করা হয়েছে
+          propertyTypes: propTypesRes.data ? propTypesRes.data.slice(1) : [],
           areas: areasRes.data || [],
         });
       } catch (error) {
@@ -311,7 +312,6 @@ const AdUploadForm = () => {
   if (isLoading) {
     return <div>Loading form data...</div>;
   }
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
