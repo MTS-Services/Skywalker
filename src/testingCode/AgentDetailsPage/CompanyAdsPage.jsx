@@ -172,7 +172,7 @@ export default function CompanyAdsPage() {
                     onClick={() => handleAdClick(ad)}
                     className="group w-full cursor-pointer"
                   >
-                    <div className="active:border-primary-500 relative w-full rounded-lg border border-gray-200 bg-white p-3 shadow duration-300 sm:p-4">
+                    <div className="active:border-primary-500  relative w-full rounded-lg border border-gray-200 bg-white p-3 shadow duration-300 sm:p-4">
                       <div className="flex items-center gap-3 sm:gap-4">
                         {" "}
                         {/* Added items-center here */}

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Noto+Kufi+Arabic:wght@100..900&display=swap");
 @import "tailwindcss";
 
 [dir="rtl"] {
@@ -48,9 +48,9 @@ html[dir="rtl"] {
 }
 
 @theme {
-  /* Font Families */
-  --font-tajawal: "Tajawal", sans-serif;
-  --font-open-sans: "Open Sans", sans-serif;
+   /* Font Families */
+   --font-tajawal: "Noto Kufi Arabic", sans-serif; /* Changed from Tajawal to Noto Kufi Arabic */
+   --font-open-sans: "Open Sans", sans-serif;
 
   /* Core Colors */
   --color-primary-50: #a7e1f9;
