@@ -173,10 +173,14 @@ export default function CompanyAdsPage() {
                     className="group w-full cursor-pointer"
                   >
                     <div className="active:border-primary-500 relative w-full rounded-lg border border-gray-200 bg-white p-3 shadow duration-300 sm:p-4">
-                      <div className="flex gap-3 sm:gap-4">
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        {" "}
+                        {/* Added items-center here */}
                         {/* Image */}
                         <div className="relative flex-shrink-0">
-                          <div className="h-20 w-20 overflow-hidden rounded-md sm:h-28 sm:w-28">
+                          <div className="flex aspect-square h-28 w-28 items-center justify-center rounded-md md:h-14 md:w-14 xl:h-28 xl:w-28">
+                            {" "}
+                            {/* Removed m-auto and my-auto */}
                             <img
                               alt={ad.title}
                               src={
@@ -185,11 +189,10 @@ export default function CompanyAdsPage() {
                                   : "https://placehold.co/112x112/EBF4FF/333333?text=Ad"
                               }
                               loading="lazy"
-                              className="h-full w-full object-cover"
+                              className="border-primary-200 h-full w-full border object-cover p-1"
                             />
                           </div>
                         </div>
-
                         <div className="flex-1 overflow-hidden">
                           <h4 className="text-dark font-primary line-clamp-2 text-[15px] font-[700] break-words transition-colors sm:text-[15px]">
                             {ad.title}
@@ -198,16 +201,11 @@ export default function CompanyAdsPage() {
                             <div className="text-primary-900 py-1 text-sm font-[700]">
                               {ad.kd} {t.ads.currency}
                             </div>
-                             
-                              
-                                <div className="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
-                                  <FiClock />
-                                  <span>
-                                    {getDaysAgo(ad.postCreateAt)} Days
-                                  </span>
-                                </div>
-                             
-                          
+
+                            <div className="flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-sm">
+                              <FiClock />
+                              <span>{getDaysAgo(ad.postCreateAt)} Days</span>
+                            </div>
                           </div>
                           <p className="font-primary mt-2 line-clamp-2 text-sm text-[#556885]">
                             {ad.description}

@@ -93,7 +93,7 @@ export default function AgentList() {
                         <div className="my-auto flex gap-3">
                           <div className="relative my-auto">
                             <div className="relative flex-shrink-0">
-                              <div className="aspect-square h-12 w-12 rounded-md md:h-14 md:w-14 xl:h-28 xl:w-28">
+                              <div className="aspect-square h-28 w-28 rounded-md md:h-14 md:w-14 xl:h-28 xl:w-28">
                                 <img
                                   alt={company.name} 
                                   src={company.logo_url || defaultLogo} 
