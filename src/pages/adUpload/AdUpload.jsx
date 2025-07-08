@@ -93,15 +93,16 @@ const SingleSelectDropdown = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`flex cursor-pointer items-center rounded-md p-2 hover:bg-cyan-50 ${selectedValue === option.id ? "bg-cyan-100" : ""}`}
+                  className={`flex cursor-pointer items-center justify-between  rounded-md p-2 hover:bg-cyan-50 ${selectedValue === option.id ? "bg-cyan-100" : ""}`}
                   onClick={() => handleSelectOption(option.id)}
                 >
                   <span className="text-gray-700 ltr:ml-3 rtl:mr-3">
                     {option.name}
                   </span>
-                  {option.count && (
-                    <span className="text-sm text-gray-500 ltr:ml-auto rtl:mr-auto">
-                      {option.count}
+
+                  {option.count !== undefined && option.count !== null && (
+                    <span className="px-4 text-sm text-gray-700">
+                      ({option.count})
                     </span>
                   )}
                 </li>
@@ -247,6 +248,8 @@ const AdUploadForm = () => {
     areas: [],
   });
 
+  console.log("Nayem :", options);
+
   // 1. UPDATED: Changed 'purposes' to hold a single value (null) instead of an array
   const [formData, setFormData] = useState({
     purposes: null, // Changed from []
@@ -257,11 +260,9 @@ const AdUploadForm = () => {
     images: [],
   });
 
-
-
-
   // propertyTypeData লোড করার জন্য useEffect
   const { language } = useLanguage();
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -286,7 +287,8 @@ const AdUploadForm = () => {
 
         setOptions({
           purposes: purposesRes.data || [],
-          propertyTypes: propTypesRes.data || [],
+          // এখানে পরিবর্তন: propTypesRes.data থেকে প্রথম উপাদান বাদ দিতে slice(1) ব্যবহার করা হয়েছে
+          propertyTypes: propTypesRes.data ? propTypesRes.data.slice(1) : [],
           areas: areasRes.data || [],
         });
       } catch (error) {
@@ -311,7 +313,6 @@ const AdUploadForm = () => {
   if (isLoading) {
     return <div>Loading form data...</div>;
   }
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
