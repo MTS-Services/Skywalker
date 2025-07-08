@@ -87,7 +87,7 @@ const FloatingActionButton = ({ isOpen, onClick }) => {
         <div
           className={`absolute transition-all duration-300 ease-in-out ${isOpen ? "rotate-0 opacity-100" : "-rotate-45 opacity-0"} `}
         >
-          <img src="/fab.png" alt="Close form" className="h-14 w-14" />
+          {/* <img src="/fab.png" alt="Close form" className="h-14 w-14" /> */}
         </div>
       </button>
     </div>
