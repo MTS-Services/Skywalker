@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
@@ -255,8 +254,7 @@ const DesktopRegionFilter = ({
               filteredOptions.map((option) => (
                 <li
                   key={option.id}
-                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 
-                    text-[14px] font-[700] text-[#556885] ${
+                  className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 text-[14px] font-[700] text-[#556885] ${
                     selectedItems.some((item) => item.id === option.id)
                       ? "bg-primary-300/20"
                       : ""
@@ -417,8 +415,7 @@ const MobileRegionFilter = ({
                 filteredOptions.map((option) => (
                   <li
                     key={option.id}
-                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center 
-                      justify-between rounded-md p-2 text-[14px] font-[700] text-[#556885] ${
+                    className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 text-[14px] font-[700] text-[#556885] ${
                       selectedItems.some((item) => item.id === option.id)
                         ? "bg-primary-300/20"
                         : ""
@@ -460,9 +457,6 @@ const MobileRegionFilter = ({
     </>
   );
 };
-
-
-
 
 const CategoryFilter = ({
   options,
@@ -543,8 +537,7 @@ const CategoryFilter = ({
                       filteredOptions.map((option) => (
                         <li
                           key={option.id}
-                          className={`hover:bg-primary-300/20 text-[#556885] my-0.5 flex cursor-pointer items-center
-                             rounded-md p-2 text-[14px] font-[700]  ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
+                          className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center rounded-md p-2 text-[14px] font-[700] text-[#556885] ${selectedValue === option.id ? "bg-primary-300/20" : ""}`}
                           onClick={() => handleSelect(option.id)}
                         >
                           <span className="w-full">{option.name}</span>
@@ -657,8 +650,7 @@ const PropertyDropdown = ({
                       <li
                         key={option.id}
                         // This className with `flex` and `justify-between` is perfect for this layout.
-                        className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer
-                           items-center justify-between rounded-md p-2 ${
+                        className={`hover:bg-primary-300/20 my-0.5 flex cursor-pointer items-center justify-between rounded-md p-2 ${
                           selectedItems.some((item) => item.id === option.id)
                             ? "bg-primary-300/20"
                             : ""
@@ -943,12 +935,8 @@ const SearchFilterBar = ({
   const [maxPrice, setMaxPrice] = useState(initialFilters.maxPrice);
   const [searchText, setSearchText] = useState(initialFilters.searchText);
 
-
-
-
   // propertyTypeData লোড করার জন্য useEffect
-  const { language, } = useLanguage();
-
+  const { language } = useLanguage();
 
   // এই একটি useEffect হুকই সব কাজ করবে
   useEffect(() => {
@@ -978,9 +966,6 @@ const SearchFilterBar = ({
 
     fetchLanguageBasedData();
   }, [language]);
-
-
-
 
   useEffect(() => {
     if (allRegions.length > 0) {
@@ -1229,7 +1214,7 @@ export default function SearchPageHeader() {
                     isOpen={props.showDropdown === "transactionType"}
                     onToggle={() => props.toggleDropdown("transactionType")}
                   />
-                  <PropertyDropdown 
+                  <PropertyDropdown
                     options={props.allPropertyTypes}
                     selectedItems={props.selectedPropertyTypes}
                     setSelectedItems={props.setSelectedPropertyTypes}

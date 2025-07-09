@@ -211,7 +211,7 @@ export const translations = {
       titlelast: "Agents",
       companystTitle: "Agent's Recent Ads",
       home: "Home",
-      join: "Join"
+      join: "Join",
     },
 
     siteMapalldata: {
@@ -569,7 +569,7 @@ export const translations = {
       textSearchHint: "ابحث باستخدام النص أو الكلمات المفتاحية",
       loadMore: "تحميل المزيد",
       allItemsLoaded: "تم تحميل جميع العناصر.",
-      transactionType: "الفئة",
+      transactionType: "للايجار",
       transactionTypePlaceholder: "اختر النوع",
       propertyTypePlaceholder: "عقار",
       area: "المنطقة",

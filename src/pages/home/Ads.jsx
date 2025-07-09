@@ -34,8 +34,6 @@ export default function Ads() {
   const { isRTL, t, language, FloatingActionButton } = useLanguage();
   const isMobile = window.innerWidth <= 768;
 
-  
-
   const ITEMS_PER_PAGE = 10;
 
   // Fetch all ads on component mount
@@ -70,6 +68,15 @@ export default function Ads() {
     // loadMoreAds()
     navigate("/search");
   };
+
+  console.log(
+    "isMobile",
+    isMobile,
+    "FloatingActionButton",
+    FloatingActionButton,
+    "showModal",
+    showModal,
+  );
 
   const formatTimeAgo = (dateString, lang) => {
     const postDate = new Date(dateString);
@@ -138,7 +145,7 @@ export default function Ads() {
                     {t.ads.loadMore}
                   </span>
                 }
-                className="  rounded-4xl"
+                className="rounded-4xl"
               />
             </div>
           </div>
@@ -156,7 +163,8 @@ export default function Ads() {
           formatTimeAgo={formatTimeAgo}
         />
       )}
-      {isMobile && !FloatingActionButton  && <FabController />}
+      {/* {isMobile && !FloatingActionButton && !showModal && <FabController />} */}
+      {isMobile && !FloatingActionButton && !showModal && <FabController />}
     </>
   );
 }

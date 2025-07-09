@@ -1,11 +1,14 @@
 [
-  { "id": "Properties", "name": "عقارات " },
+  { "id": "Properties", "name": "جميع العقارات في الكويت" },
   { "id": "apartment", "name": "شقة " },
   { "id": "house", "name": "بيت " },
   { "id": "land", "name": "ارض " },
   { "id": "building", "name": "عمارة" },
   { "id": "chalet", "name": "شاليه" },
   { "id": "farm", "name": "مزرعة" },
-  { "id": "commercial", "name": "تجاري" }
-
+  { "id": "commercial", "name": "تجاري" },
+  { "id": "Storage", "name": "تخزين" },
+  { "id": "Dublex", "name": "دوبلكس" },
+  { "id": "Storage", "name": "تخزين" },
+  { "id": "Wanted", "name": "مطلوب" }
 ]
