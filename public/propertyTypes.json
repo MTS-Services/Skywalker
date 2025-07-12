@@ -7,8 +7,8 @@
   { "id": "chalet", "name": "Chalet" },
   { "id": "farm", "name": "Farm" },
   { "id": "commercial", "name": "Commercial" },
-  { "id": "Storage", "name": "Storage" },
-  { "id": "Dublex", "name": "Dublex" },
-  { "id": "Storage", "name": "Storage" },
-  { "id": "Wanted", "name": "Wanted" }
+  { "id": "studio", "name": "studio" },
+  { "id": "dublex", "name": "Dublex" },
+  { "id": "storage", "name": "Storage" },
+  { "id": "wanted", "name": "Wanted" }
 ]

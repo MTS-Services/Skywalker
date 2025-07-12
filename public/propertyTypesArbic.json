@@ -7,8 +7,8 @@
   { "id": "chalet", "name": "شاليه" },
   { "id": "farm", "name": "مزرعة" },
   { "id": "commercial", "name": "تجاري" },
-  { "id": "Storage", "name": "تخزين" },
-  { "id": "Dublex", "name": "دوبلكس" },
-  { "id": "Storage", "name": "تخزين" },
-  { "id": "Wanted", "name": "مطلوب" }
+  { "id": "studio", "name": "استوديو" },
+  { "id": "dublex", "name": "دوبلكس" },
+  { "id": "storage", "name": "تخزين" },
+  { "id": "wanted", "name": "مطلوب" }
 ]

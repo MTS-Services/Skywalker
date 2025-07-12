@@ -1,36 +1,39 @@
+// Header.jsx
 import { useState, useEffect, useRef, useContext, useMemo } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FiChevronDown, FiChevronUp, FiSettings } from "react-icons/fi";
 import { FaBars, FaPlusCircle } from "react-icons/fa";
-import axios from "axios";
+// import axios from "axios"; // যদি এটি Header এ সরাসরি ব্যবহার না হয়, তবে সরিয়ে দিন
 import { useLanguage } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
-import SideBar from "./SideBar";
+// import SideBar from "./SideBar"; // SideBar কে আর এখানে ইম্পোর্ট করার দরকার নেই, এটি MainLayout এ রেন্ডার হবে
 
 const navLinkClass = ({ isActive }) =>
   isActive
     ? "text-[#26b1e6] border-b-2 border-[#26b1e6] pb-1"
     : "hover:text-[#26b1e6] transition-colors";
 
-function Header() {
+// Header এখন sidebarOpen এবং toggleSidebar প্রপস গ্রহণ করবে
+function Header({ sidebarOpen, toggleSidebar }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const {
     isRTL,
     t,
     toggleLanguage,
     language,
-    FloatingActionButton,
-    setFloatingActionButton,
+    FloatingActionButton, // FloatingActionButton যদি এখানে ব্যবহার না হয়, তবে সরিয়ে দিন
+    setFloatingActionButton, // FloatingActionButton যদি এখানে ব্যবহার না হয়, তবে সরিয়ে দিন
   } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [sidebarOpen, setSidebarOpen] = useState(false); // <--- এটি সরিয়ে দিন
 
   const propertyDropdownRef = useRef(null);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-    setFloatingActionButton(!FloatingActionButton);
-  };
+  // toggleSidebar ফাংশনটি এখন প্রপস থেকে আসছে, তাই নিজস্ব ফাংশনটি দরকার নেই
+  // const toggleSidebar = () => {
+  //   setSidebarOpen(!sidebarOpen);
+  //   setFloatingActionButton(!FloatingActionButton); // এই লাইনটি FloatingActionButton এর উপর নির্ভর করে
+  // };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -66,8 +69,6 @@ function Header() {
       { label: t.header.logout, action: handleLogout },
     ];
 
-
-
     const end = [{ label: t.header.agents, to: "/agents" }];
     return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
   }, [isAuthenticated, t]);
@@ -90,11 +91,9 @@ function Header() {
           </div>
         </NavLink>
 
-    
-
         {/* Mobile Hamburger Menu Button */}
         <button
-          onClick={toggleSidebar}
+          onClick={toggleSidebar} // <--- প্রপস থেকে আসা toggleSidebar ব্যবহার করুন
           className="text-2xl text-[#556885] lg:hidden"
         >
           <FaBars />
@@ -136,7 +135,8 @@ function Header() {
           {t.header.addFreeAd}
         </NavLink>
       </div>
-      <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      {/* SideBar কে আর এখানে রেন্ডার করবেন না, এটি MainLayout এ হবে */}
+      {/* <SideBar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} /> */}
     </nav>
   );
 }
@@ -156,15 +156,10 @@ const Navigation = ({
 }) => {
   const [propertyTypes, setPropertyTypes] = useState([]);
 
-
-
-
-
   const { language } = useLanguage();
   // propertyTypeData লোড করার জন্য useEffect
   useEffect(() => {
     const fetchPropertyTypes = async () => {
-      
       try {
         // ভাষার উপর ভিত্তি করে সঠিক JSON ফাইলটি লোড করা হচ্ছে
         const url =
@@ -174,20 +169,13 @@ const Navigation = ({
         const response = await fetch(url);
         const data = await response.json();
         setPropertyTypes(data);
-        
       } catch (error) {
         console.error("Error fetching property types data:", error);
       }
     };
 
-
     fetchPropertyTypes();
-  }, [language]); 
-  
-
-
-
-
+  }, [language]);
 
   return (
     <div
@@ -237,7 +225,6 @@ const Navigation = ({
                 isRTL ? "right-0" : "left-0"
               }`}
             >
-              
               {propertyTypes.map((item, index) => (
                 <div key={index} className="p-3">
                   {Array.isArray(item.properties) &&
@@ -276,4 +263,3 @@ const Navigation = ({
   );
 };
 export default Header;
-// export default Header

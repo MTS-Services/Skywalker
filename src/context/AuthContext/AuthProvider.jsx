@@ -18,9 +18,7 @@ const AuthProvider = ({ children }) => {
     }
   });
 
-
-
-  // reset password  code by shakil monsi  
+  // reset password  code by shakil monsi
 
   const resetPassword = (mobileNumber, newPassword) => {
     const userIndex = registeredUsers.findIndex(
@@ -40,7 +38,6 @@ const AuthProvider = ({ children }) => {
     setRegisteredUsers(updatedUsers);
     return { success: true, message: "Password has been reset successfully." };
   };
-  
 
   const [registeredUsers, setRegisteredUsers] = useState(() => {
     const storedUsers = localStorage.getItem("registeredUsers");

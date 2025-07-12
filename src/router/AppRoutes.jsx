@@ -21,6 +21,8 @@ import Agent from "../pages/agent/Agent";
 import PublicRoute from "../authente/AuthProvideer/PublicRoute";
 import Sitemap from "../pages/sitemap/Sitemap";
 import ResetPassword from "../pages/auth/ResetPassword";
+import ChatListPage from "../pages/ChatListPage";
+import PrivateChatPage from "../pages/PrivateChatPage";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -61,6 +63,17 @@ const AppRoutes = createBrowserRouter([
         path: "agents",
         element: <Agent />,
       },
+      //
+      {
+        path: "chats",
+        element: <ChatListPage />,
+      },
+
+      {
+        path: "chats/:chatId",
+        element: <PrivateChatPage />,
+      },
+
       {
         path: "reset-password",
         element: <ResetPassword />,

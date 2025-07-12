@@ -1,7 +1,8 @@
+// SideBar.jsx
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useCallback } from "react";
 import {
   FiCreditCard,
   FiHome,
@@ -17,15 +18,14 @@ import {
 } from "react-icons/fi";
 import { BsBuildings } from "react-icons/bs";
 
-
 const SideBar = ({ sidebarOpen, toggleSidebar }) => {
   const { isRTL, t, toggleLanguage } = useLanguage();
   const { isAuthenticated, logout } = useContext(AuthContext);
 
-
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout();
-  };
+    toggleSidebar();
+  }, [logout, toggleSidebar]);
 
   const navItems = useMemo(() => {
     const base = [{ label: t.header.home, icon: <FiHome />, to: "/" }];
@@ -43,87 +43,95 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
       { label: t.header.agents, icon: <BsBuildings />, to: "/agents" },
     ];
     return [...base, ...(isAuthenticated ? protectedItems : auth), ...end];
-  }, [isAuthenticated, t]);
-
-  const baseTransformClass = isRTL ? "translate-x-full" : "-translate-x-full";
-  const activeTransformClass = "translate-x-0 visible";
+  }, [isAuthenticated, t, handleLogout]);
 
   return (
-    <section>
+    <>
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-300 ease-in-out"
           onClick={toggleSidebar}
-        ></div>
+        />
       )}
-      <div
-        className={`invisible fixed top-0 z-50 h-full min-w-85 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${sidebarOpen ? activeTransformClass : baseTransformClass} ${isRTL ? "right-0" : "left-0"}`}
-      >
-        <h3>
-          <div className="bg-main text-md h-full">
-            <div className="border-b border-gray-200 px-4 py-4">
-              <div className="flex items-center justify-between">
-                <NavLink
-                  to="/"
-                  className={`flex items-center justify-start gap-2`}
-                >
-                  <img src="/logo.png" alt="Logo" className="w-14" />
-                  <div>
-                    <p className="text-lg font-bold capitalize">
-                      {t.site.name}
-                    </p>
-                    <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
-                      {t.site.tagline}
-                    </p>
-                  </div>
-                </NavLink>
-                <button onClick={toggleSidebar} className="text-gray-500">
-                  <FiX className="text-2xl" />
-                </button>
-              </div>
-            </div>
-            <div className="flex flex-col pt-2">
-              {navItems.map((item, index) => (
-                <div className="active:bg-active rounded-e-2xl" key={index}>
-                  {item.to ? (
-                    <NavLink
-                      to={item.to}
-                      onClick={toggleSidebar}
-                      className={({ isActive }) =>
-                        `text-dark hover:bg-primary-300/20 hover:text-primary-900 my-0.5 flex w-full items-center gap-3 py-3 ps-6 font-semibold ${isActive ? "bg-primary-300/20 text-primary-900" : ""}`
-                      }
-                    >
-                      <span className="text-primary-900">{item.icon}</span>
-                      <span>{item.label}</span>
-                    </NavLink>
-                  ) : (
-                    <button
-                      onClick={item.action}
-                      className="text-dark hover:bg-primary-300/20 hover:text-primary-700 flex w-full items-center gap-3 py-3 ps-6 font-semibold"
-                    >
-                      {item.icon}
-                      <span>{item.label}</span>
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="my-4 border-b border-gray-200"></div>
 
+      <div
+        className={`fixed top-0 z-50 h-full min-w-[280px] bg-white shadow-lg transition-transform duration-300 ease-in-out ${
+          isRTL ? "right-0" : "left-0"
+        } ${
+          sidebarOpen
+            ? "translate-x-0"
+            : isRTL
+              ? "translate-x-full"
+              : "-translate-x-full"
+        }`}
+      >
+        <div className="flex h-full flex-col">
+          <div className="border-b border-gray-200 px-4 py-4">
+            <div className="flex items-center justify-between">
+              <NavLink
+                to="/"
+                className="flex items-center gap-2"
+                onClick={toggleSidebar}
+              >
+                <img src="/logo.png" alt="Logo" className="w-14" />
+                <div>
+                  <p className="text-lg font-bold capitalize">{t.site.name}</p>
+                  <p className="bg-primary-300 mx-auto w-fit rounded-md px-2 py-1 text-[8px] leading-normal text-white">
+                    {t.site.tagline}
+                  </p>
+                </div>
+              </NavLink>
+              <button onClick={toggleSidebar} className="text-gray-500">
+                <FiX className="text-2xl" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex-1 overflow-y-auto">
+            {navItems.map((item, index) => (
+              <div key={index} className="active:bg-active rounded-e-2xl">
+                {item.to ? (
+                  <NavLink
+                    to={item.to}
+                    onClick={toggleSidebar}
+                    className={({ isActive }) =>
+                      `text-dark hover:bg-primary-300/20 hover:text-primary-900 my-0.5 flex w-full items-center gap-3 py-3 ps-6 font-semibold ${
+                        isActive ? "bg-primary-300/20 text-primary-900" : ""
+                      }`
+                    }
+                  >
+                    <span className="text-primary-900">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </NavLink>
+                ) : (
+                  <button
+                    onClick={item.action}
+                    className="text-dark hover:bg-primary-300/20 hover:text-primary-700 flex w-full items-center gap-3 py-3 ps-6 font-semibold"
+                  >
+                    <span className="text-primary-900">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="border-t border-gray-200 p-4">
             <Link
               to="/buy-credits"
               onClick={toggleSidebar}
-              className="flex items-center gap-2 px-4"
+              className="hover:bg-primary-300/20 flex items-center gap-2 rounded-lg px-2 py-3"
             >
-              <img src="/fab.png" alt="Close form" className="h-10 w-10" />
+              <img src="/fab.png" alt="Post Ad" className="h-10 w-10" />
               <h1 className="text-primary-600 text-lg">{t.header.post}</h1>
             </Link>
 
-            <div className="absolute start-0 end-0 bottom-4 flex items-center justify-center gap-4">
+            <div className="mt-4 flex items-center justify-center gap-4">
               {isAuthenticated && (
                 <Link
                   to="/settings"
                   className="bg-primary-300/20 text-primary-900 flex h-10 w-10 items-center justify-center rounded-md p-0"
+                  onClick={toggleSidebar}
                 >
                   <FiSettings className="h-5 w-5 shrink-0" />
                 </Link>
@@ -154,9 +162,9 @@ const SideBar = ({ sidebarOpen, toggleSidebar }) => {
               </a>
             </div>
           </div>
-        </h3>
+        </div>
       </div>
-    </section>
+    </>
   );
 };
 
